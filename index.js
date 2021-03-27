@@ -37,7 +37,7 @@ bot.on("ready", async() => {
     console.log("The bot is now online")
     console.log(`Logged in as ${bot.user.username} || ${bot.user.id}`)
     console.log("------------------------------------------------------------------------------------------------------")
-    console.log(`Invite me to a server with the following link.\nhttps://discordapp.com/api/oauth2/authorize?client_id=${bot.user.id}&permissions=125952&scope=bot\n`);
+    console.log(`Invite me to a server with the following link.\nhttps://discordapp.com/api/oauth2/authorize?client_id=${bot.user.id}&permissions=125952&scope=bot`);
     console.log("------------------------------------------------------------------------------------------------------")
     main()
 });
