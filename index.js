@@ -42,8 +42,7 @@ bot.login(Config.Token);
 
 function main(){
     let ms = msToNextHour()
-    console.log(ms)
-    setTimeout(send, (ms+100))
+    setTimeout(send, (ms+100)-900000)
 }
 
 function send(){
@@ -83,5 +82,5 @@ function getUniqueRoomID(taken){
 }
 
 function msToNextHour() {
-    return (3600000 - new Date().getTime() % 2700000);
+    return (3600000 - new Date().getTime() % 3600000);
 }
