@@ -83,5 +83,5 @@ function getUniqueRoomID(taken){
 }
 
 function msToNextHour() {
-    return (3600000 - new Date().getTime() % 3600000) - 900000;
+    return (2700000 - new Date().getTime() % 3600000);
 }
