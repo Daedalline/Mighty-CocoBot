@@ -31,12 +31,12 @@ process.on('warning', console.warn);
 
 // On ready statment
 bot.on("ready", async() => {
-    console.log("-----------------------------------------------------------------------------------------------------------------------------------------------------------")
+    console.log("------------------------------------------------------------------------------------------------------")
     console.log("The bot is now online")
     console.log(`Logged in as ${bot.user.username} || ${bot.user.id}`)
-    console.log("-----------------------------------------------------------------------------------------------------------------------------------------------------------")
+    console.log("------------------------------------------------------------------------------------------------------")
     console.log(`Invite me to a server with the following link.\nhttps://discordapp.com/api/oauth2/authorize?client_id=${bot.user.id}&permissions=125952&scope=bot\n`);
-    console.log("-----------------------------------------------------------------------------------------------------------------------------------------------------------")
+    console.log("------------------------------------------------------------------------------------------------------")
     console.log("Online!")
     console.log("^ The above message is for Pterodactyl to pickup and mark the server as online. ^\n")
     main()
@@ -63,7 +63,6 @@ function send(){
     taken.push(room3)
 
     let course = Config.Maps[Math.floor(Math.random() * Config.Maps.length)]
-
     let emebd = new Discord.MessageEmbed()
     .setTitle("Game starting soon!")
     .setDescription(`
