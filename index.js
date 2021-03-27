@@ -42,7 +42,8 @@ bot.login(Config.Token);
 
 function main(){
     let ms = msToNextHour()
-    setTimeout(send, (ms+100)-900000)
+    console.log(ms)
+    setTimeout(send, (ms+100))
 }
 
 function send(){
