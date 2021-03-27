@@ -1,0 +1,23 @@
+{
+  "name": "mighty-cocobot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LostAndDead/Mighty-CocoBot.git"
+  },
+  "author": "LostAndDead",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LostAndDead/Mighty-CocoBot/issues"
+  },
+  "homepage": "https://github.com/LostAndDead/Mighty-CocoBot#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "js-yaml": "^4.0.0"
+  }
+}

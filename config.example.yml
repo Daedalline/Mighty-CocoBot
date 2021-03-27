@@ -1,0 +1,15 @@
+## -- Bot Config -- ##
+
+Token : ""
+GuildID : ""
+ChannelID : ""
+
+## -- Random Options -- ##
+RoomIDs:
+  - Item 1
+  - Item 2 
+  - ect...
+Maps: 
+  - Item 1
+  - Item 2 
+  - ect...
