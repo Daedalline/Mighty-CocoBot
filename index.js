@@ -46,7 +46,7 @@ bot.login(Config.Token);
 
 function main(){
     let ms = msToNextHour()
-    setTimeout(send, (ms+100)-900000)
+    setTimeout(send, (ms+100))
 }
 
 function send(){
@@ -77,7 +77,7 @@ function send(){
     console.log(`Primary Room: ${room1}`)
     console.log(`Secondary Rooms: ${room2}, ${room3}`)
     console.log(`Map: ${course}`)
-    console.log(new Date().toUTCString)
+    console.log(new Date().toUTCString())
     console.log("-----------------------------------------")
 
     main()
