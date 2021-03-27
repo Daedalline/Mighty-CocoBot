@@ -35,7 +35,6 @@ bot.on("ready", async() => {
     console.log("Keep this window open for the bot to run\n")
     console.log(`Invite me to a server with the following link.\nhttps://discordapp.com/api/oauth2/authorize?client_id=${bot.user.id}&permissions=125952&scope=bot\n`);
     console.log("Press CTRL+C to exit\n")
-    console.log(msToNextHour() + " ms until the hour")
     main()
 });
 
@@ -43,7 +42,7 @@ bot.login(Config.Token);
 
 function main(){
     let ms = msToNextHour()
-    setTimeout(send, ms)
+    setTimeout(send, (ms+100)-900000)
 }
 
 function send(){
