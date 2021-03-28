@@ -46,7 +46,7 @@ bot.login(Config.Token);
 
 function main(){
     let ms = msToNextHour()
-    setTimeout(send, (ms+100))
+    setTimeout(send, (ms+100) - 900000)
 }
 
 function send(){
@@ -54,19 +54,13 @@ function send(){
     let guild = bot.guilds.cache.find(i => i.id == Config.GuildID)
     let channel = guild.channels.cache.find(i => i.id == Config.ChannelID)
 
-    let taken = []
-    let room1 = getUniqueRoomID(taken)
-    taken.push(room1)
-    let room2 = getUniqueRoomID(taken)
-    taken.push(room2)
-    let room3 = getUniqueRoomID(taken)
-    taken.push(room3)
+    let room = Config.RoomIDs[Math.floor(Math.random() * Config.RoomIDs.length)]
 
     let course = Config.Maps[Math.floor(Math.random() * Config.Maps.length)]
     let emebd = new Discord.MessageEmbed()
     .setTitle("Game starting soon!")
     .setDescription(`
-    The next scheduled game will start in 15 minutes in room **${room1}**. If this is full try **${room2}** or **${room3}**.
+    The next scheduled game will start in 15 minutes (at the top of the hour) in room **${room}**. If this is full try **${room}1** or **${room}2**, etc.
     
     The course will be **${course}**. If you want to join drop a :thumbsup: reaction on this message so people know there's enough players.
     `)
@@ -74,22 +68,12 @@ function send(){
     channel.send(emebd).then(function (message) {message.react("👍")})
     console.log("-----------------------------------------")
     console.log(`              Message Sent`)
-    console.log(`Primary Room: ${room1}`)
-    console.log(`Secondary Rooms: ${room2}, ${room3}`)
+    console.log(`Room: ${room1}`)
     console.log(`Map: ${course}`)
     console.log(new Date().toUTCString())
     console.log("-----------------------------------------")
 
-    main()
-}
-
-function getUniqueRoomID(taken){
-    let room = Config.RoomIDs[Math.floor(Math.random() * Config.RoomIDs.length)]
-
-    while(taken.includes(room)){
-        room = Config.RoomIDs[Math.floor(Math.random() * Config.RoomIDs.length)]
-    }
-    return room
+    setTimeout(main, 1800000)
 }
 
 function msToNextHour() {
