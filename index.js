@@ -68,7 +68,7 @@ function send(){
     channel.send(emebd).then(function (message) {message.react("👍")})
     console.log("-----------------------------------------")
     console.log(`              Message Sent`)
-    console.log(`Room: ${room1}`)
+    console.log(`Room: ${room}`)
     console.log(`Map: ${course}`)
     console.log(new Date().toUTCString())
     console.log("-----------------------------------------")
