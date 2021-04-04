@@ -5,6 +5,7 @@ const fs = require("fs");
 const bot = new Discord.Client({ disableEveryone: true });
 
 let Config = null;
+let usedCourses = []
 
 try {
     let fileContents = fs.readFileSync('./config.yml', 'utf8');
@@ -39,43 +40,80 @@ bot.on("ready", async() => {
     console.log("------------------------------------------------------------------------------------------------------")
     console.log(`Invite me to a server with the following link.\nhttps://discordapp.com/api/oauth2/authorize?client_id=${bot.user.id}&permissions=125952&scope=bot`);
     console.log("------------------------------------------------------------------------------------------------------")
-    main()
+    main(true)
 });
 
 bot.login(Config.Token);
 
-function main(){
+function main(early){
     let ms = msToNextHour()
-    setTimeout(send, (ms+100) - 900000)
+    if(early){
+        setTimeout(send, (ms+100) + 1200000, early)
+        console.log("Sending early")
+    }else{
+        setTimeout(send, (ms+100) - 600000, early)
+        console.log("Sending late")
+    }
+    
 }
 
-function send(){
+function send(early){
+
+    console.log("Sending triggered")
 
     let guild = bot.guilds.cache.find(i => i.id == Config.GuildID)
     let channel = guild.channels.cache.find(i => i.id == Config.ChannelID)
 
     let room = Config.RoomIDs[Math.floor(Math.random() * Config.RoomIDs.length)]
 
-    let course = Config.Maps[Math.floor(Math.random() * Config.Maps.length)]
-    let emebd = new Discord.MessageEmbed()
-    .setTitle("Game starting soon!")
-    .setDescription(`
-    The next scheduled game will start in 15 minutes (at the top of the hour) in room **${room}**. If this is full try **${room}1** or **${room}2**, etc.
+    let course = getNotRecentlyUsedCourse()
+
+    usedCourses.push(course)
+    if(usedCourses.length > 2){
+        usedCourses.pop(0)
+    }
+
+    if (early){
+        let emebd = new Discord.MessageEmbed()
+        .setTitle("Game starting soon!")
+        .setDescription(`
+        The next scheduled game will start in 10 minutes (at the bottom of the hour) in room **${room}**. If this is full try **${room}1** or **${room}2**, etc.
+        
+        The course will be **${course}**. If you want to join drop a :thumbsup: reaction on this message so people know there's enough players.
+        `)
+        channel.send(emebd).then(function (message) {message.react("👍")})
+        console.log("Sent early")
+    }else{
+        let emebd = new Discord.MessageEmbed()
+        .setTitle("Game starting soon!")
+        .setDescription(`
+        The next scheduled game will start in 10 minutes (at the top of the hour) in room **${room}**. If this is full try **${room}1** or **${room}2**, etc.
+        
+        The course will be **${course}**. If you want to join drop a :thumbsup: reaction on this message so people know there's enough players.
+        `)
+        channel.send(emebd).then(function (message) {message.react("👍")})
+        console.log("Sent late")
+    }
     
-    The course will be **${course}**. If you want to join drop a :thumbsup: reaction on this message so people know there's enough players.
-    `)
-    .setTimestamp();
-    channel.send(emebd).then(function (message) {message.react("👍")})
     console.log("-----------------------------------------")
     console.log(`              Message Sent`)
     console.log(`Room: ${room}`)
     console.log(`Map: ${course}`)
     console.log(new Date().toUTCString())
+    console.log(`Used Courses: ${usedCourses}`)
     console.log("-----------------------------------------")
 
-    setTimeout(main, 1800000)
+    setTimeout(main, 1800000, !early)
 }
 
 function msToNextHour() {
     return (3600000 - new Date().getTime() % 3600000);
+}
+
+function getNotRecentlyUsedCourse(){
+    let course = Config.Maps[Math.floor(Math.random() * Config.Maps.length)]
+    while (course in usedCourses){
+        course = Config.Maps[Math.floor(Math.random() * Config.Maps.length)]
+    }
+    return course
 }
