@@ -49,17 +49,13 @@ function main(early){
     let ms = msToNextHour()
     if(early){
         setTimeout(send, (ms+100) + 1200000, early)
-        console.log("Sending early")
     }else{
         setTimeout(send, (ms+100) - 600000, early)
-        console.log("Sending late")
     }
     
 }
 
 function send(early){
-
-    console.log("Sending triggered")
 
     let guild = bot.guilds.cache.find(i => i.id == Config.GuildID)
     let channel = guild.channels.cache.find(i => i.id == Config.ChannelID)
@@ -82,7 +78,6 @@ function send(early){
         The course will be **${course}**. If you want to join drop a :thumbsup: reaction on this message so people know there's enough players.
         `)
         channel.send(emebd).then(function (message) {message.react("👍")})
-        console.log("Sent early")
     }else{
         let emebd = new Discord.MessageEmbed()
         .setTitle("Game starting soon!")
@@ -92,7 +87,6 @@ function send(early){
         The course will be **${course}**. If you want to join drop a :thumbsup: reaction on this message so people know there's enough players.
         `)
         channel.send(emebd).then(function (message) {message.react("👍")})
-        console.log("Sent late")
     }
     
     console.log("-----------------------------------------")
