@@ -66,7 +66,7 @@ function send(early){
 
     usedCourses.push(course)
     if(usedCourses.length > 2){
-        usedCourses.pop(0)
+        usedCourses.shift()
     }
 
     if (early){
@@ -75,7 +75,7 @@ function send(early){
         .setDescription(`
         The next scheduled game will start in 10 minutes (at the bottom of the hour) in room **${room}**. If this is full try **${room}1** or **${room}2**, etc.
         
-        The course will be **${course}**. If you want to join drop a :thumbsup: reaction on this message so people know there's enough players.
+        The course will be **${course}**. If you want to join, drop a :thumbsup: reaction on this message so people know there are enough players.
         `)
         channel.send(emebd).then(function (message) {message.react("👍")})
     }else{
@@ -84,7 +84,7 @@ function send(early){
         .setDescription(`
         The next scheduled game will start in 10 minutes (at the top of the hour) in room **${room}**. If this is full try **${room}1** or **${room}2**, etc.
         
-        The course will be **${course}**. If you want to join drop a :thumbsup: reaction on this message so people know there's enough players.
+        The course will be **${course}**. If you want to join, drop a :thumbsup: reaction on this message so people know there are enough players.
         `)
         channel.send(emebd).then(function (message) {message.react("👍")})
     }
@@ -97,7 +97,7 @@ function send(early){
     console.log(`Used Courses: ${usedCourses}`)
     console.log("-----------------------------------------")
 
-    setTimeout(main, 1800000, !early)
+    main(!early)
 }
 
 function msToNextHour() {
