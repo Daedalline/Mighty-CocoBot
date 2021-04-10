@@ -5,7 +5,7 @@ const fs = require("fs");
 const bot = new Discord.Client({ disableEveryone: true });
 
 let Config = null;
-let usedCourses = []
+let usedRooms = []
 
 try {
     let fileContents = fs.readFileSync('./config.yml', 'utf8');
@@ -60,13 +60,13 @@ function send(early){
     let guild = bot.guilds.cache.find(i => i.id == Config.GuildID)
     let channel = guild.channels.cache.find(i => i.id == Config.ChannelID)
 
-    let room = Config.RoomIDs[Math.floor(Math.random() * Config.RoomIDs.length)]
+    let room = getNotRecentlyUsedRoom()
 
-    let course = getNotRecentlyUsedCourse()
+    let course = Config.Maps[Math.floor(Math.random() * Config.Maps.length)]
 
-    usedCourses.push(course)
-    if(usedCourses.length > 2){
-        usedCourses.shift()
+    usedRooms.push(course)
+    if(usedRooms.length > 2){
+        usedRooms.shift()
     }
 
     if (early){
@@ -94,7 +94,7 @@ function send(early){
     console.log(`Room: ${room}`)
     console.log(`Map: ${course}`)
     console.log(new Date().toUTCString())
-    console.log(`Used Courses: ${usedCourses}`)
+    console.log(`Used Rooms: ${usedRooms}`)
     console.log("-----------------------------------------")
 
     main(!early)
@@ -104,10 +104,10 @@ function msToNextHour() {
     return (3600000 - new Date().getTime() % 3600000);
 }
 
-function getNotRecentlyUsedCourse(){
-    let course = Config.Maps[Math.floor(Math.random() * Config.Maps.length)]
-    while (course in usedCourses){
-        course = Config.Maps[Math.floor(Math.random() * Config.Maps.length)]
+function getNotRecentlyUsedRoom(){
+    let room = Config.RoomIDs[Math.floor(Math.random() * Config.RoomIDs.length)]
+    while (room in usedCourses){
+        room = Config.RoomIDs[Math.floor(Math.random() * Config.RoomIDs.length)]
     }
-    return course
+    return room
 }
