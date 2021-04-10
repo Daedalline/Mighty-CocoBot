@@ -55,11 +55,11 @@ function send(){
     let guild = bot.guilds.cache.find(i => i.id == Config.GuildID)
     let channel = guild.channels.cache.find(i => i.id == Config.ChannelID)
 
-    let room = Config.RoomIDs[Math.floor(Math.random() * Config.RoomIDs.length)]
+    let room = getNotRecentlyUsedRoom()
 
-    let course = getNotRecentlyUsedRoom()
+    let course = Config.Maps[Math.floor(Math.random() * Config.Maps.length)]
 
-    usedRooms.push(course)
+    usedRooms.push(room)
     if(usedRooms.length > 2){
         usedRooms.shift()
     }
