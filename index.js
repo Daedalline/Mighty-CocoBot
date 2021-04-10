@@ -57,6 +57,11 @@ function send(){
 
     let room = getNotRecentlyUsedRoom()
 
+    usedRooms.push(course)
+    if(usedRooms.length > 2){
+        usedRooms.shift()
+    }
+
     let course = Config.Maps[Math.floor(Math.random() * Config.Maps.length)]
     let emebd = new Discord.MessageEmbed()
     .setTitle("Game starting soon!")
@@ -84,7 +89,7 @@ function msToNextHour() {
 
 function getNotRecentlyUsedRoom(){
     let room = Config.RoomIDs[Math.floor(Math.random() * Config.RoomIDs.length)]
-    while (room in usedCourses){
+    while (room in usedRooms){
         room = Config.RoomIDs[Math.floor(Math.random() * Config.RoomIDs.length)]
     }
     return room
