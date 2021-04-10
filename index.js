@@ -45,17 +45,12 @@ bot.on("ready", async() => {
 
 bot.login(Config.Token);
 
-function main(early){
+function main(){
     let ms = msToNextHour()
-    if(early){
-        setTimeout(send, (ms+100) + 1200000, early)
-    }else{
-        setTimeout(send, (ms+100) - 600000, early)
-    }
-    
+    setTimeout(send, (ms+100) - 900000)
 }
 
-function send(early){
+function send(){
 
     let guild = bot.guilds.cache.find(i => i.id == Config.GuildID)
     let channel = guild.channels.cache.find(i => i.id == Config.ChannelID)
@@ -63,41 +58,24 @@ function send(early){
     let room = getNotRecentlyUsedRoom()
 
     let course = Config.Maps[Math.floor(Math.random() * Config.Maps.length)]
-
-    usedRooms.push(course)
-    if(usedRooms.length > 2){
-        usedRooms.shift()
-    }
-
-    if (early){
-        let emebd = new Discord.MessageEmbed()
-        .setTitle("Game starting soon!")
-        .setDescription(`
-        The next scheduled game will start in 10 minutes (at the bottom of the hour) in room **${room}**. If this is full try **${room}1** or **${room}2**, etc.
-        
-        The course will be **${course}**. If you want to join, drop a :thumbsup: reaction on this message so people know there are enough players.
-        `)
-        channel.send(emebd).then(function (message) {message.react("👍")})
-    }else{
-        let emebd = new Discord.MessageEmbed()
-        .setTitle("Game starting soon!")
-        .setDescription(`
-        The next scheduled game will start in 10 minutes (at the top of the hour) in room **${room}**. If this is full try **${room}1** or **${room}2**, etc.
-        
-        The course will be **${course}**. If you want to join, drop a :thumbsup: reaction on this message so people know there are enough players.
-        `)
-        channel.send(emebd).then(function (message) {message.react("👍")})
-    }
+    let emebd = new Discord.MessageEmbed()
+    .setTitle("Game starting soon!")
+    .setDescription(`
+    The next scheduled game will start in 15 minutes (at the top of the hour) in room **${room}**. If this is full try **${room}1** or **${room}2**, etc.
     
+    The course will be **${course}**. If you want to join drop a :thumbsup: reaction on this message so people know there's enough players.
+    `)
+    .setTimestamp();
+    channel.send(emebd).then(function (message) {message.react("👍")})
     console.log("-----------------------------------------")
     console.log(`              Message Sent`)
     console.log(`Room: ${room}`)
     console.log(`Map: ${course}`)
+    console.log(`Used Rooms ${usedRooms}`)
     console.log(new Date().toUTCString())
-    console.log(`Used Rooms: ${usedRooms}`)
     console.log("-----------------------------------------")
 
-    main(!early)
+    setTimeout(main, 1800000)
 }
 
 function msToNextHour() {
