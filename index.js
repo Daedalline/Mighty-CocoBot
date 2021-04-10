@@ -55,14 +55,15 @@ function send(){
     let guild = bot.guilds.cache.find(i => i.id == Config.GuildID)
     let channel = guild.channels.cache.find(i => i.id == Config.ChannelID)
 
-    let room = getNotRecentlyUsedRoom()
+    let room = Config.RoomIDs[Math.floor(Math.random() * Config.RoomIDs.length)]
+
+    let course = getNotRecentlyUsedRoom()
 
     usedRooms.push(course)
     if(usedRooms.length > 2){
         usedRooms.shift()
     }
 
-    let course = Config.Maps[Math.floor(Math.random() * Config.Maps.length)]
     let emebd = new Discord.MessageEmbed()
     .setTitle("Game starting soon!")
     .setDescription(`
