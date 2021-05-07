@@ -13,3 +13,15 @@ Maps:
   - Item 1
   - Item 2 
   - ect...
+
+## -- Commands Config -- ##
+
+CoursesLeageChannelID: ""
+
+Commands:
+  # This only needs to be enabled for the first run to register the commands with discord as it means starting takes longer to avoid rate limiting
+  SetupCommands: true
+  # Wether not the commands are registered to only one guild (Recomend to leave it on false for global commands (will take up to an hour to register))
+  JustGuildCommands: false
+  # If JustGuildCommands is enabled the ID of the guild to register them too
+  GuildID: ''

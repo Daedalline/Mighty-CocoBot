@@ -1,11 +1,14 @@
 const Discord = require("discord.js");
 const yaml = require('js-yaml');
 const fs = require("fs");
+const initCommands = require("./init_commands")
+const utils = require("./utils")
 
 const bot = new Discord.Client({ disableEveryone: true });
 
 let Config = null;
-let usedRooms = []
+let usedRooms = [];
+let calls = [];
 
 try {
     let fileContents = fs.readFileSync('./config.yml', 'utf8');
@@ -14,6 +17,44 @@ try {
 catch (e) {
     console.log(e);
 }
+
+//Create calls for slash commands
+fs.readdir("./commands/", (err, file) => {
+
+    if (err) console.log(err);
+
+    let jsfile = file.filter(f => f.split(".").pop() === "js");
+    if (jsfile.length <= 0) {
+        console.log("Cant Find Commands");
+        return;
+    }
+
+    jsfile.forEach((f, i) => {
+        let props = require(`./commands/${f}`);
+        let data = props.info
+        calls.push(data)
+    });
+});
+
+//creates data files if they dont exist
+const data = new Uint8Array(Buffer.from('{}'));
+
+fs.access("data.json", fs.F_OK, (err) => {
+    if (err) {
+        if(err.code == "ENOENT"){
+            fs.writeFile("data.json", data, (err) => {
+                if (err) throw err;
+                console.log("Created data.json as it didnt exist")
+                return
+            })
+        }else{
+            console.error(err)
+            return
+        }
+    }else{
+        console.log("data.json already exists")
+    }
+})
 
 
 // D.JS Client listeners
@@ -40,8 +81,35 @@ bot.on("ready", async() => {
     console.log("------------------------------------------------------------------------------------------------------")
     console.log(`Invite me to a server with the following link.\nhttps://discordapp.com/api/oauth2/authorize?client_id=${bot.user.id}&permissions=125952&scope=bot`);
     console.log("------------------------------------------------------------------------------------------------------")
+    if(Config.Commands.SetupCommands){
+        initCommands.sendCalls(bot, calls)
+    }
     main(true)
 });
+
+bot.ws.on("INTERACTION_CREATE", async interaction => {
+    const command = interaction.data.name.toLowerCase();
+    const args = interaction.data.options;
+
+    let data = await utils.loadData()
+
+    //Load all the commands
+    const ping = require("./commands/ping")
+    const scores = require("./commands/scores")
+    const course = require("./commands/course")
+
+    switch(command){
+        case "ping":
+            ping.run(bot, interaction, args)
+            break;
+        case "scores":
+            scores.run(bot, interaction, args)
+            break;
+        case "course":
+            course.run(bot, interaction, args)
+            break;
+    }
+})
 
 bot.login(Config.Token);
 
@@ -73,13 +141,13 @@ function send(){
     `)
     .setTimestamp();
     channel.send(emebd).then(function (message) {message.react("👍")})
-    console.log("-----------------------------------------")
-    console.log(`              Message Sent`)
-    console.log(`Room: ${room}`)
-    console.log(`Map: ${course}`)
-    console.log(`Used Rooms ${usedRooms}`)
-    console.log(new Date().toUTCString())
-    console.log("-----------------------------------------")
+    //console.log("-----------------------------------------")
+    //console.log(`              Message Sent`)
+    //console.log(`Room: ${room}`)
+    //console.log(`Map: ${course}`)
+    //console.log(`Used Rooms ${usedRooms}`)
+    //console.log(new Date().toUTCString())
+    //console.log("-----------------------------------------")
 
     setTimeout(main, 1800000)
 }
