@@ -59,6 +59,10 @@ module.exports.maps = [
     {
         "name": "Tethys Station–Hard",
         "value": "ts-h"
+    },
+    {
+        "name": "Bogey's Bonanza",
+        "value": "bb"
     }
 ]
 
