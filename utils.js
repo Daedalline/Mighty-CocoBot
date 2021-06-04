@@ -61,8 +61,12 @@ module.exports.maps = [
         "value": "ts-h"
     },
     {
-        "name": "Bogey's Bonanza",
-        "value": "bb"
+        "name": "Bogey's Bonanza-Easy",
+        "value": "bb-e"
+    },
+    {
+        "name": "Bogey's Bonanza–Hard",
+        "value": "bb-h"
     }
 ]
 
