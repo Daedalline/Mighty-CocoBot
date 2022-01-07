@@ -1,26 +1,88 @@
 ## -- Bot Config -- ##
 
-Token : ""
+Token : 
 GuildID : ""
 ChannelID : ""
 
 ## -- Random Options -- ##
 RoomIDs:
-  - Item 1
-  - Item 2 
-  - ect...
+  - DRIVER
+  - EAGLE
+  - GREEN
+  - COURSE
+  - PUTTER
+  - CONDOR
+  - LINK
+  - PROSHOP
+  - CADDY
+  - PAR
+  - BIRDIE
+  - ALBATROSS
+  - BACKSPIN
+  - BOUNCE
+  - BANKSHOT
+  - TEE
+  - RAMP
+  - BOGEY
+  - SLICE
+  - WIND
+  - GRASS
+  - BRIDGE
+  - CASTLE
+  - ROOK
+  - PAWN
+  - NIGHT
+  - BISHOP
+  - KING
+  - QUEEN
+  - SQUARE
+  - CHECKER
+  - CIRCLE
+  - HEXAGON
+  - BOARD
+  - TWILIGHT
+  - WATERFALL
+  - SHIP
+  - PIRATE
+  - SEAGULL
+  - CLUB
+  - HEART
+  - SPADE
+  - DIAMOND
+  - SUNSHINE
+  - CARDINAL
+  - PELICAN
+  - TRICKSHOT
+  - SANDTRAP
 Maps: 
-  - Item 1
-  - Item 2 
-  - ect...
-
+  - Tourist Trap–Easy
+  - Tourist Trap–Hard
+  - Cherry Blossom-Easy
+  - Cherry Blossom–Hard
+  - Seagull Stacks-Easy
+  - Seagull Stacks–Hard
+  - Arizona Modern-Easy
+  - Arizona Modern–Hard
+  - Original Gothic-Easy
+  - Original Gothic–Hard
+  - Tethys Station-Easy
+  - Tethys Station–Hard
+  - Bogeys Bonanza-Easy
+  - Bogeys Bonanza-Hard
+  - Quixote Valley-Easy
+  - Quixote Valley-Hard
+  - Gardens of Babylon-Easy
+  - Gardens of Babylon-Hard
+  - Shangri-La Easy
+  - Shangri-La Hard
+  
 ## -- Commands Config -- ##
 
 CoursesLeageChannelID: ""
 
 Commands:
   # This only needs to be enabled for the first run to register the commands with discord as it means starting takes longer to avoid rate limiting
-  SetupCommands: true
+  SetupCommands: false
   # Wether not the commands are registered to only one guild (Recomend to leave it on false for global commands (will take up to an hour to register))
   JustGuildCommands: false
   # If JustGuildCommands is enabled the ID of the guild to register them too

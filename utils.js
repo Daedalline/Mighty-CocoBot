@@ -67,6 +67,31 @@ module.exports.maps = [
     {
         "name": "Bogey's Bonanza–Hard",
         "value": "bb-h"
+    },
+    {
+        "name": "Quixote Valley-Easy",
+        "value": "qv-e"
+    },
+    {
+        "name": "Quixote Valley-Hard",
+        "value": "qv-h"
+    },
+    {
+        "name": "Gardens Of Babylon-Easy",
+        "value": "gb-e"
+    },
+    {
+        "name": "Gardens Of Babylon-Hard",
+        "value": "gb-h"
+    },
+    {
+        "name": "Shangri-la Easy",
+        "value": "sl-e"
+    }
+    ,
+    {
+        "name": "Shangri-la Hard",
+        "value": "sl-h"
     }
 ]
 
