@@ -7,66 +7,56 @@
  */
 
 const Discord = require("discord.js");
-const utils = require("../utils")
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require("fs");
 const yaml = require('js-yaml');
 
-let Config = null;
+module.exports.run = async(interaction, config, client) => {
 
-try {
-    let fileContents = fs.readFileSync('./config.yml', 'utf8');
-    Config = yaml.load(fileContents);
-}
-catch (e) {
-    console.log(e);
-}
+    var guild = await client.guilds.cache.find(guild => guild.id == interaction.guild.id)
+    var member = await guild.members.cache.find(user => user.id == interaction.member.id)
 
-module.exports.run = async(bot, interaction, args) => {
-
-    var guild = await bot.guilds.cache.find(guild => guild.id == interaction.guild_id)
-    var member = await guild.members.cache.find(user => user.id == interaction.member.user.id)
-
-    if(!member.hasPermission("MANAGE_MESSAGES")){
-        await utils.error(bot, interaction, "You do not have permission to manage scores")
+    if(!member.permissions.has("MANAGE_MESSAGES")){
+        await interaction.reply({ephemeral: true, content: "You don't have the permission to do that!" })
         return
     }
 
-    var data = await utils.loadData()
+    let rawdata = await fs.readFileSync('data.json');
+    let data = await JSON.parse(rawdata); 
 
-    if(args[0].name == "submit"){
+    if(interaction.options.getSubcommand() == "submit"){
 
-        var userID = args[0].options[0].value
-        var ammount = args[0].options[1].value
-        var map = args[0].options[2].value
+        var userID = interaction.options.getUser('user').id
+        var ammount = interaction.options.getInteger('score')
+        var map = interaction.options.getString('map')
 
         if(ammount > 999 || ammount < -999){
-            await utils.error(bot, interaction, "Come on... Im not that stupid. Try a more realistic number")
+            await interaction.reply({ephemeral: true, content: "Come on... Im not that stupid. Try a more realistic number"})
             return;
         }
 
-        await utils.setLoading(bot, interaction)
+        await interaction.deferReply()
 
         if(!data[map]){
             data[map] = {}
         }
 
         data[map][userID] = ammount
-        await utils.saveData(data)
-
-        var mapName = await utils.findMapname(map)
+        var writedata = JSON.stringify(data, null, "\t");
+        await fs.writeFileSync('./data.json', writedata);
         
         var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
-        .setDescription(`Recorded a score of **${ammount}** for <@${userID}> on **${mapName}**`);
-        return await utils.respondLoadingEmbed(bot, interaction, embed)
+        .setDescription(`Recorded a score of **${ammount}** for <@${userID}> on **${map}**`);
+        return await interaction.editReply({embeds: [embed]})
     }
     
     if(args[0].name == "remove"){
 
-        var userID = args[0].options[0].value
-        var map = args[0].options[1].value
+        var userID = interaction.options.getUser('user').id
+        var map = interaction.options.getString('map')
 
-        await utils.setLoading(bot, interaction)
+        await interaction.deferReply()
 
         if(!data[map]){
             data[map] = {}
@@ -74,24 +64,42 @@ module.exports.run = async(bot, interaction, args) => {
 
         if(data[map][userID]){
             delete data[map][userID]
-            await utils.saveData(data)
-
-            var mapName = await utils.findMapname(map)
+            var writedata = JSON.stringify(data, null, "\t");
+            await fs.writeFileSync('./data.json', writedata);
         
             var embed = new Discord.MessageEmbed()
             .setTitle("Score Removed")
-            .setDescription(`Removed a score for <@${userID}> from **${mapName}**`);
-            return await utils.respondLoadingEmbed(bot, interaction, embed)
+            .setDescription(`Removed a score for <@${userID}> from **${map}**`);
+            return await interaction.editReply({embeds: [embed]})
         }else{
             var mapName = await utils.findMapname(map)
 
             var embed = new Discord.MessageEmbed()
             .setTitle("Database Error")
             .setDescription(`<@${userID}> does not apear have a score on **${mapName}**`);
-            return await utils.respondLoadingEmbed(bot, interaction, embed)
+            return await interaction.editReply({embeds: [embed]})
         }
     }
 };
+
+module.exports.autocomplete = async (interaction, Config) => {
+    var value = interaction.options.getFocused(true);
+    var res = []
+    switch(value.name){
+        case 'map': {
+            Config.Maps.forEach(map => {
+                if(map.toLowerCase().includes(value.value.toLowerCase()) || value == ""){
+                    res.push({
+                        name: map,
+                        value: map
+                    })
+                }
+            })
+            break;
+        }
+    }
+    interaction.respond(res.slice(0,25))
+}
 
 module.exports.info = {
     "name": "scores",
@@ -118,7 +126,7 @@ module.exports.info = {
                     "name": "map",
                     "description": "The map they got it on",
                     "type": 3,
-                    "choices": utils.maps,
+                    "autocomplete": true,
                     "required": true
                 }
             ]
@@ -138,7 +146,7 @@ module.exports.info = {
                     "name": "map",
                     "description": "The map to remove it from",
                     "type": 3,
-                    "choices": utils.maps,
+                    "autocomplete": true,
                     "required": true
                 }
             ]

@@ -7,34 +7,21 @@
  */
 
 const Discord = require("discord.js");
-const utils = require("../utils")
 const fs = require("fs");
 const yaml = require('js-yaml');
 
-let Config = null;
+module.exports.run = async(interaction, config, client) => {
 
-try {
-    let fileContents = fs.readFileSync('./config.yml', 'utf8');
-    Config = yaml.load(fileContents);
-}
-catch (e) {
-    console.log(e);
-}
-
-module.exports.run = async(bot, interaction, args) => {
-
-    var channelID = Config.CoursesLeageChannelID
-
-    if(interaction.channel_id != channelID){
-        utils.error(bot, interaction, "You are not allowed to do that in this channel")
+    if(interaction.channel.id != config.CoursesLeageChannelID){
+        interaction.reply({ephemeral: true, content: "You are not allowed to do that in this channel"})
         return
     }
-    await utils.setLoading(bot, interaction)
+    await interaction.deferReply()
 
-    var data = await utils.loadData()
+    let rawdata = await fs.readFileSync('data.json');
+    let data = await JSON.parse(rawdata); 
 
-    var map = args[0].value
-    var mapName = await utils.findMapname(map)
+    var map = interaction.options.getString('map')
     var players = data[map]
 
     //Le Sorte'
@@ -65,8 +52,8 @@ module.exports.run = async(bot, interaction, args) => {
     if(Object.keys(objSorted).length <= 0){
         var embed = new Discord.MessageEmbed()
             .setTitle("Database Error")
-            .setDescription(`There does not apear to be any scores for **${mapName}**`);
-        return await utils.respondLoadingEmbed(bot, interaction, embed)
+            .setDescription(`There does not apear to be any scores for **${map}**`);
+        return await interaction.editReply({embeds: [embed]})
     }
 
     var tbl = ""
@@ -79,10 +66,29 @@ module.exports.run = async(bot, interaction, args) => {
         index ++
     }
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Scoreboard for ${mapName}`)
+    .setTitle(`Scoreboard for ${map}`)
     .setDescription(tbl);
-    return await utils.respondLoadingEmbed(bot, interaction, embed)
+    return await interaction.editReply({embeds: [embed]})
 };
+
+module.exports.autocomplete = async (interaction, Config) => {
+    var value = interaction.options.getFocused(true);
+    var res = []
+    switch(value.name){
+        case 'map': {
+            Config.Maps.forEach(map => {
+                if(map.toLowerCase().includes(value.value.toLowerCase()) || value == ""){
+                    res.push({
+                        name: map,
+                        value: map
+                    })
+                }
+            })
+            break;
+        }
+    }
+    interaction.respond(res.slice(0,25))
+}
 
 module.exports.info = {
     "name": "course",
@@ -92,7 +98,7 @@ module.exports.info = {
             "name": "map",
             "description": "The map you want the leaderboard for",
             "type": 3,
-            "choices": utils.maps,
+            "autocomplete": true,
             "required": true
         }
     ]

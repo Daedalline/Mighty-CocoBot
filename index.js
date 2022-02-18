@@ -1,14 +1,15 @@
-const Discord = require("discord.js");
+const { Client, Collection, Intents, MessageEmbed } = require('discord.js');
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 const yaml = require('js-yaml');
 const fs = require("fs");
-const initCommands = require("./init_commands")
-const utils = require("./utils")
 
-const bot = new Discord.Client({ disableEveryone: true });
+const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
-let Config = null;
 let usedRooms = [];
-let calls = [];
+
+//Load the config file
+let Config = null;
 
 try {
     let fileContents = fs.readFileSync('./config.yml', 'utf8');
@@ -18,23 +19,45 @@ catch (e) {
     console.log(e);
 }
 
-//Create calls for slash commands
-fs.readdir("./commands/", (err, file) => {
+//Create a collection of commands and commandData
+const commands = new Collection();
+//Command data is a list of JSON objects that need to be sent to register the slash commands
+const commandsData = [];
 
-    if (err) console.log(err);
+//We load all the command files and save the command and the commandData
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+for (const file of commandFiles) {
+    //Load the file
+	const command = require(`./commands/${file}`);
+    //Add to command collection
+	commands.set(command.info.name, command);
 
-    let jsfile = file.filter(f => f.split(".").pop() === "js");
-    if (jsfile.length <= 0) {
-        console.log("Cant Find Commands");
-        return;
+    //Load the commandData
+    const commandData = require(`./commands/${file}`);
+    var json = commandData.info
+    commandsData.push(json);
+}
+
+//Load the rest API for registering slash commands, auto deals with rate limits
+const rest = new REST({ version: '9' }).setToken(Config.Token);
+
+//Send all the slash commandData to the discord API to register the commands for the guild only
+(async () => {
+    if(Config.Commands.SetupCommands){
+        try {
+            console.log('Started refreshing application (/) commands.');
+    
+            await rest.put(
+                Routes.applicationGuildCommands(Config.ClientID, Config.GuildID),
+                { body: commandsData },
+            );
+            console.log('Successfully reloaded application (/) commands.');
+        } catch (error) {
+            console.error(error);
+        }
     }
-
-    jsfile.forEach((f, i) => {
-        let props = require(`./commands/${f}`);
-        let data = props.info
-        calls.push(data)
-    });
-});
+	
+})();
 
 //creates data files if they dont exist
 const data = new Uint8Array(Buffer.from('{}'));
@@ -58,11 +81,11 @@ fs.access("data.json", fs.F_OK, (err) => {
 
 
 // D.JS Client listeners
-bot.on("error", (e) => console.error(e));
-bot.on("warn", (e) => console.warn(e));
-//bot.on("debug", (e) => console.info(e));
-bot.on('reconnecting', () => console.log('Reconnecting WS...'));
-bot.on('disconnect', () => {
+client.on("error", (e) => console.error(e));
+client.on("warn", (e) => console.warn(e));
+//client.on("debug", (e) => console.info(e));
+client.on('reconnecting', () => console.log('Reconnecting WS...'));
+client.on('disconnect', () => {
     console.log('Disconnected, trying to restart...');
     process.exit();
 });
@@ -72,56 +95,67 @@ process.on('unhandledRejection', console.error);
 process.on('warning', console.warn);
 
 // On ready statment
-bot.on("ready", async() => {
+client.on("ready", async() => {
     console.log("Online!")
     console.log("^ The above message is for Pterodactyl to pickup and mark the server as online. ^\n")
     console.log("------------------------------------------------------------------------------------------------------")
     console.log("The bot is now online")
-    console.log(`Logged in as ${bot.user.username} || ${bot.user.id}`)
+    console.log(`Logged in as ${client.user.username} || ${client.user.id}`)
     console.log("------------------------------------------------------------------------------------------------------")
-    console.log(`Invite me to a server with the following link.\nhttps://discordapp.com/api/oauth2/authorize?client_id=${bot.user.id}&permissions=125952&scope=bot`);
+    console.log(`Invite me to a server with the following link.\nhttps://discordapp.com/api/oauth2/authorize?client_id=${client.user.id}&permissions=125952&scope=bot`);
     console.log("------------------------------------------------------------------------------------------------------")
-    if(Config.Commands.SetupCommands){
-        initCommands.sendCalls(bot, calls)
-    }
     main(true)
 });
 
-bot.ws.on("INTERACTION_CREATE", async interaction => {
-    const command = interaction.data.name.toLowerCase();
-    const args = interaction.data.options;
-
-    let data = await utils.loadData()
-
-    //Load all the commands
-    const ping = require("./commands/ping")
-    const scores = require("./commands/scores")
-    const course = require("./commands/course")
-
-    switch(command){
-        case "ping":
-            ping.run(bot, interaction, args)
-            break;
-        case "scores":
-            scores.run(bot, interaction, args)
-            break;
-        case "course":
-            course.run(bot, interaction, args)
-            break;
+//Listen for commands coming from chat and context menus
+client.on('interactionCreate', async interaction => {
+	if (!(interaction.isCommand() || interaction.isContextMenu())) return;
+    if(!interaction.inGuild()){
+        await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true })
+        return;
     }
-})
 
-bot.login(Config.Token);
+    //Find the commands we want to run
+	const command = commands.get(interaction.commandName);
 
-function main(){
+	if (!command) return;
+
+	try {
+        //Run the command
+		await command.run(interaction, Config, client);
+	} catch (error) {
+		console.error(error);
+	}
+});
+
+//Listen for autocomplete
+client.on('interactionCreate', async interaction => {
+	if (!interaction.isAutocomplete()) return;
+
+    //Find the commands we want to auto complete for
+	const command = commands.get(interaction.commandName);
+
+    if (!command) return;
+
+	try {
+        //Run the autocomplete resolver
+		await command.autocomplete(interaction, Config, client);
+	} catch (error) {
+		console.error(error);
+	}
+});
+
+client.login(Config.Token);
+
+async function main(){
     let ms = msToNextHour()
     setTimeout(send, (ms+100) - 900000)
 }
 
-function send(){
+async function send(){
 
-    let guild = bot.guilds.cache.find(i => i.id == Config.GuildID)
-    let channel = guild.channels.cache.find(i => i.id == Config.ChannelID)
+    let guild = await client.guilds.cache.find(i => i.id == Config.GuildID)
+    let channel = await guild.channels.fetch(Config.ChannelID)
 
     let room = getNotRecentlyUsedRoom()
 
@@ -132,7 +166,7 @@ function send(){
         usedRooms.shift()
     }
 
-    let emebd = new Discord.MessageEmbed()
+    let embed = new MessageEmbed()
     .setTitle("Game starting soon!")
     .setDescription(`
     The next scheduled game will start in 15 minutes (at the top of the hour) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
@@ -140,7 +174,7 @@ function send(){
     The course will be **${course}**. If you want to join, drop a :thumbsup: reaction on this message so people know there are enough players.
     `)
     .setTimestamp();
-    channel.send(emebd).then(function (message) {message.react("👍")})
+    channel.send({embeds: [embed]}).then(function (message) {message.react("👍")})
     //console.log("-----------------------------------------")
     //console.log(`              Message Sent`)
     //console.log(`Room: ${room}`)

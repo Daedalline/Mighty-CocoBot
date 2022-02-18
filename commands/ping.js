@@ -7,13 +7,13 @@
  */
 
 const Discord = require("discord.js");
-const utils = require("../utils")
 
-module.exports.run = async(bot, interaction, args) => {
+module.exports.run = async(interaction, config, client) => {
     var embed = new Discord.MessageEmbed()
-    .setDescription("Yes I am indeed alive!\n\nI might as well sneak some credit in here")
-    .setFooter('Made by LostAndDead#0001', 'https://cdn.discordapp.com/avatars/329353232570908682/a_dd8b8ac06a7732882f328dfa931a0a62.gif?size=256');
-    await utils.sendEmbed(bot, interaction, embed)
+    .setTitle("Yes, I am alive!")
+    .setDescription("I might as well sneak some credit in here")
+    .setFooter({text: 'Made by LostAndDead#0001', iconURL: 'https://cdn.discordapp.com/avatars/329353232570908682/9d0500a6d30c44f0c7509787db7fe80f.webp?size=256'});
+    await interaction.reply({embeds: [embed]})
 };
 
 module.exports.info = {

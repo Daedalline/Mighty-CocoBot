@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/LostAndDead/Mighty-CocoBot#readme",
   "dependencies": {
-    "discord.js": "^12.5.1",
+    "@discordjs/rest": "^0.3.0",
+    "discord-api-types": "^0.27.2",
+    "discord.js": "^13.1.0",
     "js-yaml": "^4.0.0",
     "ws": "^7.5.3"
   }
