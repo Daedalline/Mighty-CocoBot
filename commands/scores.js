@@ -51,7 +51,7 @@ module.exports.run = async(interaction, config, client) => {
         return await interaction.editReply({embeds: [embed]})
     }
     
-    if(args[0].name == "remove"){
+    if(interaction.options.getSubcommand() == "remove"){
 
         var userID = interaction.options.getUser('user').id
         var map = interaction.options.getString('map')
@@ -72,11 +72,9 @@ module.exports.run = async(interaction, config, client) => {
             .setDescription(`Removed a score for <@${userID}> from **${map}**`);
             return await interaction.editReply({embeds: [embed]})
         }else{
-            var mapName = await utils.findMapname(map)
-
             var embed = new Discord.MessageEmbed()
             .setTitle("Database Error")
-            .setDescription(`<@${userID}> does not apear have a score on **${mapName}**`);
+            .setDescription(`<@${userID}> does not apear have a score on **${map}**`);
             return await interaction.editReply({embeds: [embed]})
         }
     }
