@@ -19,6 +19,16 @@ catch (e) {
     console.log(e);
 }
 
+//Load the maps file
+let Maps = null;
+try {
+    let fileContents = fs.readFileSync('./maps.yml', 'utf8');
+    Maps = yaml.load(fileContents);
+}
+catch (e) {
+    console.log(e);
+}
+
 //Create a collection of commands and commandData
 const commands = new Collection();
 //Command data is a list of JSON objects that need to be sent to register the slash commands
@@ -139,7 +149,7 @@ client.on('interactionCreate', async interaction => {
 
 	try {
         //Run the autocomplete resolver
-		await command.autocomplete(interaction, Config, client);
+		await command.autocomplete(interaction, Maps, client);
 	} catch (error) {
 		console.error(error);
 	}
@@ -159,7 +169,7 @@ async function send(){
 
     let room = getNotRecentlyUsedRoom()
 
-    let course = Config.Maps[Math.floor(Math.random() * Config.Maps.length)]
+    let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
 
     usedRooms.push(room)
     if(usedRooms.length > 2){
@@ -191,9 +201,9 @@ function msToNextHour() {
 }
 
 function getNotRecentlyUsedRoom(){
-    let room = Config.RoomIDs[Math.floor(Math.random() * Config.RoomIDs.length)]
+    let room = Maps.RoomIDs[Math.floor(Math.random() * Maps.RoomIDs.length)]
     while (room in usedRooms){
-        room = Config.RoomIDs[Math.floor(Math.random() * Config.RoomIDs.length)]
+        room = Maps.RoomIDs[Math.floor(Math.random() * Maps.RoomIDs.length)]
     }
     return room
 }

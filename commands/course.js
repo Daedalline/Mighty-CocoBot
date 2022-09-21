@@ -71,12 +71,12 @@ module.exports.run = async(interaction, config, client) => {
     return await interaction.editReply({embeds: [embed]})
 };
 
-module.exports.autocomplete = async (interaction, Config) => {
+module.exports.autocomplete = async (interaction, Maps) => {
     var value = interaction.options.getFocused(true);
     var res = []
     switch(value.name){
         case 'map': {
-            Config.Maps.forEach(map => {
+            Maps.Leaderboards.forEach(map => {
                 if(map.toLowerCase().includes(value.value.toLowerCase()) || value == ""){
                     res.push({
                         name: map,
