@@ -22,8 +22,8 @@ catch (e) {
 //Load the maps file
 let Maps = null;
 try {
-    let fileContents = fs.readFileSync('./maps.yml', 'utf8');
-    Maps = yaml.load(fileContents);
+    let mapdata = await fs.readFileSync('./data.json');
+    let Maps = await JSON.parse(mapdata); 
 }
 catch (e) {
     console.log(e);
@@ -168,6 +168,8 @@ async function send(){
     let channel = await guild.channels.fetch(Config.ChannelID)
 
     let room = getNotRecentlyUsedRoom()
+	
+	console.log(Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]);
 
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
 
