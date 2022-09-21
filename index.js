@@ -1,6 +1,7 @@
 const { Client, Collection, Intents, MessageEmbed } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
+const yaml = require('js-yaml');
 const fs = require("fs");
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
