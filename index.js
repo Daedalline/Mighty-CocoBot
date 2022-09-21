@@ -1,7 +1,6 @@
 const { Client, Collection, Intents, MessageEmbed } = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
-const yaml = require('js-yaml');
 const fs = require("fs");
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -22,12 +21,14 @@ catch (e) {
 //Load the maps file
 let Maps = null;
 try {
-    let mapdata = await fs.readFileSync('./data.json');
-    let Maps = await JSON.parse(mapdata); 
+    let mapContents = fs.readFileSync('./maps.json');
+    Maps = json.parse(mapContents)
 }
 catch (e) {
     console.log(e);
 }
+
+console.log(Maps);
 
 //Create a collection of commands and commandData
 const commands = new Collection();
@@ -168,8 +169,6 @@ async function send(){
     let channel = await guild.channels.fetch(Config.ChannelID)
 
     let room = getNotRecentlyUsedRoom()
-	
-	console.log(Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]);
 
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
 
