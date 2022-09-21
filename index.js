@@ -23,13 +23,11 @@ catch (e) {
 let Maps = null;
 try {
     let mapContents = fs.readFileSync('./maps.json');
-    Maps = json.parse(mapContents)
+    Maps = JSON.parse(mapContents)
 }
 catch (e) {
     console.log(e);
 }
-
-console.log(Maps);
 
 //Create a collection of commands and commandData
 const commands = new Collection();
