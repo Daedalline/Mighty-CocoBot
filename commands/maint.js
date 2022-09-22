@@ -91,8 +91,9 @@ module.exports.run = async(interaction, config, maps, client) => {
 			maps.Leaderboards.push(map);
 			
 			if(leaderboardOnly) {
-				var writedata = JSON.stringify(maps, null, "\t");
-                await fs.writeFileSync('./maps.json', writedata);
+				var mapdata = JSON.stringify(maps, null, "\t");
+                await fs.writeFileSync('./maps.json', mapdata);
+				
 				var embed = new Discord.MessageEmbed()
                 .setTitle("Course Created")
                 .setDescription(`**${map}** created (Leaderboard Only).`);
