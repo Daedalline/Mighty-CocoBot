@@ -26,20 +26,20 @@ module.exports.run = async(interaction, config, maps, client) => {
     var map = interaction.options.getString('map');
     var players = data[map];
 	
+    //Le Sorte'
+    var simpleData = {};
+    for(var player in players){
+        simpleData[player] = players[player];
+    }
+	
 	// If empty no need to sort anything
-	console.log(players);
+	console.log(simpleData);
 //    if(Object.keys(players).length <= 0){
 //        var embed = new Discord.MessageEmbed()
 //            .setTitle("Database Error")
 //            .setDescription(`There does not apear to be any scores for **${map}**`);
 //        return await interaction.editReply({embeds: [embed]})
 //    }
-
-    //Le Sorte'
-    var simpleData = {};
-    for(var player in players){
-        simpleData[player] = players[player];
-    }
 	
     var sortable = [];
     for (var item in simpleData){
