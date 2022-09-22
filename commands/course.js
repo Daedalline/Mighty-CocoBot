@@ -64,32 +64,25 @@ module.exports.run = async(interaction, config, maps, client) => {
 		}
     })
 
-    var objSorted = {}
-    sortable.forEach(function(item){
-        objSorted[item[0]]=item[1][0];
-    })
-	
-	console.log(objSorted);
-
     var sortedData = {}
-    for(var item in objSorted){
-        sortedData[item] = players[item]
-    }
+    sortable.forEach(function(item){
+        sortedData[item[0]]=item[1][0];
+    })
 	
 	console.log(sortedData);
 
-//    var tbl = ""
-//    var index = 0
-//    for(player in sortedData){
-//        if(index >= 10){
-//            break;
-//        }
-//        tbl += `<@${player}>: ${sortedData[player]}\n`
-//        index ++
-//    }
+    var tbl = ""
+    var index = 0
+    for(player in sortedData){
+        if(index >= 10){
+            break;
+        }
+        tbl += `<@${player}>: ${sortedData[player]}\n`
+        index ++
+    }
     var embed = new Discord.MessageEmbed()
     .setTitle(`Leaderboard for ${map}`)
-    .setDescription('In Progress');
+    .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 };
 
