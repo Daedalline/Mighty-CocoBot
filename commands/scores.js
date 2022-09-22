@@ -3,6 +3,8 @@
  *    This code was created by LostAndDead,
  *   please don't claim this as your own work
  *        https://github.com/LostAndDead
+ *           Modified by Daedalline
+ *        https://github.com/Daedalline 
  * ============================================
  */
 
@@ -27,10 +29,10 @@ module.exports.run = async(interaction, config, maps, client) => {
     if(interaction.options.getSubcommand() == "submit"){
 
         var userID = interaction.options.getUser('user').id
-        var ammount = interaction.options.getInteger('score')
+        var amount = interaction.options.getInteger('score')
         var map = interaction.options.getString('map')
 
-        if(ammount > 999 || ammount < -999){
+        if(amount > 999 || amount < -999){
             await interaction.reply({ephemeral: true, content: "Come on... Im not that stupid. Try a more realistic number"})
             return;
         }
@@ -41,13 +43,13 @@ module.exports.run = async(interaction, config, maps, client) => {
             data[map] = {}
         }
 
-        data[map][userID] = ammount
+        data[map][userID] = [amount, new Date().toJSON()]
         var writedata = JSON.stringify(data, null, "\t");
         await fs.writeFileSync('./data.json', writedata);
         
         var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
-        .setDescription(`Recorded a score of **${ammount}** for <@${userID}> on **${map}**`);
+        .setDescription(`Recorded a score of **${amount}** for <@${userID}> on **${map}**`);
         return await interaction.editReply({embeds: [embed]})
     }
     
