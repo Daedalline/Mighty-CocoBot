@@ -180,7 +180,13 @@ async function send(){
     .setTitle("Game starting soon!")
     .setDescription(`
     The next scheduled game will start in 15 minutes (at the top of the hour) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
-    
+
+    If you are the first player to create a room, please see the following guidelines:
+
+    Created rooms should be setup with a player count max of 5.
+
+    Games must wait to start at the top of the designated hour unless the room is already full.
+
     The course will be **${course}**. If you want to join, drop a :thumbsup: reaction on this message so people know there are enough players.
     `)
     .setTimestamp();
