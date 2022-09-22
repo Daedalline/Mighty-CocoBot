@@ -13,7 +13,7 @@ const yaml = require('js-yaml');
 
 module.exports.run = async(interaction, config, maps, client) => {
 
-	var guild = await client.guilds.cache.find(guild => guild.id == interaction.guild.id)
+    var guild = await client.guilds.cache.find(guild => guild.id == interaction.guild.id)
     var member = await guild.members.cache.find(user => user.id == interaction.member.id)
 
     if(!member.permissions.has("MANAGE_MESSAGES")){
@@ -21,98 +21,92 @@ module.exports.run = async(interaction, config, maps, client) => {
         return
     }
 
-	if(interaction.options.getSubcommand() == "clear_scores"){
-	    // Removes all scores for the given map in the Leaderboard, saving a backup of the most recent removal
+    if(interaction.options.getSubcommand() == "clear_scores"){
+        // Removes all scores for the given map in the Leaderboard, saving a backup of the most recent removal
 
         let rawdata = await fs.readFileSync('data.json');
         let data = await JSON.parse(rawdata); 
 
-		var map = interaction.options.getString('map');
+        var map = interaction.options.getString('map');
 
-		await interaction.deferReply()
+        await interaction.deferReply()
 
         if(!data[map]){
             data[map] = {}
         }
-		else {
-			let backupdata = '{ "' + map + '" : ' + JSON.stringify(data[map], null, "\t") + '}';
+        else {
+            let backupdata = '{ "' + map + '" : ' + JSON.stringify(data[map], null, "\t") + '}';
             await fs.writeFileSync('./data_map_backup.json', backupdata);
 
-			// Delete the data and save
-			delete data[map];
-			var writedata = JSON.stringify(data, null, "\t");
+            // Delete the data and save
+            delete data[map];
+            var writedata = JSON.stringify(data, null, "\t");
             await fs.writeFileSync('./data.json', writedata);
 
-			var embed = new Discord.MessageEmbed()
+            var embed = new Discord.MessageEmbed()
             .setTitle("Scores Removed")
             .setDescription(`Removed all scores for **${map}**`);
             return await interaction.editReply({embeds: [embed]})
-		}
-	}
-	else if(interaction.options.getSubcommand() == "restore_clear"){
-		let rawdata = await fs.readFileSync('data.json');
+        }
+    }
+    else if(interaction.options.getSubcommand() == "restore_clear"){
+        let rawdata = await fs.readFileSync('data.json');
         let data = await JSON.parse(rawdata); 
-		let rawdata2 = await fs.readFileSync('data_map_backup.json');
-		let backupdata = JSON.parse(rawdata2);		
+        let rawdata2 = await fs.readFileSync('data_map_backup.json');
+        let backupdata = JSON.parse(rawdata2);        
 
-		await interaction.deferReply();
+        await interaction.deferReply();
 
-		let map = Object.keys(backupdata)[0];
-		if(data[map]){
+        let map = Object.keys(backupdata)[0];
+        if(data[map]){
             // There are already new scores submitted for this map - don't overwrite
-			var embed = new Discord.MessageEmbed()
+            var embed = new Discord.MessageEmbed()
             .setTitle("Database Error")
             .setDescription(`There are already scores saved for **${map}**. Cancelling restore.`);
             return await interaction.editReply({embeds: [embed]})
         }
-		else {
-			data[map] = backupdata[map];
-			var writedata = JSON.stringify(data, null, "\t");
+        else {
+            data[map] = backupdata[map];
+            var writedata = JSON.stringify(data, null, "\t");
             await fs.writeFileSync('./data.json', writedata);
             var embed = new Discord.MessageEmbed()
             .setTitle("Scores Restored")
             .setDescription(`Restoring backed up data to **${map}**.`);
             return await interaction.editReply({embeds: [embed]})
-		}
-	}
-	else if(interaction.options.getSubcommand() == "create_course"){
-		var map = interaction.options.getString('map');
-		var leaderboardOnly = interaction.options.getBoolean('leaderboard_only');
-		
-		await interaction.deferReply();
+        }
+    }
+    else if(interaction.options.getSubcommand() == "create_course"){
+        var map = interaction.options.getString('map');
+        var leaderboardOnly = interaction.options.getBoolean('leaderboard_only');
+        
+        await interaction.deferReply();
 
-		if(maps.Leaderboards.includes(map)){
-			var embed = new Discord.MessageEmbed()
+        if(maps.Leaderboards.includes(map)){
+            var embed = new Discord.MessageEmbed()
             .setTitle("Database Error")
             .setDescription(`**${map}** already exists.`);
             return await interaction.editReply({embeds: [embed]})
-		}
-		else {
-			maps.Leaderboards.push(map);
-			
-			var newmapdata = JSON.stringify(maps, null, "\t");
-			
-			console.log(newmapdata);
-			try{
+        }
+        else {
+            maps.Leaderboards.push(map);
+            
+            var newmapdata = JSON.stringify(maps, null, "\t");
+            
             await fs.writeFileSync('./maps.json', newmapdata);
-			}
-			catch (e) {
-    console.log(e);
-}
 
-			var embed = new Discord.MessageEmbed()
+            var embed = new Discord.MessageEmbed()
             .setTitle("Course Created")
             .setDescription(`**${map}** created (Leaderboard Only).`);
             return await interaction.editReply({embeds: [embed]})
-		}
-	}
-	else if(interaction.options.getSubcommand() == "delete_course"){
-		var map = interaction.options.getString('map');
-		
-		await interaction.deferReply();
-		
-		console.log(maps);
-	}
+        }
+    }
+    else if(interaction.options.getSubcommand() == "delete_course"){
+        var map = interaction.options.getString('map');
+        
+        await interaction.deferReply();
+        
+        console.log(maps);
+    }
 }
 
 module.exports.autocomplete = async (interaction, Maps) => {
@@ -152,12 +146,12 @@ module.exports.info = {
                 }
             ]
         },
-		{
+        {
             "name": "restore_clear",
             "description": "Reverts the most recent clear_scores command",
             "type": 1
         },
-		{
+        {
             "name": "create_course",
             "description": "Adds a new couse",
             "type": 1,
@@ -168,7 +162,7 @@ module.exports.info = {
                     "type": 3,
                     "required": true
                 },
-				{
+                {
                     "name": "leaderboard_only",
                     "description": "Only add to Leaderboards",
                     "type": 5,
@@ -176,7 +170,7 @@ module.exports.info = {
                 }
             ]
         },
-		{
+        {
             "name": "delete_course",
             "description": "Deletes a course",
             "type": 1,

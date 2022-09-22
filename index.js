@@ -38,9 +38,9 @@ const commandsData = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     //Load the file
-	const command = require(`./commands/${file}`);
+    const command = require(`./commands/${file}`);
     //Add to command collection
-	commands.set(command.info.name, command);
+    commands.set(command.info.name, command);
 
     //Load the commandData
     const commandData = require(`./commands/${file}`);
@@ -66,7 +66,7 @@ const rest = new REST({ version: '9' }).setToken(Config.Token);
             console.error(error);
         }
     }
-	
+    
 })();
 
 //creates data files if they dont exist
@@ -119,40 +119,40 @@ client.on("ready", async() => {
 
 //Listen for commands coming from chat and context menus
 client.on('interactionCreate', async interaction => {
-	if (!(interaction.isCommand() || interaction.isContextMenu())) return;
+    if (!(interaction.isCommand() || interaction.isContextMenu())) return;
     if(!interaction.inGuild()){
         await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true })
         return;
     }
 
     //Find the commands we want to run
-	const command = commands.get(interaction.commandName);
+    const command = commands.get(interaction.commandName);
 
-	if (!command) return;
+    if (!command) return;
 
-	try {
+    try {
         //Run the command
-		await command.run(interaction, Config, Maps, client);
-	} catch (error) {
-		console.error(error);
-	}
+        await command.run(interaction, Config, Maps, client);
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 //Listen for autocomplete
 client.on('interactionCreate', async interaction => {
-	if (!interaction.isAutocomplete()) return;
+    if (!interaction.isAutocomplete()) return;
 
     //Find the commands we want to auto complete for
-	const command = commands.get(interaction.commandName);
+    const command = commands.get(interaction.commandName);
 
     if (!command) return;
 
-	try {
+    try {
         //Run the autocomplete resolver
-		await command.autocomplete(interaction, Maps, client);
-	} catch (error) {
-		console.error(error);
-	}
+        await command.autocomplete(interaction, Maps, client);
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 client.login(Config.Token);
