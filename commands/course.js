@@ -45,6 +45,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             return 0;			
 		}
         else {		
+		    console.log('Score different');
             return a[1] - b[1];
 		}
     })
