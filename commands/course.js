@@ -39,14 +39,14 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
 
     sortable.sort(function(a,b){
-	    console.log('a: ' + a[1][0] + ', ' + typeof a[1][0]);
-		console.log('b: ' + b[1][0] + ', ' + typeof b[1][0]);
         if (a[1][0] == b[1][0]) {
-		    console.log('Score equal');
+			var dateA = new Date(a[1][1]);
+			var dateB = new Date(b[1][1]);
+			console.log(dateA);
+			console.log(dateB);
             return 0;			
 		}
         else {		
-		    console.log('Score different');
             return a[1] - b[1];
 		}
     })
