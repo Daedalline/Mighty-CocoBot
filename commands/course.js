@@ -38,11 +38,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         sortable.push([item, simpleData[item]])
     }
 	
-	console.log(sortable);
+    sortable.sort(function(a,b){
+		console.log('a: ' + a);
+		console.log('b: ' + b);
+        return 0
+    })
 
-//    sortable.sort(function(a,b){
-//        return a[1] - b[1]
-//    })
+//    console.log(sortable);
 
 //    var objSorted = {}
 //    sortable.forEach(function(item){
