@@ -80,15 +80,21 @@ module.exports.run = async(interaction, config, maps, client) => {
 		var leaderboardOnly = interaction.options.getBoolean('leaderboard_only');
 		
 		await interaction.deferReply();
-		
-		console.output(maps);
+
+		if(maps.Maps.includes(map)){
+			console.log('true');
+		}
+		else{
+			console.log('false');
+		}
+	
 	}
 	else if(interaction.options.getSubcommand() == "delete_course"){
 		var map = interaction.options.getString('map');
 		
 		await interaction.deferReply();
 		
-		console.output(maps);
+		console.log(maps);
 	}
 }
 
