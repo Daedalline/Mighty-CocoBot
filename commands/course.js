@@ -3,6 +3,8 @@
  *    This code was created by LostAndDead,
  *   please don't claim this as your own work
  *        https://github.com/LostAndDead
+ *           Modified by Daedalline
+ *        https://github.com/Daedalline
  * ============================================
  */
 
@@ -16,58 +18,60 @@ module.exports.run = async(interaction, config, maps, client) => {
         interaction.reply({ephemeral: true, content: "You are not allowed to do that in this channel"})
         return
     }
-    await interaction.deferReply()
+//    await interaction.deferReply()
 
     let rawdata = await fs.readFileSync('data.json');
     let data = await JSON.parse(rawdata); 
 
     var map = interaction.options.getString('map')
     var players = data[map]
+	
+	console.log(players);
 
     //Le Sorte'
-    var simpleData = {}
-    for(var player in players){
-        simpleData[player] = players[player]
-    }
+//    var simpleData = {}
+//    for(var player in players){
+//        simpleData[player] = players[player]
+//    }
 
-    var sortable = []
-    for (var item in simpleData){
-        sortable.push([item, simpleData[item]])
-    }
+//    var sortable = []
+//    for (var item in simpleData){
+//        sortable.push([item, simpleData[item]])
+//    }
 
-    sortable.sort(function(a,b){
-        return a[1] - b[1]
-    })
+//    sortable.sort(function(a,b){
+//        return a[1] - b[1]
+//    })
 
-    var objSorted = {}
-    sortable.forEach(function(item){
-        objSorted[item[0]]=item[1]
-    })
+//    var objSorted = {}
+//    sortable.forEach(function(item){
+//        objSorted[item[0]]=item[1]
+//    })
 
-    var sortedData = {}
-    for(var item in objSorted){
-        sortedData[item] = players[item]
-    }
+//    var sortedData = {}
+//    for(var item in objSorted){
+//        sortedData[item] = players[item]
+//    }
 
-    if(Object.keys(objSorted).length <= 0){
-        var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
-            .setDescription(`There does not apear to be any scores for **${map}**`);
-        return await interaction.editReply({embeds: [embed]})
-    }
+//    if(Object.keys(objSorted).length <= 0){
+//        var embed = new Discord.MessageEmbed()
+//            .setTitle("Database Error")
+//            .setDescription(`There does not apear to be any scores for **${map}**`);
+//        return await interaction.editReply({embeds: [embed]})
+//    }
 
-    var tbl = ""
-    var index = 0
-    for(player in sortedData){
-        if(index >= 10){
-            break;
-        }
-        tbl += `<@${player}>: ${sortedData[player]}\n`
-        index ++
-    }
+//    var tbl = ""
+//    var index = 0
+//    for(player in sortedData){
+//        if(index >= 10){
+//            break;
+//        }
+//        tbl += `<@${player}>: ${sortedData[player]}\n`
+//        index ++
+//    }
     var embed = new Discord.MessageEmbed()
     .setTitle(`Leaderboard for ${map}`)
-    .setDescription(tbl);
+    .setDescription('In Progress');
     return await interaction.editReply({embeds: [embed]})
 };
 
