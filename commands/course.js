@@ -26,7 +26,6 @@ module.exports.run = async(interaction, config, maps, client) => {
     var map = interaction.options.getString('map')
     var players = data[map]
 	
-	console.log(players);
 
     //Le Sorte'
     var simpleData = {}
@@ -34,12 +33,12 @@ module.exports.run = async(interaction, config, maps, client) => {
         simpleData[player] = players[player]
     }
 	
-	console.log(simpleData);
-
-//    var sortable = []
-//    for (var item in simpleData){
-//        sortable.push([item, simpleData[item]])
-//    }
+    var sortable = []
+    for (var item in simpleData){
+        sortable.push([item, simpleData[item]])
+    }
+	
+	console.log(sortable);
 
 //    sortable.sort(function(a,b){
 //        return a[1] - b[1]
