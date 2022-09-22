@@ -75,6 +75,21 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
 		}
 	}
+	else if(interaction.options.getSubcommand() == "create_course"){
+		var map = interaction.options.getString('map');
+		var leaderboardOnly = interaction.options.getBoolean('leaderboard_only');
+		
+		await interaction.deferReply();
+		
+		console.output(maps);
+	}
+	else if(interaction.options.getSubcommand() == "delete_course"){
+		var map = interaction.options.getString('map');
+		
+		await interaction.deferReply();
+		
+		console.output(maps);
+	}
 }
 
 module.exports.autocomplete = async (interaction, Maps) => {
