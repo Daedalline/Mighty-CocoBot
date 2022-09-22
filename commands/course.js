@@ -27,6 +27,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     var players = data[map];
 	
 	// If empty no need to sort anything
+	console.log(Object.keys(players).length);
 //    if(Object.keys(players).length <= 0){
 //        var embed = new Discord.MessageEmbed()
 //            .setTitle("Database Error")
@@ -69,8 +70,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         sortedData[item[0]]=item[1][0];
     })
 	
-	console.log(sortedData);
-
     var tbl = ""
     var index = 0
     for(player in sortedData){
