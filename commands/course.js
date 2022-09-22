@@ -39,8 +39,8 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
 
     sortable.sort(function(a,b){
-	    console.log('a: ' + a);
-		console.log('b: ' + b);	
+	    console.log('a: ' + a[1] + ', ' + a[1].type());
+		console.log('b: ' + b[1] + ', ' + b[1].type());
         if (a[1] == b[1]) {
 		    console.log('a: ' + a);
 		    console.log('b: ' + a);	
