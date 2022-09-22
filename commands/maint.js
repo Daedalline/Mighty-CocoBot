@@ -11,7 +11,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require("fs");
 const yaml = require('js-yaml');
 
-module.exports.run = async(interaction, config, client) => {
+module.exports.run = async(interaction, config, maps, client) => {
 
 	var guild = await client.guilds.cache.find(guild => guild.id == interaction.guild.id)
     var member = await guild.members.cache.find(user => user.id == interaction.member.id)
@@ -118,6 +118,39 @@ module.exports.info = {
             "name": "restore_clear",
             "description": "Reverts the most recent clear_scores command",
             "type": 1
+        },
+		{
+            "name": "create_course",
+            "description": "Adds a new couse",
+            "type": 1,
+            "options": [
+                {
+                    "name": "map",
+                    "description": "Name of the new course",
+                    "type": 3,
+                    "required": true
+                },
+				{
+                    "name": "leaderboard_only",
+                    "description": "Only add to Leaderboards",
+                    "type": 5,
+                    "required": true
+                }
+            ]
+        },
+		        {
+            "name": "delete course",
+            "description": "Deletes a course",
+            "type": 1,
+            "options": [
+                {
+                    "name": "map",
+                    "description": "The map to remove the scores from from",
+                    "type": 3,
+                    "autocomplete": true,
+                    "required": true
+                }
+            ]
         }
     ]
 };

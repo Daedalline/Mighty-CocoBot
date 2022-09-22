@@ -8,7 +8,7 @@
 
 const Discord = require("discord.js");
 
-module.exports.run = async(interaction, config, client) => {
+module.exports.run = async(interaction, config, maps, client) => {
     var embed = new Discord.MessageEmbed()
     .setTitle("Yes, I am alive!")
     .setDescription("I might as well sneak some credit in here")

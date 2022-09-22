@@ -132,7 +132,7 @@ client.on('interactionCreate', async interaction => {
 
 	try {
         //Run the command
-		await command.run(interaction, Config, client);
+		await command.run(interaction, Config, Maps, client);
 	} catch (error) {
 		console.error(error);
 	}

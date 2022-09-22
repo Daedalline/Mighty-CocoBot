@@ -10,7 +10,7 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const yaml = require('js-yaml');
 
-module.exports.run = async(interaction, config, client) => {
+module.exports.run = async(interaction, config, maps, client) => {
 
     if(interaction.channel.id != config.CoursesLeageChannelID){
         interaction.reply({ephemeral: true, content: "You are not allowed to do that in this channel"})
