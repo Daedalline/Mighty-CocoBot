@@ -26,6 +26,13 @@ module.exports.run = async(interaction, config, maps, client) => {
     var map = interaction.options.getString('map');
     var players = data[map];
 	
+	// If empty no need to sort anything
+    if(Object.keys(players).length <= 0){
+        var embed = new Discord.MessageEmbed()
+            .setTitle("Database Error")
+            .setDescription(`There does not apear to be any scores for **${map}**`);
+        return await interaction.editReply({embeds: [embed]})
+    }
 
     //Le Sorte'
     var simpleData = {};
@@ -64,17 +71,12 @@ module.exports.run = async(interaction, config, maps, client) => {
 	
 	console.log(objSorted);
 
-//    var sortedData = {}
-//    for(var item in objSorted){
-//        sortedData[item] = players[item]
-//    }
-
-//    if(Object.keys(objSorted).length <= 0){
-//        var embed = new Discord.MessageEmbed()
-//            .setTitle("Database Error")
-//            .setDescription(`There does not apear to be any scores for **${map}**`);
-//        return await interaction.editReply({embeds: [embed]})
-//    }
+    var sortedData = {}
+    for(var item in objSorted){
+        sortedData[item] = players[item]
+    }
+	
+	console.log(sortedData);
 
 //    var tbl = ""
 //    var index = 0
