@@ -59,9 +59,10 @@ module.exports.run = async(interaction, config, maps, client) => {
 
     var objSorted = {}
     sortable.forEach(function(item){
-		console.log(item);
-        //objSorted[item[0]]=item[1]
+        objSorted[item[0]]=item[1][0];
     })
+	
+	console.log(objSorted);
 
 //    var sortedData = {}
 //    for(var item in objSorted){
