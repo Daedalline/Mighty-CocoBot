@@ -18,30 +18,35 @@ module.exports.run = async(interaction, config, maps, client) => {
         interaction.reply({ephemeral: true, content: "You are not allowed to do that in this channel"})
         return
     }
-    await interaction.deferReply()
+    await interaction.deferReply();
 
     let rawdata = await fs.readFileSync('data.json');
     let data = await JSON.parse(rawdata); 
 
-    var map = interaction.options.getString('map')
-    var players = data[map]
+    var map = interaction.options.getString('map');
+    var players = data[map];
 	
 
     //Le Sorte'
-    var simpleData = {}
+    var simpleData = {};
     for(var player in players){
-        simpleData[player] = players[player]
+        simpleData[player] = players[player];
     }
 	
-    var sortable = []
+    var sortable = [];
     for (var item in simpleData){
-        sortable.push([item, simpleData[item]])
+        sortable.push([item, simpleData[item]]);
     }
-	
+
     sortable.sort(function(a,b){
-		console.log('a: ' + a);
-		console.log('b: ' + b);
-        return 0
+        if (a[1] == b[1]) {
+		    console.log('a: ' + a);
+		    console.log('b: ' + a);	
+            return 0;			
+		}
+        else {		
+            return a[1] - b[1];
+		}
     })
 
 //    console.log(sortable);
