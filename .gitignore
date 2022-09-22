@@ -45,4 +45,5 @@ jspm_packages/
 typings/
 config.yml
 data.json
+maps.json
 node_modules/

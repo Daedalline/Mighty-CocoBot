@@ -93,8 +93,13 @@ module.exports.run = async(interaction, config, maps, client) => {
 			var newmapdata = JSON.stringify(maps, null, "\t");
 			
 			console.log(newmapdata);
-            //await fs.writeFileSync('./maps.json', newmapdata);
-				
+			try{
+            await fs.writeFileSync('./maps.json', newmapdata);
+			}
+			catch (e) {
+    console.log(e);
+}
+
 			var embed = new Discord.MessageEmbed()
             .setTitle("Course Created")
             .setDescription(`**${map}** created (Leaderboard Only).`);
