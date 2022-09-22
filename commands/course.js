@@ -46,6 +46,8 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
 
     sortable.sort(function(a,b){
+		console.log('Sort a: ' + a);
+		console.log('Sort b: ' + b);
         if (a[1][0] == b[1][0]) {
 			var dateA = new Date(a[1][1]);
 			var dateB = new Date(b[1][1]);
@@ -59,7 +61,8 @@ module.exports.run = async(interaction, config, maps, client) => {
                 return 0;			
 			}
 		}
-        else {		
+        else {	
+            console.log(a[1] - b[1])	;	
             return a[1] - b[1];
 		}
     })
