@@ -135,7 +135,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         await fs.writeFileSync('./maps.json', writedata);
 
         var embed = new Discord.MessageEmbed()
-        .setTitle("Scores Removed")
+        .setTitle("Course Removed")
         .setDescription(`Removed **${map}**.`);
         return await interaction.editReply({embeds: [embed]})
     }
