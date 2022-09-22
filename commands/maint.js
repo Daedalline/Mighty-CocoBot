@@ -91,8 +91,18 @@ module.exports.run = async(interaction, config, maps, client) => {
             maps.Leaderboards.push(map);
 			
 			if (leaderboardOnly){
-            
                 var newmapdata = JSON.stringify(maps, null, "\t");
+                await fs.writeFileSync('./maps.json', newmapdata);
+
+                var embed = new Discord.MessageEmbed()
+                .setTitle("Course Created")
+                .setDescription(`**${map}** created (Leaderboard Only).`);
+                return await interaction.editReply({embeds: [embed]})
+			}
+			else {
+				maps.Maps.push(map);
+				
+				var newmapdata = JSON.stringify(maps, null, "\t");
                 await fs.writeFileSync('./maps.json', newmapdata);
 
                 var embed = new Discord.MessageEmbed()
