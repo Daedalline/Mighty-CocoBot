@@ -27,7 +27,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     var players = data[map];
 	
 	// If empty no need to sort anything
-	console.log(Object.keys(players).length);
+	console.log(players);
 //    if(Object.keys(players).length <= 0){
 //        var embed = new Discord.MessageEmbed()
 //            .setTitle("Database Error")
