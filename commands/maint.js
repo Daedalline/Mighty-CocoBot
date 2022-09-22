@@ -138,14 +138,14 @@ module.exports.info = {
                 }
             ]
         },
-		        {
-            "name": "delete course",
+		{
+            "name": "delete_course",
             "description": "Deletes a course",
             "type": 1,
             "options": [
                 {
                     "name": "map",
-                    "description": "The map to remove the scores from from",
+                    "description": "The course to remove",
                     "type": 3,
                     "autocomplete": true,
                     "required": true
