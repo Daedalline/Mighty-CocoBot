@@ -42,16 +42,22 @@ module.exports.run = async(interaction, config, maps, client) => {
         if (a[1][0] == b[1][0]) {
 			var dateA = new Date(a[1][1]);
 			var dateB = new Date(b[1][1]);
-			console.log(dateA);
-			console.log(dateB);
-            return 0;			
+			if (dateA < dateB){
+				return -1;
+			}
+			else if (dateA > dateB){
+				return 1;
+			}
+			else {
+                return 0;			
+			}
 		}
         else {		
             return a[1] - b[1];
 		}
     })
 
-//    console.log(sortable);
+    console.log(sortable);
 
 //    var objSorted = {}
 //    sortable.forEach(function(item){
