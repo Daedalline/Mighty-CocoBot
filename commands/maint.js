@@ -81,34 +81,12 @@ module.exports.run = async(interaction, config, maps, client) => {
 		
 		await interaction.deferReply();
 
-		if(!maps.Leaderboards.includes(map)){
+		if(maps.Leaderboards.includes(map)){
 			var embed = new Discord.MessageEmbed()
             .setTitle("Database Error")
-            .setDescription(`**${map}** does not exist.`);
+            .setDescription(`**${map}** already exists.`);
             return await interaction.editReply({embeds: [embed]})
 		}
-		else{
-			maps.Leaderboards.push(map);
-			
-			if(leaderboardOnly) {
-				var writedata = JSON.stringify(maps, null, "\t");
-                await fs.writeFileSync('./maps.json', writedata);
-				var embed = new Discord.MessageEmbed()
-                .setTitle("Course Created")
-                .setDescription(`**${map}** created (Leaderboard Only).`);
-                return await interaction.editReply({embeds: [embed]})
-			}
-			else {
-				maps.Maps.push(map);
-				var writedata = JSON.stringify(maps, null, "\t");
-                await fs.writeFileSync('./maps.json', writedata);
-				var embed = new Discord.MessageEmbed()
-                .setTitle("Course Created")
-                .setDescription(`**${map}** created.`);
-                return await interaction.editReply({embeds: [embed]})
-			}
-		}
-	
 	}
 	else if(interaction.options.getSubcommand() == "delete_course"){
 		var map = interaction.options.getString('map');
