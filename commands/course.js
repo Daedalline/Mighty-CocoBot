@@ -62,11 +62,11 @@ module.exports.run = async(interaction, config, client) => {
         if(index >= 10){
             break;
         }
-        tbl += `${index+1}: <@${player}> ${sortedData[player]}\n`
+        tbl += `<@${player}>: ${sortedData[player]}\n`
         index ++
     }
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Scoreboard for ${map}`)
+    .setTitle(`Leaderboard for ${map}`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 };
