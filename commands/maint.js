@@ -128,8 +128,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         await interaction.deferReply();
         
         // Delete the data and save
-		console.log(maps.Maps[maps.Maps.indexOf(map)]);
-		console.log(maps.Leaderboards[maps.Leaderboards.indexOf(map)]);
+		delete maps.Maps[maps.Maps.indexOf(map)];
+		delete maps.Leaderboards[maps.Leaderboards.indexOf(map)];
 		
 		var writedata = JSON.stringify(maps, null, "\t");
         await fs.writeFileSync('./maps.json', writedata);
