@@ -91,6 +91,8 @@ module.exports.run = async(interaction, config, maps, client) => {
 			maps.Leaderboards.push(map);
 			
 			var newmapdata = JSON.stringify(maps, null, "\t");
+			
+			console.log(newmapdata);
             //await fs.writeFileSync('./maps.json', newmapdata);
 				
 			var embed = new Discord.MessageEmbed()
