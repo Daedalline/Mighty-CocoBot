@@ -216,5 +216,12 @@ function getNotRecentlyUsedRoom(){
         room = Maps.RoomIDs[Math.floor(Math.random() * Maps.RoomIDs.length)]
 		loggingString += 'Room: ' + room;
     }
+    try {
+        let logFile = fs.appendFileSync('./log.txt', loggingString);
+    }
+    catch (e) {
+        console.log(e);
+    }	
+	
     return room
 }
