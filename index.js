@@ -207,9 +207,14 @@ function msToNextHour() {
 }
 
 function getNotRecentlyUsedRoom(){
+	let dateTime = new Date();
+	let loggingString = '<' + dateTime.toString()+'>\nUsed Rooms: ' + usedRooms + '\n';
+	
     let room = Maps.RoomIDs[Math.floor(Math.random() * Maps.RoomIDs.length)]
+	loggingString += 'Room: ' + room;
     while (room in usedRooms){
         room = Maps.RoomIDs[Math.floor(Math.random() * Maps.RoomIDs.length)]
+		loggingString += 'Room: ' + room;
     }
     return room
 }
