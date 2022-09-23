@@ -82,7 +82,10 @@ module.exports.run = async(interaction, config, maps, client) => {
 	
 	tbl = "";
 	for (var map in userCourses){
-		tbl += `${map}: ${userCourses[map]}\n`
+		if (userCourses[map] != undefined)
+		{
+		    tbl += `${map}: ${userCourses[map]}\n`
+		}
 	}
 	
 	var embed = new Discord.MessageEmbed()
