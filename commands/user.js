@@ -80,17 +80,18 @@ module.exports.run = async(interaction, config, maps, client) => {
 		}
 	}
 	
-//        if(Object.keys(simpleData).length <= 0){
-//            var embed = new Discord.MessageEmbed()
-//                .setTitle("Database Error")
-//                .setDescription(`There does not apear to be any scores for **${map}**`);
-//            return await interaction.editReply({embeds: [embed]})
-//        }
-	
-	var embed = new Discord.MessageEmbed()
-    .setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
-    .setDescription(tbl);
-    return await interaction.editReply({embeds: [embed]})
+    if(tbl == ""){
+        var embed = new Discord.MessageEmbed()
+            .setTitle("Database Error")
+            .setDescription(`There do not apear to be any scores for **<@${userID}>**`);
+        return await interaction.editReply({embeds: [embed]})
+    }
+	else {
+	    var embed = new Discord.MessageEmbed()
+        .setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
+        .setDescription(tbl);
+        return await interaction.editReply({embeds: [embed]})
+	}
 }
 
 module.exports.info = {
