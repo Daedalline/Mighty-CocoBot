@@ -1,0 +1,109 @@
+## -- Random Options -- ##
+RoomIDs:
+  - DRIVER
+  - EAGLE
+  - GREEN
+  - COURSE
+  - PUTTER
+  - CONDOR
+  - LINK
+  - PROSHOP
+  - CADDY
+  - PAR
+  - BIRDIE
+  - ALBATROSS
+  - BACKSPIN
+  - BOUNCE
+  - BANKSHOT
+  - TEE
+  - RAMP
+  - BOGEY
+  - SLICE
+  - WIND
+  - GRASS
+  - BRIDGE
+  - CASTLE
+  - ROOK
+  - PAWN
+  - NIGHT
+  - BISHOP
+  - KING
+  - QUEEN
+  - SQUARE
+  - CHECKER
+  - CIRCLE
+  - HEXAGON
+  - BOARD
+  - TWILIGHT
+  - WATERFALL
+  - SHIP
+  - PIRATE
+  - SEAGULL
+  - CLUB
+  - HEART
+  - SPADE
+  - DIAMOND
+  - SUNSHINE
+  - CARDINAL
+  - PELICAN
+  - TRICKSHOT
+  - SANDTRAP
+
+Maps:
+  - Tourist Trap–Easy
+  - Tourist Trap–Hard
+  - Cherry Blossom-Easy
+  - Cherry Blossom–Hard
+  - Seagull Stacks-Easy
+  - Seagull Stacks–Hard
+  - Arizona Modern-Easy
+  - Arizona Modern–Hard
+  - Original Gothic-Easy
+  - Original Gothic–Hard
+  - Tethys Station-Easy
+  - Tethys Station–Hard
+  - Bogeys Bonanza-Easy
+  - Bogeys Bonanza-Hard
+  - Quixote Valley-Easy
+  - Quixote Valley-Hard
+  - Gardens of Babylon-Easy
+  - Gardens of Babylon-Hard
+  - Shangri-La Easy
+  - Shangri-La Hard
+  - Sweetopia - Easy
+  - Sweetopia - Hard
+  - El Dorado Easy
+  - El Dorado Hard
+  - Labyrinth Easy
+  - Labyrinth Hard
+
+Leaderboards:
+  - Tourist Trap–Easy
+  - Tourist Trap–Hard
+  - Cherry Blossom-Easy
+  - Cherry Blossom–Hard
+  - Seagull Stacks-Easy
+  - Seagull Stacks–Hard
+  - Arizona Modern-Easy
+  - Arizona Modern–Hard
+  - Original Gothic-Easy
+  - Original Gothic–Hard
+  - Tethys Station-Easy
+  - Tethys Station–Hard
+  - Bogeys Bonanza-Easy
+  - Bogeys Bonanza-Hard
+  - Quixote Valley-Easy
+  - Quixote Valley-Hard
+  - Gardens of Babylon-Easy
+  - Gardens of Babylon-Hard
+  - Shangri-La Easy
+  - Shangri-La Hard
+  - Sweetopia - Easy
+  - Sweetopia - Hard
+  - El Dorado Easy
+  - El Dorado Hard
+  - Labyrinth Easy
+  - Labyrinth Hard
+  - Weekly Challenge Arizona Modern Easy
+  - Weekly Challenge Tethys Station Hard
+  - Freestyle Cherry Blossom Hard
