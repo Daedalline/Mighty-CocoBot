@@ -14,6 +14,8 @@ module.exports.run = async(interaction, config, maps, client) => {
 	
 	var userID = interaction.options.getUser('user').id
 	
+	console.log(interaction.options.getUser('user'));
+	
     if(interaction.channel.id != config.CoursesLeageChannelID){
         interaction.reply({ephemeral: true, content: "You are not allowed to do that in this channel"})
         return
@@ -86,7 +88,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 	}
 	
 	var embed = new Discord.MessageEmbed()
-    .setTitle(`Leaderboard for <@${userID}>`)
+    .setTitle(`Leaderboard entries for <@${userID}>`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
