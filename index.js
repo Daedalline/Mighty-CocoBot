@@ -22,8 +22,8 @@ catch (e) {
 //Load the maps file
 let Maps = null;
 try {
-    let fileContents = fs.readFileSync('./maps.yml', 'utf8');
-    Maps = yaml.load(fileContents);
+    let mapContents = fs.readFileSync('./maps.json');
+    Maps = JSON.parse(mapContents)
 }
 catch (e) {
     console.log(e);
