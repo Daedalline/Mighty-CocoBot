@@ -23,7 +23,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('data.json');
     let data = await JSON.parse(rawdata); 
 	
-	var tbl = ""
+	var userCourses = {};
 		
 	for (var map in data){
 		var players = data[map];
@@ -75,10 +75,11 @@ module.exports.run = async(interaction, config, maps, client) => {
             if(index >= 10){
                 break;
             }
-			console.log(map + ': ' + sortedData[userID]);
-//            tbl += `<@${player}>: ${sortedData[player]}\n`
+			userCourses[map] = sortedData[userID];
             index ++
         }
+		
+		console.log(userCourses);
 	}
 	
 	var embed = new Discord.MessageEmbed()
