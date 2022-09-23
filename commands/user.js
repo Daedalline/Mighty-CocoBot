@@ -76,13 +76,14 @@ module.exports.run = async(interaction, config, maps, client) => {
                 break;
             }
 			console.log(player);
+			console.log(sortedData);
 //            tbl += `<@${player}>: ${sortedData[player]}\n`
             index ++
         }
 	}
 	
 	var embed = new Discord.MessageEmbed()
-    .setTitle(`Leaderboard for ${userID}`)
+    .setTitle(`Leaderboard for <@${userID}>`)
     .setDescription('In Progress');
     return await interaction.editReply({embeds: [embed]})
 }
