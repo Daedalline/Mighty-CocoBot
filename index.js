@@ -211,10 +211,10 @@ function getNotRecentlyUsedRoom(){
 	let loggingString = '<' + dateTime.toString()+'>\nUsed Rooms: ' + usedRooms + '\n';
 	
     let room = Maps.RoomIDs[Math.floor(Math.random() * Maps.RoomIDs.length)]
-	loggingString += 'Room: ' + room;
+	loggingString += 'Room: ' + room + '\n';
     while (room in usedRooms){
         room = Maps.RoomIDs[Math.floor(Math.random() * Maps.RoomIDs.length)]
-		loggingString += 'Room: ' + room;
+		loggingString += 'Room: ' + room + '\n';
     }
     try {
         let logFile = fs.appendFileSync('./log.txt', loggingString);
