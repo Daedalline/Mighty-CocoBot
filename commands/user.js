@@ -80,8 +80,6 @@ module.exports.run = async(interaction, config, maps, client) => {
 		}
 	}
 	
-	console.log(tbl);
-	
 //        if(Object.keys(simpleData).length <= 0){
 //            var embed = new Discord.MessageEmbed()
 //                .setTitle("Database Error")
