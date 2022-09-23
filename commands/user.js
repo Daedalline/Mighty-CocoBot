@@ -86,7 +86,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 	}
 	
 	var embed = new Discord.MessageEmbed()
-    .setTitle(`Leaderboard entries for @` + interaction.options.getUser('user').username)
+    .setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username + ` <@${userID}>`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
