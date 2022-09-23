@@ -75,7 +75,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             if(index >= 10){
                 break;
             }
-			console.log(sortedData[userID]);
+			console.log(map + ': ' + sortedData[userID]);
 //            tbl += `<@${player}>: ${sortedData[player]}\n`
             index ++
         }
