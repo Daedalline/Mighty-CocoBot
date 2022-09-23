@@ -78,9 +78,9 @@ module.exports.run = async(interaction, config, maps, client) => {
 			userCourses[map] = sortedData[userID];
             index ++
         }
-		
-		console.log(userCourses);
 	}
+	
+	console.log(userCourses);
 	
 	var embed = new Discord.MessageEmbed()
     .setTitle(`Leaderboard for <@${userID}>`)
