@@ -80,8 +80,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
 	}
 	
-	console.log(userCourses);
-	
 	tbl = "";
 	for (var map in userCourses){
 		tbl += `${map}: ${userCourses[map]}\n`
