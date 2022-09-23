@@ -38,9 +38,9 @@ const commandsData = [];
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
 for (const file of commandFiles) {
     //Load the file
-	const command = require(`./commands/${file}`);
+    const command = require(`./commands/${file}`);
     //Add to command collection
-	commands.set(command.info.name, command);
+    commands.set(command.info.name, command);
 
     //Load the commandData
     const commandData = require(`./commands/${file}`);
@@ -66,7 +66,7 @@ const rest = new REST({ version: '9' }).setToken(Config.Token);
             console.error(error);
         }
     }
-	
+    
 })();
 
 //creates data files if they dont exist
@@ -119,40 +119,40 @@ client.on("ready", async() => {
 
 //Listen for commands coming from chat and context menus
 client.on('interactionCreate', async interaction => {
-	if (!(interaction.isCommand() || interaction.isContextMenu())) return;
+    if (!(interaction.isCommand() || interaction.isContextMenu())) return;
     if(!interaction.inGuild()){
         await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true })
         return;
     }
 
     //Find the commands we want to run
-	const command = commands.get(interaction.commandName);
+    const command = commands.get(interaction.commandName);
 
-	if (!command) return;
+    if (!command) return;
 
-	try {
+    try {
         //Run the command
-		await command.run(interaction, Config, client);
-	} catch (error) {
-		console.error(error);
-	}
+        await command.run(interaction, Config, Maps, client);
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 //Listen for autocomplete
 client.on('interactionCreate', async interaction => {
-	if (!interaction.isAutocomplete()) return;
+    if (!interaction.isAutocomplete()) return;
 
     //Find the commands we want to auto complete for
-	const command = commands.get(interaction.commandName);
+    const command = commands.get(interaction.commandName);
 
     if (!command) return;
 
-	try {
+    try {
         //Run the autocomplete resolver
-		await command.autocomplete(interaction, Maps, client);
-	} catch (error) {
-		console.error(error);
-	}
+        await command.autocomplete(interaction, Maps, client);
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 client.login(Config.Token);
@@ -180,7 +180,13 @@ async function send(){
     .setTitle("Game starting soon!")
     .setDescription(`
     The next scheduled game will start in 15 minutes (at the top of the hour) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
-    
+
+    If you are the first player to create a room, please see the following guidelines:
+
+    Created rooms should be setup with a player count max of 5.
+
+    Games must wait to start at the top of the designated hour unless the room is already full.
+
     The course will be **${course}**. If you want to join, drop a :thumbsup: reaction on this message so people know there are enough players.
     `)
     .setTimestamp();

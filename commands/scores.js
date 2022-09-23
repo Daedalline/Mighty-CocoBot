@@ -11,7 +11,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require("fs");
 const yaml = require('js-yaml');
 
-module.exports.run = async(interaction, config, client) => {
+module.exports.run = async(interaction, config, maps, client) => {
 
     var guild = await client.guilds.cache.find(guild => guild.id == interaction.guild.id)
     var member = await guild.members.cache.find(user => user.id == interaction.member.id)
