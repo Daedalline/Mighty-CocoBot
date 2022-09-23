@@ -83,7 +83,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     if(tbl == ""){
         var embed = new Discord.MessageEmbed()
             .setTitle("Database Error")
-            .setDescription(`There do not apear to be any scores for **<@${userID}>**`);
+            .setDescription(`There does not apear to be any scores for **<@${userID}>**`);
         return await interaction.editReply({embeds: [embed]})
     }
 	else {
