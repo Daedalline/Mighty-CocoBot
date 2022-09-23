@@ -33,14 +33,6 @@ module.exports.run = async(interaction, config, maps, client) => {
             simpleData[player] = players[player];
         }
 	
-    	// If empty no need to sort anything
-//        if(Object.keys(simpleData).length <= 0){
-//            var embed = new Discord.MessageEmbed()
-//                .setTitle("Database Error")
-//                .setDescription(`There does not apear to be any scores for **${map}**`);
-//            return await interaction.editReply({embeds: [embed]})
-//        }
-	
         var sortable = [];
         for (var item in simpleData){
             sortable.push([item, simpleData[item]]);
