@@ -57,8 +57,8 @@ module.exports.run = async(interaction, config, maps, client) => {
             }
         })
 
-        console.log(map);
-		console.log(userID);	
+        console.log('Map: ' + map);
+		console.log('UserID: ' + userID);	
 
         var index = 0
 		for (var i = 0; i<sortable.length; i++) {
@@ -67,10 +67,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 				console.log('hit 10 cap');
 			    break;
 			}
-			if (sortable[0] == userID)
-			{
-				console.log('MATCH!');
-			}
+			console.log('Test: ' + sortable[i][0]);
 			//sortedData[item[0]]=item[1][0];
         }
 
