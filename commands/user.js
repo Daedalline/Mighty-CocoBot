@@ -60,9 +60,9 @@ module.exports.run = async(interaction, config, maps, client) => {
         var index = 0
         var sortedData = {}
 		
-		console.log(sortable);
 		
         sortable.forEach(function(item){
+			console.log('Item: ' + item);
             sortedData[item[0]]=item[1][0];
         })
 
