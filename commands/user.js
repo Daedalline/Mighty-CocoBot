@@ -67,17 +67,14 @@ module.exports.run = async(interaction, config, maps, client) => {
 				console.log('hit 10 cap');
 			    break;
 			}
-			console.log('Test: ' + sortable[i][0]);
-			//sortedData[item[0]]=item[1][0];
+			if (sortable[i][0] == userID){
+				console.log('MATCH!');
+			}
         }
 
         //console.log(map);
 		//console.log(userID);		
 		//console.log(sortedData);
-		
-        //for(player in sortedData){
-        //    userCourses[map] = sortedData[userID];
-        //}
     }
     
     tbl = "";
