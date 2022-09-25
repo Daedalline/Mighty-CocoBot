@@ -64,7 +64,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var index = 0
         var sortedData = {}
 		for (var i = 0; i<10; i++) {
-			console.log('entry': sortable[i]);
+			console.log('entry: ' + sortable[i]);
             //sortedData[item[0]]=item[1][0];
         })
 
