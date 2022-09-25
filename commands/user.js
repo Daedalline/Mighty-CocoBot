@@ -59,22 +59,25 @@ module.exports.run = async(interaction, config, maps, client) => {
 
         console.log(map);
 		console.log(userID);	
-		console.log('sortable: ' +sortable);
 
         var index = 0
         var sortedData = {}
-		for (var i = 0; i<=sortable.length; i++) {
+		for (var i = 0; i<sortable.length; i++) {
 			console.log('entry: ' + sortable[i]);
-            //sortedData[item[0]]=item[1][0];
+			if (i>=10){
+				console.log('hit 10 cap');
+			    break;
+			}
+			//sortedData[item[0]]=item[1][0];
         }
 
         //console.log(map);
 		//console.log(userID);		
 		//console.log(sortedData);
 		
-        for(player in sortedData){
-            userCourses[map] = sortedData[userID];
-        }
+        //for(player in sortedData){
+        //    userCourses[map] = sortedData[userID];
+        //}
     }
     
     tbl = "";
