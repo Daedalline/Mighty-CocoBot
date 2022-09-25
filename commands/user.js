@@ -59,13 +59,16 @@ module.exports.run = async(interaction, config, maps, client) => {
 
         var index = 0
         var sortedData = {}
+		
+		console.log(sortable);
+		
         sortable.forEach(function(item){
             sortedData[item[0]]=item[1][0];
         })
-		
-		console.log(sortedData);
-        console.log(map);
-		console.log(userID);
+
+        //console.log(map);
+		//console.log(userID);		
+		//console.log(sortedData);
 		
         for(player in sortedData){
             userCourses[map] = sortedData[userID];
