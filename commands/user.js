@@ -66,7 +66,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 		for (var i = 0; i<10; i++) {
 			console.log('entry: ' + sortable[i]);
             //sortedData[item[0]]=item[1][0];
-        })
+        }
 
         //console.log(map);
 		//console.log(userID);		
