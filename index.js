@@ -158,7 +158,7 @@ client.on('interactionCreate', async interaction => {
 client.login(Config.Token);
 
 async function main(){
-    let ms = msToNextHour()
+    let ms = msToNextHalfHour()
     setTimeout(send, (ms+100) - 900000)
 }
 
@@ -199,11 +199,11 @@ async function send(){
     //console.log(new Date().toUTCString())
     //console.log("-----------------------------------------")
 
-    setTimeout(main, 1800000)
+    setTimeout(main, 900000)
 }
 
-function msToNextHour() {
-    return (3600000 - new Date().getTime() % 3600000);
+function msToNextHalfHour() {
+    return (1800000 - new Date().getTime() % 1800000);
 }
 
 function getNotRecentlyUsedRoom(){
