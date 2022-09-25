@@ -57,24 +57,20 @@ module.exports.run = async(interaction, config, maps, client) => {
             }
         })
 
-        console.log('Map: ' + map);
-		console.log('UserID: ' + userID);	
-
         var index = 0
 		for (var i = 0; i<sortable.length; i++) {
-			console.log('entry: ' + sortable[i]);
 			if (i>=10){
 				console.log('hit 10 cap');
 			    break;
 			}
 			if (sortable[i][0] == userID){
-				console.log('MATCH!');
+				userCourses[map] = sortable[i][1];
 			}
         }
 
-        //console.log(map);
-		//console.log(userID);		
-		//console.log(sortedData);
+        console.log(map);
+		console.log(userID);		
+		console.log(userCourses);
     }
     
     tbl = "";
