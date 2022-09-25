@@ -60,15 +60,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         var index = 0
         var sortedData = {}
         sortable.forEach(function(item){
-			if(index >= 10){
-                break;
-            }
             sortedData[item[0]]=item[1][0];
-			index++
         })
 		
 		console.log(sortedData);
-        
+        console.log(map);
+		console.log(userID);
+		
         for(player in sortedData){
             userCourses[map] = sortedData[userID];
         }
