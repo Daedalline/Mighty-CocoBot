@@ -57,10 +57,12 @@ module.exports.run = async(interaction, config, maps, client) => {
             }
         })
 
+        console.log(map);
+		console.log(userID);	
+		console.log(sortable);
+
         var index = 0
         var sortedData = {}
-		
-		
         sortable.forEach(function(item){
 			console.log('Item: ' + item);
             sortedData[item[0]]=item[1][0];
