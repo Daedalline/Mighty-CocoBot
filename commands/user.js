@@ -60,17 +60,15 @@ module.exports.run = async(interaction, config, maps, client) => {
         var index = 0
 		for (var i = 0; i<sortable.length; i++) {
 			if (i>=10){
-				console.log('hit 10 cap');
+				console.log('Hit 10 cap');
 			    break;
 			}
 			if (sortable[i][0] == userID){
-				userCourses[map] = sortable[i][1];
+				userCourses[map] = sortable[i][1][0];
+				console.log('Found a match');
+				break;
 			}
         }
-
-        console.log(map);
-		console.log(userID);		
-		console.log(userCourses);
     }
     
     tbl = "";
