@@ -208,7 +208,7 @@ function msToNextHour() {
 
 function getNotRecentlyUsedRoom(){
     let room = Maps.RoomIDs[Math.floor(Math.random() * Maps.RoomIDs.length)]
-    while (room in usedRooms){
+    while (usedRooms.includes(room)){
         room = Maps.RoomIDs[Math.floor(Math.random() * Maps.RoomIDs.length)]
     }
     return room
