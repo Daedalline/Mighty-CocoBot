@@ -74,8 +74,8 @@ module.exports.run = async(interaction, config, maps, client) => {
 	sortMapList.sort();
     
     tbl = "";
-    for (var i=0; i<sortMapList.length, i++){
-        if (userCourses[sortMapList[i] != undefined))
+    for (var i=0; i<sortMapList.length; i++){
+        if (userCourses[sortMapList[i]] != undefined)
         {
             tbl += `${sortMapList[i]}: ${userCourses[sortMapList[i]]}\n`
         }
