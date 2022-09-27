@@ -24,8 +24,10 @@ module.exports.run = async(interaction, config, maps, client) => {
     let data = await JSON.parse(rawdata); 
     
     var userCourses = {};
+	var sortMapList = [];
         
     for (var map in data){
+		sortMapList.push(map);
         var players = data[map];
         
         var simpleData = {};
@@ -68,12 +70,14 @@ module.exports.run = async(interaction, config, maps, client) => {
 			}
         }
     }
+	
+	sortMapList.sort();
     
     tbl = "";
-    for (var map in userCourses){
-        if (userCourses[map] != undefined)
+    for (var i=0; i<sortMapList.length; i++){
+        if (userCourses[sortMapList[i]] != undefined)
         {
-            tbl += `${map}: ${userCourses[map]}\n`
+            tbl += `${sortMapList[i]}: ${userCourses[sortMapList[i]]}\n`
         }
     }
     
