@@ -24,8 +24,10 @@ module.exports.run = async(interaction, config, maps, client) => {
     let data = await JSON.parse(rawdata); 
     
     var userCourses = {};
+	var sortMapList = [];
         
     for (var map in data){
+		sortMapList.push(map);
         var players = data[map];
         
         var simpleData = {};
@@ -68,6 +70,8 @@ module.exports.run = async(interaction, config, maps, client) => {
 			}
         }
     }
+	
+	console.log(sortMapList);
     
     tbl = "";
     for (var map in userCourses){
