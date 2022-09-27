@@ -71,6 +71,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
     }
 	
+	sortMapList.sort();
 	console.log(sortMapList);
     
     tbl = "";
