@@ -158,7 +158,7 @@ client.on('interactionCreate', async interaction => {
 client.login(Config.Token);
 
 async function main(){
-    let ms = msToNextHour()
+    let ms = msToNextHalfHour()
     setTimeout(send, (ms+100) - 900000)
 }
 
@@ -179,7 +179,7 @@ async function send(){
     let embed = new MessageEmbed()
     .setTitle("Game starting soon!")
     .setDescription(`
-    The next scheduled game will start in 15 minutes (at the top of the hour) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
+    The next scheduled game will start in 15 minutes (at the top or bottom of the hour) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
 
     If you are the first player to create a room, please see the following guidelines:
 
@@ -199,11 +199,11 @@ async function send(){
     //console.log(new Date().toUTCString())
     //console.log("-----------------------------------------")
 
-    setTimeout(main, 1800000)
+    setTimeout(main, 900000)
 }
 
-function msToNextHour() {
-    return (3600000 - new Date().getTime() % 3600000);
+function msToNextHalfHour() {
+    return (1800000 - new Date().getTime() % 1800000);
 }
 
 function getNotRecentlyUsedRoom(){
