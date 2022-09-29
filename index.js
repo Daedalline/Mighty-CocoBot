@@ -7,6 +7,7 @@ const fs = require("fs");
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 let usedRooms = [];
+let usedCourses = [];
 
 //Load the config file
 let Config = null;
@@ -168,12 +169,16 @@ async function send(){
     let channel = await guild.channels.fetch(Config.ChannelID)
 
     let room = getNotRecentlyUsedRoom()
-
-    let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
+    let course = getNotRecentlyUsedCourse()
 
     usedRooms.push(room)
     if(usedRooms.length > 2){
         usedRooms.shift()
+    }
+	
+    usedCourses.push(course)
+    if(usedCourses.length > 2){
+        usedCourses.shift()
     }
 
     let embed = new MessageEmbed()
@@ -213,3 +218,12 @@ function getNotRecentlyUsedRoom(){
     }
     return room
 }
+
+function getNotRecentlyUsedCourse(){
+    let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
+    while (usedcourses.includes(course)){
+        course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
+    }
+    return course
+}
+
