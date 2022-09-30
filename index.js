@@ -220,22 +220,10 @@ function getNotRecentlyUsedRoom(){
 }
 
 function getNotRecentlyUsedCourse(){
-	let dateTime = new Date();
-	let loggingString = '<' + dateTime.toString()+'>\nUsed Courses: ' + usedCourses + '\n';
-	
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
-	loggingString += 'Course: ' + course + '\n';
-    while (usedcourses.includes(course)){
-		loggingString += 'Course: ' + course + '\n';
-        course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
+    while (usedCourses.includes(course)){
+        course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
     }
-	try {
-        let logFile = fs.appendFileSync('./log.txt', loggingString);
-    }
-    catch (e) {
-        console.log(e);
-    }	
-
     return course
 }
 
