@@ -182,7 +182,7 @@ async function send(){
     }
 	
 	let currentDate = Date.now();
-	let currentDateNoMs = currentDate.substr(0, currentDate.length -3);
+	let currentDateNoMs = currentDate.toString().substr(0, currentDate.length -3);
 	console.log(`<t:${currentDateNoMs}>`);
 
     let embed = new MessageEmbed()
