@@ -181,20 +181,18 @@ async function send(){
         usedCourses.shift()
     }
 	
-	let currentDate = new Date();
-	console.log(currentDate.toLocaleTimeString());
-	console.log(Date.now());
+	let currentDate = Date.now();
 
     let embed = new MessageEmbed()
     .setTitle("Game starting soon!")
     .setDescription(`
-    The next scheduled game will start in 15 minutes (at XX:00 or XX:30) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
+    The next scheduled game will start in **15 minutes** (at <t:${currentDate}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
 
     If you are the first player to create a room, please see the following guidelines:
 
     Created rooms should be setup with a player count max of 5.
 
-    Games must wait to start until XX:00 or XX:30 unless the room is already full.
+    Games must wait to start until <t:${currentDate}:t> unless the room is already full.
 
     The course will be **${course}**. If you want to join, drop a :thumbsup: reaction on this message so people know there are enough players.
     `)
