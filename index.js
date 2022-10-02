@@ -180,6 +180,10 @@ async function send(){
     if(usedCourses.length > 2){
         usedCourses.shift()
     }
+	
+	let currentDate = new Date();
+	console.log(currentDate.toLocaleTimeString());
+	console.log(currentDate.parse());
 
     let embed = new MessageEmbed()
     .setTitle("Game starting soon!")
