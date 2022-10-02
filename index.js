@@ -183,7 +183,7 @@ async function send(){
 	
 	let currentDate = Date.now();
 	console.log(`<t:${currentDate}>`);
-	console.log(currentDate.toString());
+	console.log(new Date().toString());
 
 //    let embed = new MessageEmbed()
 //    .setTitle("Game starting soon!")
