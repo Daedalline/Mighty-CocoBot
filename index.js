@@ -181,7 +181,7 @@ async function send(){
         usedCourses.shift()
     }
 	
-	let currentDate = Date.now();
+	let currentDate = Date.now() + 900000;
 	let currentDateString = currentDate.toString();
 	let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
