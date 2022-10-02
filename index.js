@@ -194,7 +194,7 @@ async function send(){
 
     Created rooms should be setup with a player count max of 5.
 
-    Games must wait to start until <t:${currentDateSubstring}:t> unless the room is already full.
+    Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
     The course will be **${course}**. If you want to join, drop a :thumbsup: reaction on this message so people know there are enough players.
     `)
