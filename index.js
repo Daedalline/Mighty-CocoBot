@@ -182,7 +182,7 @@ async function send(){
     }
 	
 	let currentDate = Date.now();
-	console.log(currentDateString);
+	console.log(currentDate);
 	let currentDateString = currentDate.toString();
 	console.log(currentDateString);
 
