@@ -182,27 +182,24 @@ async function send(){
     }
 	
 	let currentDate = Date.now();
-	console.log(currentDate);
 	let currentDateString = currentDate.toString();
-	console.log(currentDateString);
-	let currentDateSubstring = currentDateString.substr(0, currentDateString.length() - 3);
-	console.log(currentDateSubstring);
+	let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
-//    let embed = new MessageEmbed()
-//    .setTitle("Game starting soon!")
-//    .setDescription(`
-//    The next scheduled game will start in **15 minutes** (at <t:${currentDate}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
+    let embed = new MessageEmbed()
+    .setTitle("Game starting soon!")
+    .setDescription(`
+    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
 
-//    If you are the first player to create a room, please see the following guidelines:
+    If you are the first player to create a room, please see the following guidelines:
 
-//    Created rooms should be setup with a player count max of 5.
+    Created rooms should be setup with a player count max of 5.
 
-//    Games must wait to start until <t:${currentDate}:t> unless the room is already full.
+    Games must wait to start until <t:${currentDateSubstring}:t> unless the room is already full.
 
-//    The course will be **${course}**. If you want to join, drop a :thumbsup: reaction on this message so people know there are enough players.
-//    `)
-//    .setTimestamp();
-//    channel.send({embeds: [embed]}).then(function (message) {message.react("👍")})
+    The course will be **${course}**. If you want to join, drop a :thumbsup: reaction on this message so people know there are enough players.
+    `)
+    .setTimestamp();
+    channel.send({embeds: [embed]}).then(function (message) {message.react("👍")})
 
     setTimeout(main, 900000)
 }
