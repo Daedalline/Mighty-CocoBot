@@ -180,29 +180,26 @@ async function send(){
     if(usedCourses.length > 2){
         usedCourses.shift()
     }
+	
+	let currentDate = Date.now() + 900000;
+	let currentDateString = currentDate.toString();
+	let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
     let embed = new MessageEmbed()
     .setTitle("Game starting soon!")
     .setDescription(`
-    The next scheduled game will start in 15 minutes (at XX:00 or XX:30) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
+    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
 
     If you are the first player to create a room, please see the following guidelines:
 
     Created rooms should be setup with a player count max of 5.
 
-    Games must wait to start until XX:00 or XX:30 unless the room is already full.
+    Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
     The course will be **${course}**. If you want to join, drop a :thumbsup: reaction on this message so people know there are enough players.
     `)
     .setTimestamp();
     channel.send({embeds: [embed]}).then(function (message) {message.react("👍")})
-    //console.log("-----------------------------------------")
-    //console.log(`              Message Sent`)
-    //console.log(`Room: ${room}`)
-    //console.log(`Map: ${course}`)
-    //console.log(`Used Rooms ${usedRooms}`)
-    //console.log(new Date().toUTCString())
-    //console.log("-----------------------------------------")
 
     setTimeout(main, 900000)
 }
