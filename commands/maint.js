@@ -133,7 +133,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 		    maps.Maps.splice(maps.Maps.indexOf(map), 1);
 		}
 		console.log("AFTER: " + maps.Maps);
-		if maps.Leaderboards.includes(map)) {
+		if (maps.Leaderboards.includes(map)) {
 		    maps.Leaderboards.splice(maps.Leaderboards.indexOf(map), 1);
 		}
 		
