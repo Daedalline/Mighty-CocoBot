@@ -129,9 +129,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         
         // Delete the data and save
 		console.log("BEFORE: " + maps.Maps);
-		maps.Maps.splice(maps.Maps.indexOf(map), 1);
+		if (maps.Maps.includes(map)) {
+		    maps.Maps.splice(maps.Maps.indexOf(map), 1);
+		}
 		console.log("AFTER: " + maps.Maps);
-		maps.Leaderboards.splice(maps.Leaderboards.indexOf(map), 1);
+		if maps.Leaderboards.includes(map) {
+		    maps.Leaderboards.splice(maps.Leaderboards.indexOf(map), 1);
+		}
 		
 		var writedata = JSON.stringify(maps, null, "\t");
         await fs.writeFileSync('./maps.json', writedata);
