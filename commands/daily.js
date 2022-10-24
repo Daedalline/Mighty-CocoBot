@@ -12,7 +12,6 @@ const fs = require("fs");
 
 module.exports.run = async(interaction, config, maps, client) => {
     
-    var userID = interaction.options.getUser('user').id
 	var guild = await client.guilds.cache.find(guild => guild.id == interaction.guild.id)
 	var member = await guild.members.cache.find(user => user.id == interaction.member.id)
 	
@@ -20,13 +19,12 @@ module.exports.run = async(interaction, config, maps, client) => {
         await interaction.reply({ephemeral: true, content: "You don't have the permission to do that!" })
         return
     }
-	
    
     let rawdata = await fs.readFileSync('challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
 	
 	if(interaction.options.getSubcommand() == "add"){
-		var userID = interaction.options.getUser('userID').id
+		var userID = interaction.options.getUser('user').id
         var stat = interaction.options.getString('stat')
 		
 		await interaction.deferReply();
