@@ -63,6 +63,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 				break;
 			default:
 				console.log("Error in stat switch " + stat + ". This should never happen");
+		}
 		
 		var writedata = JSON.stringify(challenge_data, null, "\t");
         await fs.writeFileSync('./challenge_data.json', writedata);
