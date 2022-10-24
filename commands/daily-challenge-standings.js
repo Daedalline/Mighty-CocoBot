@@ -26,9 +26,11 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     var sortable = [];
     for (var player in challenge_data) {
-        console.log(challenge_data[player]["Current Season"]);
-        //sortable.push([player, challenge_data[player]);
+        var totalScore = challenge_data[player]["Current Season"]["Best Shot From the Tee"] + challenge_data[player]["Current Season"]["Best Shot From Another Tee"] + challenge_data[player]["Current Season"]["Completion Awards"];
+        sortable.push([player, totalScore);
     }
+    
+    console.log(sortable);
     
     var embed = new Discord.MessageEmbed()
     .setTitle("Daily Challenge Standings")
