@@ -47,13 +47,11 @@ module.exports.info = {
                     "description": "Which statistic to increment",
                     "type": 3,
                     "required": true,
-					"options": [
-					{
-						"name": "test1",
-						"description": "The user to submit for",
-						"type": 3,
-						"value": "Test1"
-					}
+					"choices": [
+						{
+							"name": "test1",
+							"value": "Test 1"
+						}
 					]
                 }
             ]
