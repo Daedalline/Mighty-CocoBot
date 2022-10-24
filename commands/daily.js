@@ -47,7 +47,7 @@ module.exports.info = {
                     "description": "Which statistic to increment",
                     "type": 3,
                     "required": true,
-					"choices": ["Test1", "Test2"]
+					"options": ["Test1", "Test2"]
                 }
             ]
         },
