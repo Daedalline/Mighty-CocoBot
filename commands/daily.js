@@ -53,8 +53,8 @@ module.exports.run = async(interaction, config, maps, client) => {
 			case("Best Shot From the Tee"):
 			case("Best Shot From Another Tee"):
 			case("Completion Awards"):
-				challenge_data[userID]["Current Season"][stat}++;
-				challenge_data[userID]["Lifetime"][stat}++;
+				challenge_data[userID]["Current Season"][stat]++;
+				challenge_data[userID]["Lifetime"][stat]++;
 				break;
 			case("First Place Finishes"):
 			case("Second Place Finishes"):
