@@ -35,7 +35,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 				"Best Shot From the Tee": 0,
 				"Best Shot From Another Tee": 0,
 				"Completion Awards": 0
-			}],
+			},
 			"Lifetime": {
 				"Best Shot From the Tee": 0,
 				"Best Shot From Another Tee": 0,
@@ -45,7 +45,8 @@ module.exports.run = async(interaction, config, maps, client) => {
 				"First Place Finishes": 0,
 				"Second Place Finishes": 0,
 				"Third Place Finishes": 0
-			}}
+			}
+			}
         }
 		
 		var writedata = JSON.stringify(challenge_data, null, "\t");
