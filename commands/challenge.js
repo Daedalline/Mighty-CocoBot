@@ -33,19 +33,19 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     else {
 		tbl = "__Current Season Medals:__\n";  
-		tbl += "Best Shot From the Tee :medal: - " + player_data["Current Season"]["Best Shot From the Tee"] + " Medals";
-//		Best Shot From Another Tess (🎖️) - 8 Medals
-//		Completion Awards (🥈) - 15 Medals
+		tbl += "Best Shot From the Tee :medal: - " + player_data["Current Season"]["Best Shot From the Tee"] + " Medals\n";
+		tbl += "Best Shot From Another Tee :military_medal: - " + player_data["Current Season"]["Best Shot From Another Tee"] + " Medals\n";
+		tbl += "Completion Awards :second_place: - " + player_data["Current Season"]["Completion Awards"] + " Medals\n";
 		tbl += "\n"
 		tbl += "__Lifetime Medals:\n"
-//		Best Shot From the Tee (🏅) - 12 Medals
-//		Best Shot From Another Tess (🎖️) - 22 Medals
-//		Completion Awards (🥈) - 45 Medals
+		tbl += "Best Shot From the Tee :medal: - " + player_data["Lifetime"]["Best Shot From the Tee"] + " Medals\n";
+		tbl += "Best Shot From Another Tee :military_medal: - " + player_data["Lifetime"]["Best Shot From Another Tee"] + " Medals\n";
+		tbl += "Completion Awards :second_place: - " + player_data["Lifetime"]["Completion Awards"] + " Medals\n";
 		tbl += "\n"
 		tbl += "__Total Season Wins:__\n";
-//		First Place Finishes (🥇) - 20 Wins
-//		Second Place Finishes (🥈) - 18 Wins
-//		Third Place Finishes (🥉) - 12 Wins
+		tbl += "First Place Finishes :first_place: - " + player_data["Total Season Wins"]["First Place Finishes"] + " Wins\n";
+		tbl += "Second Place Finishes :second_place: - " + player_data["Total Season Wins"]["Second Place Finishes"] + " Wins\n";
+		tbl += "Third Place Finishes :third_place: - " + player_data["Total Season Wins"]["Third Place Finishes"] + " Wins\n";
 		
         var embed = new Discord.MessageEmbed()
         .setTitle(`Challenge statistics for ` + interaction.options.getUser('user').username)
