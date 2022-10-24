@@ -33,7 +33,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     else {
 		tbl = "__Current Season Medals:__";  
-		tbl =+ "Best Shot From the Tee \(:medal:\)- " + player_data["Current Season"]["Best Shot From the Tee"] + " Medals";
+		tbl =+ "Best Shot From the Tee :medal: - " + player_data["Current Season"]["Best Shot From the Tee"] + " Medals";
 //		Best Shot From Another Tess (🎖️) - 8 Medals
 //		Completion Awards (🥈) - 15 Medals
 
