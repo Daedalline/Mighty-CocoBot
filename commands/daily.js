@@ -26,7 +26,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     if(interaction.options.getSubcommand() == "add"){
         var userID = interaction.options.getUser('user').id
         var stat = interaction.options.getString('stat')
-        var lifetimeOnly = interaction.options.getBoolean('leaderboard_only');
+        var lifetimeOnly = interaction.options.getBoolean('lifetime_only');
         
         await interaction.deferReply();
         
@@ -79,7 +79,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     else if(interaction.options.getSubcommand() == "remove"){
         var userID = interaction.options.getUser('user').id
         var stat = interaction.options.getString('stat')
-        var lifetimeOnly = interaction.options.getBoolean('leaderboard_only');
+        var lifetimeOnly = interaction.options.getBoolean('lifetime_only');
         
         await interaction.deferReply();
         
