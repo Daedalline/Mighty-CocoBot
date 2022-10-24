@@ -53,10 +53,13 @@ module.exports.run = async(interaction, config, maps, client) => {
 			case("Best Shot From the Tee"):
 			case("Best Shot From Another Tee"):
 			case("Completion Awards"):
+				challenge_data[userID]["Current Season"][stat}++;
+				challenge_data[userID]["Lifetime"][stat}++;
 				break;
 			case("First Place Finishes"):
 			case("Second Place Finishes"):
 			case("Third Place Finishes"):
+			    challenge_data[userID]["Total Season Wins"][stat]++;
 				break;
 			default:
 				console.log("Error in stat switch " + stat + ". This should never happen");
@@ -66,8 +69,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 			
 		var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
-        //.setDescription(`Incremented **${stat}** for <@${userID}>`);
-		.setDescription(`Testing in progress`);
+        .setDescription(`Incremented **${stat}** for <@${userID}>`);
         return await interaction.editReply({embeds: [embed]})
 	}
 }
