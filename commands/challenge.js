@@ -48,7 +48,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 		tbl += "Third Place Finishes :third_place: - " + player_data["Total Season Wins"]["Third Place Finishes"] + " Wins\n";
 		
         var embed = new Discord.MessageEmbed()
-        .setTitle(`Challenge statistics for ` + interaction.options.getUser('user').username)
+        .setTitle(`Daily Challenge statistics for ` + interaction.options.getUser('user').username)
         .setDescription(tbl);
         return await interaction.editReply({embeds: [embed]})
     }
