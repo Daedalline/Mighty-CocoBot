@@ -123,7 +123,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 			
 		var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
-        .setDescription(`Incremented **${stat}** for <@${userID}>`);
+        .setDescription(`Decremented **${stat}** for <@${userID}>`);
         return await interaction.editReply({embeds: [embed]})
 	}
 }
