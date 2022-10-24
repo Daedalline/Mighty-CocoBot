@@ -30,15 +30,33 @@ module.exports.run = async(interaction, config, maps, client) => {
 		await interaction.deferReply();
 		
 		if(!challenge_data[userID]){
-            challenge_data[userID] = {}
+            challenge_data[userID] = { 
+			"Current Season": {
+				"Best Shot From the Tee": 0,
+				"Best Shot From Another Tee": 0,
+				"Completion Awards": 0
+			}],
+			"Lifetime": {
+				"Best Shot From the Tee": 0,
+				"Best Shot From Another Tee": 0,
+				"Completion Awards": 0
+			},
+			"Total Season Wins": {
+				"First Place Finishes": 0,
+				"Second Place Finishes": 0,
+				"Third Place Finishes": 0
+			}}
         }
 		
-		var writedata = JSON.stringify(challenge_data, null, "\t");
-        await fs.writeFileSync('./challenge_data.json', writedata);
+		console.log(challenge_data);
+		
+		//var writedata = JSON.stringify(challenge_data, null, "\t");
+        //await fs.writeFileSync('./challenge_data.json', writedata);
 			
 		var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
-        .setDescription(`Incremented **${stat}** for <@${userID}>`);
+        //.setDescription(`Incremented **${stat}** for <@${userID}>`);
+		.setDescription(`Testing in progress`);
         return await interaction.editReply({embeds: [embed]})
 	}
 }
