@@ -54,7 +54,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             case("Best Shot From the Tee"):
             case("Best Shot From Another Tee"):
             case("Completion Awards"):
-                if (!lifetimeOnly)
+                if (!lifetimeOnly) {
                     challenge_data[userID]["Current Season"][stat]++;
                 }
                 challenge_data[userID]["Lifetime"][stat]++;
