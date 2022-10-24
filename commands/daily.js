@@ -73,7 +73,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             
         var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
-        .setDescription(`Incremented **${stat}** for <@${userID}>`);
+        .setDescription(`Incremented **${stat}** for <@${userID}>` + if (lifetimeOnly ? " (Lifetime Only)" : ""););
         return await interaction.editReply({embeds: [embed]})
     }
     else if(interaction.options.getSubcommand() == "remove"){
