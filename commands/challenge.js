@@ -37,7 +37,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 		tbl += "Best Shot From Another Tee :military_medal: - " + player_data["Current Season"]["Best Shot From Another Tee"] + " Medals\n";
 		tbl += "Completion Awards :second_place: - " + player_data["Current Season"]["Completion Awards"] + " Medals\n";
 		tbl += "\n"
-		tbl += "__Lifetime Medals:\n"
+		tbl += "__Lifetime Medals:__\n"
 		tbl += "Best Shot From the Tee :medal: - " + player_data["Lifetime"]["Best Shot From the Tee"] + " Medals\n";
 		tbl += "Best Shot From Another Tee :military_medal: - " + player_data["Lifetime"]["Best Shot From Another Tee"] + " Medals\n";
 		tbl += "Completion Awards :second_place: - " + player_data["Lifetime"]["Completion Awards"] + " Medals\n";
