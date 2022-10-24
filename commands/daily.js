@@ -130,9 +130,9 @@ module.exports.run = async(interaction, config, maps, client) => {
 		await interaction.deferReply();
 		
 		for (var userID in challenge_data) {
-			challenge_data[userID]["Current Season"]["Best Shot From the Tee"]--;
-			challenge_data[userID]["Current Season"]["Best Shot From Another Tee"]--;
-			challenge_data[userID]["Current Season"]["Completion Awards"]--;
+			challenge_data[userID]["Current Season"]["Best Shot From the Tee"] = 0;
+			challenge_data[userID]["Current Season"]["Best Shot From Another Tee"] = 0;
+			challenge_data[userID]["Current Season"]["Completion Awards"] = 0;
 		}
 		
 		var writedata = JSON.stringify(challenge_data, null, "\t");
