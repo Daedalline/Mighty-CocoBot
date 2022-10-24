@@ -73,6 +73,59 @@ module.exports.run = async(interaction, config, maps, client) => {
         .setDescription(`Incremented **${stat}** for <@${userID}>`);
         return await interaction.editReply({embeds: [embed]})
 	}
+	else if(interaction.options.getSubcommand() == "remove"){
+		var userID = interaction.options.getUser('user').id
+        var stat = interaction.options.getString('stat')
+		
+		await interaction.deferReply();
+		
+		if(!challenge_data[userID]){
+			var embed = new Discord.MessageEmbed()
+			.setTitle("Database Error")
+			.setDescription(`<@${userID}> does not apear have a score for **${stat}**`);
+			return await interaction.editReply({embeds: [embed]})
+        }
+		
+		switch(stat){
+			case("Best Shot From the Tee"):
+			case("Best Shot From Another Tee"):
+			case("Completion Awards"):
+				if (challenge_data[userID]["Current Season"][stat] == 0 || challenge_data[userID]["Lifetime"][stat] == 0){ 
+					var embed = new Discord.MessageEmbed()
+					.setTitle("Database Error")
+					.setDescription(`<@${userID}> has a score of zero for **${stat}**. Cannot reduce further.`);
+					return await interaction.editReply({embeds: [embed]})
+				}
+				else {
+					challenge_data[userID]["Current Season"][stat]--;
+					challenge_data[userID]["Lifetime"][stat]--;
+				}
+				break;
+			case("First Place Finishes"):
+			case("Second Place Finishes"):
+			case("Third Place Finishes"):
+				if (challenge_data[userID]["Total Season Wins"][stat] == 0) {
+					var embed = new Discord.MessageEmbed()
+					.setTitle("Database Error")
+					.setDescription(`<@${userID}> has a score of zero for **${stat}**. Cannot reduce further.`);
+					return await interaction.editReply({embeds: [embed]})
+				}
+				else {
+					challenge_data[userID]["Total Season Wins"][stat]--;
+				}
+				break;
+			default:
+				console.log("Error in stat switch " + stat + ". This should never happen");
+		}
+		
+		var writedata = JSON.stringify(challenge_data, null, "\t");
+        await fs.writeFileSync('./challenge_data.json', writedata);
+			
+		var embed = new Discord.MessageEmbed()
+        .setTitle("Score Recorded")
+        .setDescription(`Incremented **${stat}** for <@${userID}>`);
+        return await interaction.editReply({embeds: [embed]})
+	}
 }
 
 module.exports.info = {
@@ -82,6 +135,51 @@ module.exports.info = {
         {
             "name": "add",
             "description": "Increments a user's daily challenge stats by one.",
+            "type": 1,
+            "options": [
+                {
+                    "name": "user",
+                    "description": "The user to submit for",
+                    "type": 6,
+                    "required": true
+                },
+                {
+                    "name": "stat",
+                    "description": "Which statistic to increment",
+                    "type": 3,
+                    "required": true,
+					"choices": [
+						{
+							"name": "Best Shot From the Tee",
+							"value": "Best Shot From the Tee"
+						},
+						{
+							"name": "Best Shot From Another Tee",
+							"value": "Best Shot From Another Tee"
+						},
+						{
+							"name": "Completion Awards",
+							"value": "Completion Awards"
+						},
+						{
+							"name": "First Place Finishes",
+							"value": "First Place Finishes"
+						},
+						{
+							"name": "Second Place Finishes",
+							"value": "Second Place Finishes"
+						},
+						{
+							"name": "Third Place Finishes",
+							"value": "Third Place Finishes"
+						}
+					]
+                }
+            ]
+        },
+		{
+            "name": "remove",
+            "description": "Decrements a user's daily challenge stats by one.",
             "type": 1,
             "options": [
                 {
