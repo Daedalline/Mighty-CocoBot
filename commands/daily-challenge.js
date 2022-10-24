@@ -14,7 +14,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     var userID = interaction.options.getUser('user').id
 	
-    if(interaction.channel.id != config.CoursesLeageChannelID){
+    if(interaction.channel.id != config.CourseDailyChannelID){
         interaction.reply({ephemeral: true, content: "You are not allowed to do that in this channel"})
         return
     }
