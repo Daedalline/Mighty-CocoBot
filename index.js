@@ -89,7 +89,22 @@ fs.access("data.json", fs.F_OK, (err) => {
         console.log("data.json already exists")
     }
 })
-
+fs.access("challenge.json", fs.F_OK, (err) => {
+    if (err) {
+        if(err.code == "ENOENT"){
+            fs.writeFile("challenge.json", data, (err) => {
+                if (err) throw err;
+                console.log("Created challenge.json as it didnt exist")
+                return
+            })
+        }else{
+            console.error(err)
+            return
+        }
+    }else{
+        console.log("challenge.json already exists")
+    }
+})
 
 // D.JS Client listeners
 client.on("error", (e) => console.error(e));
