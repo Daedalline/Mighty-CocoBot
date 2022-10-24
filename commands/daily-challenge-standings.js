@@ -26,7 +26,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     var sortable = [];
     for (var player in challenge_data) {
-        console.log(challenge_data[player]);
+        console.log(challenge_data[player]["Current Season"]);
         //sortable.push([player, challenge_data[player]);
     }
     
@@ -38,6 +38,6 @@ module.exports.run = async(interaction, config, maps, client) => {
     
 module.exports.info = {
     "name": "daily-challenge-standings",
-    "description": "List the top ten Daily Challenge standings"
+    "description": "List the Seasonal Daily Challenge standings"
 };
     
