@@ -21,12 +21,14 @@ module.exports.run = async(interaction, config, maps, client) => {
     let challenge_data = await JSON.parse(rawdata);
     
     var finalStandings = {
-        "Current Season": { 
-            "Best Shot From the Tee": {},
-            "Best Shot From Another Tee": {},
-            "Completion Awards": {}
-        }
+        "Current Season": {}
     };
+    
+    var sortable = [];
+    for (var player in challenge_data) {
+        console.log(challenge_data[player]);
+        //sortable.push([player, challenge_data[player]);
+    }
     
     var embed = new Discord.MessageEmbed()
     .setTitle("Daily Challenge Standings")
