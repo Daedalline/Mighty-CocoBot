@@ -71,11 +71,9 @@ module.exports.run = async(interaction, config, maps, client) => {
         var writedata = JSON.stringify(challenge_data, null, "\t");
         await fs.writeFileSync('./daily_challenge_data.json', writedata);
             
-        var addString = if (lifetimeOnly ? " (Lifetime Only)" : "");
-        
         var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
-        .setDescription(`Incremented **${stat}** for <@${userID}>` + addString);
+        .setDescription(`Incremented **${stat}** for <@${userID}>` + (lifetimeOnly ? " (Lifetime Only)" : ""));
         return await interaction.editReply({embeds: [embed]})
     }
     else if(interaction.options.getSubcommand() == "remove"){
@@ -140,12 +138,10 @@ module.exports.run = async(interaction, config, maps, client) => {
         
         var writedata = JSON.stringify(challenge_data, null, "\t");
         await fs.writeFileSync('./daily_challenge_data.json', writedata);
-        
-        var addString = if (lifetimeOnly ? " (Lifetime Only)" : "");
                 
         var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
-        .setDescription(`Decremented **${stat}** for <@${userID}>` + addString);
+        .setDescription(`Decremented **${stat}** for <@${userID}>` + (lifetimeOnly ? " (Lifetime Only)" : "");
         return await interaction.editReply({embeds: [embed]})
     }
     else if (interaction.options.getSubcommand() == "clear_seasonal") {
