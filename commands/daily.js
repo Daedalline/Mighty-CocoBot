@@ -48,10 +48,8 @@ module.exports.run = async(interaction, config, maps, client) => {
 			}}
         }
 		
-		console.log(challenge_data);
-		
-		//var writedata = JSON.stringify(challenge_data, null, "\t");
-        //await fs.writeFileSync('./challenge_data.json', writedata);
+		var writedata = JSON.stringify(challenge_data, null, "\t");
+        await fs.writeFileSync('./challenge_data.json', writedata);
 			
 		var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
