@@ -26,7 +26,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('challenge.json');
     let data = await JSON.parse(rawdata);
 	
-	if(interaction.options.getSubcommand() == "submit"){
+	if(interaction.options.getSubcommand() == "add"){
 		var userID = interaction.options.getUser('user').id
         var stat = interaction.options.getString('stat')
 		
