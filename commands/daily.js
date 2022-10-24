@@ -24,7 +24,15 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('challenge.json');
     let data = await JSON.parse(rawdata);
 	
-	// TODO
+	if(interaction.options.getSubcommand() == "submit"){
+		var userID = interaction.options.getUser('user').id
+        var stat = interaction.options.getString('stat')
+		
+		var embed = new Discord.MessageEmbed()
+        .setTitle("Score Recorded")
+        .setDescription(`Incremented **${stat}** for <@${userID}>`);
+        return await interaction.editReply({embeds: [embed]})
+	}
 }
 
 module.exports.info = {
@@ -49,8 +57,16 @@ module.exports.info = {
                     "required": true,
 					"choices": [
 						{
-							"name": "test1",
-							"value": "Test 1"
+							"name": "Best Shot From the Tee",
+							"value": "best_shot_tee"
+						},
+						{
+							"name": "Best Shot From Another Tee",
+							"value": "best_shot_another_tee"
+						},
+						{
+							"name": "Completion Awards",
+							"value": "completion_awards"
 						}
 					]
                 }
