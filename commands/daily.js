@@ -13,6 +13,8 @@ const fs = require("fs");
 module.exports.run = async(interaction, config, maps, client) => {
     
     var userID = interaction.options.getUser('user').id
+	var guild = await client.guilds.cache.find(guild => guild.id == interaction.guild.id)
+	var member = await guild.members.cache.find(user => user.id == interaction.member.id)
 	
     if(!member.permissions.has("MANAGE_MESSAGES")){
         await interaction.reply({ephemeral: true, content: "You don't have the permission to do that!" })
