@@ -49,12 +49,10 @@ module.exports.info = {
                     "required": true,
 					"options": [
 					{
-						"name": "Test1",
+						"name": "test1",
+						"description": "The user to submit for",
+						"type": 3,
 						"value": "Test1"
-					},
-					{
-						"name": "Test2",
-						"value": "Test2"
 					}
 					]
                 }
