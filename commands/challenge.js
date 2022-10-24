@@ -25,8 +25,6 @@ module.exports.run = async(interaction, config, maps, client) => {
 	
 	var player_data = challenge_data[userID];
 	
-	console.log(player_data);
-	
     if(typeof player_data == 'undefined') {
         var embed = new Discord.MessageEmbed()
             .setTitle("Database Error")
@@ -34,7 +32,21 @@ module.exports.run = async(interaction, config, maps, client) => {
         return await interaction.editReply({embeds: [embed]})
     }
     else {
-		tbl = "";  
+		tbl = "__Current Season Medals:__";  
+		tbl =+ "Best Shot From the Tee \(:medal:\)- " + player_data["Current Season"]["Best Shot From the Tee"] + " Medals";
+//		Best Shot From Another Tess (🎖️) - 8 Medals
+//		Completion Awards (🥈) - 15 Medals
+
+//		Lifetime Medals:
+//		Best Shot From the Tee (🏅) - 12 Medals
+//		Best Shot From Another Tess (🎖️) - 22 Medals
+//		Completion Awards (🥈) - 45 Medals
+
+//		Total Season Wins:
+//		First Place Finishes (🥇) - 20 Wins
+//		Second Place Finishes (🥈) - 18 Wins
+//		Third Place Finishes (🥉) - 12 Wins
+		
         var embed = new Discord.MessageEmbed()
         .setTitle(`Challenge statistics for ` + interaction.options.getUser('user').username)
         .setDescription(tbl);
