@@ -21,15 +21,23 @@ module.exports.run = async(interaction, config, maps, client) => {
         return
     }
 	
-    await interaction.deferReply();
-    
-    let rawdata = await fs.readFileSync('challenge.json');
-    let data = await JSON.parse(rawdata);
+   
+    let rawdata = await fs.readFileSync('challenge_data.json');
+    let challenge_data = await JSON.parse(rawdata);
 	
 	if(interaction.options.getSubcommand() == "add"){
 		var userID = interaction.options.getUser('user').id
         var stat = interaction.options.getString('stat')
 		
+		await interaction.deferReply();
+		
+		if(!challenge_data[user]){
+            challenge_data[user] = {}
+        }
+		
+		var writedata = JSON.stringify(challenge_data, null, "\t");
+        await fs.writeFileSync('./challenge_data.json', writedata);
+			
 		var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
         .setDescription(`Incremented **${stat}** for <@${userID}>`);
@@ -60,15 +68,15 @@ module.exports.info = {
 					"choices": [
 						{
 							"name": "Best Shot From the Tee",
-							"value": "best_shot_tee"
+							"value": "Best Shot From the Tee"
 						},
 						{
 							"name": "Best Shot From Another Tee",
-							"value": "best_shot_another_tee"
+							"value": "Best Shot From Another Tee"
 						},
 						{
 							"name": "Completion Awards",
-							"value": "completion_awards"
+							"value": "Completion Awards"
 						}
 					]
                 }
