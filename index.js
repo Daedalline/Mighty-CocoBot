@@ -92,9 +92,9 @@ fs.access("data.json", fs.F_OK, (err) => {
 fs.access("challenge.json", fs.F_OK, (err) => {
     if (err) {
         if(err.code == "ENOENT"){
-            fs.writeFile("challenge.json", data, (err) => {
+            fs.writeFile("challenge_data.json", data, (err) => {
                 if (err) throw err;
-                console.log("Created challenge.json as it didnt exist")
+                console.log("Created challenge_data.json as it didnt exist")
                 return
             })
         }else{
@@ -102,7 +102,7 @@ fs.access("challenge.json", fs.F_OK, (err) => {
             return
         }
     }else{
-        console.log("challenge.json already exists")
+        console.log("challenge_data.json already exists")
     }
 })
 
