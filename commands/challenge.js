@@ -25,7 +25,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 	
 	var player_data = challenge_data[userID];
 	
-	console.log{player_data);
+	console.log(player_data);
 	
 	tbl = "";  
     if(tbl == ""){
