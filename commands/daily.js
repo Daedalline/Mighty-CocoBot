@@ -151,7 +151,7 @@ module.exports.info = {
     "options": [
         {
             "name": "add",
-            "description": "Increments a user's daily challenge stats by one.",
+            "description": "Increments a user's daily challenge stats by one (both seasonal and lifetime).",
             "type": 1,
             "options": [
                 {
@@ -196,7 +196,7 @@ module.exports.info = {
         },
 		{
             "name": "remove",
-            "description": "Decrements a user's daily challenge stats by one.",
+            "description": "Decrements a user's daily challenge stats by one (both seasonal and lifetime).",
             "type": 1,
             "options": [
                 {
