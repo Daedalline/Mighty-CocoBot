@@ -26,13 +26,13 @@ module.exports.run = async(interaction, config, maps, client) => {
     let challenge_data = await JSON.parse(rawdata);
 	
 	if(interaction.options.getSubcommand() == "add"){
-		var userID = interaction.options.getUser('user').id
+		var userID = interaction.options.getUser('userID').id
         var stat = interaction.options.getString('stat')
 		
 		await interaction.deferReply();
 		
-		if(!challenge_data[user]){
-            challenge_data[user] = {}
+		if(!challenge_data[userID]){
+            challenge_data[userID] = {}
         }
 		
 		var writedata = JSON.stringify(challenge_data, null, "\t");
