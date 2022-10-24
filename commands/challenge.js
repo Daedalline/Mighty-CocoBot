@@ -20,7 +20,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     await interaction.deferReply();
     
-    let rawdata = await fs.readFileSync('challenge_data.json');
+    let rawdata = await fs.readFileSync('daily_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
 	
 	var player_data = challenge_data[userID];
@@ -55,7 +55,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 }
 
 module.exports.info = {
-    "name": "challenge",
+    "name": "daily-challenge",
     "description": "List all Daily Challenge stats for a given user",
     "options": [
         {

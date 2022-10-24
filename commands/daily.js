@@ -20,7 +20,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         return
     }
    
-    let rawdata = await fs.readFileSync('challenge_data.json');
+    let rawdata = await fs.readFileSync('daily_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
 	
 	if(interaction.options.getSubcommand() == "add"){
@@ -66,7 +66,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 		}
 		
 		var writedata = JSON.stringify(challenge_data, null, "\t");
-        await fs.writeFileSync('./challenge_data.json', writedata);
+        await fs.writeFileSync('./daily_challenge_data.json', writedata);
 			
 		var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
@@ -119,7 +119,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 		}
 		
 		var writedata = JSON.stringify(challenge_data, null, "\t");
-        await fs.writeFileSync('./challenge_data.json', writedata);
+        await fs.writeFileSync('./daily_challenge_data.json', writedata);
 			
 		var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
@@ -136,7 +136,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 		}
 		
 		var writedata = JSON.stringify(challenge_data, null, "\t");
-        await fs.writeFileSync('./challenge_data.json', writedata);
+        await fs.writeFileSync('./daily_challenge_data.json', writedata);
 			
 		var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
