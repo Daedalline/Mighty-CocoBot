@@ -33,16 +33,16 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     else {
 		tbl = "__Current Season Medals:__\n";  
-//		tbl =+ "Best Shot From the Tee :medal: - " + player_data["Current Season"]["Best Shot From the Tee"] + " Medals";
+		tbl += "Best Shot From the Tee :medal: - " + player_data["Current Season"]["Best Shot From the Tee"] + " Medals";
 //		Best Shot From Another Tess (🎖️) - 8 Medals
 //		Completion Awards (🥈) - 15 Medals
-		tbl =+ "\n"
-		tbl =+ "__Lifetime Medals:\n"
+		tbl += "\n"
+		tbl += "__Lifetime Medals:\n"
 //		Best Shot From the Tee (🏅) - 12 Medals
 //		Best Shot From Another Tess (🎖️) - 22 Medals
 //		Completion Awards (🥈) - 45 Medals
-		tbl =+ "\n"
-				tbl =+ "__Total Season Wins:__\n";
+		tbl += "\n"
+		tbl += "__Total Season Wins:__\n";
 //		First Place Finishes (🥇) - 20 Wins
 //		Second Place Finishes (🥈) - 18 Wins
 //		Third Place Finishes (🥉) - 12 Wins
