@@ -20,10 +20,26 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     await interaction.deferReply();
     
-    let rawdata = await fs.readFileSync('challenge.json');
-    let data = await JSON.parse(rawdata);
+    let rawdata = await fs.readFileSync('challenge_data.json');
+    let challenge_data = await JSON.parse(rawdata);
 	
-	// TODO
+	var player_data = challenge_data[userID];
+	
+	console.log{player_data);
+	
+	tbl = "";  
+    if(tbl == ""){
+        var embed = new Discord.MessageEmbed()
+            .setTitle("Database Error")
+            .setDescription(`There does not apear to be any challenge statistics for **<@${userID}>**`);
+        return await interaction.editReply({embeds: [embed]})
+    }
+    else {
+        var embed = new Discord.MessageEmbed()
+        .setTitle(`Challenge statistics for ` + interaction.options.getUser('user').username)
+        .setDescription(tbl);
+        return await interaction.editReply({embeds: [embed]})
+    }
 }
 
 module.exports.info = {
