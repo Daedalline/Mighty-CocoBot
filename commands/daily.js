@@ -107,6 +107,18 @@ module.exports.info = {
 						{
 							"name": "Completion Awards",
 							"value": "Completion Awards"
+						},
+						{
+							"name": "First Place Finishes",
+							"value": "First Place Finishes"
+						},
+						{
+							"name": "Second Place Finishes",
+							"value": "Second Place Finishes"
+						},
+						{
+							"name": "Third Place Finishes",
+							"value": "Third Place Finishes"
 						}
 					]
                 }
