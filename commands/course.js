@@ -25,21 +25,21 @@ module.exports.run = async(interaction, config, maps, client) => {
 
     var map = interaction.options.getString('map');
     var players = data[map];
-	
+    
     //Le Sorte'
     var simpleData = {};
     for(var player in players){
         simpleData[player] = players[player];
     }
-	
-	// If empty no need to sort anything
+    
+    // If empty no need to sort anything
     if(Object.keys(simpleData).length <= 0){
         var embed = new Discord.MessageEmbed()
             .setTitle("Database Error")
             .setDescription(`There does not apear to be any scores for **${map}**`);
         return await interaction.editReply({embeds: [embed]})
     }
-	
+    
     var sortable = [];
     for (var item in simpleData){
         sortable.push([item, simpleData[item]]);
@@ -47,28 +47,28 @@ module.exports.run = async(interaction, config, maps, client) => {
 
     sortable.sort(function(a,b){
         if (a[1][0] == b[1][0]) {
-			var dateA = new Date(a[1][1]);
-			var dateB = new Date(b[1][1]);
-			if (dateA < dateB){
-				return -1;
-			}
-			else if (dateA > dateB){
-				return 1;
-			}
-			else {
-                return 0;			
-			}
-		}
-        else {	
+            var dateA = new Date(a[1][1]);
+            var dateB = new Date(b[1][1]);
+            if (dateA < dateB){
+                return -1;
+            }
+            else if (dateA > dateB){
+                return 1;
+            }
+            else {
+                return 0;            
+            }
+        }
+        else {    
             return a[1][0] - b[1][0];
-		}
+        }
     })
 
     var sortedData = {}
     sortable.forEach(function(item){
         sortedData[item[0]]=item[1][0];
     })
-	
+    
     var tbl = ""
     var index = 0
     for(player in sortedData){

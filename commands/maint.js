@@ -32,11 +32,11 @@ module.exports.run = async(interaction, config, maps, client) => {
         await interaction.deferReply()
 
         if(!data[map]){
-			// No scores exist for this course
+            // No scores exist for this course
             data[map] = {}
         }
         else {
-			// Save a backup
+            // Save a backup
             let backupdata = '{ "' + map + '" : ' + JSON.stringify(data[map], null, "\t") + '}';
             await fs.writeFileSync('./data_map_backup.json', backupdata);
 
@@ -52,7 +52,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
     }
     else if(interaction.options.getSubcommand() == "restore_clear"){
-		// Restores the scores for the last clear_scores command
+        // Restores the scores for the last clear_scores command
         let rawdata = await fs.readFileSync('data.json');
         let data = await JSON.parse(rawdata); 
         let rawdata2 = await fs.readFileSync('data_map_backup.json');
@@ -69,7 +69,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
         else {
-			// Write the backup back to the scores, save, and output message
+            // Write the backup back to the scores, save, and output message
             data[map] = backupdata[map];
             var writedata = JSON.stringify(data, null, "\t");
             await fs.writeFileSync('./data.json', writedata);
@@ -80,25 +80,25 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
     }
     else if(interaction.options.getSubcommand() == "create_course"){
-		// Create a new course, for both leaderboard and find-a-game, or just for the leaderboard only
+        // Create a new course, for both leaderboard and find-a-game, or just for the leaderboard only
         var map = interaction.options.getString('map');
         var leaderboardOnly = interaction.options.getBoolean('leaderboard_only');
         
         await interaction.deferReply();
 
         if(maps.Leaderboards.includes(map)){
-			// Map already exists. Putput error message.
+            // Map already exists. Putput error message.
             var embed = new Discord.MessageEmbed()
             .setTitle("Database Error")
             .setDescription(`**${map}** already exists.`);
             return await interaction.editReply({embeds: [embed]})
         }
         else {
-			// Add to the leaderboard
+            // Add to the leaderboard
             maps.Leaderboards.push(map);
-			
-			if (leaderboardOnly){
-				// Save the data and output message
+            
+            if (leaderboardOnly){
+                // Save the data and output message
                 var newmapdata = JSON.stringify(maps, null, "\t");
                 await fs.writeFileSync('./maps.json', newmapdata);
 
@@ -106,20 +106,20 @@ module.exports.run = async(interaction, config, maps, client) => {
                 .setTitle("Course Created")
                 .setDescription(`**${map}** created (Leaderboard Only).`);
                 return await interaction.editReply({embeds: [embed]})
-			}
-			else {
-				// Add to the course list for find-a-game
-				maps.Maps.push(map);
-				
-				// Save teh data and output message
-				var newmapdata = JSON.stringify(maps, null, "\t");
+            }
+            else {
+                // Add to the course list for find-a-game
+                maps.Maps.push(map);
+                
+                // Save teh data and output message
+                var newmapdata = JSON.stringify(maps, null, "\t");
                 await fs.writeFileSync('./maps.json', newmapdata);
 
                 var embed = new Discord.MessageEmbed()
                 .setTitle("Course Created")
                 .setDescription(`**${map}** created.`);
                 return await interaction.editReply({embeds: [embed]})
-			}
+            }
         }
     }
     else if(interaction.options.getSubcommand() == "delete_course"){
@@ -128,14 +128,14 @@ module.exports.run = async(interaction, config, maps, client) => {
         await interaction.deferReply();
         
         // Delete the data and save
-		if (maps.Maps.includes(map)) {
-		    maps.Maps.splice(maps.Maps.indexOf(map), 1);
-		}
-		if (maps.Leaderboards.includes(map)) {
-		    maps.Leaderboards.splice(maps.Leaderboards.indexOf(map), 1);
-		}
-		
-		var writedata = JSON.stringify(maps, null, "\t");
+        if (maps.Maps.includes(map)) {
+            maps.Maps.splice(maps.Maps.indexOf(map), 1);
+        }
+        if (maps.Leaderboards.includes(map)) {
+            maps.Leaderboards.splice(maps.Leaderboards.indexOf(map), 1);
+        }
+        
+        var writedata = JSON.stringify(maps, null, "\t");
         await fs.writeFileSync('./maps.json', writedata);
 
         var embed = new Discord.MessageEmbed()

@@ -195,10 +195,10 @@ async function send(){
     if(usedCourses.length > 2){
         usedCourses.shift()
     }
-	
-	let currentDate = Date.now() + 900000;
-	let currentDateString = currentDate.toString();
-	let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
+    
+    let currentDate = Date.now() + 900000;
+    let currentDateString = currentDate.toString();
+    let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
     let embed = new MessageEmbed()
     .setTitle("Game starting soon!")
