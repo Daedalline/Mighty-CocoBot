@@ -126,6 +126,23 @@ module.exports.run = async(interaction, config, maps, client) => {
         .setDescription(`Decremented **${stat}** for <@${userID}>`);
         return await interaction.editReply({embeds: [embed]})
 	}
+	else if (interaction.options.getSubcommand() == "clear_monthly") {
+		await interaction.deferReply();
+		
+		for (var userID in challenge_data) {
+			challenge_data[userID]["Current Season"]["Best Shot From the Tee"]--;
+			challenge_data[userID]["Current Season"]["Best Shot From Another Tee"]--;
+			challenge_data[userID]["Current Season"]["Completion Awards"]--;
+		}
+		
+		var writedata = JSON.stringify(challenge_data, null, "\t");
+        await fs.writeFileSync('./challenge_data.json', writedata);
+			
+		var embed = new Discord.MessageEmbed()
+        .setTitle("Score Recorded")
+        .setDescription(`Cleared all seasonal daily challenge stats`);
+        return await interaction.editReply({embeds: [embed]})
+	}
 }
 
 module.exports.info = {
