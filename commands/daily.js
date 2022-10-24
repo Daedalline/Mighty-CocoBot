@@ -126,7 +126,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         .setDescription(`Decremented **${stat}** for <@${userID}>`);
         return await interaction.editReply({embeds: [embed]})
 	}
-	else if (interaction.options.getSubcommand() == "clear_monthly") {
+	else if (interaction.options.getSubcommand() == "clear_seasonal") {
 		await interaction.deferReply();
 		
 		for (var userID in challenge_data) {
@@ -240,8 +240,8 @@ module.exports.info = {
             ]
         },
 		{
-            "name": "clear_monthly",
-            "description": "Removes all 'monthly' statistics for every user",
+            "name": "clear_seasonal",
+            "description": "Removes all seasonal daily challenge statistics for every user",
             "type": 1
 		}
     ]
