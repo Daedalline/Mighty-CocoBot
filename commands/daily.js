@@ -103,6 +103,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                     }
                     else {
                         challenge_data[userID]["Lifetime"][stat]--;
+                        break;
                     }
                 }
                 else {
@@ -115,9 +116,9 @@ module.exports.run = async(interaction, config, maps, client) => {
                     else {
                         challenge_data[userID]["Current Season"][stat]--;
                         challenge_data[userID]["Lifetime"][stat]--;
+                        break;
                     }
                 }
-                break;
             case("First Place Finishes"):
             case("Second Place Finishes"):
             case("Third Place Finishes"):
@@ -129,8 +130,8 @@ module.exports.run = async(interaction, config, maps, client) => {
                 }
                 else {
                     challenge_data[userID]["Total Season Wins"][stat]--;
+                    break;
                 }
-                break;
             default:
                 console.log("Error in stat switch " + stat + ". This should never happen");
         }
