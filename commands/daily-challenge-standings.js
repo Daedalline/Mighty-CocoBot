@@ -34,11 +34,14 @@ module.exports.run = async(interaction, config, maps, client) => {
         return b[1] - a[1];
     });
     
-    console.log(sortable);
-    
+    var tbl = "__Current Season Medals:__\n"; 
+    for (var i=0;i<sortable.length;i++) {
+        tbl += `<@${sortable[0]}>: ${sortable[1]}\n`;
+    }
+   
     var embed = new Discord.MessageEmbed()
     .setTitle("Daily Challenge Standings")
-    .setDescription("Testing in progress");
+    .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
     
