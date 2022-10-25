@@ -55,7 +55,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 }
 
 module.exports.info = {
-    "name": "daily-challenge",
+    "name": "daily-challenge-stats",
     "description": "List all Daily Challenge stats for a given user",
     "options": [
         {
