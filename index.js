@@ -89,7 +89,22 @@ fs.access("data.json", fs.F_OK, (err) => {
         console.log("data.json already exists")
     }
 })
-
+fs.access("daily_challenge_data.json", fs.F_OK, (err) => {
+    if (err) {
+        if(err.code == "ENOENT"){
+            fs.writeFile("daily_challenge_data.json", data, (err) => {
+                if (err) throw err;
+                console.log("Created daily_challenge_data.json as it didnt exist")
+                return
+            })
+        }else{
+            console.error(err)
+            return
+        }
+    }else{
+        console.log("daily_challenge_data.json already exists")
+    }
+})
 
 // D.JS Client listeners
 client.on("error", (e) => console.error(e));
@@ -180,10 +195,10 @@ async function send(){
     if(usedCourses.length > 2){
         usedCourses.shift()
     }
-	
-	let currentDate = Date.now() + 900000;
-	let currentDateString = currentDate.toString();
-	let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
+    
+    let currentDate = Date.now() + 900000;
+    let currentDateString = currentDate.toString();
+    let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
     let embed = new MessageEmbed()
     .setTitle("Game starting soon!")
