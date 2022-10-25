@@ -36,7 +36,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     var tbl = "__Current Season Medals:__\n"; 
     for (var i=0;i<sortable.length;i++) {
-        tbl += `<@${sortable[0]}>: ${sortable[1]}\n`;
+        tbl += `<@${sortable[i][0]}>: ${sortable[i][1]}\n`;
     }
    
     var embed = new Discord.MessageEmbed()
