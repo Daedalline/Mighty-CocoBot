@@ -27,7 +27,9 @@ module.exports.run = async(interaction, config, maps, client) => {
     var sortable = [];
     for (var player in challenge_data) {
         var totalScore = challenge_data[player]["Current Season"]["Best Shot From the Tee"] + challenge_data[player]["Current Season"]["Best Shot From Another Tee"] + challenge_data[player]["Current Season"]["Completion Awards"];
-        sortable.push([player, totalScore]);
+        if (totalScore > 0) {
+            sortable.push([player, totalScore]);
+        }
     }
     
     sortable.sort(function(a,b){
