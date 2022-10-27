@@ -41,7 +41,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             userCourses[map] = sortableScores[9]-1;
         }
         else {
-            userCourses[map] = sortableScores[sortableScores.length-1]-1;
+            userCourses[map] = -5;
         }
         
         
