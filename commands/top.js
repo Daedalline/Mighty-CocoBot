@@ -31,7 +31,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         for(var player in players){
             sortableScores.push(players[player][0]);
         }
-        console.log("Test: " + sortableScores);
+        console.log(map + ": " + sortableScores);
     }
 }
 
