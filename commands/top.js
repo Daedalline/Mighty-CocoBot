@@ -32,9 +32,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             sortableScores.push(players[player][0]);
         }
         
-        sortableScores.sort(function(a,b){
-            return b-a;
-        });
+        sortableScores.sort();
         
         console.log(sortableScores);
     }
