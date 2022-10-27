@@ -22,6 +22,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     let data = await JSON.parse(rawdata); 
     
     var sortMapList = [];
+    var userCourses = {};
     for (var map in data)
     {
         sortMapList.push(map);
@@ -36,8 +37,22 @@ module.exports.run = async(interaction, config, maps, client) => {
             return a-b;
         });
         
-        console.log(sortableScores);
+        userCourses[map] = sortableScores[0];
     }
+    sortMapList.sort();
+    
+    tbl = "";
+    for (var i=0; i<sortMapList.length; i++){
+        if (userCourses[sortMapList[i]] != undefined)
+        {
+            tbl += `${sortMapList[i]}: ${userCourses[sortMapList[i]]}\n`
+        }
+    }
+    
+    var embed = new Discord.MessageEmbed()
+    .setTitle(`Top Scores`)
+    .setDescription(tbl);
+    return await interaction.editReply({embeds: [embed]})
 }
 
 module.exports.info = {
