@@ -57,7 +57,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Minimum score requred to make a leaderboard`)
+    .setTitle(`Minimum score requred to make each leaderboard`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
