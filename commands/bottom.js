@@ -37,7 +37,14 @@ module.exports.run = async(interaction, config, maps, client) => {
             return a-b;
         });
         
-        userCourses[map] = sortableScores[0];
+        if (sortableScores.length >= 10) {
+            userCourses[map] = sortableScores[9];
+        }
+        else {
+            userCourses[map] = sortableScores[sortableScores.length-1];
+        }
+        
+        
     }
     sortMapList.sort();
     
@@ -50,12 +57,12 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Top Leaderboard Scores`)
+    .setTitle(`Bottom Leaderboard Scores`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
 
 module.exports.info = {
-    "name": "top",
-    "description": "List the top leaderboard score for each course"
+    "name": "bottom",
+    "description": "List the bottom leaderboard score for each course"
 };
