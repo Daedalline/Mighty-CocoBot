@@ -38,10 +38,10 @@ module.exports.run = async(interaction, config, maps, client) => {
         });
         
         if (sortableScores.length >= 10) {
-            userCourses[map] = sortableScores[9];
+            userCourses[map] = sortableScores[9]-1;
         }
         else {
-            userCourses[map] = sortableScores[sortableScores.length-1];
+            userCourses[map] = sortableScores[sortableScores.length-1]-1;
         }
         
         
@@ -57,7 +57,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Bottom Leaderboard Scores`)
+    .setTitle(`Minimum score requred to make a leaderboard`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
