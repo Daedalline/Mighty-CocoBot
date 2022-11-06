@@ -23,8 +23,9 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     var sortMapList = [];
     var userCourses = {};
-    for (var map in data)
+    for (var map in maps.Leaderboards)
     {
+        console.log("MAP: " + map); 
         sortMapList.push(map);
         var sortableScores = [];
         
