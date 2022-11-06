@@ -211,10 +211,10 @@ async function send(){
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
-    The course will be **${course}**. If you want to join, drop a :thumbsup: reaction on this message so people know there are enough players.
+    The course will be **${course}**.
     `)
     .setTimestamp();
-    channel.send({embeds: [embed]}).then(function (message) {message.react("👍")})
+    channel.send({embeds: [embed]})
 
     setTimeout(main, 900000)
 }
