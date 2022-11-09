@@ -31,6 +31,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
         await interaction.deferReply()
 
+        console.log(data[map]);
         if(!data[map]){
             // No scores exist for this course
             data[map] = {}
