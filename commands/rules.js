@@ -19,8 +19,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     var userID = interaction.options.getUser('user').id
     
     if(interaction.options.getSubcommand() == "server_rules"){
-        await interaction.deferReply()
-        
+      
         var embed = new Discord.MessageEmbed()
         .setTitle("Server Rules")
         .setDescription(`Hello **<@${userID}>**. Here is a reminder of the server rules.
@@ -44,8 +43,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         9.) No gambling of any form is allowed on this server.
 
         10.) Respect and follow the instructions from the staff. If they ask you to stop doing something, stop, even if the rules do not explicitly ban it. If a moderation action you do not agree with is made, try to resolve it with the moderator, but if no solution is given, feel free to contact Kaminsky with details.
-        `)
-        .setTimestamp();
+        `);
         return await interaction.editReply({embeds: [embed]})
     }
     else if(interaction.options.getSubcommand() == "leaderboard_rules"){
