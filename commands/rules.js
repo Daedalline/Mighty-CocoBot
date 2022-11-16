@@ -19,7 +19,9 @@ module.exports.run = async(interaction, config, maps, client) => {
     var userID = interaction.options.getUser('user').id
     
     if(interaction.options.getSubcommand() == "server_rules"){
-        let embed = new MessageEmbed()
+        await interaction.deferReply()
+        
+        var embed = new Discord.MessageEmbed()
         .setTitle("Server Rules")
         .setDescription(`Hello **<@${userID}>**. Here is a reminder of the server rules.
         
