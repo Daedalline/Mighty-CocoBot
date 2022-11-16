@@ -31,9 +31,14 @@ module.exports.run = async(interaction, config, maps, client) => {
 
         await interaction.deferReply()
 
-        if(!data[map]){
+        if(data[map] == undefined){
             // No scores exist for this course
             data[map] = {}
+            
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Database Error")
+            .setDescription(`No scores for **${map}**.`);
+            return await interaction.editReply({embeds: [embed]})
         }
         else {
             // Save a backup
