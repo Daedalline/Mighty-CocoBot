@@ -34,7 +34,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     else if(interaction.options.getSubcommand() == "tournament_rules"){
         var content = `Here is a link to the tournament rules.
-        <https://discord.com/channels/752022800562389015/763542150877020190/1016821272996491265>
+        <https://discord.com/channels/752022800562389015/763542150877020190/1016821142977269841>
         `;
         await interaction.reply({ content, ephemeral: true }); 
     } 
