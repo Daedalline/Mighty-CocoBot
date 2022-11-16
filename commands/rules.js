@@ -13,33 +13,30 @@ const yaml = require('js-yaml');
 
 module.exports.run = async(interaction, config, maps, client) => {
     
-    var guild = await client.guilds.cache.find(guild => guild.id == interaction.guild.id)
-    var member = await guild.members.cache.find(user => user.id == interaction.member.id)
-    
    
     if(interaction.options.getSubcommand() == "server_rules"){
         var content = `Here is a link to the server rules.
         <https://discord.com/channels/752022800562389015/840645351291486218/1012442929496858704>
         `;
-        client.users.send('id', 'content');
+        await interaction.reply({ content, ephemeral: true }); 
     }
     else if(interaction.options.getSubcommand() == "leaderboard_rules"){
         var content = `Hello **<@${userID}>**. Here is a link to the leaderboard rules.
         <https://discord.com/channels/752022800562389015/966336175843446886/1019302410075783220>
         `;
-        client.users.send('id', 'content'); 
+        await interaction.reply({ content, ephemeral: true }); 
     }
     else if(interaction.options.getSubcommand() == "daily_challenge_rules"){
         var content = `Hello **<@${userID}>**. Here is a link to the daily challenge rules.
         <https://discord.com/channels/752022800562389015/875720382844387328/875794061997539371>
         `;
-        client.users.send('id', 'content');       
+        await interaction.reply({ content, ephemeral: true });     
     }
     else if(interaction.options.getSubcommand() == "tournament_rules"){
         var content = `Hello **<@${userID}>**. Here is a link to the tournament rules.
         <https://discord.com/channels/752022800562389015/763542150877020190/1016821272996491265>
         `;
-        client.users.send(member, content);     
+        await interaction.reply({ content, ephemeral: true }); 
     } 
 }
 
