@@ -42,7 +42,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         <https://discord.com/channels/752022800562389015/875720382844387328/875794061997539371>
         `);
         return await interaction.editReply({embeds: [embed]});        
-    },
+    }
     else if(interaction.options.getSubcommand() == "tournament_rules"){
         var embed = new Discord.MessageEmbed()
         .setTitle("Daily Challenge Rules")
