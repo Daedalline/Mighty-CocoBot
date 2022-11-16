@@ -45,7 +45,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     else if(interaction.options.getSubcommand() == "tournament_rules"){
         var embed = new Discord.MessageEmbed()
-        .setTitle("Daily Challenge Rules")
+        .setTitle("Tournament Rules")
         .setDescription(`Hello **<@${userID}>**. Here is a link to the tournament rules.
         <https://discord.com/channels/752022800562389015/763542150877020190/1016821272996491265>
         `);
