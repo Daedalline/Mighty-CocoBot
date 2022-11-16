@@ -21,19 +21,19 @@ module.exports.run = async(interaction, config, maps, client) => {
         await interaction.reply({ content, ephemeral: true }); 
     }
     else if(interaction.options.getSubcommand() == "leaderboard_rules"){
-        var content = `Hello **<@${userID}>**. Here is a link to the leaderboard rules.
+        var content = `Here is a link to the leaderboard rules.
         <https://discord.com/channels/752022800562389015/966336175843446886/1019302410075783220>
         `;
         await interaction.reply({ content, ephemeral: true }); 
     }
     else if(interaction.options.getSubcommand() == "daily_challenge_rules"){
-        var content = `Hello **<@${userID}>**. Here is a link to the daily challenge rules.
+        var content = `Here is a link to the daily challenge rules.
         <https://discord.com/channels/752022800562389015/875720382844387328/875794061997539371>
         `;
         await interaction.reply({ content, ephemeral: true });     
     }
     else if(interaction.options.getSubcommand() == "tournament_rules"){
-        var content = `Hello **<@${userID}>**. Here is a link to the tournament rules.
+        var content = `Here is a link to the tournament rules.
         <https://discord.com/channels/752022800562389015/763542150877020190/1016821272996491265>
         `;
         await interaction.reply({ content, ephemeral: true }); 
