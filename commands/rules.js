@@ -44,7 +44,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         10.) Respect and follow the instructions from the staff. If they ask you to stop doing something, stop, even if the rules do not explicitly ban it. If a moderation action you do not agree with is made, try to resolve it with the moderator, but if no solution is given, feel free to contact Kaminsky with details.
         `)
         .setTimestamp();
-        channel.send({embeds: [embed]})
+        return await interaction.editReply({embeds: [embed]})
     }
     else if(interaction.options.getSubcommand() == "leaderboard_rules"){
     }
