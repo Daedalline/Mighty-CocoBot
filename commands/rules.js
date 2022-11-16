@@ -53,7 +53,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 }
 
 module.exports.info = {
-    "name": "user",
+    "name": "rules",
     "description": "Print out a message with the rules, greeting the user given",
     "options": [
         {
