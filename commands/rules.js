@@ -16,40 +16,41 @@ module.exports.run = async(interaction, config, maps, client) => {
     var guild = await client.guilds.cache.find(guild => guild.id == interaction.guild.id)
     var member = await guild.members.cache.find(user => user.id == interaction.member.id)
     
-    var userID = interaction.options.getUser('user').id
+    var userID = interaction.options.getUser('user').id;
+    await interaction.deferReply();
     
     if(interaction.options.getSubcommand() == "server_rules"){
-      
         var embed = new Discord.MessageEmbed()
         .setTitle("Server Rules")
-        .setDescription(`Hello **<@${userID}>**. Here is a reminder of the server rules.
-        
-        1.) Be kind, friendly, and respectful towards others. We will not tolerate any racism or derogatory attitudes.
-
-        2.) Please do not spam the channels. Please do not spam/over message staff. Please do not abuse text formatting.
-
-        3.) Post in the appropriate sections. Each channel has a description on top of the chat window.
-
-        4.) Advertisement is not allowed unless it is content that is created for the game, such as fan page, videos, screenshots, etc.
-
-        5.) All content posted has to be work-friendly. No pornographic, NSFW, religious or political discussions are allowed. Swearing is okay, but let's try and keep it PG-13.
-
-        6.) You may only have one account on the Discord server. If your main profile is banned, you cannot join with another. If found you will be removed.
-
-        7.) Please use English on all channels so we can all have a common language and can be moderated.
-
-        8.) Report any issues directly to moderators as soon as possible. Do not try to address issues on your own. Please let the Moderators handle it.
-
-        9.) No gambling of any form is allowed on this server.
-
-        10.) Respect and follow the instructions from the staff. If they ask you to stop doing something, stop, even if the rules do not explicitly ban it. If a moderation action you do not agree with is made, try to resolve it with the moderator, but if no solution is given, feel free to contact Kaminsky with details.
+        .setDescription(`Hello **<@${userID}>**. Here is a link to the server rules.
+        <https://discord.com/channels/752022800562389015/840645351291486218/1012442929496858704>
         `);
-        return await interaction.editReply({embeds: [embed]})
+        return await interaction.editReply({embeds: [embed]});
     }
     else if(interaction.options.getSubcommand() == "leaderboard_rules"){
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Leaderboard Rules")
+        .setDescription(`Hello **<@${userID}>**. Here is a link to the leaderboard rules.
+        <https://discord.com/channels/752022800562389015/966336175843446886/1019302410075783220>
+        `);
+        return await interaction.editReply({embeds: [embed]});        
     }
     else if(interaction.options.getSubcommand() == "daily_challenge_rules"){
-    }    
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Daily Challenge Rules")
+        .setDescription(`Hello **<@${userID}>**. Here is a link to the daily challenge rules.
+        <https://discord.com/channels/752022800562389015/875720382844387328/875794061997539371>
+        `);
+        return await interaction.editReply({embeds: [embed]});        
+    },
+    else if(interaction.options.getSubcommand() == "tournament_rules"){
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Daily Challenge Rules")
+        .setDescription(`Hello **<@${userID}>**. Here is a link to the tournament rules.
+        <https://discord.com/channels/752022800562389015/763542150877020190/1016821272996491265>
+        `);
+        return await interaction.editReply({embeds: [embed]});        
+    } 
 }
 
 module.exports.info = {
@@ -58,7 +59,7 @@ module.exports.info = {
     "options": [
         {
             "name": "server_rules",
-            "description": "Sends the user a message with the server rules.",
+            "description": "Sends the user a message with a link to the server rules.",
             "type": 1,
             "options": [
                 {
@@ -71,7 +72,7 @@ module.exports.info = {
         },
         {
             "name": "leaderboard_rules",
-            "description": "Sends the user a message with the leaderboard rules.",
+            "description": "Sends the user a message with a link to the leaderboard rules.",
             "type": 1,
             "options": [
                 {
@@ -84,7 +85,7 @@ module.exports.info = {
         },
         {
             "name": "daily_challenge_rules",
-            "description": "Sends the user a message with the daily challenge rules.",
+            "description": "Sends the user a message with a link to the daily challenge rules.",
             "type": 1,
             "options": [
                 {
@@ -94,6 +95,19 @@ module.exports.info = {
                     "required": true
                 }
             ]
-        }        
+        },
+        {
+            "name": "tournament_rules",
+            "description": "Sends the user a message with a link to the tournament rules.",
+            "type": 1,
+            "options": [
+                {
+                    "name": "user",
+                    "description": "The user to greet",
+                    "type": 6,
+                    "required": true
+                }
+            ]
+        }         
     ]
 };
