@@ -33,11 +33,14 @@ module.exports.run = async(interaction, config, maps, client) => {
 
         if(data[map] == undefined){
             // No scores exist for this course
-            console.log("data undefined");
             data[map] = {}
+            
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Database Error")
+            .setDescription(`No scores for **${map}**.`);
+            return await interaction.editReply({embeds: [embed]})
         }
         else {
-            console.log("else case");
             // Save a backup
             let backupdata = '{ "' + map + '" : ' + JSON.stringify(data[map], null, "\t") + '}';
             await fs.writeFileSync('./data_map_backup.json', backupdata);
