@@ -192,7 +192,7 @@ async function send(){
     }
     
     usedCourses.push(course)
-    if(usedCourses.length > 2){
+    if(usedCourses.length > 7){
         usedCourses.shift()
     }
     
