@@ -54,7 +54,7 @@ for(var map in Data){
     var index = 0
     for(player in sortedData){
         if(index >= 10){
-            simpleData[player] = null;
+            delete simpleData[player];
         }
         index ++
     }
