@@ -4,7 +4,7 @@ const fs = require("fs");
 let Data = null;
 try {
     let rawdata = fs.readFileSync('old_data.json');
-    Data = await JSON.parse(rawdata); 
+    Data = JSON.parse(rawdata); 
     }
 catch (e) {
     console.log(e);
