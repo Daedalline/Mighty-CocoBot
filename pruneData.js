@@ -54,13 +54,12 @@ for(var map in Data){
         }
         index ++
     }
-    
-    
-    try {
-        var writedata = JSON.stringify(simpleData, null, "\t");
-        fs.writeFileSync('./data_new.json', writedata);
-    }
-    catch (e) {
-        console.log(e);
-    }
+    Data[map] = simpleData;
+}
+
+try {
+    var writedata = JSON.stringify(Data, null, "\t");
+    fs.writeFileSync('./data_new.json', writedata);
+} catch (e) {
+    console.log(e);
 }
