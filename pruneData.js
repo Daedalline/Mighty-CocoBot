@@ -18,7 +18,7 @@ for(var map in Data){
         simpleData[player] = players[player];
     }
     
-    console.log("SIMPLE DATA: " + JSON.stringify(simpleData));
+    console.log("SIMPLE DATA: " + JSON.stringify(simpleData, null, "\t"));
     
     var sortable = [];
     for (var item in simpleData){
@@ -49,5 +49,5 @@ for(var map in Data){
         sortedData[item[0]]=item[1][0];
     })
     
-    console.log("SORTED DATA: " + JSON.stringify(sortedData));
+    console.log("SORTED DATA: " + JSON.stringify(sortedData, null, "\t"));
 }
