@@ -3,15 +3,15 @@ const fs = require("fs");
 //Load the data file
 let Data = null;
 try {
-    let rawdata = fs.readFileSync('old_data.json');
-    let data = JSON.parse(rawdata); 
-}
+    let rawdata = await fs.readFileSync('old_data.json');
+    Data = await JSON.parse(rawdata); 
+    }
 catch (e) {
     console.log(e);
 }
 
-for(var map in data){
-	var players = data[map];
+for(var map in Data){
+	var players = Data[map];
     
     var simpleData = {};
     for(var player in players){
