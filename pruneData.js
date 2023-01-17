@@ -18,8 +18,6 @@ for(var map in Data){
         simpleData[player] = players[player];
     }
     
-    console.log("SIMPLE DATA: " + JSON.stringify(simpleData, null, "\t"));
-    
     var sortable = [];
     for (var item in simpleData){
         sortable.push([item, simpleData[item]]);
@@ -49,8 +47,6 @@ for(var map in Data){
         sortedData[item[0]]=item[1][0];
     })
     
-    console.log("SORTED DATA: " + JSON.stringify(sortedData, null, "\t"));
-    
     var index = 0
     for(player in sortedData){
         if(index >= 10){
@@ -59,5 +55,12 @@ for(var map in Data){
         index ++
     }
     
-    console.log("PRUNED DATA: " + JSON.stringify(simpleData, null, "\t"));
+    
+    try {
+        var writedata = JSON.stringify(simpleData, null, "\t");
+        fs.writeFileSync('./data_new.json', writedata);
+    }
+    catch (e) {
+        console.log(e);
+    }
 }
