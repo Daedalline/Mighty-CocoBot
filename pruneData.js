@@ -3,7 +3,7 @@ const fs = require("fs");
 //Load the data file
 let Data = null;
 try {
-    let rawdata = await fs.readFileSync('old_data.json');
+    let rawdata = fs.readFileSync('old_data.json');
     Data = await JSON.parse(rawdata); 
     }
 catch (e) {
