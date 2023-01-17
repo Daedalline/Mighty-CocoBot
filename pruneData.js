@@ -50,4 +50,14 @@ for(var map in Data){
     })
     
     console.log("SORTED DATA: " + JSON.stringify(sortedData, null, "\t"));
+    
+    var index = 0
+    for(player in sortedData){
+        if(index >= 10){
+            simpleData[player] = null;
+        }
+        index ++
+    }
+    
+    console.log("PRUNED DATA: " + JSON.stringify(simpleData, null, "\t"));
 }
