@@ -72,7 +72,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     var tbl = ""
     var index = 0
     for(player in sortedData){
-        if(index >= 20){
+        if(index >= 10){
             break;
         }
         tbl += `<@${player}>: ${sortedData[player]}\n`

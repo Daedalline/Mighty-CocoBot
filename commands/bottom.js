@@ -38,8 +38,8 @@ module.exports.run = async(interaction, config, maps, client) => {
             return a-b;
         });
         
-        if (sortableScores.length >= 20) {
-            userCourses[map] = sortableScores[19]-1;
+        if (sortableScores.length >= 10) {
+            userCourses[map] = sortableScores[9]-1;
         }
         else {
             if (map.startsWith("Weekly")) {
