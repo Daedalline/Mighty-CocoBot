@@ -36,7 +36,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         return b[1] - a[1];
     });
     
-    var tbl = "__Current Season Medals:__\n"; 
+    var tbl = "__Current Season Points:__\n"; 
     for (var i=0;i<sortable.length;i++) {
         tbl += `<@${sortable[i][0]}>: ${sortable[i][1]}\n`;
     }
