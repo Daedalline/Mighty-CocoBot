@@ -25,7 +25,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     if(interaction.options.getSubcommand() == "add"){
         var userID = interaction.options.getUser('user').id
-        var points = interaction.options.getString('points')
+        var points = interaction.options.getInteger('points')
         
         await interaction.deferReply();
         
