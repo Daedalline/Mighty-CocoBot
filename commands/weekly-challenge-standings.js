@@ -11,13 +11,13 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require("fs");
 
 module.exports.run = async(interaction, config, maps, client) => {
-    if(interaction.channel.id != config.CourseDailyChannelID){
+    if(interaction.channel.id != config.CoursesLeageChannelID){
         interaction.reply({ephemeral: true, content: "You are not allowed to do that in this channel"})
         return
     }
     await interaction.deferReply();
     
-    let rawdata = await fs.readFileSync('daily_challenge_data.json');
+    let rawdata = await fs.readFileSync('weekly_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
     var finalStandings = {
@@ -26,7 +26,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     var sortable = [];
     for (var player in challenge_data) {
-        var totalScore = challenge_data[player]["Current Season"]["Best Shot From the Tee"] + challenge_data[player]["Current Season"]["Best Shot From Another Tee"] + challenge_data[player]["Current Season"]["Completion Awards"];
+        var totalScore = challenge_data[player]["Current Season"]["Points"];
         if (totalScore > 0) {
             sortable.push([player, totalScore]);
         }
@@ -36,19 +36,19 @@ module.exports.run = async(interaction, config, maps, client) => {
         return b[1] - a[1];
     });
     
-    var tbl = "__Current Season Medals:__\n"; 
+    var tbl = "__Current Season Points:__\n"; 
     for (var i=0;i<sortable.length;i++) {
         tbl += `<@${sortable[i][0]}>: ${sortable[i][1]}\n`;
     }
    
     var embed = new Discord.MessageEmbed()
-    .setTitle("Daily Challenge Season Standings")
+    .setTitle("Weekly Challenge Season Standings")
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
     
 module.exports.info = {
-    "name": "daily-challenge-standings",
-    "description": "List the Seasonal Daily Challenge standings"
+    "name": "weekly-challenge-standings",
+    "description": "List the Seasonal Weekly Challenge standings"
 };
     
