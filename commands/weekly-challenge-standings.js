@@ -17,7 +17,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     await interaction.deferReply();
     
-    let rawdata = await fs.readFileSync('daily_challenge_data.json');
+    let rawdata = await fs.readFileSync('weekly_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
     var finalStandings = {
@@ -26,7 +26,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     var sortable = [];
     for (var player in challenge_data) {
-        var totalScore = challenge_data[player]["Current Season"]["Best Shot From the Tee"] + challenge_data[player]["Current Season"]["Best Shot From Another Tee"] + challenge_data[player]["Current Season"]["Completion Awards"];
+        var totalScore = challenge_data[player]["Current Season"]["Points"];
         if (totalScore > 0) {
             sortable.push([player, totalScore]);
         }
@@ -42,13 +42,13 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
    
     var embed = new Discord.MessageEmbed()
-    .setTitle("Daily Challenge Season Standings")
+    .setTitle("Weekly Challenge Season Standings")
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
     
 module.exports.info = {
-    "name": "daily-challenge-standings",
-    "description": "List the Seasonal Daily Challenge standings"
+    "name": "weekly-challenge-standings",
+    "description": "List the Seasonal Weekly Challenge standings"
 };
     
