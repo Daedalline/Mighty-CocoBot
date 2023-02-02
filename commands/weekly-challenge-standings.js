@@ -11,7 +11,7 @@ const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require("fs");
 
 module.exports.run = async(interaction, config, maps, client) => {
-    if(interaction.channel.id != config.CourseDailyChannelID){
+    if(interaction.channel.id != config.CoursesLeageChannelID){
         interaction.reply({ephemeral: true, content: "You are not allowed to do that in this channel"})
         return
     }
