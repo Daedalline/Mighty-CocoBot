@@ -17,7 +17,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     await interaction.deferReply();
     
-    let rawdata = await fs.readFileSync('weekly_challenge_data.json');
+    let rawdata = await fs.readFileSync('weekly_leaderboards_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
     var finalStandings = {
@@ -42,13 +42,13 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
    
     var embed = new Discord.MessageEmbed()
-    .setTitle("Weekly Challenge Season Standings")
+    .setTitle("Weekly Leaderboards Season Standings")
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
     
 module.exports.info = {
-    "name": "weekly-challenge-standings",
-    "description": "List the Seasonal Weekly Challenge standings"
+    "name": "weekly-leaderboards-standings",
+    "description": "List the Seasonal Weekly Leaderboards standings"
 };
     

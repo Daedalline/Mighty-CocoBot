@@ -20,7 +20,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         return
     }
    
-    let rawdata = await fs.readFileSync('weekly_challenge_data.json');
+    let rawdata = await fs.readFileSync('weekly_leaderboards_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
     if(interaction.options.getSubcommand() == "add"){
@@ -41,7 +41,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         
         var writedata = JSON.stringify(challenge_data, null, "\t");
-        await fs.writeFileSync('./weekly_challenge_data.json', writedata);
+        await fs.writeFileSync('./weekly_leaderboards_data.json', writedata);
             
         var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
@@ -56,22 +56,22 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         
         var writedata = JSON.stringify(challenge_data, null, "\t");
-        await fs.writeFileSync('./weekly_challenge_data.json', writedata);
+        await fs.writeFileSync('./weekly_leaderboards_data.json', writedata);
             
         var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
-        .setDescription(`Cleared all seasonal daily challenge stats`);
+        .setDescription(`Cleared all seasonal daily leaderboard stats`);
         return await interaction.editReply({embeds: [embed]})
     }
 }
 
 module.exports.info = {
     "name": "weekly",
-    "description": "Allows moderators to manage weekly challenge stats on the boards",
+    "description": "Allows moderators to manage weekly leaderboard stats on the boards",
     "options": [
         {
             "name": "add",
-            "description": "Increments a user's weekly challenge stats by the given number of points.",
+            "description": "Increments a user's weekly leaderboard stats by the given number of points.",
             "type": 1,
             "options": [
                 {
@@ -90,7 +90,7 @@ module.exports.info = {
         },
         {
             "name": "clear_seasonal",
-            "description": "Removes all seasonal daily challenge statistics for every user",
+            "description": "Removes all seasonal daily leaderboard statistics for every user",
             "type": 1
         }
     ]
