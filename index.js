@@ -3,6 +3,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const yaml = require('js-yaml');
 const fs = require("fs");
+var cron = require("cron");
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -174,8 +175,24 @@ client.on('interactionCreate', async interaction => {
 client.login(Config.Token);
 
 async function main(){
-    let ms = msToNextHalfHour()
-    setTimeout(send, (ms+100) - 900000)
+//    let ms = msToNextHalfHour()
+//    setTimeout(send, (ms+100) - 900000)
+      let job1 = new cron.CronJob('00 15 * * * *', printMessage); // fires every day, at xx:15:xx
+      let job2 = new cron.CronJob('00 15 * * * *', printMessage); // fires every day, at xx:45:xx
+      let job3 = new cron.CronJob('00 00 * * * *', printMessage); // fires every day, at xx:00:xx
+      
+      job1.start();
+      job2.start();
+      job3.start();
+}
+
+async function printMessage(aInTime)
+{
+    let currentDate = new Date();
+    let hour = currentDate.getHours();
+    let mins = currentDate.getMinutes();
+    let secs = currentDate.getSeconds();
+    console.log("Print messsage " + aInTime + ":" + hour + ":" + mins + ":" + secs);
 }
 
 async function send(){
