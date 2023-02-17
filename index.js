@@ -179,7 +179,7 @@ async function main(){
 //    setTimeout(send, (ms+100) - 900000)
       let job1 = new cron.CronJob('00 15 * * * *', printMessage); // fires every day, at xx:15:xx
       let job2 = new cron.CronJob('00 45 * * * *', printMessage); // fires every day, at xx:45:xx
-      let job3 = new cron.CronJob('00 00 * * * *', printMessage); // fires every day, at xx:00:xx
+      let job3 = new cron.CronJob('00 00 * * * *', printMessage2); // fires every day, at xx:00:xx
       
       job1.start();
       job2.start();
@@ -192,7 +192,16 @@ async function printMessage()
     let hour = currentDate.getHours();
     let mins = currentDate.getMinutes();
     let secs = currentDate.getSeconds();
-    console.log("Print messsage " + hour + ":" + mins + ":" + secs);
+    console.log("Print messsage: " + hour + ":" + mins + ":" + secs);
+}
+
+async function printMessage()
+{
+    let currentDate = new Date();
+    let hour = currentDate.getHours();
+    let mins = currentDate.getMinutes();
+    let secs = currentDate.getSeconds();
+    console.log("Print messsage 2: " + hour + ":" + mins + ":" + secs);
 }
 
 async function send(){
