@@ -186,13 +186,13 @@ async function main(){
       job3.start();
 }
 
-async function printMessage(aInTime)
+async function printMessage()
 {
     let currentDate = new Date();
     let hour = currentDate.getHours();
     let mins = currentDate.getMinutes();
     let secs = currentDate.getSeconds();
-    console.log("Print messsage " + aInTime + ":" + hour + ":" + mins + ":" + secs);
+    console.log("Print messsage " + hour + ":" + mins + ":" + secs);
 }
 
 async function send(){
