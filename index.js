@@ -172,39 +172,22 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
+// Log in
 client.login(Config.Token);
 
+// Main function - schedule cron jobs
 async function main(){
-//    let ms = msToNextHalfHour()
-//    setTimeout(send, (ms+100) - 900000)
-      let job1 = new cron.CronJob('00 15 * * * *', printMessage); // fires every day, at xx:15:xx
-      let job2 = new cron.CronJob('00 45 * * * *', printMessage); // fires every day, at xx:45:xx
-      let job3 = new cron.CronJob('00 00 * * * *', printMessage2); // fires every day, at xx:00:xx
+      let job1 = new cron.CronJob('00 15 * * * *', printRandomGameMessage); // fires every day, at xx:15:xx
+      let job2 = new cron.CronJob('00 45 * * * *', printRandomGameMessage); // fires every day, at xx:45:xx
+      let job3 = new cron.CronJob('00 00 * * * *', printSpecialGameMessage); // fires every day, at xx:00:xx
       
       job1.start();
       job2.start();
       job3.start();
 }
 
-async function printMessage()
-{
-    let currentDate = new Date();
-    let hour = currentDate.getHours();
-    let mins = currentDate.getMinutes();
-    let secs = currentDate.getSeconds();
-    console.log("Print messsage: " + hour + ":" + mins + ":" + secs);
-}
-
-async function printMessage2()
-{
-    let currentDate = new Date();
-    let hour = currentDate.getHours();
-    let mins = currentDate.getMinutes();
-    let secs = currentDate.getSeconds();
-    console.log("Print messsage 2: " + hour + ":" + mins + ":" + secs);
-}
-
-async function send(){
+// Print the random game message in #find-a-game
+async function printRandomGameMessage(){
 
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID)
     let channel = await guild.channels.fetch(Config.ChannelID)
@@ -216,6 +199,8 @@ async function send(){
     if(usedRooms.length > 2){
         usedRooms.shift()
     }
+    
+    console.log("Used rooms: " + usedRooms.toString();
     
     usedCourses.push(course)
     if(usedCourses.length > 7){
@@ -241,14 +226,24 @@ async function send(){
     `)
     .setTimestamp();
     channel.send({embeds: [embed]})
-
-    setTimeout(main, 900000)
 }
 
-function msToNextHalfHour() {
-    return (1800000 - new Date().getTime() % 1800000);
+// This is a test for printing an hourly message.
+async function printSpecialGameMessage(){
+
+    let guild = await client.guilds.cache.find(i => i.id == Config.GuildID)
+    let channel = await guild.channels.fetch(Config.ChannelID)
+
+    let embed = new MessageEmbed()
+    .setTitle("Game starting soon!")
+    .setDescription(`
+        This is a test hourly message. Testing multiple cron jobs.
+    `)
+    .setTimestamp();
+    channel.send({embeds: [embed]})
 }
 
+// Add logic to not repeat recently used room names
 function getNotRecentlyUsedRoom(){
     let room = Maps.RoomIDs[Math.floor(Math.random() * Maps.RoomIDs.length)]
     while (usedRooms.includes(room)){
@@ -257,6 +252,7 @@ function getNotRecentlyUsedRoom(){
     return room
 }
 
+// Add logic to not repeat recently played courses
 function getNotRecentlyUsedCourse(){
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
     while (usedCourses.includes(course)){
