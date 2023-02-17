@@ -177,13 +177,11 @@ client.login(Config.Token);
 
 // Main function - schedule cron jobs
 async function main(){
-      let job1 = new cron.CronJob('00 15 * * * *', printRandomGameMessage); // fires every day, at xx:15:xx
-      let job2 = new cron.CronJob('00 45 * * * *', printRandomGameMessage); // fires every day, at xx:45:xx
-      let job3 = new cron.CronJob('00 00 * * * *', printSpecialGameMessage); // fires every day, at xx:00:xx
+      let job1 = new cron.CronJob('00 15,45 * * * *', printRandomGameMessage); // fires every day, at xx:15:xx
+      let job2 = new cron.CronJob('00 00 * * * *', printSpecialGameMessage); // fires every day, at xx:00:xx
       
       job1.start();
       job2.start();
-      job3.start();
 }
 
 // Print the random game message in #find-a-game
