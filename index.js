@@ -195,7 +195,7 @@ async function printMessage()
     console.log("Print messsage: " + hour + ":" + mins + ":" + secs);
 }
 
-async function printMessage()
+async function printMessage2()
 {
     let currentDate = new Date();
     let hour = currentDate.getHours();
