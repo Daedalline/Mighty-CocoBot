@@ -177,11 +177,9 @@ client.login(Config.Token);
 
 // Main function - schedule cron jobs
 async function main(){
-      let job1 = new cron.CronJob('00 15,45 * * * *', printRandomGameMessage); // fires every day, at xx:15:xx
-      let job2 = new cron.CronJob('00 00 * * * *', printSpecialGameMessage); // fires every day, at xx:00:xx
+      let job1 = new cron.CronJob('00 15,45 * * * *', printRandomGameMessage); // fires every day, at xx:15:xx and xx:45:xx
       
       job1.start();
-      job2.start();
 }
 
 // Print the random game message in #find-a-game
@@ -221,21 +219,6 @@ async function printRandomGameMessage(){
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
     The course will be **${course}**.
-    `)
-    .setTimestamp();
-    channel.send({embeds: [embed]})
-}
-
-// This is a test for printing an hourly message.
-async function printSpecialGameMessage(){
-
-    let guild = await client.guilds.cache.find(i => i.id == Config.GuildID)
-    let channel = await guild.channels.fetch(Config.ChannelID)
-
-    let embed = new MessageEmbed()
-    .setTitle("Game starting soon!")
-    .setDescription(`
-        This is a test hourly message. Testing multiple cron jobs.
     `)
     .setTimestamp();
     channel.send({embeds: [embed]})
