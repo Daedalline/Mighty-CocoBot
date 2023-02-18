@@ -196,8 +196,6 @@ async function printRandomGameMessage(){
         usedRooms.shift()
     }
     
-    console.log("Used rooms: " + usedRooms.toString());
-    
     usedCourses.push(course)
     if(usedCourses.length > 7){
         usedCourses.shift()
