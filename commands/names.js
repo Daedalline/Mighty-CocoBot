@@ -57,22 +57,22 @@ module.exports.run = async(interaction, config, maps, client) => {
                 return a[1][0] - b[1][0];
             }
         })
-        
-        console.log("SORTABLE: \n" + sortable.toString());
 
-//        var index = 0
-//        for (var i = 0; i<sortable.length; i++) {
-//            if (i>=20){
-//                break;
-//            }
-//            if (sortable[i][0] == userID){
-//                userCourses[map] = sortable[i][1][0];
-//                break;
-//            }
-//        }
+        var index = 0
+        for (var i = 0; i<sortable.length; i++) {
+            if (i>=20){
+                break;
+            }
+            if (sortable[i][0] == userID){
+                userCourses[map] = sortable[i][1][0];
+                break;
+            }
+        }
     }
     
-//    sortMapList.sort();
+    sortMapList.sort();
+    
+    console.log("SORT MAP LIST: " + sortMapList);
     
 //    tbl = "";
 //    for (var i=0; i<sortMapList.length; i++){
