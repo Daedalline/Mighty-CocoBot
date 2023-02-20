@@ -30,7 +30,6 @@ module.exports.run = async(interaction, config, maps, client) => {
     for (var map in data){
         if (!map.startsWith("Weekly Challenge"))
         {
-        
             var players = data[map];
         
             var simpleData = {};
