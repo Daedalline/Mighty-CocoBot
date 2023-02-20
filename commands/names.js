@@ -64,7 +64,6 @@ module.exports.run = async(interaction, config, maps, client) => {
             if (i>=20){
                 break;
             }
-            console.log("SORTABLE: " + sortable[i].toString());
             if (!userList.includes(sortable[i][0]))
             {
                 userList.push(sortable[i][0]);
