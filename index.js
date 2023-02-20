@@ -3,6 +3,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const yaml = require('js-yaml');
 const fs = require("fs");
+var cron = require("cron");
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -171,14 +172,18 @@ client.on('interactionCreate', async interaction => {
     }
 });
 
+// Log in
 client.login(Config.Token);
 
+// Main function - schedule cron jobs
 async function main(){
-    let ms = msToNextHalfHour()
-    setTimeout(send, (ms+100) - 900000)
+      let job1 = new cron.CronJob('00 15,45 * * * *', printRandomGameMessage); // fires every day, at xx:15:xx and xx:45:xx
+      
+      job1.start();
 }
 
-async function send(){
+// Print the random game message in #find-a-game
+async function printRandomGameMessage(){
 
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID)
     let channel = await guild.channels.fetch(Config.ChannelID)
@@ -215,14 +220,9 @@ async function send(){
     `)
     .setTimestamp();
     channel.send({embeds: [embed]})
-
-    setTimeout(main, 900000)
 }
 
-function msToNextHalfHour() {
-    return (1800000 - new Date().getTime() % 1800000);
-}
-
+// Add logic to not repeat recently used room names
 function getNotRecentlyUsedRoom(){
     let room = Maps.RoomIDs[Math.floor(Math.random() * Maps.RoomIDs.length)]
     while (usedRooms.includes(room)){
@@ -231,6 +231,7 @@ function getNotRecentlyUsedRoom(){
     return room
 }
 
+// Add logic to not repeat recently played courses
 function getNotRecentlyUsedCourse(){
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
     while (usedCourses.includes(course)){
