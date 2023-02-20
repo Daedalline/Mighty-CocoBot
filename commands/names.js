@@ -74,7 +74,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     tbl = "";
     for (var i=0; i<userList.length; i++){
-        tbl += `${userList[i]}\n`
+        tbl += `<@${userList[i]}>\n`
     }
     
     if(tbl == ""){
