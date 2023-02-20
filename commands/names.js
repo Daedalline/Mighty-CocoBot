@@ -28,7 +28,6 @@ module.exports.run = async(interaction, config, maps, client) => {
     var userList = [];
         
     for (var map in data){
-        sortMapList.push(map);
         var players = data[map];
         
         var simpleData = {};
