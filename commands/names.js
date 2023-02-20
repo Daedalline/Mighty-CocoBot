@@ -71,6 +71,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
     }
     
+    userList.sort();
+    
     tbl = "";
     for (var i=0; i<userList.length; i++){
         tbl += `<@${userList[i]}>\n`
