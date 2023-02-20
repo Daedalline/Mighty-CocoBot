@@ -28,45 +28,49 @@ module.exports.run = async(interaction, config, maps, client) => {
     var userList = [];
         
     for (var map in data){
-        var players = data[map];
+        if (!map.startsWith("Weekly Challenge"))
+        {
         
-        var simpleData = {};
-        for(var player in players){
-            simpleData[player] = players[player];
-        }
+            var players = data[map];
+        
+            var simpleData = {};
+            for(var player in players){
+                simpleData[player] = players[player];
+            }
     
-        var sortable = [];
-        for (var item in simpleData){
-            sortable.push([item, simpleData[item]]);
-        }
+            var sortable = [];
+            for (var item in simpleData){
+                sortable.push([item, simpleData[item]]);
+            }
 
-        sortable.sort(function(a,b){
-            if (a[1][0] == b[1][0]) {
-                var dateA = new Date(a[1][1]);
-                var dateB = new Date(b[1][1]);
-                if (dateA < dateB){
-                    return -1;
+            sortable.sort(function(a,b){
+                if (a[1][0] == b[1][0]) {
+                    var dateA = new Date(a[1][1]);
+                    var dateB = new Date(b[1][1]);
+                    if (dateA < dateB){
+                        return -1;
+                    }
+                    else if (dateA > dateB){
+                        return 1;
+                    }
+                    else {
+                        return 0;            
+                    }
                 }
-                else if (dateA > dateB){
-                    return 1;
+                else {    
+                    return a[1][0] - b[1][0];
                 }
-                else {
-                    return 0;            
-                }
-            }
-            else {    
-                return a[1][0] - b[1][0];
-            }
-        })
+            })
         
-        var index = 0
-        for (var i = 0; i<sortable.length; i++) {
-            if (i>=20){
-                break;
-            }
-            if (!userList.includes(sortable[i][0]))
-            {
-                userList.push(sortable[i][0]);
+            var index = 0
+            for (var i = 0; i<sortable.length; i++) {
+                if (i>=20){
+                    break;
+                }
+                if (!userList.includes(sortable[i][0]))
+                {
+                    userList.push(sortable[i][0]);
+                }
             }
         }
     }
