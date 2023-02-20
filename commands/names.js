@@ -65,17 +65,22 @@ module.exports.run = async(interaction, config, maps, client) => {
                 break;
             }
             console.log("SORTABLE: " + sortable[i].toString());
-            //userCourses[map] = sortable[i][1][0];
+            if (!userList.includes(sortable[i][0]))
+            {
+                userList.push(sortable[i][0]);
+            }
         }
     }
     
+    console.log("USER LIST: " + userList);
+    
     tbl = "";
-//    for (var i=0; i<sortMapList.length; i++){
+    for (var i=0; i<userList.length; i++){
 //        if (userCourses[sortMapList[i]] != undefined)
 //        {
 //            tbl += `${sortMapList[i]}: ${userCourses[sortMapList[i]]}\n`
 //        }
-//    }
+    }
     
     if(tbl == ""){
         var embed = new Discord.MessageEmbed()
@@ -85,7 +90,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     else {
         var embed = new Discord.MessageEmbed()
-        .setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
+        .setTitle(`List of all players on the current leaderboards`)
         .setDescription(tbl);
         return await interaction.editReply({embeds: [embed]})
     }
