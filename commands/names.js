@@ -25,8 +25,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('data.json');
     let data = await JSON.parse(rawdata); 
     
-    var userCourses = {};
-    var sortMapList = [];
+    var userList = [];
         
     for (var map in data){
         sortMapList.push(map);
@@ -66,16 +65,12 @@ module.exports.run = async(interaction, config, maps, client) => {
             if (i>=20){
                 break;
             }
-            userCourses[map] = sortable[i][1][0];
-            break;
+            console.log("SORTABLE: " + sortable[i].toString()):
+            //userCourses[map] = sortable[i][1][0];
         }
     }
     
-    sortMapList.sort();
-    
-    console.log("SORT MAP LIST: " + sortMapList);
-    
-//    tbl = "";
+    tbl = "";
 //    for (var i=0; i<sortMapList.length; i++){
 //        if (userCourses[sortMapList[i]] != undefined)
 //        {
