@@ -65,7 +65,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             if (i>=20){
                 break;
             }
-            console.log("SORTABLE: " + sortable[i].toString()):
+            console.log("SORTABLE: " + sortable[i].toString());
             //userCourses[map] = sortable[i][1][0];
         }
     }
