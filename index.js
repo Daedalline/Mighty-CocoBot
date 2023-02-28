@@ -256,7 +256,7 @@ function getNotRecentlyUsedEasyCourse(){
 }
 
 // Add logic to not repeat recently played Hard courses
-function getNotRecentlyUsedEasyCourse(){
+function getNotRecentlyUsedHardCourse(){
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
     while (usedCourses.includes(course) || course.endsWith('Easy')){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
