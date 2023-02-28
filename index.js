@@ -177,28 +177,43 @@ client.login(Config.Token);
 
 // Main function - schedule cron jobs
 async function main(){
-      let job1 = new cron.CronJob('00 15,45 * * * *', printRandomGameMessage); // fires every day, at xx:15:xx and xx:45:xx
+      let jobEasy = new cron.CronJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:xx
+      let jobHard = new cron.CronJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
       
-      job1.start();
+      jobEasy.start();
+      jobHard.start();
 }
 
+// Print the random easy game message in #find-a-game
+async function printRandomEasyGameMessage(){
+    let course = getNotRecentlyUsedEasyCourse();
+    printRandomGameMessage(course);
+}
+
+// Print the random hard game message in #find-a-game
+async function printRandomHardGameMessage(){
+    let course = getNotRecentlyUsedHardCourse();
+    printRandomGameMessage(course);
+}
+
+
+
 // Print the random game message in #find-a-game
-async function printRandomGameMessage(){
+async function printRandomGameMessage(course){
 
-    let guild = await client.guilds.cache.find(i => i.id == Config.GuildID)
-    let channel = await guild.channels.fetch(Config.ChannelID)
+    let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
+    let channel = await guild.channels.fetch(Config.ChannelID);
 
-    let room = getNotRecentlyUsedRoom()
-    let course = getNotRecentlyUsedCourse()
+    let room = getNotRecentlyUsedRoom();
 
-    usedRooms.push(room)
+    usedRooms.push(room);
     if(usedRooms.length > 2){
-        usedRooms.shift()
+        usedRooms.shift();
     }
     
-    usedCourses.push(course)
+    usedCourses.push(course);
     if(usedCourses.length > 7){
-        usedCourses.shift()
+        usedCourses.shift();
     }
     
     let currentDate = Date.now() + 900000;
@@ -231,12 +246,20 @@ function getNotRecentlyUsedRoom(){
     return room
 }
 
-// Add logic to not repeat recently played courses
-function getNotRecentlyUsedCourse(){
+// Add logic to not repeat recently played Easy courses
+function getNotRecentlyUsedEasyCourse(){
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
-    while (usedCourses.includes(course)){
+    while (usedCourses.includes(course) || course.endsWith('Hard')){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
     }
     return course
 }
 
+// Add logic to not repeat recently played Hard courses
+function getNotRecentlyUsedEasyCourse(){
+    let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
+    while (usedCourses.includes(course) || course.endsWith('Easy')){
+        course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
+    }
+    return course
+}
