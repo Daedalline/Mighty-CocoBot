@@ -212,7 +212,7 @@ async function printRandomGameMessage(course){
     }
     
     usedCourses.push(course);
-    if(usedCourses.length > 7){
+    if(usedCourses.length > 14){
         usedCourses.shift();
     }
     
