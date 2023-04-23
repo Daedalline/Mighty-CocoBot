@@ -3,7 +3,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const yaml = require('js-yaml');
 const fs = require("fs");
-var schedule = require("npm-schedule");
+const schedule = require('node-schedule');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
