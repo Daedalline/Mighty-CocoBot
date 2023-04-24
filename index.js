@@ -3,7 +3,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const yaml = require('js-yaml');
 const fs = require("fs");
-var cron = require("cron");
+const schedule = require('node-schedule');
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
@@ -177,11 +177,8 @@ client.login(Config.Token);
 
 // Main function - schedule cron jobs
 async function main(){
-      let jobEasy = new cron.CronJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:xx
-      let jobHard = new cron.CronJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
-      
-      jobEasy.start();
-      jobHard.start();
+      let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:xx
+      let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
 }
 
 // Print the random easy game message in #find-a-game
