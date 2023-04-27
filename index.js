@@ -262,7 +262,7 @@ function getNotRecentlyUsedHardCourse(){
     return course
 }
 
-function printLanguageGameMessage() {
+async function printLanguageGameMessage() {
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
     let channel = await guild.channels.fetch(Config.ChannelID);
     
