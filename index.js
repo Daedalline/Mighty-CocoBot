@@ -274,10 +274,10 @@ async function printLanguageGameMessage() {
     .setTitle("Non-English games starting soon!")
     .setDescription(`
     The next scheduled non-English games will start in **15 minutes** (at <t:${currentDateSubstring}:t>).
-    Room **<French>** (French)
-    Room **<German>** (German)
-    Room **<Italian>** (Italian)
-    Room **<Spanish>** (Spanish)
+    Room **JOUEURS** (French)
+    Room **SPIELER** (German)
+    Room **GIOCATORI** (Italian)
+    Room **JUGADORES** (Spanish)
 
     If these rooms are full, try adding a 1 or a 2 to the end of the room name, etc.
 
