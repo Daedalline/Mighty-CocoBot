@@ -288,7 +288,7 @@ async function printLanguageGameMessage() {
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
-    The course will be **<Course Name>**, or you can choose a different one amongst yourselves.
+    The course will be **Tourist Trap - Easy**, or you can choose a different one amongst yourselves.
     `)
     .setTimestamp();
     channel.send({embeds: [embed]})  
