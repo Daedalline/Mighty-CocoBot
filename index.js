@@ -263,6 +263,9 @@ function getNotRecentlyUsedHardCourse(){
 }
 
 function printLanguageGameMessage() {
+    let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
+    let channel = await guild.channels.fetch(Config.ChannelID);
+    
     let currentDate = Date.now() + 900000;
     let currentDateString = currentDate.toString();
     let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
