@@ -274,6 +274,7 @@ async function printLanguageGameMessage() {
     .setTitle("Non-English games starting soon!")
     .setDescription(`
     The next scheduled non-English games will start in **15 minutes** (at <t:${currentDateSubstring}:t>).
+    
     Room **JOUEURS** (French)
     Room **SPIELER** (German)
     Room **GIOCATORI** (Italian)
