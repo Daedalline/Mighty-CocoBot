@@ -179,7 +179,6 @@ client.login(Config.Token);
 async function main(){
       let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:xx
       let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
-      let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6', printLanguageGameMessage); // fires on Saturday at 15 minutes before 9 am, 1 pm , and 5 pm EST.
 }
 
 // Print the random easy game message in #find-a-game
@@ -260,36 +259,4 @@ function getNotRecentlyUsedHardCourse(){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
     }
     return course
-}
-
-async function printLanguageGameMessage() {
-    let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
-    let channel = await guild.channels.fetch(Config.ChannelID);
-    
-    let currentDate = Date.now() + 900000;
-    let currentDateString = currentDate.toString();
-    let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
-
-    let embed = new MessageEmbed()
-    .setTitle("Non-English games starting soon!")
-    .setDescription(`
-    The next scheduled non-English games will start in **15 minutes** (at <t:${currentDateSubstring}:t>).
-    
-    Room **JOUEURS** (French)
-    Room **SPIELER** (German)
-    Room **GIOCATORI** (Italian)
-    Room **JUGADORES** (Spanish)
-
-    If these rooms are full, try adding a 1 or a 2 to the end of the room name, etc.
-
-    If you are the first player to create a room, please see the following guidelines:
-
-    Created rooms should be setup with a player count max of 5.
-
-    Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
-
-    The course will be **Tourist Trap - Easy**, or you can choose a different one amongst yourselves.
-    `)
-    .setTimestamp();
-    channel.send({embeds: [embed]})  
 }
