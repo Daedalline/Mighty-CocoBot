@@ -42,6 +42,9 @@ module.exports.run = async(interaction, config, maps, client) => {
         endTime[0] += 12;
     }
     
+    console.log(startTime);
+    console.log(endTime);
+    
     await interaction.deferReply();
     
     var startTimeInSeconds = (Number(startTime[0]) * 3600) + (Number(startTime[1]) * 60) + (Number(startTime[2]));
@@ -53,7 +56,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     var timeString = date.toISOString().slice(11, 19);
     
     var embed = new Discord.MessageEmbed()
-    .setTitle("Start Time: " + interaction.options.getString('start_time') + ", End Time: " + interaction.options.getString('end_time'))
+    .setTitle("Start Time: " + interaction.options.getString('start_time') + " " + interaction.options.getString('start_time_modifier') + ", End Time: " + interaction.options.getString('end_time') + " " + interaction.options.getString('end_time_modifier'))
     .setDescription("Time Played: " + timeString);
     return await interaction.editReply({embeds: [embed]})
 }
