@@ -33,6 +33,9 @@ module.exports.run = async(interaction, config, maps, client) => {
     var startTime = interaction.options.getString('start_time').split(":");
     var endTime = interaction.options.getString('end_time').split(":");
     
+    console.log("Start time: " + startTime);
+    console.log("End time: " + endTime);
+    
     await interaction.deferReply();
     
     var startTimeInSeconds = (Number(startTime[0]) * 3600) + (Number(startTime[1]) * 60) + (Number(startTime[2]));
