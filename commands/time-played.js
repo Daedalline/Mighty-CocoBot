@@ -71,7 +71,7 @@ module.exports.info = {
             "name": "start_time_mod",
             "description": "AM/PM",
             "type": 3,
-            "required": true
+            "required": true,
             "choices": [
                 {
                     "name": "AM",
@@ -92,7 +92,7 @@ module.exports.info = {
             "name": "end_time_mod",
             "description": "AM/PM",
             "type": 3,
-            "required": true
+            "required": true,
             "choices": [
                 {
                     "name": "AM",
