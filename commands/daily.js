@@ -46,6 +46,16 @@ module.exports.run = async(interaction, config, maps, client) => {
                 "First Place Finishes": 0,
                 "Second Place Finishes": 0,
                 "Third Place Finishes": 0
+            },
+            "Current Season 9-Hole": {
+                "Top Score": 0,
+                "Target Score and Time Achieved": 0,
+                "Target Score Achieved": 0
+            },
+            "Lifetime 9-Hole": {
+                "Top Score": 0,
+                "Target Score and Time Achieved": 0,
+                "Target Score Achieved": 0
             }
             }
         }
@@ -58,6 +68,14 @@ module.exports.run = async(interaction, config, maps, client) => {
                     challenge_data[userID]["Current Season"][stat]++;
                 }
                 challenge_data[userID]["Lifetime"][stat]++;
+                break;
+            case("Top Score"):
+            case("Target Score and Time Achieved"):
+            case("Target Score Achieved"):    
+                if (!lifetimeOnly) {
+                    challenge_data[userID]["Current Season 9-Hole"][stat]++;
+                }
+                challenge_data[userID]["Lifetime 9-Hole"][stat]++;
                 break;
             case("First Place Finishes"):
             case("Second Place Finishes"):
@@ -119,6 +137,34 @@ module.exports.run = async(interaction, config, maps, client) => {
                         break;
                     }
                 }
+            case("Top Score"):
+            case("Target Score and Time Achieved"):
+            case("Target Score Achieved"):  
+                if (lifetimeOnly) {
+                    if (challenge_data[userID]["Lifetime 9-Hole"][stat] == 0){ 
+                        var embed = new Discord.MessageEmbed()
+                        .setTitle("Database Error")
+                        .setDescription(`<@${userID}> has a score of zero for **${stat}**. Cannot reduce further.`);
+                        return await interaction.editReply({embeds: [embed]})
+                    }
+                    else {
+                        challenge_data[userID]["Lifetime 9-Hole"][stat]--;
+                        break;
+                    }
+                }
+                else {
+                    if (challenge_data[userID]["Current Season 9-Hole"][stat] == 0 || challenge_data[userID]["Lifetime 9-Hole"][stat] == 0){ 
+                        var embed = new Discord.MessageEmbed()
+                        .setTitle("Database Error")
+                        .setDescription(`<@${userID}> has a score of zero for **${stat}**. Cannot reduce further.`);
+                        return await interaction.editReply({embeds: [embed]})
+                    }
+                    else {
+                        challenge_data[userID]["Current Season 9-Hole"][stat]--;
+                        challenge_data[userID]["Lifetime 9-Hole"][stat]--;
+                        break;
+                    }
+                }            
             case("First Place Finishes"):
             case("Second Place Finishes"):
             case("Third Place Finishes"):
@@ -151,6 +197,9 @@ module.exports.run = async(interaction, config, maps, client) => {
             challenge_data[userID]["Current Season"]["Best Shot From the Tee"] = 0;
             challenge_data[userID]["Current Season"]["Best Shot From Another Tee"] = 0;
             challenge_data[userID]["Current Season"]["Completion Awards"] = 0;
+            challenge_data[userID]["Current Season 9-Hole"]["Top Score"] = 0;
+            challenge_data[userID]["Current Season 9-Hole"]["Target Score and Time Achieved"] = 0;
+            challenge_data[userID]["Current Season 9-Hole"]["Target Score Achieved"] = 0;
         }
         
         var writedata = JSON.stringify(challenge_data, null, "\t");
@@ -195,6 +244,18 @@ module.exports.info = {
                         {
                             "name": "Completion Awards",
                             "value": "Completion Awards"
+                        },
+{
+                            "name": "Target Score Achieved",
+                            "value": "Target Score Achieved"
+                        },
+                        {
+                            "name": "Target Score and Time Achieved",
+                            "value": "Target Score and Time Achieved"
+                        },
+                        {
+                            "name": "Top Score",
+                            "value": "Top Score"
                         },
                         {
                             "name": "First Place Finishes",

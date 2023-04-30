@@ -20,10 +20,6 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('weekly_leaderboards_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
-    var finalStandings = {
-        "Current Season": {}
-    };
-    
     var sortable = [];
     for (var player in challenge_data) {
         var totalScore = challenge_data[player]["Current Season"]["Points"];
@@ -37,6 +33,10 @@ module.exports.run = async(interaction, config, maps, client) => {
     });
     
     var tbl = "__Current Season Points:__\n"; 
+    if (sortable.length==0)
+    {
+        tbl += "No points awarded yet.";
+    }
     for (var i=0;i<sortable.length;i++) {
         tbl += `<@${sortable[i][0]}>: ${sortable[i][1]}\n`;
     }
