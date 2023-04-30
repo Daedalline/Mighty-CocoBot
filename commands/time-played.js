@@ -33,8 +33,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         return;
     }
     
-    var startTime = interaction.options.getString('start_time').split(":");
-    var endTime = interaction.options.getString('end_time').split(":");
+    var startTime = interaction.options.getString('start_time').split("-");
+    var endTime = interaction.options.getString('end_time').split("-");
     
     await interaction.deferReply();
     
