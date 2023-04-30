@@ -33,6 +33,15 @@ module.exports.run = async(interaction, config, maps, client) => {
         return;
     }
     
+    if (interaction.options.getString('start_time_mod').equals("PM"))
+    {
+        startTime[0] += 12;
+    }
+    if (interaction.options.getString('end_time_mod').equals("PM"))
+    {
+        endTime[0] += 12;
+    }
+    
     await interaction.deferReply();
     
     var startTimeInSeconds = (Number(startTime[0]) * 3600) + (Number(startTime[1]) * 60) + (Number(startTime[2]));
@@ -54,15 +63,45 @@ module.exports.info = {
     "options": [
         {
             "name": "start_time",
-            "description": "Time start (in 24 hr format hh:mm:ss)",
+            "description": "Time start (in 12 hr format hh:mm:ss)",
             "type": 3,
             "required": true
         },
         {
-            "name": "end_time",
-            "description": "Time finish (in 24 hr format hh:mm:ss)",
+            "name": "start_time_mod",
+            "description": "AM/PM",
             "type": 3,
             "required": true
-        }
+            "choices": [
+                {
+                    "name": "AM",
+                    "value": "AM"
+                },
+                {
+                    "name": "PM",
+                    "value": "PM"
+                }
+        },
+        {
+            "name": "end_time",
+            "description": "Time finish (in 12 hr format hh:mm:ss)",
+            "type": 3,
+            "required": true
+        },
+        {
+            "name": "end_time_mod",
+            "description": "AM/PM",
+            "type": 3,
+            "required": true
+            "choices": [
+                {
+                    "name": "AM",
+                    "value": "AM"
+                },
+                {
+                    "name": "PM",
+                    "value": "PM"
+                }
+        },
     ]
 };
