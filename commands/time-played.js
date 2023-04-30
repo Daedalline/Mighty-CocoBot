@@ -102,6 +102,6 @@ module.exports.info = {
                     "name": "PM",
                     "value": "PM"
                 }
-        },
+        }
     ]
 };
