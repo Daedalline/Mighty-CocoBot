@@ -5,7 +5,7 @@ const yaml = require('js-yaml');
 const fs = require("fs");
 const schedule = require('node-schedule');
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 
 let usedRooms = [];
 let usedCourses = [];
