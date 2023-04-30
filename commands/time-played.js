@@ -24,6 +24,9 @@ module.exports.run = async(interaction, config, maps, client) => {
     var startTimeString = interaction.options.getString('start_time');
     var endTimeString = interaction.options.getString('end_time');
     
+    console.log("Start time: " + startTimeString);
+    console.log("End time: " + endTimeString);
+    
     let timePattern = /\d+:\d+:\d+/;
     if (!timePattern.test(startTimeString) || !timePattern.test(endTimeString)){
         await interaction.reply({ephemeral: true, content: "Invalid time format. Time must be input in 24 hr format HH:mm:ss."})
@@ -32,9 +35,6 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     var startTime = interaction.options.getString('start_time').split(":");
     var endTime = interaction.options.getString('end_time').split(":");
-    
-    console.log("Start time: " + startTime);
-    console.log("End time: " + endTime);
     
     await interaction.deferReply();
     
