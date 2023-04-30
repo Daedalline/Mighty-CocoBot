@@ -24,21 +24,24 @@ module.exports.run = async(interaction, config, maps, client) => {
     var startTimeString = interaction.options.getString('start_time');
     var endTimeString = interaction.options.getString('end_time');
     
-    let timePattern = /\d+:\d+:\d+ [AaPp][Mm]/;
+    let timePattern = /\d+:\d+:\d+/;
     if (!timePattern.test(startTimeString) || !timePattern.test(endTimeString)){
-        await interaction.reply({ephemeral: true, content: "Invalid time format. Time must be entered in 12 hr format HH:MM:SS AM/PM"})
+        await interaction.reply({ephemeral: true, content: "Invalid time format. Time must be input in 24 hr format HH:MM:SS."})
         return;
     }
-
+    
+    var startTime = interaction.options.getString('start_time').split(":");
+    var endTime = interaction.options.getString('end_time').split(":");
+    
     await interaction.deferReply();
     
-    // var startTimeInSeconds = (Number(startTime[0]) * 3600) + (Number(startTime[1]) * 60) + (Number(startTime[2]));
-    // var endTimeInSeconds = (Number(endTime[0]) * 3600) + (Number(endTime[1]) * 60) + (Number(endTime[2]));
-    // var totalSeconds = endTimeInSeconds - startTimeInSeconds;
+    var startTimeInSeconds = (Number(startTime[0]) * 3600) + (Number(startTime[1]) * 60) + (Number(startTime[2]));
+    var endTimeInSeconds = (Number(endTime[0]) * 3600) + (Number(endTime[1]) * 60) + (Number(endTime[2]));
+    var totalSeconds = endTimeInSeconds - startTimeInSeconds;
     
-    // var date = new Date(null);
-    // date.setSeconds(totalSeconds);
-    // var timeString = date.toISOString().slice(11, 19);
+    var date = new Date(null);
+    date.setSeconds(totalSeconds);
+    var timeString = date.toISOString().slice(11, 19);
     
     var embed = new Discord.MessageEmbed()
     .setTitle("Start Time: " + interaction.options.getString('start_time') + ", End Time: " + interaction.options.getString('end_time'))
@@ -51,13 +54,13 @@ module.exports.info = {
     "options": [
         {
             "name": "start_time",
-            "description": "Time start (in 12 hr format hh:mm:ss AM/PM)",
+            "description": "Time start (in 24 hr format HH:MM:SS)",
             "type": 3,
             "required": true
         },
         {
             "name": "end_time",
-            "description": "Time finish (in 12 hr format hh:mm:ss AM/PM)",
+            "description": "Time finish (in 24 hr format HH:MM:SS)",
             "type": 3,
             "required": true
         }
