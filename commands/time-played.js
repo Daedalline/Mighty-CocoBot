@@ -21,42 +21,27 @@ module.exports.run = async(interaction, config, maps, client) => {
         return
     }
     
-    var startTime = interaction.options.getString('start_time').split(":");
-    var endTime = interaction.options.getString('end_time').split(":");
+    var startTimeString = interaction.options.getString('start_time');
+    var endTimeString = interaction.options.getString('end_time');
     
-    if (startTime.length != 3) {
-        await interaction.reply({ephemeral: true, content: "Invalid start time format."})
+    let timePattern = /\d+:\d+:\d+ [AaPp][Mm]/;
+    if (!pattern.test(startTimeString) || !pattern.test(endTimeString)){
+        await interaction.reply({ephemeral: true, content: "Invalid time format. Time must be entered in 12 hr format HH:MM:SS AM/PM"})
         return;
     }
-    else if (endTime.length != 3) {
-        await interaction.reply({ephemeral: true, content: "Invalid end time format."})
-        return;
-    }
-    
-    if (interaction.options.getString('start_time_modifier') == "PM")
-    {
-        startTime[0] = Number.parseInt(startTime[0]) + 12;
-    }
-    if (interaction.options.getString('end_time_modifier') == "PM")
-    {
-        endTime[0] = Number.parseInt(endTime[0]) + 12;
-    }
-    
-    console.log(startTime);
-    console.log(endTime);
-    
+
     await interaction.deferReply();
     
-    var startTimeInSeconds = (Number(startTime[0]) * 3600) + (Number(startTime[1]) * 60) + (Number(startTime[2]));
-    var endTimeInSeconds = (Number(endTime[0]) * 3600) + (Number(endTime[1]) * 60) + (Number(endTime[2]));
-    var totalSeconds = endTimeInSeconds - startTimeInSeconds;
+    // var startTimeInSeconds = (Number(startTime[0]) * 3600) + (Number(startTime[1]) * 60) + (Number(startTime[2]));
+    // var endTimeInSeconds = (Number(endTime[0]) * 3600) + (Number(endTime[1]) * 60) + (Number(endTime[2]));
+    // var totalSeconds = endTimeInSeconds - startTimeInSeconds;
     
-    var date = new Date(null);
-    date.setSeconds(totalSeconds);
-    var timeString = date.toISOString().slice(11, 19);
+    // var date = new Date(null);
+    // date.setSeconds(totalSeconds);
+    // var timeString = date.toISOString().slice(11, 19);
     
     var embed = new Discord.MessageEmbed()
-    .setTitle("Start Time: " + interaction.options.getString('start_time') + " " + interaction.options.getString('start_time_modifier') + ", End Time: " + interaction.options.getString('end_time') + " " + interaction.options.getString('end_time_modifier'))
+    .setTitle("Start Time: " + interaction.options.getString('start_time') + ", End Time: " + interaction.options.getString('end_time'))
     .setDescription("Time Played: " + timeString);
     return await interaction.editReply({embeds: [embed]})
 }
@@ -66,47 +51,15 @@ module.exports.info = {
     "options": [
         {
             "name": "start_time",
-            "description": "Time start (in 12 hr format hh:mm:ss)",
+            "description": "Time start (in 12 hr format hh:mm:ss AM/PM)",
             "type": 3,
             "required": true
-        },
-        {
-            "name": "start_time_modifier",
-            "description": "AM/PM",
-            "type": 3,
-            "required": true,
-            "choices": [
-                {
-                    "name": "AM",
-                    "value": "AM"
-                },
-                {
-                    "name": "PM",
-                    "value": "PM"
-                }
-            ]
         },
         {
             "name": "end_time",
-            "description": "Time finish (in 12 hr format hh:mm:ss)",
+            "description": "Time finish (in 12 hr format hh:mm:ss AM/PM)",
             "type": 3,
             "required": true
-        },
-        {
-            "name": "end_time_modifier",
-            "description": "AM/PM",
-            "type": 3,
-            "required": true,
-            "choices": [
-                {
-                    "name": "AM",
-                    "value": "AM"
-                },
-                {
-                    "name": "PM",
-                    "value": "PM"
-                }
-            ]
         }
     ]
 };
