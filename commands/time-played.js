@@ -50,7 +50,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 }
 module.exports.info = {
     "name": "time_played",
-    "description": "Calculates the game from from teh start and end times.",
+    "description": "Calculates the game from from the start and end times.",
     "options": [
         {
             "name": "start_time",
