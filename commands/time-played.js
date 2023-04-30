@@ -35,11 +35,11 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     if (interaction.options.getString('start_time_modifier') == "PM")
     {
-        startTime[0] = startTime[0] + 12;
+        startTime[0] = Number.parseInt(startTime[0]) + 12;
     }
     if (interaction.options.getString('end_time_modifier') == "PM")
     {
-        endTime[0] = endTime[0] + 12;
+        endTime[0] = Number.parseInt(endTime[0]) + 12;
     }
     
     console.log(startTime);
