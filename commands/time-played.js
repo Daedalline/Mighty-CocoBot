@@ -81,6 +81,7 @@ module.exports.info = {
                     "name": "PM",
                     "value": "PM"
                 }
+            ]
         },
         {
             "name": "end_time",
@@ -102,6 +103,7 @@ module.exports.info = {
                     "name": "PM",
                     "value": "PM"
                 }
+            ]
         }
     ]
 };
