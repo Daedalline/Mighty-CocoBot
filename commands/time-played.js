@@ -33,11 +33,11 @@ module.exports.run = async(interaction, config, maps, client) => {
         return;
     }
     
-    if (interaction.options.getString('start_time_mod').equals("PM"))
+    if (interaction.options.getString('start_time_modifier') == "PM")
     {
         startTime[0] += 12;
     }
-    if (interaction.options.getString('end_time_mod').equals("PM"))
+    if (interaction.options.getString('end_time_modifier') == "PM")
     {
         endTime[0] += 12;
     }
@@ -68,7 +68,7 @@ module.exports.info = {
             "required": true
         },
         {
-            "name": "start_time_mod",
+            "name": "start_time_modifier",
             "description": "AM/PM",
             "type": 3,
             "required": true,
@@ -90,7 +90,7 @@ module.exports.info = {
             "required": true
         },
         {
-            "name": "end_time_mod",
+            "name": "end_time_modifier",
             "description": "AM/PM",
             "type": 3,
             "required": true,
