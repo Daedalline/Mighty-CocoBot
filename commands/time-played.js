@@ -44,8 +44,8 @@ module.exports.run = async(interaction, config, maps, client) => {
     var timeString = date.toISOString().slice(11, 19);
     
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Time Played`)
-    .setDescription("Start Time: " + startTime + ", End Time: " + endTime + ", Time Played: " + timeString);
+    .setTitle("Start Time: " + interaction.options.getString('start_time') + ", End Time: " + interaction.options.getString('end_time'))
+    .setDescription("Time Played: " + timeString);
     return await interaction.editReply({embeds: [embed]})
 }
 module.exports.info = {
