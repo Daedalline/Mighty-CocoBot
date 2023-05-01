@@ -106,6 +106,22 @@ fs.access("daily_challenge_data.json", fs.F_OK, (err) => {
         console.log("daily_challenge_data.json already exists")
     }
 })
+fs.access("weekly_leaderboards_data.json", fs.F_OK, (err) => {
+    if (err) {
+        if(err.code == "ENOENT"){
+            fs.writeFile("weekly_leaderboards_data.json", data, (err) => {
+                if (err) throw err;
+                console.log("Created weekly_leaderboards_data.json as it didnt exist")
+                return
+            })
+        }else{
+            console.error(err)
+            return
+        }
+    }else{
+        console.log("weekly_leaderboards_data.json already exists")
+    }
+})
 
 // D.JS Client listeners
 client.on("error", (e) => console.error(e));
@@ -180,6 +196,7 @@ async function main(){
       let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:xx
       let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
       let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturday at 15 minutes before 9 am, 1 pm , and 5 pm EST.
+      let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
 }
 
 // Print the random easy game message in #find-a-game
@@ -193,8 +210,6 @@ async function printRandomHardGameMessage(){
     let course = getNotRecentlyUsedHardCourse();
     printRandomGameMessage(course);
 }
-
-
 
 // Print the random game message in #find-a-game
 async function printRandomGameMessage(course){
@@ -262,6 +277,7 @@ function getNotRecentlyUsedHardCourse(){
     return course
 }
 
+// Print the non-English game message in #find-a-game
 async function printLanguageGameMessage() {
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
     let channel = await guild.channels.fetch(Config.ChannelID);
@@ -292,4 +308,58 @@ async function printLanguageGameMessage() {
     `)
     .setTimestamp();
     channel.send({embeds: [embed]})  
+}
+
+// Print the weekly leaderboard reminder message
+async function printWeeklyReminderMessage() {
+    var easyCourse = "";
+    var hardCourse = "";
+    for (var map in Maps.Leaderboards) {
+        if (Maps.Leaderboards[map].startsWith("Weekly")) {
+            if (Maps.Leaderboards[map].endsWith("Easy")) {
+                easyCourse = Maps.Leaderboards[map];
+            }
+            else if (Maps.Leaderboards[map].endsWith("Hard")) {
+                hardCourse = Maps.Leaderboards[map];
+            }
+        }
+    }
+
+    let rawdata = await fs.readFileSync('weekly_leaderboards_data.json');
+    let challenge_data = await JSON.parse(rawdata);
+
+    var sortable = [];
+    for (var player in challenge_data) {
+        var totalScore = challenge_data[player]["Current Season"]["Points"];
+        if (totalScore > 0) {
+            sortable.push([player, totalScore]);
+        }
+    }
+
+    sortable.sort(function(a,b){
+        return b[1] - a[1];
+    });
+
+    var tbl = "**__Current Season Points:__**\n"; 
+    if (sortable.length==0)
+    {
+        tbl += "No points awarded yet.";
+    }
+    for (var i=0;i<sortable.length;i++) {
+        tbl += `<@${sortable[i][0]}>: ${sortable[i][1]}\n`;
+    }
+
+    let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
+    let channel = await guild.channels.fetch(Config.CoursesLeageChannelID);
+
+    let embed = new MessageEmbed()
+    .setTitle("Weekly Leaderboards!")
+    .setDescription(`Just a reminder to all of the Leaderboard enthusiasts! The Weekly Leaderboard competition is happening right now!\n\n`
+        + `**__This Week's Courses:__**\n`
+        + easyCourse + `\n`
+        + hardCourse + `\n\n`
+        + tbl + `\n\n`
+        + "Check out the **#leaderboards-info** channel for the rules and how to compete!")
+    .setTimestamp();
+    channel.send({embeds: [embed]})
 }

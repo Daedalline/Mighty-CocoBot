@@ -32,15 +32,25 @@ module.exports.run = async(interaction, config, maps, client) => {
         return await interaction.editReply({embeds: [embed]})
     }
     else {
-        tbl = "__Current Season Medals:__\n";  
+        tbl = "__Current Season Medals (Trickshot):__\n";  
+        tbl += "Completion Awards :second_place: - " + player_data["Current Season"]["Completion Awards"] + " Medals\n";
         tbl += "Best Shot From the Tee :medal: - " + player_data["Current Season"]["Best Shot From the Tee"] + " Medals\n";
         tbl += "Best Shot From Another Tee :military_medal: - " + player_data["Current Season"]["Best Shot From Another Tee"] + " Medals\n";
-        tbl += "Completion Awards :second_place: - " + player_data["Current Season"]["Completion Awards"] + " Medals\n";
         tbl += "\n"
-        tbl += "__Lifetime Medals:__\n"
+        tbl += "__Current Season Medals (9-Hole):__\n";  
+        tbl += "Target Score Achieved :second_place: - " + player_data["Current Season 9-Hole"]["Target Score Achieved"] + " Medals\n";        
+        tbl += "Target Score and Time Achieved :medal: - " + player_data["Current Season 9-Hole"]["Target Score and Time Achieved"] + " Medals\n";
+        tbl += "Top Score :military_medal: - " + player_data["Current Season 9-Hole"]["Top Score"] + " Medals\n";
+        tbl += "\n"
+        tbl += "__Lifetime Medals (Trickshot):__\n"
+        tbl += "Completion Awards :second_place: - " + player_data["Lifetime"]["Completion Awards"] + " Medals\n";
         tbl += "Best Shot From the Tee :medal: - " + player_data["Lifetime"]["Best Shot From the Tee"] + " Medals\n";
         tbl += "Best Shot From Another Tee :military_medal: - " + player_data["Lifetime"]["Best Shot From Another Tee"] + " Medals\n";
-        tbl += "Completion Awards :second_place: - " + player_data["Lifetime"]["Completion Awards"] + " Medals\n";
+        tbl += "\n"
+        tbl += "__Lifetime Medals (9-Hole):__\n"
+        tbl += "Target Score Achieved :second_place: - " + player_data["Lifetime 9-Hole"]["Target Score Achieved"] + " Medals\n";        
+        tbl += "Target Score and Time Achieved :medal: - " + player_data["Lifetime 9-Hole"]["Target Score and Time Achieved"] + " Medals\n";
+        tbl += "Top Score :military_medal: - " + player_data["Lifetime 9-Hole"]["Top Score"] + " Medals\n";
         tbl += "\n"
         tbl += "__Total Season Wins:__\n";
         tbl += "First Place Finishes :first_place: - " + player_data["Total Season Wins"]["First Place Finishes"] + " Wins\n";
