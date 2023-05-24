@@ -99,7 +99,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
     var res = []
     switch(value.name){
         case 'map': {
-            Maps.Leaderboards.forEach(map => {
+            Maps.Maps.forEach(map => {
                 if(map.toLowerCase().includes(value.value.toLowerCase()) || value == ""){
                     res.push({
                         name: map,
