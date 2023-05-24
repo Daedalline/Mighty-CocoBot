@@ -139,7 +139,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             }
         }
     }
-    console.log("Test1: " + userCourses[courseName].toString);
+    console.log("Test1: " + JSON.stringify(userCourses[courseName]));
     sortMapList.sort();
     
     tbl += "\n__**Speedrun Leaderboards**__\n";
