@@ -127,6 +127,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             }
         })
 
+        console.log("SORTABLE: " + sortable);
         var index = 0
         for (var i = 0; i<sortable.length; i++) {
             if (i>=20){
