@@ -44,15 +44,10 @@ module.exports.run = async(interaction, config, maps, client) => {
         });
         
         if (sortableScores.length >= 20) {
-            userCourses[map] = [sortableScores[19][0], sortableScores[19][1]];
+            userCourses[map] = sortableScores[19][0];
         }
         else {
-            if (map.startsWith("Weekly")) {
-                userCourses[map] = [-5, "Any Time"];
-            }
-            else {
-                userCourses[map] = ["Any Score", "Any Time"];
-            }
+            userCourses[map] = "Any Time";
         }
         
         
