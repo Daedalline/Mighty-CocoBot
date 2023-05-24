@@ -139,7 +139,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             }
         }
     }
-    console.log("Test1: " + JSON.stringify(userCourses[courseName]));
+    console.log("Test: " + userCourses.toString());
     sortMapList.sort();
     
     tbl += "\n__**Speedrun Leaderboards**__\n";
@@ -150,7 +150,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         {
             noScores = false;
             var date = new Date(null);
-            console.log("Test: " + userCourses[courseName][1]);
             date.setSeconds(userCourses[courseName][1]);
             var timeString = date.toISOString().slice(11, 19);
             tbl += `${courseName}: ${timeString}\n`
