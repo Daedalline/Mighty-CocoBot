@@ -134,12 +134,11 @@ module.exports.run = async(interaction, config, maps, client) => {
                 break;
             }
             if (sortable[i][0] == userID){
-                userCourses[map] = [sortable[i][1], sortable[i][2]];
+                userCourses[map] = [sortable[i][1]];
                 break;
             }
         }
     }
-    console.log("Test: " + userCourses);
     console.log("Test: " + JSON.stringify(userCourses));
     sortMapList.sort();
     
