@@ -134,7 +134,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 break;
             }
             if (sortable[i][0] == userID){
-                userCourses[map] = [sortable[i][1]];
+                userCourses[map] = sortable[i][1];
                 break;
             }
         }
