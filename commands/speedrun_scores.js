@@ -29,24 +29,25 @@ module.exports.run = async(interaction, config, maps, client) => {
         var userID = interaction.options.getUser('user').id;
         var amount = interaction.options.getInteger('score');
         var map = interaction.options.getString('map');
-        var startTime = interaction.options.getString('start_time').split(":");
-        var endTime = interaction.options.getString('end_time').split(":");
+        var startTimeString = interaction.options.getString('start_time');
+        var endTimeString = interaction.options.getString('end_time');
+        
+        let timePattern = /\d{1,2}-\d{1,2}-\d{1,2}/;
+        if (!timePattern.test(startTimeString) || !timePattern.test(endTimeString)){
+            await interaction.reply({ephemeral: true, content: "Invalid time format. Time must be input in 24 hr format HH-mm-ss."})
+            return;
+        }
+    
+        var startTime = interaction.options.getString('start_time').split("-");
+        var endTime = interaction.options.getString('end_time').split("-");
 
         if(amount > 999 || amount < -999){
             await interaction.reply({ephemeral: true, content: "Come on... Im not that stupid. Try a more realistic number"})
             return;
         }
-        else if (startTime.length != 3) {
-            await interaction.reply({ephemeral: true, content: "Invalid start time format."})
-            return;
-        }
-        else if (endTime.length != 3) {
-            await interaction.reply({ephemeral: true, content: "Invalid end time format."})
-            return;
-        }
 
         await interaction.deferReply()
-
+        
         if(!data[map]){
             data[map] = {}
         }
@@ -54,7 +55,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var startTimeInSeconds = (Number(startTime[0]) * 3600) + (Number(startTime[1]) * 60) + (Number(startTime[2]));
         var endTimeInSeconds = (Number(endTime[0]) * 3600) + (Number(endTime[1]) * 60) + (Number(endTime[2]));
         var totalSeconds = endTimeInSeconds - startTimeInSeconds;
-
+        
         data[map][userID] = [amount, totalSeconds, new Date().toJSON()]
         var writedata = JSON.stringify(data, null, "\t");
         await fs.writeFileSync('./speedrun_data.json', writedata);
