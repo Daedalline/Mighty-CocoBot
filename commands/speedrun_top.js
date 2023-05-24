@@ -48,6 +48,8 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     sortMapList.sort();
     
+    console.log(JSON.stringify(userCourses));
+    
     tbl = "";
     for (var i=0; i<sortMapList.length; i++){
         var courseName = sortMapList[i];
