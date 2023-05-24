@@ -56,13 +56,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         if (userCourses[courseName] != undefined)
         {
             var date = new Date(null);
-            date.setSeconds(userCourses[courseName][1]);
+            date.setSeconds(userCourses[courseName][0]);
             var timeString = date.toISOString().slice(11, 19);
 
-            tbl += `${courseName}: ${userCourses[courseName][0]}, ${timeString}\n`;
+            tbl += `${courseName}: ${timeString}\n`;
         }
         else {
-            tbl += `${courseName}: No Scores\n`;
+            tbl += `${courseName}: No Times\n`;
         }
     }
     
