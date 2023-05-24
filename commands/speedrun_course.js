@@ -45,21 +45,16 @@ module.exports.run = async(interaction, config, maps, client) => {
 
     sortable.sort(function(a,b){
         if (a[1][0] == b[1][0]) {
-            if (a[1][1] == b[1][1]) {
-                var dateA = new Date(a[1][2]);
-                var dateB = new Date(b[1][2]);
-                if (dateA < dateB){
-                    return -1;
-                }
-                else if (dateA > dateB){
-                    return 1;
-                }
-                else {
-                    return 0;            
-                }
+            var dateA = new Date(a[1][1]);
+            var dateB = new Date(b[1][1]);
+            if (dateA < dateB){
+                return -1;
+            }
+            else if (dateA > dateB){
+                return 1;
             }
             else {
-                return a[1][1]-b[1][1];
+                return 0;            
             }
         }
         else {    
@@ -70,6 +65,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     var sortedData = {}
     sortable.forEach(function(item){
         var date = new Date(null);
+        console.log("ITEM: " + JSON.stringify(item));
         date.setSeconds(item[1][1]);
         var timeString = date.toISOString().slice(11, 19);
         
