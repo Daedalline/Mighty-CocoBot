@@ -54,14 +54,12 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     sortMapList.sort();
     
-    console.log(JSON.stringify(userCourses));
-    
     tbl = "";
     for (var i=0; i<sortMapList.length; i++){
         var courseName = sortMapList[i];
         if (userCourses[courseName] != undefined)
         {
-            tbl += `${courseName}: ${userCourses[courseName][0]}, ${userCourses[courseName][1]}\n`
+            tbl += `${courseName}: ${userCourses[courseName]}\n`
         }
     }
     
@@ -72,6 +70,6 @@ module.exports.run = async(interaction, config, maps, client) => {
 }
 
 module.exports.info = {
-    "name": "speenrun_bottom",
+    "name": "speedrun_bottom",
     "description": "List the bottom speedrun leaderboard score for each course"
 };
