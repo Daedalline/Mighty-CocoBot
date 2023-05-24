@@ -144,14 +144,14 @@ module.exports.info = {
                 },
                 {
                     "name": "start_time",
-                    "description": "Time start (in 24 hr format hh:mm:ss)",
+                    "description": "Time start (in 24 hr format HH-mm-ss)",
                     "type": 3,
                     "autocomplete": true,
                     "required": true
                 },
                 {
                     "name": "end_time",
-                    "description": "Time finish (in 24 hr format hh:mm:ss)",
+                    "description": "Time finish (in 24 hr format HH-mm-ss)",
                     "type": 3,
                     "autocomplete": true,
                     "required": true
