@@ -65,12 +65,13 @@ module.exports.run = async(interaction, config, maps, client) => {
     var sortedData = {}
     sortable.forEach(function(item){
         var date = new Date(null);
-        console.log("ITEM: " + JSON.stringify(item));
-        date.setSeconds(item[1][1]);
+        date.setSeconds(item[1][0]);
         var timeString = date.toISOString().slice(11, 19);
         
-        sortedData[item[0]]=[item[1][0], timeString];
+        sortedData[item[0]] = timeString;
     })
+    
+    console.log("TEST: " + JSON.stringify(sortedData));
     
     var tbl = ""
     var index = 0
