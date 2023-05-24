@@ -122,6 +122,22 @@ fs.access("weekly_leaderboards_data.json", fs.F_OK, (err) => {
         console.log("weekly_leaderboards_data.json already exists")
     }
 })
+fs.access("speedrun_data.json", fs.F_OK, (err) => {
+    if (err) {
+        if(err.code == "ENOENT"){
+            fs.writeFile("speedrun_data.json", data, (err) => {
+                if (err) throw err;
+                console.log("Created speedrun_data.json as it didnt exist")
+                return
+            })
+        }else{
+            console.error(err)
+            return
+        }
+    }else{
+        console.log("speedrun_data.json already exists")
+    }
+})
 
 // D.JS Client listeners
 client.on("error", (e) => console.error(e));
