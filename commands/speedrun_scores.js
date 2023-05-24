@@ -27,7 +27,6 @@ module.exports.run = async(interaction, config, maps, client) => {
     if(interaction.options.getSubcommand() == "submit"){
 
         var userID = interaction.options.getUser('user').id;
-        var amount = interaction.options.getInteger('score');
         var map = interaction.options.getString('map');
         var startTimeString = interaction.options.getString('start_time');
         var endTimeString = interaction.options.getString('end_time');
@@ -41,11 +40,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         var startTime = interaction.options.getString('start_time').split("-");
         var endTime = interaction.options.getString('end_time').split("-");
 
-        if(amount > 999 || amount < -999){
-            await interaction.reply({ephemeral: true, content: "Come on... Im not that stupid. Try a more realistic number"})
-            return;
-        }
-
         await interaction.deferReply()
         
         if(!data[map]){
@@ -56,13 +50,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         var endTimeInSeconds = (Number(endTime[0]) * 3600) + (Number(endTime[1]) * 60) + (Number(endTime[2]));
         var totalSeconds = endTimeInSeconds - startTimeInSeconds;
         
-        data[map][userID] = [amount, totalSeconds, new Date().toJSON()]
+        data[map][userID] = [totalSeconds, new Date().toJSON()]
         var writedata = JSON.stringify(data, null, "\t");
         await fs.writeFileSync('./speedrun_data.json', writedata);
         
         var embed = new Discord.MessageEmbed()
         .setTitle("Score Recorded")
-        .setDescription(`Recorded a score of **${amount}, ${totalSeconds} seconds** for <@${userID}> on **${map}**`);
+        .setDescription(`Recorded a time of ${totalSeconds} seconds** for <@${userID}> on **${map}**`);
         return await interaction.editReply({embeds: [embed]})
     }
     
@@ -127,12 +121,6 @@ module.exports.info = {
                     "name": "user",
                     "description": "The user to submit for",
                     "type": 6,
-                    "required": true
-                },
-                {
-                    "name": "score",
-                    "description": "The score they achieved",
-                    "type": 4,
                     "required": true
                 },
                 {
