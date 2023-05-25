@@ -64,7 +64,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Minimum score and/or time requred to beat to make each speedrun leaderboard`)
+    .setTitle(`Time to beat to make each speedrun leaderboard`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
