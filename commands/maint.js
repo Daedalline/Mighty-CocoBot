@@ -21,10 +21,16 @@ module.exports.run = async(interaction, config, maps, client) => {
         return
     }
 
-    if(interaction.options.getSubcommand() == "clear_scores"){
+    if(interaction.options.getSubcommand() == "clear_scores" || interaction.options.getSubcommand() == "clear_speedrun_scores"){
         // Removes all scores for the given map in the Leaderboard, saving a backup of the most recent removal
+        
+        let filename = 'data.json';
+        if (interaction.options.getSubcommand() == "clear_speedrun_scores")
+        {
+            filename = 'speedrun_data.json';
+        }
 
-        let rawdata = await fs.readFileSync('data.json');
+        let rawdata = await fs.readFileSync(filename);
         let data = await JSON.parse(rawdata); 
 
         var map = interaction.options.getString('map');
@@ -48,7 +54,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             // Delete the data and save
             delete data[map];
             var writedata = JSON.stringify(data, null, "\t");
-            await fs.writeFileSync('./data.json', writedata);
+            await fs.writeFileSync('./'+filename, writedata);
 
             var embed = new Discord.MessageEmbed()
             .setTitle("Scores Removed")
@@ -176,6 +182,20 @@ module.exports.info = {
         {
             "name": "clear_scores",
             "description": "Removes all scores for the given map in the Leaderboard",
+            "type": 1,
+            "options": [
+                {
+                    "name": "map",
+                    "description": "The map to remove the scores from from",
+                    "type": 3,
+                    "autocomplete": true,
+                    "required": true
+                }
+            ]
+        },
+        {
+            "name": "clear_speedrun_scores",
+            "description": "Removes all scores for the given map in the Speedrun Leaderboard",
             "type": 1,
             "options": [
                 {
