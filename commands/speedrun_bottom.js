@@ -23,34 +23,34 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     var sortMapList = [];
     var userCourses = {};
-    for (var i=0;i<maps.Maps.length;i++)
+    for (var i=0;i<maps.Leaderboards.length;i++)
     {
-        var map = maps.Maps[i];
-        sortMapList.push(map);
-        var sortableScores = [];
+        var map = maps.Leaderboards[i];
+        if (!map.startsWith("Weekly")) {
+            sortMapList.push(map);
+            var sortableScores = [];
         
-        var players = data[map];
-        for(var player in players){
-            sortableScores.push([players[player][0], players[player][1]]);
-        }
+            var players = data[map];
+            for(var player in players){
+                sortableScores.push([players[player][0], players[player][1]]);
+            }
         
-        sortableScores.sort(function(a,b){
-            if (a[0] == b[0]) {
-                return a[1]-b[1];
+            sortableScores.sort(function(a,b){
+                if (a[0] == b[0]) {
+                    return a[1]-b[1];
+                }
+                else {
+                    return a[0]-b[0];
+                }
+            });
+        
+            if (sortableScores.length >= 20) {
+                userCourses[map] = sortableScores[19][0];
             }
             else {
-                return a[0]-b[0];
+                userCourses[map] = "Any Time";
             }
-        });
-        
-        if (sortableScores.length >= 20) {
-            userCourses[map] = sortableScores[19][0];
         }
-        else {
-            userCourses[map] = "Any Time";
-        }
-        
-        
     }
     sortMapList.sort();
     

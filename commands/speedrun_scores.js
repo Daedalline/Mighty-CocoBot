@@ -94,8 +94,8 @@ module.exports.autocomplete = async (interaction, Maps) => {
     var res = []
     switch(value.name){
         case 'map': {
-            Maps.Maps.forEach(map => {
-                if(map.toLowerCase().includes(value.value.toLowerCase()) || value == ""){
+            Maps.Leaderboards.forEach(map => {
+                if((map.toLowerCase().includes(value.value.toLowerCase()) || value == "") && !map.startsWith("Weekly")){
                     res.push({
                         name: map,
                         value: map
