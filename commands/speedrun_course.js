@@ -11,8 +11,11 @@ const fs = require("fs");
 const yaml = require('js-yaml');
 
 module.exports.run = async(interaction, config, maps, client) => {
+    
+    var guild = await client.guilds.cache.find(guild => guild.id == interaction.guild.id)
+    var member = await guild.members.cache.find(user => user.id == interaction.member.id)
 
-    if(interaction.channel.id != config.CoursesLeageChannelID){
+    if(interaction.channel.id != config.CoursesLeageChannelID && !member.permissions.has("MANAGE_MESSAGES")){
         interaction.reply({ephemeral: true, content: "You are not allowed to do that in this channel"})
         return
     }
