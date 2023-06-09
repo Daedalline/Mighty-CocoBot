@@ -50,12 +50,23 @@ module.exports.run = async(interaction, config, maps, client) => {
         var endTimeInSeconds = (Number(endTime[0]) * 3600) + (Number(endTime[1]) * 60) + (Number(endTime[2]));
         var totalSeconds = endTimeInSeconds - startTimeInSeconds;
         
+        if(data[map][userID] != totalSeconds)
+        {
+            if(data[map][userID][0] <= amount)
+            {
+                var embed = new Discord.MessageEmbed()
+                .setTitle("No Time Recorded")
+                .setDescription(`This time is greater than the existing time of ` + data[map][userID][0] + " seconds.");
+                return await interaction.editReply({embeds: [embed]})
+            }
+        }
+        
         data[map][userID] = [totalSeconds, new Date().toJSON()]
         var writedata = JSON.stringify(data, null, "\t");
         await fs.writeFileSync('./speedrun_data.json', writedata);
         
         var embed = new Discord.MessageEmbed()
-        .setTitle("Score Recorded")
+        .setTitle("Time Recorded")
         .setDescription(`Recorded a time of ${totalSeconds} seconds** for <@${userID}> on **${map}**`);
         return await interaction.editReply({embeds: [embed]})
     }
