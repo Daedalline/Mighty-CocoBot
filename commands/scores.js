@@ -49,7 +49,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             {
                 var embed = new Discord.MessageEmbed()
                 .setTitle("No Score Recorded")
-                .setDescription(`This score is higher than the existing score of ` + data[map][userID][0]);
+                .setDescription(`This score is greater than the existing score of ` + data[map][userID][0]);
                 return await interaction.editReply({embeds: [embed]})
             }
         }
