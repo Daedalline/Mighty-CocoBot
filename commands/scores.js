@@ -47,20 +47,21 @@ module.exports.run = async(interaction, config, maps, client) => {
         {
             if(data[map][userID][0] <= amount)
             {
-                return await interaction.reply({ephemeral: true, content: "This score is higher than the existing score of " + data[map][userID][0]})
+                var embed = new Discord.MessageEmbed()
+                .setTitle("Score Recorded")
+                .setDescription(`This score is higher than the existing score of ` + data[map][userID][0]);
+                return await interaction.editReply({embeds: [embed]})
             }
         }
-        else {
 
-            data[map][userID] = [amount, new Date().toJSON()]
-            var writedata = JSON.stringify(data, null, "\t");
-            await fs.writeFileSync('./data.json', writedata);
+        data[map][userID] = [amount, new Date().toJSON()]
+        var writedata = JSON.stringify(data, null, "\t");
+        await fs.writeFileSync('./data.json', writedata);
         
-            var embed = new Discord.MessageEmbed()
-            .setTitle("Score Recorded")
-            .setDescription(`Recorded a score of **${amount}** for <@${userID}> on **${map}**`);
-            return await interaction.editReply({embeds: [embed]})
-        }
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Score Recorded")
+        .setDescription(`Recorded a score of **${amount}** for <@${userID}> on **${map}**`);
+        return await interaction.editReply({embeds: [embed]})
     }
     
     if(interaction.options.getSubcommand() == "remove"){
