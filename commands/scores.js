@@ -45,7 +45,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         
         if(data[map][userID] != undefined)
         {
-            console.log("Gottem");
+            console.log(data[map][userID]);
         }
 
         data[map][userID] = [amount, new Date().toJSON()]
