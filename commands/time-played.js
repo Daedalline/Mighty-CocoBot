@@ -50,7 +50,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     var embed = new Discord.MessageEmbed()
     .setTitle("Start Time: " + interaction.options.getString('start_time').replaceAll("-", ":") + ", End Time: " + interaction.options.getString('end_time').replaceAll("-", ":"))
-    .setDescription("Time Played: " + timeString + ", Time in Seconds: " + totalSeconds);
+    .setDescription("Time Played: " + timeString);
     return await interaction.editReply({embeds: [embed]})
 }
 module.exports.info = {
