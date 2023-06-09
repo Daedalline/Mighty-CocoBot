@@ -38,10 +38,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
 
         await interaction.deferReply()
-
+        
         if(!data[map]){
             data[map] = {}
         }
+        
+        let currentScore = 0;
+        console.log(data[map][userID][0]);
 
         data[map][userID] = [amount, new Date().toJSON()]
         var writedata = JSON.stringify(data, null, "\t");
