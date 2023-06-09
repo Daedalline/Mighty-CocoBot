@@ -38,9 +38,20 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
 
         await interaction.deferReply()
-
+        
         if(!data[map]){
             data[map] = {}
+        }
+        
+        if(data[map][userID] != undefined)
+        {
+            if(data[map][userID][0] <= amount)
+            {
+                var embed = new Discord.MessageEmbed()
+                .setTitle("No Score Recorded")
+                .setDescription(`This score is higher than the existing score of ` + data[map][userID][0]);
+                return await interaction.editReply({embeds: [embed]})
+            }
         }
 
         data[map][userID] = [amount, new Date().toJSON()]
