@@ -43,7 +43,6 @@ module.exports.run = async(interaction, config, maps, client) => {
             data[map] = {}
         }
         
-        let currentScore = 0;
         if(data[map][userID] != undefined)
         {
             console.log("Gottem");
