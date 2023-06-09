@@ -47,8 +47,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         {
             if(data[map][userID][0] <= amount)
             {
-                await interaction.reply({ephemeral: true, content: "This score is higher than the existing score of " + data[map][userID][0]})
-                return;
+                return await interaction.reply({ephemeral: true, content: "This score is higher than the existing score of " + data[map][userID][0]})
             }
         }
 
