@@ -21,7 +21,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     await interaction.deferReply();
 
-    let rawdata = await fs.readFileSync('data.json');
+    let rawdata = await fs.readFileSync('speedrun_data.json');
     let data = await JSON.parse(rawdata); 
     
     var sortMapList = [];
@@ -29,44 +29,53 @@ module.exports.run = async(interaction, config, maps, client) => {
     for (var i=0;i<maps.Leaderboards.length;i++)
     {
         var map = maps.Leaderboards[i];
-        sortMapList.push(map);
-        var sortableScores = [];
+        if (!map.startsWith("Weekly")) {
+            sortMapList.push(map);
+            var sortableScores = [];
         
-        var players = data[map];
-        for(var player in players){
-            sortableScores.push(players[player][0]);
+            var players = data[map];
+            for(var player in players){
+                sortableScores.push([players[player][0], players[player][1]]);
+            }
+        
+            sortableScores.sort(function(a,b){
+                if (a[0] == b[0]) {
+                    return a[1]-b[1];
+                }
+                else {
+                    return a[0]-b[0];
+                }
+            });
+        
+            if (sortableScores.length >= 20) {
+                var date = new Date(null);
+                date.setSeconds(sortableScores[19][0] - 1);
+                var timeString = date.toISOString().slice(11, 19);
+                userCourses[map] = timeString;
+            }
+            else {
+                userCourses[map] = "Any Time";
+            }
         }
-        
-        sortableScores.sort(function(a,b){
-            return a-b;
-        });
-        
-        if (sortableScores.length >= 20) {
-            userCourses[map] = sortableScores[19]-1;
-        }
-        else {
-            userCourses[map] = "Any Score";
-        }
-        
-        
     }
     sortMapList.sort();
     
     tbl = "";
     for (var i=0; i<sortMapList.length; i++){
-        if (userCourses[sortMapList[i]] != undefined)
+        var courseName = sortMapList[i];
+        if (userCourses[courseName] != undefined)
         {
-            tbl += `${sortMapList[i]}: ${userCourses[sortMapList[i]]}\n`
+            tbl += `${courseName}: ${userCourses[courseName]}\n`
         }
     }
     
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Minimum score requred to make each leaderboard`)
+    .setTitle(`Time to beat to make each speedrun leaderboard`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
 
 module.exports.info = {
-    "name": "bottom",
-    "description": "List the bottom leaderboard score for each course"
+    "name": "speedrun_bottom",
+    "description": "List the bottom speedrun leaderboard score for each course"
 };

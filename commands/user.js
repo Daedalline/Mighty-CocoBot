@@ -21,7 +21,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         return
     }
     await interaction.deferReply();
-    
+   
+    // Main Leaderboards   
     let rawdata = await fs.readFileSync('data.json');
     let data = await JSON.parse(rawdata); 
     
@@ -75,26 +76,95 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     sortMapList.sort();
     
-    tbl = "";
+    tbl = "__**Leaderboards**__\n";
+    var noScores = true;
     for (var i=0; i<sortMapList.length; i++){
         if (userCourses[sortMapList[i]] != undefined)
         {
+            noScores = false;
             tbl += `${sortMapList[i]}: ${userCourses[sortMapList[i]]}\n`
         }
     }
+    if (noScores) {
+        tbl += `There does not apear to be any scores for **<@${userID}>**\n`;
+    }
     
-    if(tbl == ""){
-        var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
-            .setDescription(`There does not apear to be any scores for **<@${userID}>**`);
-        return await interaction.editReply({embeds: [embed]})
+    // Speedrun leaderboards
+    rawdata = await fs.readFileSync('speedrun_data.json');
+    data = await JSON.parse(rawdata); 
+    
+    userCourses = {};
+    var sortMapList = [];
+        
+    for (var map in data){
+        sortMapList.push(map);
+        var players = data[map];
+        
+        var simpleData = {};
+        for(var player in players){
+            simpleData[player] = players[player];
+        }
+    
+        var sortable = [];
+        for (var item in simpleData){
+            sortable.push([item, simpleData[item]]);
+        }
+
+        sortable.sort(function(a,b){
+            if (a[1][0] == b[1][0]) {
+                var dateA = new Date(a[1][1]);
+                var dateB = new Date(b[1][1]);
+                if (dateA < dateB){
+                    return -1;
+                }
+                else if (dateA > dateB){
+                    return 1;
+                }
+                else {
+                    return 0;            
+                }
+            }
+            else {    
+                return a[1][0] - b[1][0];
+            }
+        })
+
+        var index = 0
+        for (var i = 0; i<sortable.length; i++) {
+            if (i>=20){
+                break;
+            }
+            if (sortable[i][0] == userID){
+                userCourses[map] = sortable[i][1];
+                break;
+            }
+        }
     }
-    else {
-        var embed = new Discord.MessageEmbed()
-        .setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
-        .setDescription(tbl);
-        return await interaction.editReply({embeds: [embed]})
+
+    sortMapList.sort();
+    
+    tbl += "\n__**Speedrun Leaderboards**__\n";
+    noScores = true;
+    for (var i=0; i<sortMapList.length; i++){
+        var courseName = sortMapList[i];
+        if (userCourses[courseName] != undefined)
+        {
+            noScores = false;
+            var date = new Date(null);
+            date.setSeconds(userCourses[courseName][0]);
+            var timeString = date.toISOString().slice(11, 19);
+            tbl += `${courseName}: ${timeString}\n`
+        }
     }
+    if (noScores) {
+        tbl += `There does not apear to be any speedrun scores for **<@${userID}>**`;
+    }
+    
+    // Print output
+    var embed = new Discord.MessageEmbed()
+    .setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
+    .setDescription(tbl);
+    return await interaction.editReply({embeds: [embed]})
 }
 
 module.exports.info = {

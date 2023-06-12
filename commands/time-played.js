@@ -39,6 +39,11 @@ module.exports.run = async(interaction, config, maps, client) => {
     var endTimeInSeconds = (Number(endTime[0]) * 3600) + (Number(endTime[1]) * 60) + (Number(endTime[2]));
     var totalSeconds = endTimeInSeconds - startTimeInSeconds;
     
+    if (totalSeconds < 0) 
+    {
+        totalSeconds = 86400 + totalSeconds;
+    }
+    
     var date = new Date(null);
     date.setSeconds(totalSeconds);
     var timeString = date.toISOString().slice(11, 19);
