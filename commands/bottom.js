@@ -42,12 +42,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             userCourses[map] = sortableScores[19]-1;
         }
         else {
-            if (map.startsWith("Weekly")) {
-                userCourses[map] = -5;
-            }
-            else {
-                userCourses[map] = "Any Score";
-            }
+            userCourses[map] = "Any Score";
         }
         
         
