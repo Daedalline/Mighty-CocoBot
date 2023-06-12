@@ -46,12 +46,12 @@ module.exports.run = async(interaction, config, maps, client) => {
                     return a[0]-b[0];
                 }
             });
-            
-            console.log(JSON.stringify(sortableScores));
         
             if (sortableScores.length >= 20) {
-                console.log("Bottom Score: " + sortableScores[19][0]);
-                userCourses[map] = sortableScores[19][0] - 1;
+                var date = new Date(null);
+                date.setSeconds(sortableScores[19][0] - 1);
+                var timeString = date.toISOString().slice(11, 19);
+                userCourses[map] = timeString;
             }
             else {
                 userCourses[map] = "Any Time";
