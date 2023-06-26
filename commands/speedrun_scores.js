@@ -76,7 +76,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         
         var embed = new Discord.MessageEmbed()
         .setTitle("Time Recorded")
-        .setDescription(`Recorded a time of **${timeString}** ($totalSeconds seconds) for <@${userID}> on **${map}**`);
+        .setDescription(`Recorded a time of **${timeString}** (${totalSeconds} seconds) for <@${userID}> on **${map}**`);
         return await interaction.editReply({embeds: [embed]})
     }
     
