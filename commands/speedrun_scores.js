@@ -70,9 +70,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         var writedata = JSON.stringify(data, null, "\t");
         await fs.writeFileSync('./speedrun_data.json', writedata);
         
+        var date = new Date(null);
+        date.setSeconds(totalSeconds);
+        var timeString = date.toISOString().slice(11, 19);
+        
         var embed = new Discord.MessageEmbed()
         .setTitle("Time Recorded")
-        .setDescription(`Recorded a time of **${totalSeconds} seconds** for <@${userID}> on **${map}**`);
+        .setDescription(`Recorded a time of **${timeString}** for <@${userID}> on **${map}**`);
         return await interaction.editReply({embeds: [embed]})
     }
     
