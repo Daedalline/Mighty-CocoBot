@@ -340,7 +340,8 @@ async function printAdditionalGameMessage() {
     let embed = new MessageEmbed()
     .setTitle("Games starting soon!")
     .setDescription(`
-    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **COCOTEST**. If this is full, try **COCOTEST1** or **COCOTEST2**, etc.
+    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **COCOTEST**. If this is full, try **COCOTEST1** or **COCOTEST2**, etc. Room size is optional, ideally 5.
+    Please react with a :+1: if you plan to join.
     `)
     .setTimestamp();
     channel.send({embeds: [embed]})  
