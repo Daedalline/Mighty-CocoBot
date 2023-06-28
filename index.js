@@ -213,7 +213,7 @@ async function main(){
       let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
       let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturday at 15 minutes before 9 am, 1 pm , and 5 pm EST.
       let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
-      let additionalReminder = schedule.scheduleJob('* * * * * *', printAdditionalGameMessage); // fires every day, at xx:xx:xx
+      let additionalReminder = schedule.scheduleJob('00 15,45 * * * *', printAdditionalGameMessage); // fires every day, at xx:xx:xx
 }
 
 // Print the random easy game message in #find-a-game
@@ -330,7 +330,7 @@ async function printLanguageGameMessage() {
 // Print the non-English game message in #find-a-game
 async function printAdditionalGameMessage() {
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
-    let channel = await guild.channels.fetch(Config.ChannelID);
+    let channel = await guild.channels.fetch(Config.AdditionalChannelID);
     
     let currentDate = Date.now() + 900000;
     let currentDateString = currentDate.toString();
