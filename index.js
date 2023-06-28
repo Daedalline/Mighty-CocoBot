@@ -214,7 +214,7 @@ async function main(){
       let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
       let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
       let additionalReminder = schedule.scheduleJob('00 * * * * *', printAdditionalGameMessage); // fires every day at 15 minutes before 9 am, 1 pm , 5 pm, and 9 pm EST.
-      //let additionalReminder = schedule.scheduleJob('00 45 0,12,16,20 * * *', printAdditionalGameMessage); // fires every day at 15 minutes before 9 am, 1 pm , 5 pm, and 9 pm EST.
+      //let additionalReminder = schedule.scheduleJob('00 45 0,2,12,14,16,18,20,22 * * *', printAdditionalGameMessage); // fires every day at 15 minutes before 9 am, 11am, 1 pm, 3 pm, 5 pm, 7 pm, 9 pm, and 11 pm EST.
 }
 
 // Print the random easy game message in #find-a-game
@@ -341,12 +341,6 @@ async function printAdditionalGameMessage() {
     .setTitle("Games starting soon!")
     .setDescription(`
     The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **COCOTEST**. If this is full, try **COCOTEST1** or **COCOTEST2**, etc.
-
-    If you are the first player to create a room, please see the following guidelines:
-
-    * Rooms size is optional. Let's test both large and small rooms.
-
-    Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
     `)
     .setTimestamp();
     channel.send({embeds: [embed]})  
