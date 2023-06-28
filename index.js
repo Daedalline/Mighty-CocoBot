@@ -342,9 +342,9 @@ async function printAdditionalGameMessage() {
     .setDescription(`
     The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **COCOTEST**. If this is full, try **COCOTEST1** or **COCOTEST2**, etc.
 
-    * If you are the first player to create a room, please see the following guidelines:
+    If you are the first player to create a room, please see the following guidelines:
 
-    Rooms size is optional. Let's test both large and small rooms.
+    * Rooms size is optional. Let's test both large and small rooms.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
     `)
