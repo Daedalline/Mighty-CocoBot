@@ -84,7 +84,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
         var userID = interaction.options.getUser('user').id;
         var map = interaction.options.getString('map');
-        var time = interaction.options.getString('total time');
+        var time = interaction.options.getString('total_time');
         
         let timePattern = /\d{1,2}-\d{1,2}-\d{1,2}/;
         if (!timePattern.test(time)){
