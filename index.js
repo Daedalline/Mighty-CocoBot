@@ -211,8 +211,9 @@ client.login(Config.Token);
 async function main(){
       let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:xx
       let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
-      let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturday at 15 minutes before 9 am, 1 pm , and 5 pm EST.
+      let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
       let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
+      let additionalReminder = schedule.scheduleJob('00 45 0,2,12,14,16,18,20,22 * * *', printAdditionalGameMessage); // fires every day at 15 minutes before 9 am, 11am, 1 pm, 3 pm, 5 pm, 7 pm, 9 pm, and 11 pm EST.
 }
 
 // Print the random easy game message in #find-a-game
@@ -321,6 +322,25 @@ async function printLanguageGameMessage() {
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
     The course will be **Tourist Trap - Easy**, or you can choose a different one amongst yourselves.
+    `)
+    .setTimestamp();
+    channel.send({embeds: [embed]})  
+}
+
+// Print the non-English game message in #find-a-game
+async function printAdditionalGameMessage() {
+    let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
+    let channel = await guild.channels.fetch(Config.AdditionalChannelID);
+    
+    let currentDate = Date.now() + 900000;
+    let currentDateString = currentDate.toString();
+    let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
+
+    let embed = new MessageEmbed()
+    .setTitle("Games starting soon!")
+    .setDescription(`
+    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **COCOTEST**. If this is full, try **COCOTEST1** or **COCOTEST2**, etc. Room size is optional, ideally 5.
+    Please react with a :+1: if you plan to join.
     `)
     .setTimestamp();
     channel.send({embeds: [embed]})  
