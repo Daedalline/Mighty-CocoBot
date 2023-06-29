@@ -24,7 +24,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('speedrun_data.json');
     let data = await JSON.parse(rawdata); 
 
-    if(interaction.options.getSubcommand() == "submit range"){
+    if(interaction.options.getSubcommand() == "submit_range"){
 
         var userID = interaction.options.getUser('user').id;
         var map = interaction.options.getString('map');
@@ -80,7 +80,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         return await interaction.editReply({embeds: [embed]})
     }
     
-    if(interaction.options.getSubcommand() == "submit time"){
+    if(interaction.options.getSubcommand() == "submit_time"){
 
         var userID = interaction.options.getUser('user').id;
         var map = interaction.options.getString('map');
@@ -185,7 +185,7 @@ module.exports.info = {
     "description": "Allows moderators to manage scores on the boards",
     "options": [
         {
-            "name": "submit range",
+            "name": "submit_range",
             "description": "Submit a users speedrun score to a map by providing the Start and Current times.",
             "type": 1,
             "options": [
@@ -219,7 +219,7 @@ module.exports.info = {
             ]
         },
         {
-            "name": "submit time",
+            "name": "submit_time",
             "description": "Submit a users speedrun score to a map by providing the total time.",
             "type": 1,
             "options": [
