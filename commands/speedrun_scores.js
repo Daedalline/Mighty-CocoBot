@@ -92,7 +92,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             return;
         }
     
-        var totalTime = interaction.options.getString('time').split("-");
+        var totalTime = interaction.options.getString('total_time').split("-");
 
         await interaction.deferReply()
         
