@@ -334,9 +334,7 @@ async function printAdditionalGameMessage() {
     
     const messages = channel.messages.fetch();
     console.log("MESSAGES: " + messages);
-    const botMessages = (await messages).filter(
-        (m) => m.author.id === Config.BotID;
-    );
+    const botMessages = (await messages).filter((m) => m.author.id === Config.BotID);
     console.log("BOTMESSAGES: " + botMessages);
     channel.bulkDelete(botMessages);
     
