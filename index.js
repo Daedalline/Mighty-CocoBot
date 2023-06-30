@@ -332,6 +332,10 @@ async function printAdditionalGameMessage() {
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
     let channel = await guild.channels.fetch(Config.AdditionalChannelID);
     
+    const messages = channel.messages.fetch();
+    const botMessages = (await messages).filter((m) => m.author.id === Config.BotID);
+    channel.bulkDelete(botMessages);
+    
     let currentDate = Date.now() + 900000;
     let currentDateString = currentDate.toString();
     let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
