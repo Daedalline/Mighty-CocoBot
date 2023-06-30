@@ -213,7 +213,7 @@ async function main(){
       let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
       let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
       let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
-      let additionalReminder = schedule.scheduleJob('00 45 0,2,12,14,16,18,20,22 * * *', printAdditionalGameMessage); // fires every day at 15 minutes before 9 am, 11am, 1 pm, 3 pm, 5 pm, 7 pm, 9 pm, and 11 pm EST.
+      let additionalReminder = schedule.scheduleJob('00 0,10,20,30,40,50 * * * *', printAdditionalGameMessage); // fires every day at 15 minutes before 9 am, 11am, 1 pm, 3 pm, 5 pm, 7 pm, 9 pm, and 11 pm EST.
 }
 
 // Print the random easy game message in #find-a-game
@@ -331,6 +331,14 @@ async function printLanguageGameMessage() {
 async function printAdditionalGameMessage() {
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
     let channel = await guild.channels.fetch(Config.AdditionalChannelID);
+    
+    const messages = channel.messages.fetch();
+    console.log("MESSAGES: " + messages);
+    const botMessages = (await messages).filter(
+        (m) => m.author.id === Config.BotID;
+    );
+    console.log("BOTMESSAGES: " + botMessages);
+    channel.bulkDelete(botMessages);
     
     let currentDate = Date.now() + 900000;
     let currentDateString = currentDate.toString();
