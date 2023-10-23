@@ -35,12 +35,14 @@ module.exports.run = async(interaction, config, maps, client) => {
             "Current Season": {
                 "Best Shot From the Tee": 0,
                 "Best Shot From Another Tee": 0,
-                "Completion Awards": 0
+                "Completion Awards": 0,
+                "Participation Awards": 0
             },
             "Lifetime": {
                 "Best Shot From the Tee": 0,
                 "Best Shot From Another Tee": 0,
-                "Completion Awards": 0
+                "Completion Awards": 0,
+                "Participation Awards": 0
             },
             "Total Season Wins": {
                 "First Place Finishes": 0,
@@ -64,6 +66,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             case("Best Shot From the Tee"):
             case("Best Shot From Another Tee"):
             case("Completion Awards"):
+            case("Participation Awards"):
                 if (!lifetimeOnly) {
                     challenge_data[userID]["Current Season"][stat]++;
                 }
@@ -112,6 +115,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             case("Best Shot From the Tee"):
             case("Best Shot From Another Tee"):
             case("Completion Awards"):
+            case("Participation Awards"):
                 if (lifetimeOnly) {
                     if (challenge_data[userID]["Lifetime"][stat] == 0){ 
                         var embed = new Discord.MessageEmbed()
@@ -197,6 +201,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             challenge_data[userID]["Current Season"]["Best Shot From the Tee"] = 0;
             challenge_data[userID]["Current Season"]["Best Shot From Another Tee"] = 0;
             challenge_data[userID]["Current Season"]["Completion Awards"] = 0;
+            challenge_data[userID]["Current Season"]["Participation Awards"] = 0;
             challenge_data[userID]["Current Season 9-Hole"]["Top Score"] = 0;
             challenge_data[userID]["Current Season 9-Hole"]["Target Score and Time Achieved"] = 0;
             challenge_data[userID]["Current Season 9-Hole"]["Target Score Achieved"] = 0;
@@ -245,7 +250,11 @@ module.exports.info = {
                             "name": "Completion Awards",
                             "value": "Completion Awards"
                         },
-{
+                        {
+                            "name": "Participation Awards",
+                            "value": "Participation Awards"
+                        },
+                        {
                             "name": "Target Score Achieved",
                             "value": "Target Score Achieved"
                         },
@@ -307,6 +316,10 @@ module.exports.info = {
                         {
                             "name": "Completion Awards",
                             "value": "Completion Awards"
+                        },
+                        {
+                            "name": "Participation Awards",
+                            "value": "Participation Awards"
                         },
                         {
                             "name": "First Place Finishes",
