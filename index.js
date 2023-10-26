@@ -237,7 +237,7 @@ async function printRandomGameMessage(course){
     let room = getNotRecentlyUsedRoom();
 
     usedRooms.push(room);
-    if(usedRooms.length > 2){
+    if(usedRooms.length > 5){
         usedRooms.shift();
     }
     
