@@ -43,7 +43,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         tbl += `Active: ${challenge_details["dates"]}\n`;
         tbl += `Status: ${challenge_details["state"]}\n\n`;
         tbl += `Participants:\n`;
-        for (var user in ${challenge_details["participants"]) {
+        for (var user in challenge_details["participants"]) {
             tbl += `* <@${user}>\n`;
         }
         
