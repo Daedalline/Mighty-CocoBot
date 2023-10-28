@@ -170,7 +170,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
             var embed = new Discord.MessageEmbed()
             .setTitle("Community Challenge Participant Added")
-            .setDescription(`<${userID}> has been added to **${name}**.`);
+            .setDescription(`<@${userID}> has been added to **${name}**.`);
             return await interaction.editReply({embeds: [embed]})
         }
     }
@@ -206,7 +206,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
             var embed = new Discord.MessageEmbed()
             .setTitle("Community Challenge Participant Added")
-            .setDescription(`<${userID}> has been added to **${name}**.`);
+            .setDescription(`<@${userID}> has been added to **${name}**.`);
             return await interaction.editReply({embeds: [embed]})
         }
     }
