@@ -225,14 +225,18 @@ module.exports.run = async(interaction, config, maps, client) => {
         
         await interaction.deferReply();
         
+        console.log("TEST 1");
+        
         if(challenge_data[name]){
             // Challenge already exists. Output error message.
+            console.log("TEST 2");
             var embed = new Discord.MessageEmbed()
             .setTitle("Database Error")
             .setDescription(`**${name}** already exists.`);
             return await interaction.editReply({embeds: [embed]})
         }
         else {
+            console.log("TEST 3");
             challenge_data[name] = { 
             "Emojii": emojii_parsed,
             "Dates": dates,
