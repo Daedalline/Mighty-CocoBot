@@ -228,10 +228,6 @@ module.exports.autocomplete = async (interaction, Maps) => {
             })
             break;
         }
-        case 'state': {
-		    res = [{name: 'Active', value: 'Active'}, {name: 'Pending', value: 'Pending'}, {name: 'Complete', value: 'Complete'}, {name: 'Not Completed', value: 'Not Completed'}];
-            break;
-        }
     }
     interaction.respond(res.slice(0,25))
 }
