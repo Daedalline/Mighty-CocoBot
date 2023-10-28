@@ -141,7 +141,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     else if(interaction.options.getSubcommand() == "add_participant") {
         // Add a participant
         var name = interaction.options.getString('name');
-        var name = interaction.options.getString('user');
+        var userID = interaction.options.getUser('user').id
         
         await interaction.deferReply();
         
@@ -153,7 +153,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
         else {
-            if(challenge_data[name]["participants"].includes(user)){
+            if(challenge_data[name]["participants"].includes(userID)){
                 // User already added. Output error message.
                 var embed = new Discord.MessageEmbed()
                 .setTitle("Database Error")
@@ -161,7 +161,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 return await interaction.editReply({embeds: [embed]})
             }
             else {
-               challenge_data[name]["participants"].push(user); 
+               challenge_data[name]["participants"].push(userID); 
             }
 
             // Save the data and output message
