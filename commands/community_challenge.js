@@ -35,6 +35,12 @@ module.exports.run = async(interaction, config, maps, client) => {
         .setDescription(tbl);
         return await interaction.editReply({embeds: [embed]})
     }
+    if(interaction.options.getSubcommand() == "challenge_details"){
+        var name = interaction.options.getString('name');
+        
+        var challenge_details = challenge_data[name];
+        console.log(challenge_details);
+    }
 }
 
 module.exports.autocomplete = async (interaction, Maps) => {
