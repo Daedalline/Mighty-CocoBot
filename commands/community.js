@@ -33,7 +33,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         
         await interaction.deferReply();
         
-        if(challenge_data.includes(name)){
+        if(challenge_data[name]){
             // Challenge already exists. Output error message.
             var embed = new Discord.MessageEmbed()
             .setTitle("Database Error")
