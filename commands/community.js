@@ -67,7 +67,7 @@ module.exports.autocomplete = async (interaction) => {
     var value = interaction.options.getFocused(true);
     var res = []
     switch(value.name){
-        case 'status': {
+        case 'state': {
 		    res = [{name: 'Active', value: 'Active'}, {name: 'Pending', value: 'Pending'}, {name: 'Complete', value: 'Complete'}, {name: 'Not Completed', value: 'Not Completed'}];
         }
     }
