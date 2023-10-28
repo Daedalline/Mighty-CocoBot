@@ -23,11 +23,10 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('community_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
-    var tbl = ""; 
-
     if(interaction.options.getSubcommand() == "challenge_list"){
+        var tbl = ""; 
         for (var challenge in challenge_data) {
-        tbl += `${challenge_data[challenge]["emoji"]}   **${challenge}:**   ${challenge_data[challenge]["dates"]},   ${challenge_data[challenge]["state"]}\n`;
+           tbl += `${challenge_data[challenge]["emoji"]}   **${challenge}:**   ${challenge_data[challenge]["dates"]},   ${challenge_data[challenge]["state"]}\n`;
         }
         
         var embed = new Discord.MessageEmbed()
@@ -35,11 +34,31 @@ module.exports.run = async(interaction, config, maps, client) => {
         .setDescription(tbl);
         return await interaction.editReply({embeds: [embed]})
     }
-    if(interaction.options.getSubcommand() == "challenge_details"){
+    else if(interaction.options.getSubcommand() == "challenge_details"){
         var name = interaction.options.getString('name');
         
         var challenge_details = challenge_data[name];
         console.log(challenge_details);
+        
+        var tbl = `${challenge_details["emoji"]}${challenge_details["emoji"]}${challenge_details["emoji"]}`; 
+        
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Community Challenge Details")
+        .setDescription(tbl);
+        return await interaction.editReply({embeds: [embed]})
+    }
+    else if(interaction.options.getSubcommand() == "challenge_progress"){
+        var name = interaction.options.getString('name');
+        
+        var challenge_details = challenge_data[name];
+        console.log(challenge_details);
+        
+        var tbl = `${challenge_details["emoji"]}${challenge_details["emoji"]}${challenge_details["emoji"]}`;
+
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Community Challenge Progress")
+        .setDescription(tbl);
+        return await interaction.editReply({embeds: [embed]})        
     }
 }
 
@@ -75,6 +94,20 @@ module.exports.info = {
         {
             "name": "challenge_details",
             "description": "Lists the details of a community challenge",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Name of the challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                }
+            ]
+        },
+        {
+            "name": "challenge_progress",
+            "description": "Lists the progress of a community challenge",
             "type": 1,
             "options": [
                 {
