@@ -19,9 +19,10 @@ module.exports.run = async(interaction, config, maps, client) => {
         return
     }
     
+    let rawdata = await fs.readFileSync('community_challenge_data.json');
+    let challenge_data = await JSON.parse(rawdata);
+    
     if(interaction.options.getSubcommand() == "create_challenge"){
-        let rawdata = await fs.readFileSync('community_challenge_data.json');
-        let challenge_data = await JSON.parse(rawdata);
     
         // Creates a new community challenge
         var name = interaction.options.getString('name');
@@ -54,6 +55,33 @@ module.exports.run = async(interaction, config, maps, client) => {
 
             var embed = new Discord.MessageEmbed()
             .setTitle("Community Challenge Created")
+            .setDescription(`**${name}** created.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+    }
+    else if(interaction.options.getSubcommand() == "update_challenge_state") {
+        // Update challenge state
+        var name = interaction.options.getString('name');
+        var state = interaction.options.getString('state');
+        
+        await interaction.deferReply();
+        
+        if(!challenge_data[name]){
+            // Challenge does not exist. Output error message.
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Database Error")
+            .setDescription(`**${name}** does not exist.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        else {
+            challenge_data[name]["state"] = state;
+            
+            // Save the data and output message
+            var writedata = JSON.stringify(challenge_data, null, "\t");
+            await fs.writeFileSync('community_challenge_data.json', writedata);
+
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Community Challenge State Updated")
             .setDescription(`**${name}** created.`);
             return await interaction.editReply({embeds: [embed]})
         }
@@ -103,6 +131,26 @@ module.exports.info = {
                     "name": "num_required",
                     "description": "Number of completions required",
                     "type": 4,
+                    "required": true
+                },
+                {
+                    "name": "state",
+                    "description": "Is this challenge active, completed, or not completed",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                }
+            ]
+        },
+        {
+            "name": "update_challenge_state",
+            "description": "Change the community challenge state",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Name of the new challenge",
+                    "type": 3,
                     "required": true
                 },
                 {
