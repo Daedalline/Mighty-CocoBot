@@ -170,7 +170,43 @@ module.exports.run = async(interaction, config, maps, client) => {
 
             var embed = new Discord.MessageEmbed()
             .setTitle("Community Challenge Participant Added")
-            .setDescription(`${userID} has been added to **${name}**.`);
+            .setDescription(`<${userID}> has been added to **${name}**.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+    }
+    else if(interaction.options.getSubcommand() == "remove_participant") {
+        // Add a participant
+        var name = interaction.options.getString('name');
+        var userID = interaction.options.getUser('user').id
+        
+        await interaction.deferReply();
+        
+        if(!challenge_data[name]){
+            // Challenge does not exist. Output error message.
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Database Error")
+            .setDescription(`**${name}** does not exist.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        else {
+            if(!challenge_data[name]["participants"].includes(userID)){
+                // User already added. Output error message.
+                var embed = new Discord.MessageEmbed()
+                .setTitle("Database Error")
+                .setDescription(`**${name}** has not participated in this challenge.`);
+                return await interaction.editReply({embeds: [embed]})
+            }
+            else {
+               challenge_data[name]["participants"].splice(challenge_data[name]["participants"].indexOf(userID), 1); 
+            }
+
+            // Save the data and output message
+            var writedata = JSON.stringify(challenge_data, null, "\t");
+            await fs.writeFileSync('community_challenge_data.json', writedata);
+
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Community Challenge Participant Added")
+            .setDescription(`<${userID}> has been added to **${name}**.`);
             return await interaction.editReply({embeds: [embed]})
         }
     }
@@ -293,6 +329,26 @@ module.exports.info = {
         {
             "name": "add_participant",
             "description": "Adds a community challenge participant",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Name of the challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                },
+                {
+                    "name": "user",
+                    "description": "The user to submit for",
+                    "type": 6,
+                    "required": true
+                }
+            ]
+        },
+        {
+            "name": "remove_participant",
+            "description": "Removes a community challenge participant",
             "type": 1,
             "options": [
                 {
