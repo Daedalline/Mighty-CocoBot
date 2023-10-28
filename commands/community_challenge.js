@@ -71,7 +71,7 @@ module.exports.info = {
             "description": "Lists all community challenge",
             "type": 1,
             "options": []
-        }
+        },
         {
             "name": "challenge_details",
             "description": "Lists the details of a community challenge",
