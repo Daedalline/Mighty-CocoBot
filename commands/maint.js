@@ -350,7 +350,7 @@ module.exports.info = {
                     "required": true
                 }
             ]
-        }
+        },
         {
             "name": "create_community_challenge",
             "description": "Adds a new community challenge",
