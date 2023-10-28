@@ -24,10 +24,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     let challenge_data = await JSON.parse(rawdata);
 
     if(interaction.options.getSubcommand() == "challenge_list"){
-        for (var i=0;i<challenge_data.length;i++)
-        {
-            console.log(challenge_data[i]);
-        }
+        console.log(challenge_data);
     }
 }
 
