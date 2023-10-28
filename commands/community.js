@@ -97,6 +97,8 @@ module.exports.autocomplete = async (interaction, Maps) => {
             break;
         }
         case 'name': {
+            let rawdata = await fs.readFileSync('community_challenge_data.json');
+            let challenge_data = await JSON.parse(rawdata);
 		    for (var challenge in challenge_data) {
                  res.push({
                         name: challenge,
