@@ -41,8 +41,9 @@ module.exports.run = async(interaction, config, maps, client) => {
         
         var tbl = `${challenge_details["emoji"]} **${name}** ${challenge_details["emoji"]}\n`; 
         tbl += `Active: ${challenge_details["dates"]}\n`;
-        tbl += `Status: ${challenge_details["state"]}\n\n`;
-        tbl += `Participants:\n`;
+        tbl += `Status: ${challenge_details["state"]}\n`;
+        tbl += `Participation: ${challenge_details["dates"]}\n\n`;
+        tbl += `Participants: ${challenge_details["participants"].length}\\ ${challenge_details["num_required"]}\n`;
         for (var user in challenge_details["participants"]) {
             tbl += `* <@${challenge_details["participants"][user]}>\n`;
         }
@@ -58,7 +59,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var challenge_details = challenge_data[name];
         
         var tbl = `${challenge_details["emoji"]} **${name}** ${challenge_details["emoji"]}\n`; 
-        tbl += `Current progress: ` + challenge_details["participants"].length + `\\` + challenge_details["num_required"];
+        tbl += `Current progress: ${challenge_details["participants"].length}\\ ${challenge_details["num_required"]}`;
 
         var embed = new Discord.MessageEmbed()
         .setTitle("Community Challenge Progress")
