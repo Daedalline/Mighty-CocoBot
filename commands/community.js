@@ -137,7 +137,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             .setDescription(`**${name}** has been cleared.`);
             return await interaction.editReply({embeds: [embed]})
         }
-    },
+    }
     else if(interaction.options.getSubcommand() == "add_participant") {
         // Add a participant
         var name = interaction.options.getString('name');
