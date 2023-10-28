@@ -27,6 +27,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         console.log(challenge_data);
         for (var challenge in challenge_data) {
             console.log(challenge);
+            console.log(challenge_data[challenge]);
         }
     }
 }
