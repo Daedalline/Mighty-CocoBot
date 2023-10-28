@@ -46,7 +46,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             "dates": dates,
             "num_required": num_required,
             "state": state,
-            "participants": {}
+            "participants": []
             }
             
             // Save the data and output message
