@@ -38,7 +38,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         var name = interaction.options.getString('name');
         
         var challenge_details = challenge_data[name];
-        console.log(challenge_details);
         
         var tbl = `${challenge_details["emoji"]} **${name}** ${challenge_details["emoji"]}\n`; 
         tbl += `Active: ${challenge_details["dates"]}\n`;
