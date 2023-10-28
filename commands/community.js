@@ -111,7 +111,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             .setDescription(`**${name}** has been deleted.`);
             return await interaction.editReply({embeds: [embed]})
         }
-    },
+    }
     else if(interaction.options.getSubcommand() == "clear_challenge") {
         // Clear the challenge participant data
         var name = interaction.options.getString('name');
