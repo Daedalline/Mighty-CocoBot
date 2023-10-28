@@ -58,7 +58,6 @@ module.exports.run = async(interaction, config, maps, client) => {
             .setDescription(`**${name}** created.`);
             return await interaction.editReply({embeds: [embed]})
         }
-        }
     }
     
     
