@@ -107,8 +107,70 @@ module.exports.run = async(interaction, config, maps, client) => {
             await fs.writeFileSync('community_challenge_data.json', writedata);
 
             var embed = new Discord.MessageEmbed()
-            .setTitle("Community Challenge State Deleted")
+            .setTitle("Community Challenge Deleted")
             .setDescription(`**${name}** has been deleted.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+    },
+    else if(interaction.options.getSubcommand() == "clear_challenge") {
+        // Clear the challenge participant data
+        var name = interaction.options.getString('name');
+        
+        await interaction.deferReply();
+        
+        if(!challenge_data[name]){
+            // Challenge does not exist. Output error message.
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Database Error")
+            .setDescription(`**${name}** does not exist.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        else {
+            challenge_data[name]["participants"] = {};
+
+            // Save the data and output message
+            var writedata = JSON.stringify(challenge_data, null, "\t");
+            await fs.writeFileSync('community_challenge_data.json', writedata);
+
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Community Challenge Participants Cleared")
+            .setDescription(`**${name}** has been cleared.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+    },
+    else if(interaction.options.getSubcommand() == "add_participant") {
+        // Add a participant
+        var name = interaction.options.getString('name');
+        var name = interaction.options.getString('user');
+        
+        await interaction.deferReply();
+        
+        if(!challenge_data[name]){
+            // Challenge does not exist. Output error message.
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Database Error")
+            .setDescription(`**${name}** does not exist.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        else {
+            if(challenge_data[name]["participants"].includes(user)){
+                // User already added. Output error message.
+                var embed = new Discord.MessageEmbed()
+                .setTitle("Database Error")
+                .setDescription(`**${name}** has already participated in this challenge.`);
+                return await interaction.editReply({embeds: [embed]})
+            }
+            else {
+               challenge_data[name]["participants"].push(user); 
+            }
+
+            // Save the data and output message
+            var writedata = JSON.stringify(challenge_data, null, "\t");
+            await fs.writeFileSync('community_challenge_data.json', writedata);
+
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Community Challenge Participant Added")
+            .setDescription(`${user} has been added to **${name}**.`);
             return await interaction.editReply({embeds: [embed]})
         }
     }
@@ -200,17 +262,51 @@ module.exports.info = {
                 }
             ]
         },
-         {
+        {
             "name": "delete_challenge",
             "description": "Deletes the community challenge",
             "type": 1,
             "options": [
                 {
                     "name": "name",
-                    "description": "Name of the new challenge",
+                    "description": "Name of the challenge",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
+                }
+            ]
+        },
+        {
+            "name": "clear_challenge",
+            "description": "Clears the community challenge participant list",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Name of the challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                }
+            ]
+        },
+        {
+            "name": "add_participant",
+            "description": "Adds a community challenge participant",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Name of the challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                },
+                {
+                    "name": "user",
+                    "description": "The user to submit for",
+                    "type": 6,
+                    "required": true
                 }
             ]
         }
