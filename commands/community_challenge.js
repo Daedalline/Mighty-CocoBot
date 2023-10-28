@@ -27,7 +27,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
     if(interaction.options.getSubcommand() == "challenge_list"){
         for (var challenge in challenge_data) {
-        tbl += `${challenge_data[challenge]["emoji"]}\t**${challenge}**\t\t${challenge_data[challenge]["dates"]}\t\t${challenge_data[challenge]["state"]}\n`;
+        tbl += `${challenge_data[challenge]["emoji"]}\t**${challenge}:**\s\s\s${challenge_data[challenge]["dates"]},\s\s\s${challenge_data[challenge]["state"]}\n`;
         }
         
         var embed = new Discord.MessageEmbed()
