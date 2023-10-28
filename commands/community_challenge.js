@@ -41,7 +41,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         console.log(challenge_details);
         
         var tbl = `${challenge_details["emoji"]} **${name}** ${challenge_details["emoji"]}\n`; 
-        tbl += Challenge Timeframe: `${{challenge_details["dates"]}\n\n`;
+        tbl += `Challenge Dates: ${{challenge_details["dates"]}\n\n`;
         tbl += `Challenge Status: ${{challenge_details["state"]}\n`;
         tbl += `Participants:\n`;
         
