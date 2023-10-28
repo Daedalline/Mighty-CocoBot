@@ -37,6 +37,25 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
 }
 
+module.exports.autocomplete = async (interaction, Maps) => {
+    var value = interaction.options.getFocused(true);
+    var res = []
+    switch(value.name){
+        case 'name': {
+            let rawdata = await fs.readFileSync('community_challenge_data.json');
+            let challenge_data = await JSON.parse(rawdata);
+		    for (var challenge in challenge_data) {
+                 res.push({
+                        name: challenge,
+                        value: challenge
+                    })
+            }
+            break;
+        }
+    }
+    interaction.respond(res.slice(0,25))
+}
+
 module.exports.info = {
     "name": "community_challenge",
     "description": "Get details about community challenges",
@@ -46,6 +65,20 @@ module.exports.info = {
             "description": "Lists all community challenge",
             "type": 1,
             "options": []
+        }
+        {
+            "name": "challenge_details",
+            "description": "Lists the details of a community challenge",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Name of the challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                }
+            ]
         }
     ]
 }
