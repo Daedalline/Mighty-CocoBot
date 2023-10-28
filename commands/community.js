@@ -30,8 +30,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         var num_required = interaction.options.getInteger('num_required');
         var state = interaction.options.getString('state');
         
-        console.log("EMOJI: " + emoji);
-        
         await interaction.deferReply();
         
         if(challenge_data[name]){
