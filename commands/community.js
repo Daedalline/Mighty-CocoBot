@@ -30,7 +30,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var dates = interaction.options.getString('dates');
         var num_required = interaction.options.getInteger('num_required');
         var state = interaction.options.getString('state');
-        var emojii_parsed = emojii.substring(emojii.indexOf(':'), emojii.lastIndexOf(':'));
+        var emojii_parsed = emojii.substring(emojii.indexOf(':'), emojii.lastIndexOf(':')+1);
         
         await interaction.deferReply();
         
