@@ -211,46 +211,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         .setDescription(`Removed **${map}**.`);
         return await interaction.editReply({embeds: [embed]})
     }
-    else if(interaction.options.getSubcommand() == "create_community_challenge"){
-        let rawdata = await fs.readFileSync('community_challenge_data.json');
-        let challenge_data = await JSON.parse(rawdata);
-    
-        // Creates a new community challenge
-        var name = interaction.options.getString('name');
-        var emojii = interaction.options.getString('emojii');
-        var dates = interaction.options.getString('dates');
-        var num_required = interaction.options.getInteger('num_required');
-        var state = interaction.options.getString('state');
-        var emojii_parsed = emojii.substring(emojii.indexOf(':'), emojii.lastIndexOf(':')+1);
-        
-        await interaction.deferReply();
-        
-        if(challenge_data[name]){
-            // Challenge already exists. Output error message.
-            var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
-            .setDescription(`**${name}** already exists.`);
-            return await interaction.editReply({embeds: [embed]})
-        }
-        else {
-            challenge_data[name] = { 
-            "Emojii": emojii_parsed,
-            "Dates": dates,
-            "Submissions Required": num_required,
-            "Challenge Status": state,
-            "Participants": {}
-            }
-            
-            // Save the data and output message
-            var writedata = JSON.stringify(challenge_data, null, "\t");
-            await fs.writeFileSync('community_challenge_data.json', writedata);
-
-            var embed = new Discord.MessageEmbed()
-            .setTitle("Community Challenge Created")
-            .setDescription(`**${name}** created.`);
-            return await interaction.editReply({embeds: [embed]})
-        }
-    }
 }
 
 module.exports.autocomplete = async (interaction, Maps) => {
@@ -348,44 +308,6 @@ module.exports.info = {
                     "type": 3,
                     "autocomplete": true,
                     "required": true
-                }
-            ]
-        },
-        {
-            "name": "create_community_challenge",
-            "description": "Adds a new community challenge",
-            "type": 1,
-            "options": [
-                {
-                    "name": "name",
-                    "description": "Name of the new challenge",
-                    "type": 3,
-                    "required": true
-                },
-                {
-                    "name": "emojii",
-                    "description": "Emojii to represent this challenge",
-                    "type": 3,
-                    "required": true
-                },
-                {
-                    "name": "dates",
-                    "description": "When this challenge was active",
-                    "type": 3,
-                    "required": true
-                },
-                {
-                    "name": "num_required",
-                    "description": "Number of completions required",
-                    "type": 4,
-                    "required": true
-                },
-                {
-                    "name": "state",
-                    "description": "Is this challenge active, completed, or not completed",
-                    "type": 3,
-                    "required": true,
-                    "autocomplete": true
                 }
             ]
         }
