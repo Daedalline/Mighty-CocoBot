@@ -90,6 +90,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         // Delete the challenge
         var name = interaction.options.getString('name');
         
+        await interaction.deferReply();
+        
         if(!challenge_data[name]){
             // Challenge does not exist. Output error message.
             var embed = new Discord.MessageEmbed()
@@ -99,14 +101,11 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         else {
             delete challenge_data[name];
-            
-            
-            console.log("CRYS 1")
+
             // Save the data and output message
             var writedata = JSON.stringify(challenge_data, null, "\t");
             await fs.writeFileSync('community_challenge_data.json', writedata);
 
-            console.log("CRYS 2")
             var embed = new Discord.MessageEmbed()
             .setTitle("Community Challenge State Deleted")
             .setDescription(`**${name}** has been deleted.`);
