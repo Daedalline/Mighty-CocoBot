@@ -25,6 +25,9 @@ module.exports.run = async(interaction, config, maps, client) => {
 
     if(interaction.options.getSubcommand() == "challenge_list"){
         console.log(challenge_data);
+        for (var challenge in challenge_data) {
+            console.log(challenge);
+        }
     }
 }
 
