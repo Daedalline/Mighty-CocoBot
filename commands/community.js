@@ -25,11 +25,14 @@ module.exports.run = async(interaction, config, maps, client) => {
     
         // Creates a new community challenge
         var name = interaction.options.getString('name');
-        var emojii = interaction.options.getString('emojii');
+        var emoji = interaction.options.getString('emoji');
         var dates = interaction.options.getString('dates');
         var num_required = interaction.options.getInteger('num_required');
         var state = interaction.options.getString('state');
-        var emojii_parsed = emojii.substring(emojii.indexOf(':'), emojii.lastIndexOf(':')+1);
+        
+        console.log("EMOJI: " + emoji);
+        var emoji_parsed = emoji.substring(emoji.indexOf(':'), emoji.lastIndexOf(':')+1);
+        console.log("EMOJI PARSED: " + emoji_parsed);
         
         await interaction.deferReply();
         
@@ -42,7 +45,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         else {
             challenge_data[name] = { 
-            "Emojii": emojii_parsed,
+            "emoji": emoji_parsed,
             "Dates": dates,
             "Submissions Required": num_required,
             "Challenge Status": state,
@@ -89,8 +92,8 @@ module.exports.info = {
                     "required": true
                 },
                 {
-                    "name": "emojii",
-                    "description": "Emojii to represent this challenge",
+                    "name": "emoji",
+                    "description": "emoji to represent this challenge",
                     "type": 3,
                     "required": true
                 },
