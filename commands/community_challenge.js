@@ -23,13 +23,11 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('community_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
-    var tbl = ""; 
+    var tbl = "**Icon\tName\tWhen\tStatus**\n"; 
 
     if(interaction.options.getSubcommand() == "challenge_list"){
         for (var challenge in challenge_data) {
-            tbl += `${challenge_data[challenge]["emoji"]}   ${challenge}:\n`;
-            console.log(challenge_data[challenge]["Dates"]);
-            console.log(challenge_data[challenge]["Challenge Status"]);
+        tbl += `${challenge_data[challenge]["emoji"]}\t${challenge}\t$[challenge_data[challenge]["dates"]}\t${challenge_data[challenge]["dates"]}\n`;
         }
         
         var embed = new Discord.MessageEmbed()
