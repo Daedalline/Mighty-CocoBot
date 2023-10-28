@@ -205,8 +205,8 @@ module.exports.run = async(interaction, config, maps, client) => {
             await fs.writeFileSync('community_challenge_data.json', writedata);
 
             var embed = new Discord.MessageEmbed()
-            .setTitle("Community Challenge Participant Added")
-            .setDescription(`<@${userID}> has been added to **${name}**.`);
+            .setTitle("Community Challenge Participant Removed")
+            .setDescription(`<@${userID}> has been removed from the **${name}**.`);
             return await interaction.editReply({embeds: [embed]})
         }
     }
