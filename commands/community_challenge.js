@@ -44,7 +44,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         tbl += `Status: ${challenge_details["state"]}\n\n`;
         tbl += `Participants:\n`;
         for (var user in challenge_details["participants"]) {
-            tbl += `* <@${user}>\n`;
+            tbl += `* <@${challenge_details["participants"][user]}>\n`;
         }
         
         var embed = new Discord.MessageEmbed()
