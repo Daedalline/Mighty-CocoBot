@@ -19,7 +19,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         return
     }
     
-    if(interaction.options.getSubcommand() == "create_community_challenge"){
+    if(interaction.options.getSubcommand() == "create_challenge"){
         let rawdata = await fs.readFileSync('community_challenge_data.json');
         let challenge_data = await JSON.parse(rawdata);
     
@@ -78,7 +78,7 @@ module.exports.info = {
     "description": "Allows moderators to create community challenges",
     "options": [
         {
-            "name": "create_community_challenge",
+            "name": "create_challenge",
             "description": "Adds a new community challenge",
             "type": 1,
             "options": [
