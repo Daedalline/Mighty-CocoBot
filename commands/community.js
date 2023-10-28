@@ -42,7 +42,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         else {
             challenge_data[name] = { 
-            "Emojii": emojii,
+            "Emojii": emojii.substring(emojii.indexOf(':', emojii.lastIndexOf(':');,
             "Dates": dates,
             "Submissions Required": num_required,
             "Challenge Status": state,
