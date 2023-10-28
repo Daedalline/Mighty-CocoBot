@@ -31,13 +31,10 @@ module.exports.autocomplete = async (interaction) => {
     var res = []
     switch(value.name){
         case 'status': {
-            const choices = ['Active', 'Complete', 'Not Completed'];
-            const filtered = choices.filter(choice => choice.startsWith(focusedValue));
-		    await interaction.respond(
-			    filtered.map(choice => ({ name: choice, value: choice })),
-		    );
+		    res = [{name: 'Active', value: 'Active'}, {name: 'Pending', value: 'Pending'}, {name: 'Complete', value: 'Complete'}, {name: 'Not Completed', value: 'Not Completed'}];
         }
     }
+    interaction.respond(res.slice(0,25))
 }
 
 module.exports.info = {
