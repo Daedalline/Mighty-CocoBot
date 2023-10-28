@@ -41,9 +41,12 @@ module.exports.run = async(interaction, config, maps, client) => {
         console.log(challenge_details);
         
         var tbl = `${challenge_details["emoji"]} **${name}** ${challenge_details["emoji"]}\n`; 
-        tbl += `Challenge Dates: ${challenge_details["dates"]}\n\n`;
-        tbl += `Challenge Status: ${challenge_details["state"]}\n`;
+        tbl += `Active: ${challenge_details["dates"]}\n`;
+        tbl += `Status: ${challenge_details["state"]}\n\n`;
         tbl += `Participants:\n`;
+        for (var user in ${challenge_details["participants"]) {
+            tbl += `* <@${user}>\n`;
+        }
         
         var embed = new Discord.MessageEmbed()
         .setTitle("Community Challenge Details")
