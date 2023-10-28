@@ -22,6 +22,8 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('community_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
+    await interaction.deferReply();
+    
     if(interaction.options.getSubcommand() == "create_challenge"){
     
         // Creates a new community challenge
@@ -30,8 +32,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         var dates = interaction.options.getString('dates');
         var num_required = interaction.options.getInteger('num_required');
         var state = interaction.options.getString('state');
-        
-        await interaction.deferReply();
         
         if(challenge_data[name]){
             // Challenge already exists. Output error message.
@@ -64,8 +64,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         var name = interaction.options.getString('name');
         var state = interaction.options.getString('state');
         
-        await interaction.deferReply();
-        
         if(!challenge_data[name]){
             // Challenge does not exist. Output error message.
             var embed = new Discord.MessageEmbed()
@@ -89,8 +87,6 @@ module.exports.run = async(interaction, config, maps, client) => {
     else if(interaction.options.getSubcommand() == "delete_challenge") {
         // Delete the challenge
         var name = interaction.options.getString('name');
-        
-        await interaction.deferReply();
         
         if(!challenge_data[name]){
             // Challenge does not exist. Output error message.
@@ -116,8 +112,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         // Clear the challenge participant data
         var name = interaction.options.getString('name');
         
-        await interaction.deferReply();
-        
         if(!challenge_data[name]){
             // Challenge does not exist. Output error message.
             var embed = new Discord.MessageEmbed()
@@ -142,8 +136,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         // Add a participant
         var name = interaction.options.getString('name');
         var userID = interaction.options.getUser('user').id
-        
-        await interaction.deferReply();
         
         if(!challenge_data[name]){
             // Challenge does not exist. Output error message.
@@ -178,8 +170,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         // Add a participant
         var name = interaction.options.getString('name');
         var userID = interaction.options.getUser('user').id
-        
-        await interaction.deferReply();
         
         if(!challenge_data[name]){
             // Challenge does not exist. Output error message.
