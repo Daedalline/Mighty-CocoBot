@@ -44,10 +44,10 @@ module.exports.run = async(interaction, config, maps, client) => {
         else {
             challenge_data[name] = { 
             "emoji": emoji,
-            "Dates": dates,
-            "Submissions Required": num_required,
-            "Challenge Status": state,
-            "Participants": {}
+            "dates": dates,
+            "num_required": num_required,
+            "state": state,
+            "participants": {}
             }
             
             // Save the data and output message
