@@ -10,10 +10,6 @@ const Discord = require("discord.js");
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require("fs");
 
-const Discord = require("discord.js");
-const { SlashCommandBuilder } = require('@discordjs/builders');
-const fs = require("fs");
-
 module.exports.run = async(interaction, config, maps, client) => {
     
     var guild = await client.guilds.cache.find(guild => guild.id == interaction.guild.id)
