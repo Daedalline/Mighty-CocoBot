@@ -42,8 +42,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         else {
             challenge_data[name] = { 
-            "Emojii": emojii
-            "Dates": dates
+            "Emojii": emojii,
+            "Dates": dates,
             "Submissions Required": num_required,
             "Challenge Status": state,
             "Participants": {}
