@@ -98,7 +98,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
         else {
-            challenge_data.slice(challenge_data.indexOf(map), 1);
+            challenge_data.slice(challenge_data.indexOf(name), 1);
             
             // Save the data and output message
             var writedata = JSON.stringify(challenge_data, null, "\t");
