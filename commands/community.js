@@ -30,6 +30,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var dates = interaction.options.getString('dates');
         var num_required = interaction.options.getInteger('num_required');
         var state = interaction.options.getString('state');
+        var emojii_parsed = emojii.substring(emojii.indexOf(':'), emojii.lastIndexOf(':'));
         
         await interaction.deferReply();
         
@@ -42,7 +43,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         else {
             challenge_data[name] = { 
-            "Emojii": emojii.substring(emojii.indexOf(':'), emojii.lastIndexOf(':'));,
+            "Emojii": emojii_parsed,
             "Dates": dates,
             "Submissions Required": num_required,
             "Challenge Status": state,
