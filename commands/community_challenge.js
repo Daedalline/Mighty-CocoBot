@@ -42,8 +42,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         var tbl = `${challenge_details["emoji"]} **${name}** ${challenge_details["emoji"]}\n`; 
         tbl += `Active: ${challenge_details["dates"]}\n`;
         tbl += `Status: ${challenge_details["state"]}\n`;
-        tbl += `Participation: ${challenge_details["dates"]}\n\n`;
-        tbl += `Participants: ${challenge_details["participants"].length}/${challenge_details["num_required"]}\n`;
+        tbl += `Participation: ${challenge_details["participants"].length}/${challenge_details["num_required"]}\n\n`;
+        tbl += `Participants:\n`;
         for (var user in challenge_details["participants"]) {
             tbl += `* <@${challenge_details["participants"][user]}>\n`;
         }
