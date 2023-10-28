@@ -20,13 +20,13 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     await interaction.deferReply();
     
-    let rawdata = await fs.readFileSync('daily_challenge_data.json');
+    let rawdata = await fs.readFileSync('community_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
 
     if(interaction.options.getSubcommand() == "challenge_list"){
         for (var i=0;i<challenge_data.length;i++)
         {
-            console.log(JSON.stringify(challenge_data[i]));
+            console.log(challenge_data[i]);
         }
     }
 }
