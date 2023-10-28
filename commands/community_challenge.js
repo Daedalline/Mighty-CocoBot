@@ -40,7 +40,10 @@ module.exports.run = async(interaction, config, maps, client) => {
         var challenge_details = challenge_data[name];
         console.log(challenge_details);
         
-        var tbl = `${challenge_details["emoji"]} **${name}** ${challenge_details["emoji"]}`; 
+        var tbl = `${challenge_details["emoji"]} **${name}** ${challenge_details["emoji"]}\n`; 
+        tbl += Challenge Date: `${{challenge_details["dates"]}\n\n`;
+        tbl += `Challenge Status: ${{challenge_details["state"]}\n`;
+        tbl += `Participants:\n`;
         
         var embed = new Discord.MessageEmbed()
         .setTitle("Community Challenge Details")
@@ -51,9 +54,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         var name = interaction.options.getString('name');
         
         var challenge_details = challenge_data[name];
-        console.log(challenge_details);
         
-        var tbl = `${challenge_details["emoji"]} **${name}** ${challenge_details["emoji"]}`; 
+        var tbl = `${challenge_details["emoji"]} **${name}** ${challenge_details["emoji"]}\n`; 
         tbl += `Current progress: ` + challenge_details["participants"].length + `\\` + challenge_details["num_required"];
 
         var embed = new Discord.MessageEmbed()
