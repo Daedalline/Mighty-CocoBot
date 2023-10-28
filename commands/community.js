@@ -82,7 +82,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
             var embed = new Discord.MessageEmbed()
             .setTitle("Community Challenge State Updated")
-            .setDescription(`**${name}** created.`);
+            .setDescription(`**${name}** set to ${state}.`);
             return await interaction.editReply({embeds: [embed]})
         }
     }
@@ -94,6 +94,15 @@ module.exports.autocomplete = async (interaction, Maps) => {
     switch(value.name){
         case 'state': {
 		    res = [{name: 'Active', value: 'Active'}, {name: 'Pending', value: 'Pending'}, {name: 'Complete', value: 'Complete'}, {name: 'Not Completed', value: 'Not Completed'}];
+            break;
+        }
+        case 'name': {
+		    for (var challenge in challenge_data) {
+                 res.push({
+                        name: challenge,
+                        value: challenge
+                    })
+            }
             break;
         }
     }
@@ -151,7 +160,8 @@ module.exports.info = {
                     "name": "name",
                     "description": "Name of the new challenge",
                     "type": 3,
-                    "required": true
+                    "required": true,
+                    "autocomplete": true
                 },
                 {
                     "name": "state",
