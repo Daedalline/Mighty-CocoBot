@@ -27,8 +27,16 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     let community_rawdata = await fs.readFileSync('community_challenge_data.json');
     let community_challenge_data = await JSON.parse(community_rawdata);
+    
+    var community_challenge_icons = "";
+    for (var challenge in challenge_data) {
+        var participant_list = challenge_data[challenge]["participants"];
+        if (participant_list.includes(userID)) {
+            tbl += `${challenge_data[challenge]["emoji"]}`;
+        }
+    }
 
-    console.log(community_challenge_data);
+    console.log(community_challenge_icons);
     
     var player_data = challenge_data[userID];
     if(typeof player_data == 'undefined') {
