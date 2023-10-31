@@ -25,8 +25,12 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('daily_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
-    var player_data = challenge_data[userID];
+    let community_rawdata = await fs.readFileSync('community_challenge_data.json');
+    let community_challenge_data = await JSON.parse(community_rawdata);
+
+    console.log(community_challenge_data);
     
+    var player_data = challenge_data[userID];
     if(typeof player_data == 'undefined') {
         var embed = new Discord.MessageEmbed()
             .setTitle("Database Error")
