@@ -46,6 +46,30 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         else {
             var tbl = community_challenge_icons + "\n";
+            tbl += "__Current Season Medals (Trickshot):__\n";  
+            tbl += "Completion Awards :second_place: - 0 Medals\n";
+            tbl += "Best Shot From the Tee :medal: - 0 Medals\n";
+            tbl += "Best Shot From Another Tee :military_medal: - 0 Medals\n";
+            tbl += "\n"
+            tbl += "__Current Season Medals (9-Hole):__\n";  
+            tbl += "Target Score Achieved :second_place: - 0 Medals\n";        
+            tbl += "Target Score and Time Achieved :medal: - 0 Medals\n";
+            tbl += "Top Score :military_medal: - 0 Medals\n";
+            tbl += "\n"
+            tbl += "__Lifetime Medals (Trickshot):__\n"
+            tbl += "Completion Awards :second_place: - 0 Medals\n";
+            tbl += "Best Shot From the Tee :medal: - 0 Medals\n";
+            tbl += "Best Shot From Another Tee :military_medal: - 0 Medals\n";
+            tbl += "\n"
+            tbl += "__Lifetime Medals (9-Hole):__\n"
+            tbl += "Target Score Achieved :second_place: - 0 Medals\n";        
+            tbl += "Target Score and Time Achieved :medal: - 0 Medals\n";
+            tbl += "Top Score :military_medal: - 0 Medals\n";
+            tbl += "\n"
+            tbl += "__Total Season Wins:__\n";
+            tbl += "First Place Finishes :first_place: - 0 Wins\n";
+            tbl += "Second Place Finishes :second_place: - 0 Wins\n";
+            tbl += "Third Place Finishes :third_place: - 0 Wins\n";
             var embed = new Discord.MessageEmbed()
                 .setTitle(`Daily Challenge statistics for ` + interaction.options.getUser('user').username)
                 .setDescription(tbl);
