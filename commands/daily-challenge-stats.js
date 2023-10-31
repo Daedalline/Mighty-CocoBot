@@ -53,7 +53,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
     }
     else {
-        tbl = community_challenge_icons + "\n";
+        tbl = community_challenge_icons + "\n\n";
         tbl += "__Current Season Medals (Trickshot):__\n";  
         tbl += "Completion Awards :second_place: - " + player_data["Current Season"]["Completion Awards"] + " Medals\n";
         tbl += "Best Shot From the Tee :medal: - " + player_data["Current Season"]["Best Shot From the Tee"] + " Medals\n";
