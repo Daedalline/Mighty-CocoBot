@@ -31,23 +31,30 @@ module.exports.run = async(interaction, config, maps, client) => {
     var community_challenge_icons = "";
     for (var challenge in community_challenge_data) {
         var participant_list = community_challenge_data[challenge]["participants"];
-        console.log(participant_list);
         if (participant_list.includes(userID)) {
-            community_challenge_icons += `${community_challenge_data[challenge]["emoji"]}`;
+            community_challenge_icons = `${community_challenge_data[challenge]["emoji"]}`;
         }
     }
 
-    console.log(community_challenge_icons);
-    
     var player_data = challenge_data[userID];
     if(typeof player_data == 'undefined') {
-        var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
-            .setDescription(`There does not apear to be any challenge statistics for **<@${userID}>**`);
-        return await interaction.editReply({embeds: [embed]})
+        if (community_challenge_icons == "") {
+            var embed = new Discord.MessageEmbed()
+                .setTitle("Database Error")
+                .setDescription(`There does not apear to be any challenge statistics for **<@${userID}>**`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        else {
+            tbl = community_challenge_icons + "\n";
+            var embed = new Discord.MessageEmbed()
+                .setTitle(`Daily Challenge statistics for ` + interaction.options.getUser('user').username)
+                .setDescription(tbl);
+            return await interaction.editReply({embeds: [embed]})
+        }
     }
     else {
-        tbl = "__Current Season Medals (Trickshot):__\n";  
+        tbl = community_challenge_icons + "\n";
+        tbl += "__Current Season Medals (Trickshot):__\n";  
         tbl += "Completion Awards :second_place: - " + player_data["Current Season"]["Completion Awards"] + " Medals\n";
         tbl += "Best Shot From the Tee :medal: - " + player_data["Current Season"]["Best Shot From the Tee"] + " Medals\n";
         tbl += "Best Shot From Another Tee :military_medal: - " + player_data["Current Season"]["Best Shot From Another Tee"] + " Medals\n";
