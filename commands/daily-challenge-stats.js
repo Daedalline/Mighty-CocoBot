@@ -33,7 +33,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var participant_list = challenge_data[challenge]["participants"];
         console.log(participant_list);
         //if (participant_list.includes(userID)) {
-            tbl += `${challenge_data[challenge]["emoji"]}`;
+            community_challenge_icons += `${challenge_data[challenge]["emoji"]}`;
         //}
     }
 
