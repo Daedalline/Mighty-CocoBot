@@ -45,7 +45,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
         else {
-            tbl = community_challenge_icons + "\n";
+            var tbl = community_challenge_icons + "\n";
             var embed = new Discord.MessageEmbed()
                 .setTitle(`Daily Challenge statistics for ` + interaction.options.getUser('user').username)
                 .setDescription(tbl);
@@ -53,7 +53,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
     }
     else {
-        tbl = community_challenge_icons + "\n\n";
+        var tbl = community_challenge_icons + "\n\n";
         tbl += "__Current Season Medals (Trickshot):__\n";  
         tbl += "Completion Awards :second_place: - " + player_data["Current Season"]["Completion Awards"] + " Medals\n";
         tbl += "Best Shot From the Tee :medal: - " + player_data["Current Season"]["Best Shot From the Tee"] + " Medals\n";
