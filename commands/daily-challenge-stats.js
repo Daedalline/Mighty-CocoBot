@@ -45,7 +45,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
         else {
-            var tbl = community_challenge_icons + "\n";
+            var tbl = community_challenge_icons + "\n\n";
             tbl += "__Current Season Medals (Trickshot):__\n";  
             tbl += "Completion Awards :second_place: - 0 Medals\n";
             tbl += "Best Shot From the Tee :medal: - 0 Medals\n";
