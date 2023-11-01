@@ -30,7 +30,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     var sortable = [];
     for (var player in challenge_data) {
-        var totalScore = challenge_data[player]["Current Season"]["Best Shot From the Tee"] + challenge_data[player]["Current Season"]["Best Shot From Another Tee"] + challenge_data[player]["Current Season"]["Completion Awards"] + challenge_data[player]["Current Season 9-Hole"]["Target Score Achieved"] + challenge_data[player]["Current Season 9-Hole"]["Target Score and Time Achieved"] + challenge_data[player]["Current Season 9-Hole"]["Top Score"];
+        var totalScore = challenge_data[player]["Current Season"]["Best Shot From the Tee"] + challenge_data[player]["Current Season"]["Best Shot From Another Tee"] + challenge_data[player]["Current Season"]["Completion Awards"] + challenge_data[player]["Current Season"]["Participation Awards"] + challenge_data[player]["Current Season 9-Hole"]["Target Score Achieved"] + challenge_data[player]["Current Season 9-Hole"]["Target Score and Time Achieved"] + challenge_data[player]["Current Season 9-Hole"]["Top Score"];
         if (totalScore > 0) {
             sortable.push([player, totalScore]);
         }
