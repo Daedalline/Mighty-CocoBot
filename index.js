@@ -279,7 +279,6 @@ function getNotRecentlyUsedRoom(){
 // Add logic to not repeat recently played Easy courses
 function getNotRecentlyUsedEasyCourse(){
     let featureMap = Maps.FeatureMap;
-    console.log("Feature Map: " + featureMap);
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
     while (usedCourses.includes(course) || course.endsWith('Hard')){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
@@ -298,7 +297,6 @@ function getNotRecentlyUsedEasyCourse(){
 // Add logic to not repeat recently played Hard courses
 function getNotRecentlyUsedHardCourse(){
     let featureMap = Maps.FeatureMap;
-    console.log("Feature Map: " + featureMap);
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
     while (usedCourses.includes(course) || course.endsWith('Easy')){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
