@@ -212,15 +212,16 @@ module.exports.run = async(interaction, config, maps, client) => {
         return await interaction.editReply({embeds: [embed]})
     }
     else if(interaction.options.getSubcommand() == "add_feature"){
+        var map = interaction.options.getString('map');
         await interaction.deferReply();
         
-        maps.FeatureMap = interaction.options.getString('feature_map');;
+        maps.FeatureMap = map;
         var writedata = JSON.stringify(maps, null, "\t");
         await fs.writeFileSync('./maps.json', writedata);
 
         var embed = new Discord.MessageEmbed()
-        .setTitle("Feature Removed")
-        .setDescription(`Removed featured map.`);
+        .setTitle("Feature Added")
+        .setDescription(`Added featured map **${map}**.`);
         return await interaction.editReply({embeds: [embed]})
     }
     else if(interaction.options.getSubcommand() == "remove_feature"){
@@ -337,7 +338,7 @@ module.exports.info = {
             "type": 1,
             "options": [
                 {
-                    "name": "feature_map",
+                    "name": "map",
                     "description": "Name of the new course (do not include easy/hard in the course name)",
                     "type": 3,
                     "required": true
