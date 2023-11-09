@@ -278,18 +278,38 @@ function getNotRecentlyUsedRoom(){
 
 // Add logic to not repeat recently played Easy courses
 function getNotRecentlyUsedEasyCourse(){
+    let featureMap = Maps.FeatureMap;
+    console.log("Feature Map: " + featureMap);
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
     while (usedCourses.includes(course) || course.endsWith('Hard')){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
+    }
+    if (featureMap != '') {
+        if (!usedCourses.includes(featureMap + ' - Easy') && !usedCourses.includes(featureMap + ' - Hard')) {
+            course = featureMap + ' - Easy';
+        }
+        if (usedCourses.includes(featureMap + ' - Easy')) {
+            usedCourses.splice(usedCourses.indexOf(featureMap + ' - Easy'), 1);
+        }
     }
     return course
 }
 
 // Add logic to not repeat recently played Hard courses
 function getNotRecentlyUsedHardCourse(){
+    let featureMap = Maps.FeatureMap;
+    console.log("Feature Map: " + featureMap);
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
     while (usedCourses.includes(course) || course.endsWith('Easy')){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
+    }
+    if (featureMap != '') {
+        if (!usedCourses.includes(featureMap + ' - Easy') && !usedCourses.includes(featureMap + ' - Hard')) {
+            course = featureMap + ' - Hard';
+        }
+        if (usedCourses.includes(featureMap + ' - Hard')) {
+            usedCourses.splice(usedCourses.indexOf(featureMap + ' - Hard'), 1);
+        }
     }
     return course
 }
