@@ -209,8 +209,8 @@ client.login(Config.Token);
 
 // Main function - schedule cron jobs
 async function main(){
-      let jobEasy = schedule.scheduleJob('00 0,2,4,6,8,10,12,14,16,18,20,22,24,26,28,30,32,34,36,38,40,42,44,46,48,50,52,54,56,58 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:xx
-      let jobHard = schedule.scheduleJob('00 1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,39,41,43,45,47,49,51,53,55,57,59 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
+      let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:xx
+      let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
       let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
       let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
       //let additionalReminder = schedule.scheduleJob('00 45 0,2,12,14,16,18,20,22 * * *', printAdditionalGameMessage); // fires every day at 15 minutes before 9 am, 11am, 1 pm, 3 pm, 5 pm, 7 pm, 9 pm, and 11 pm EST.
