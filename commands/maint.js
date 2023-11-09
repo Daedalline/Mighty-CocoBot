@@ -211,6 +211,31 @@ module.exports.run = async(interaction, config, maps, client) => {
         .setDescription(`Removed **${map}**.`);
         return await interaction.editReply({embeds: [embed]})
     }
+    else if(interaction.options.getSubcommand() == "add_feature"){
+        var map = interaction.options.getString('map');
+        await interaction.deferReply();
+        
+        maps.FeatureMap = map;
+        var writedata = JSON.stringify(maps, null, "\t");
+        await fs.writeFileSync('./maps.json', writedata);
+
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Feature Added")
+        .setDescription(`Added featured map **${map}**.`);
+        return await interaction.editReply({embeds: [embed]})
+    }
+    else if(interaction.options.getSubcommand() == "remove_feature"){
+        await interaction.deferReply();
+        
+        maps.FeatureMap = "";
+        var writedata = JSON.stringify(maps, null, "\t");
+        await fs.writeFileSync('./maps.json', writedata);
+
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Feature Removed")
+        .setDescription(`Removed featured map.`);
+        return await interaction.editReply({embeds: [embed]})
+    }
 }
 
 module.exports.autocomplete = async (interaction, Maps) => {
@@ -306,6 +331,25 @@ module.exports.info = {
                     "required": true
                 }
             ]
+        },
+        {
+            "name": "add_feature",
+            "description": "Adds a new featured couse",
+            "type": 1,
+            "options": [
+                {
+                    "name": "map",
+                    "description": "Name of the new course (do not include easy/hard in the course name)",
+                    "type": 3,
+                    "required": true
+                }
+            ]
+        },
+        {
+            "name": "remove_feature",
+            "description": "Removes the feature course",
+            "type": 1,
+            "options": []
         }
     ]
 };
