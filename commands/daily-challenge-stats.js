@@ -31,7 +31,6 @@ module.exports.run = async(interaction, config, maps, client) => {
     var community_challenge_icons = "";
     for (var challenge in community_challenge_data) {
         var participant_list = community_challenge_data[challenge]["participants"];
-        console.log("Participant List: " + participant_list);
         if (participant_list.includes(userID)) {
             community_challenge_icons += `${community_challenge_data[challenge]["emoji"]}`;
         }
