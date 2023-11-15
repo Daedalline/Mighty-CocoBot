@@ -120,7 +120,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
         else {
-            challenge_data[name]["participants"] = {};
+            challenge_data[name]["participants"] = [];
 
             // Save the data and output message
             var writedata = JSON.stringify(challenge_data, null, "\t");
