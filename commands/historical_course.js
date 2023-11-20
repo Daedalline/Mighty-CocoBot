@@ -82,7 +82,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         index ++
     }
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Leaderboard for ${map}`)
+    .setTitle(`Archived Leaderboard for ${map}`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 };
@@ -107,8 +107,8 @@ module.exports.autocomplete = async (interaction, Maps) => {
 }
 
 module.exports.info = {
-    "name": "course",
-    "description": "See the leaderboard for each map",
+    "name": "historical_course",
+    "description": "See the historical leaderboard for each map",
     "options": [
         {
             "name": "map",
