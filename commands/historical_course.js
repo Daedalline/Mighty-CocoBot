@@ -93,7 +93,9 @@ module.exports.autocomplete = async (interaction, Maps) => {
     var res = []
     switch(value.name){
         case 'map': {
-            Maps.Leaderboards.forEach(map => {
+            let rawdata = await fs.readFileSync('historical_leaderboards_data.json');
+            let data = await JSON.parse(rawdata); 
+            data.forEach(map => {
                 if(map.toLowerCase().includes(value.value.toLowerCase()) || value == ""){
                     res.push({
                         name: map,
