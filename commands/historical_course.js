@@ -73,7 +73,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     })
     
     var archiveDate = new Date(data[map]["archived"]);
-    var tbl = "**Archived: " + archiveDate.getMonth() + "-" + archiveDate.getDate() + "-" + archiveDate.getFullYear() + "**";
+    var tbl = "**Archived: " + archiveDate.getMonth() + "-" + archiveDate.getDate() + "-" + archiveDate.getFullYear() + "**\n\n";
     var index = 0
     for(player in sortedData){
         if(index >= 20){
@@ -83,7 +83,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         index ++
     }
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Archived Leaderboard for ${map}`)
+    .setTitle(`Leaderboard for ${map}`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 };
