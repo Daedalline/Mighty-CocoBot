@@ -83,7 +83,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         index ++
     }
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Leaderboard for ${map}`)
+    .setTitle(`Historical Leaderboard for ${map}`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 };
