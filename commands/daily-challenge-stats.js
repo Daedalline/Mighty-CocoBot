@@ -29,7 +29,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     if(typeof player_data == 'undefined') {
         var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
+            .setTitle("Data Not Found")
             .setDescription(`There does not apear to be any challenge statistics for **<@${userID}>**`);
         return await interaction.editReply({embeds: [embed]})
     }

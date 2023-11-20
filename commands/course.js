@@ -38,7 +38,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     // If empty no need to sort anything
     if(Object.keys(simpleData).length <= 0){
         var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
+            .setTitle("Data Not Found")
             .setDescription(`There does not apear to be any scores for **${map}**`);
         return await interaction.editReply({embeds: [embed]})
     }
