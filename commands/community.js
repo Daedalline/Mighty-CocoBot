@@ -106,6 +106,48 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
     }
+    else if(interaction.options.getSubcommand() == "create_challenge"){
+    
+        // Creates a new community challenge
+        var name = interaction.options.getString('name');
+        var group = interaction.options.getString('group');
+        var detail = interaction.options.getString('detail');
+        var dates = interaction.options.getString('num_required');
+        var state = interaction.options.getString('state');
+        
+        if(!challenge_data[group]){
+            // Challenge already exists. Output error message.
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Invalid Command")
+            .setDescription(`**${group}** does not exist.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        else if(challenge_data[group][name]){
+            // Challenge already exists. Output error message.
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Invalid Command")
+            .setDescription(`**${name}** already exists for ${group}.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        else {
+            challenge_data[group][name] = { 
+            "detail": detail,
+            "state": state,
+            "num_required": num_required,
+            "progress": 0,
+            "participants": []
+            }
+            
+            // Save the data and output message
+            var writedata = JSON.stringify(challenge_data, null, "\t");
+            await fs.writeFileSync('community_challenge_data.json', writedata);
+
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Community Challenge Created")
+            .setDescription(`**${name}** created.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+    }
 }
 
 module.exports.autocomplete = async (interaction, Maps) => {
@@ -142,13 +184,7 @@ module.exports.info = {
             "options": [
                 {
                     "name": "name",
-                    "description": "Name of the new challenge",
-                    "type": 3,
-                    "required": true
-                },
-                {
-                    "name": "emoji",
-                    "description": "emoji to represent this challenge",
+                    "description": "Name of the new challenge group",
                     "type": 3,
                     "required": true
                 },
@@ -164,6 +200,12 @@ module.exports.info = {
                     "type": 3,
                     "required": true,
                     "autocomplete": true
+                },
+                                {
+                    "name": "emoji",
+                    "description": "emoji to represent this challenge",
+                    "type": 3,
+                    "required": true
                 }
             ]
         },
@@ -201,6 +243,46 @@ module.exports.info = {
                     "autocomplete": true
                 }
             ]
-        }
+        },
+        {
+            "name": "create_challenge",
+            "description": "Adds a new community challenge",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Name of the new challenge",
+                    "type": 3,
+                    "required": true
+                },
+                {
+                    "name": "group",
+                    "description": "Name of the challenge group",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                },
+                {
+                    "name": "detail",
+                    "description": "Challenge details",
+                    "type": 3,
+                    "required": true
+                },
+                {
+                    "name": "num_required",
+                    "description": "Number of completions required",
+                    "type": 4,
+                    "required": true
+                },
+                {
+                    "name": "state",
+                    "description": "Is this challenge active, completed, or not completed",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                }
+            ]
+        },
+        
     ]
 }
