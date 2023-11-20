@@ -248,8 +248,22 @@ module.exports.run = async(interaction, config, maps, client) => {
         var map = interaction.options.getString('map');
         await interaction.deferReply();
         
-        
-        
+        if(historicaldata[map]){
+            // There are already new scores submitted for this map - don't overwrite
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Database Error")
+            .setDescription(`There is already a historical leaderboard for **${map}**. Cancelling.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        else {
+            historicaldata[map] = data[map];
+            var writedata = JSON.stringify(historicaldata, null, "\t");
+            await fs.writeFileSync('./historical_data.json', writedata);
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Scores Restored")
+            .setDescription(`Copied **${map}** to archive.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
     }
 }
 
