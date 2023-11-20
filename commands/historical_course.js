@@ -27,7 +27,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     let data = await JSON.parse(rawdata); 
 
     var map = interaction.options.getString('map');
-    var players = data[map];
+    var players = data[map]["scores"];
     
     //Le Sorte'
     var simpleData = {};
@@ -72,7 +72,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         sortedData[item[0]]=item[1][0];
     })
     
-    var tbl = ""
+    var tbl = "";
+    console.log(data[map][archived]);
     var index = 0
     for(player in sortedData){
         if(index >= 20){
