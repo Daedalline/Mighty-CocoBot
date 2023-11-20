@@ -82,7 +82,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
     }
-    else if(interaction.options.getSubcommand() == "delete_challenge") {
+    else if(interaction.options.getSubcommand() == "delete_group") {
         // Delete the challenge
         var name = interaction.options.getString('group');
         
@@ -173,7 +173,7 @@ module.exports.info = {
             "type": 1,
             "options": [
                 {
-                    "group": "group",
+                    "name": "group",
                     "description": "Name of the new challenge",
                     "type": 3,
                     "required": true,
@@ -194,7 +194,7 @@ module.exports.info = {
             "type": 1,
             "options": [
                 {
-                    "group": "group",
+                    "name": "group",
                     "description": "Name of the challenge group",
                     "type": 3,
                     "required": true,
