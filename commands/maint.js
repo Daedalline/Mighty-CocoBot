@@ -256,7 +256,8 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
         else {
-            historicaldata[map] = data[map];
+            historicaldata[map] = {archived: new Date().toJSON(), scores: data[map]};
+            
             var writedata = JSON.stringify(historicaldata, null, "\t");
             await fs.writeFileSync('./historical_leaderboards_data.json', writedata);
             var embed = new Discord.MessageEmbed()
