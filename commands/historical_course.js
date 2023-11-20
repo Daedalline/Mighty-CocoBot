@@ -72,8 +72,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         sortedData[item[0]]=item[1][0];
     })
     
-    var tbl = "";
-    console.log(new Date(data[map]["archived"]));
+    var archiveDate = new Date(data[map]["archived"]);
+    var tbl = "**Archived: " + archiveDate.getMonth() + "-" + archiveDate.getDate() + "-" + archiveDate.getFullYear() + "**";
     var index = 0
     for(player in sortedData){
         if(index >= 20){
