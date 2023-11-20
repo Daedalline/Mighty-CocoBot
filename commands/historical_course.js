@@ -95,14 +95,14 @@ module.exports.autocomplete = async (interaction, Maps) => {
         case 'map': {
             let rawdata = await fs.readFileSync('historical_leaderboards_data.json');
             let data = await JSON.parse(rawdata); 
-            data.forEach(map => {
+            for(var map in data){
                 if(map.toLowerCase().includes(value.value.toLowerCase()) || value == ""){
                     res.push({
                         name: map,
                         value: map
                     })
                 }
-            })
+            }
             break;
         }
     }
