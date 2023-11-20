@@ -242,7 +242,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         // Copies a leaderboard from active to historical
         let rawdata = await fs.readFileSync('data.json');
         let data = await JSON.parse(rawdata); 
-        let rawdata2 = await fs.readFileSync('historical_data.json');
+        let rawdata2 = await fs.readFileSync('historical_leaderboards_data.json');
         let historicaldata = JSON.parse(rawdata2); 
         
         var map = interaction.options.getString('map');
@@ -258,7 +258,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         else {
             historicaldata[map] = data[map];
             var writedata = JSON.stringify(historicaldata, null, "\t");
-            await fs.writeFileSync('./historical_data.json', writedata);
+            await fs.writeFileSync('./historical_leaderboards_data.json', writedata);
             var embed = new Discord.MessageEmbed()
             .setTitle("Scores Restored")
             .setDescription(`Copied **${map}** to archive.`);
