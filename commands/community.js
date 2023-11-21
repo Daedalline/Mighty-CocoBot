@@ -124,8 +124,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         for (var challenge in challenge_data[group]["challenges"])
         {
-            console.log(challenge_data[group]["challenges"][challenge].toString());
-            if(challenge["name"] == name){
+            console.log(challenge_data[group]["challenges"][challenge]["name"]);
+            if(challenge_data[group]["challenges"][challenge]["name"] == name){
                 // Challenge already exists. Output error message.
                 var embed = new Discord.MessageEmbed()
                 .setTitle("Invalid Command")
