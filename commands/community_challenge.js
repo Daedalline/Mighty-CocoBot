@@ -40,13 +40,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         var group = interaction.options.getString('challenge_name');
         var tbl = ""; 
 
-        for (var challenge in challenge_data[group]["challenges"])
+        for (var i in challenge_data[group]["challenges"])
         {
-            console.log(challenge.toString());
+            console.log(challenge_data[group]["challenges"][i]);
         }
         
         var embed = new Discord.MessageEmbed()
-        .setTitle(`${group} Community Challenge Information`)
+        .setTitle(`Community Challenge Information: ${group} `)
         .setDescription(tbl);
         return await interaction.editReply({embeds: [embed]})
     }
