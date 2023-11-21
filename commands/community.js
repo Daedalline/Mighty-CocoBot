@@ -177,9 +177,9 @@ module.exports.autocomplete = async (interaction, Maps) => {
             let rawdata = await fs.readFileSync('community_challenge_data.json');
             let group_data = await JSON.parse(rawdata);
 		    for (var group in group_data) {
-                for (var challenge_id in challenge_data[group]["challenges"])
+                for (var challenge_id in group["challenges"])
                 {
-                    var challenge = challenge_data[group]["challenges"][challenge_id];
+                    var challenge = group["challenges"][challenge_id];
                     res.push({
                         name: challenge[name],
                         value: challenge[name]
