@@ -42,7 +42,10 @@ module.exports.run = async(interaction, config, maps, client) => {
 
         for (var i in challenge_data[group]["challenges"])
         {
-            console.log(challenge_data[group]["challenges"][i]);
+            var challenge_info = challenge_data[group]["challenges"][i];
+            var emoji = challenge_data[group]["emoji"]
+            console.log(challenge_info);
+            tbl += `${emoji}${emoji}${emoji} __**${challenge_info["name"]}**__${emoji}${emoji}${emoji}\n`;
         }
         
         var embed = new Discord.MessageEmbed()
