@@ -172,7 +172,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
                     })
             }
             break;
-        },
+        }
         case 'name': {
             let rawdata = await fs.readFileSync('community_challenge_data.json');
             let group_data = await JSON.parse(rawdata);
