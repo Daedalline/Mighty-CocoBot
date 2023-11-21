@@ -43,7 +43,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         console.log(challenge_data[group]["challenges"]);
         
         var embed = new Discord.MessageEmbed()
-        .setTitle("Community Challenges")
+        .setTitle(`${group} Community Challenge Information`)
         .setDescription(tbl);
         return await interaction.editReply({embeds: [embed]})
     }
