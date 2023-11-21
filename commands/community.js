@@ -44,7 +44,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             "emoji": emoji,
             "dates": dates,
             "state": state,
-            "challenges": []
+            "challenges": {}
             }
             
             // Save the data and output message
@@ -122,10 +122,10 @@ module.exports.run = async(interaction, config, maps, client) => {
             .setDescription(`**${group}** does not exist.`);
             return await interaction.editReply({embeds: [embed]})
         }
-//        for (var id in challenge_data[group]["challenges"])
-//        {
+        for (var challenge in challenge_data[group]["challenges"])
+        {
 //            var challenge = challenge_data[group]["challenges"][id];
-//            console.log(challenge);
+            console.log(challenge);
 //            if(challenge[challenge_name]){
 //                // Challenge already exists. Output error message.
 //                var embed = new Discord.MessageEmbed()
@@ -133,21 +133,21 @@ module.exports.run = async(interaction, config, maps, client) => {
 //                .setDescription(`**${name}** already exists for ${group}.`);
 //                return await interaction.editReply({embeds: [embed]})
 //            }
-//        }
+        }
 
-        var new_challenge = { challenge_name: {
-            "detail": detail,
-            "state": state,
-            "num_required": num_required,
-            "progress": 0,
-            "participants": []
-        } };
+//        var new_challenge = { challenge_name: {
+//            "detail": detail,
+//            "state": state,
+//            "num_required": num_required,
+//            "progress": 0,
+//            "participants": []
+//        } };
 
-        challenge_data[group]["challenges"].push(new_challenge);
+//        challenge_data[group]["challenges"].push(new_challenge);
             
         // Save the data and output message
-        var writedata = JSON.stringify(challenge_data, null, "\t");
-        await fs.writeFileSync('community_challenge_data.json', writedata);
+//        var writedata = JSON.stringify(challenge_data, null, "\t");
+//        await fs.writeFileSync('community_challenge_data.json', writedata);
 
         var embed = new Discord.MessageEmbed()
             .setTitle("Community Challenge Created")
