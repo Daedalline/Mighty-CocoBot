@@ -249,7 +249,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 
                 var embed = new Discord.MessageEmbed()
                 .setTitle("Community Challenge Updated")
-                .setDescription(`**${challenge_name}** updated.`);
+                .setDescription(`**${challenge_name}** removed.`);
                 return await interaction.editReply({embeds: [embed]})
             }
         }
