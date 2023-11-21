@@ -116,7 +116,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var state = interaction.options.getString('state');
         
         if(!challenge_data[group]){
-            // Challenge already exists. Output error message.
+            // Group does not exist. Output error message.
             var embed = new Discord.MessageEmbed()
             .setTitle("Invalid Command")
             .setDescription(`**${group}** does not exist.`);
@@ -152,6 +152,42 @@ module.exports.run = async(interaction, config, maps, client) => {
             .setDescription(`**${challenge_name}** created.`);
         return await interaction.editReply({embeds: [embed]})
     }
+    else if(interaction.options.getSubcommand() == "update_challenge_state")
+    {
+        // Updates community challenge State
+        var challenge_name = interaction.options.getString('name');
+        var group = interaction.options.getString('group');
+        var state = interaction.options.getString('state');
+        
+        if(!challenge_data[group]){
+            // Group does not exist. Output error message.
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Invalid Command")
+            .setDescription(`**${group}** does not exist.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        for (var challenge_id in challenge_data[group]["challenges"])
+        {
+            var challenge = challenge_data[group]["challenges"][challenge_id];
+            if(challenge["name"] == challenge_name){
+                
+                challenge_data[group]["challenges"][challenge_id]["state"] = state;
+                // Save the data and output message
+                var writedata = JSON.stringify(challenge_data, null, "\t");
+                await fs.writeFileSync('community_challenge_data.json', writedata);
+                
+                var embed = new Discord.MessageEmbed()
+                .setTitle("Community Challenge Updated")
+                .setDescription(`**${challenge_name}** updated.`);
+                return await interaction.editReply({embeds: [embed]})
+            }
+        }
+        // Challenge does not exist in this group. Output error message.
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Invalid Command")
+        .setDescription(`**${challenge_name}** already exists for ${group}.`);
+        return await interaction.editReply({embeds: [embed]})
+    }
 }
 
 module.exports.autocomplete = async (interaction, Maps) => {
@@ -180,7 +216,6 @@ module.exports.autocomplete = async (interaction, Maps) => {
                 for (var challenge_id in group_data[group]["challenges"])
                 {
                     var challenge = group_data[group]["challenges"][challenge_id];
-                    console.log("Challenge: " + challenge.toString());
                     res.push({
                         name: challenge["name"],
                         value: challenge["name"]
