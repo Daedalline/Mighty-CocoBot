@@ -223,7 +223,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         .setTitle("Invalid Command")
         .setDescription(`**${challenge_name}** does not exist for ${group}.`);
         return await interaction.editReply({embeds: [embed]})
-    },
+    }
     else if(interaction.options.getSubcommand() == "delete_challenge")
     {
         // Updates community challenge progress
