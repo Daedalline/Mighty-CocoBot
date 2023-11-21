@@ -671,6 +671,27 @@ module.exports.info = {
                     "required": true
                 }
             ]
+        },
+        {
+            "name": "clear_participants",
+            "description": "Removes all community challenge participants",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Name of the challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                },
+                {
+                    "name": "group",
+                    "description": "Name of the challenge group",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                }
+            ]
         }
     ]
 }
