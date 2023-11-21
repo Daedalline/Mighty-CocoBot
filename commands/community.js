@@ -122,12 +122,15 @@ module.exports.run = async(interaction, config, maps, client) => {
             .setDescription(`**${group}** does not exist.`);
             return await interaction.editReply({embeds: [embed]})
         }
-        else if(challenge_data[group][name]){
-            // Challenge already exists. Output error message.
-            var embed = new Discord.MessageEmbed()
-            .setTitle("Invalid Command")
-            .setDescription(`**${name}** already exists for ${group}.`);
-            return await interaction.editReply({embeds: [embed]})
+        for (var challenge in challenge_data[group]["challenges"])
+        {
+            if(challenge["name"] == name){
+                // Challenge already exists. Output error message.
+                var embed = new Discord.MessageEmbed()
+                .setTitle("Invalid Command")
+                .setDescription(`**${name}** already exists for ${group}.`);
+                return await interaction.editReply({embeds: [embed]})
+            }
         }
         else {
             challenge_data[group]["challenges"].push(
