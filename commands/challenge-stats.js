@@ -67,7 +67,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         else {
             var tbl = "### Community Challenges\n"
             tbl += community_challenge_icons + "\n\n";
-            tbl = "### Daily Challenges\n"
+            tbl += "### Daily Challenges\n"
             tbl += "__Current Season Medals (Trickshot):__\n";  
             tbl += "Completion Awards :second_place: - 0 Medals\n";
             tbl += "Best Shot From the Tee :medal: - 0 Medals\n";
@@ -101,7 +101,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     else {
         var tbl = "### Community Challenges\n"
         tbl += community_challenge_icons + "\n\n";
-        tbl = "### Daily Challenges\n"
+        tbl += "### Daily Challenges\n"
         tbl += "__Current Season Medals (Trickshot):__\n";  
         tbl += "Participation Awards :third_place: - " + player_data["Current Season"]["Participation Awards"] + " Medals\n";
         tbl += "Completion Awards :second_place: - " + player_data["Current Season"]["Completion Awards"] + " Medals\n";
