@@ -65,7 +65,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         if(!challenge_data[name]){
             // Challenge does not exist. Output error message.
             var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
+            .setTitle("Invalid Command")
             .setDescription(`**${name}** does not exist.`);
             return await interaction.editReply({embeds: [embed]})
         }
