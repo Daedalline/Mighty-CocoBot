@@ -112,7 +112,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var name = interaction.options.getString('name');
         var group = interaction.options.getString('group');
         var detail = interaction.options.getString('detail');
-        var dates = interaction.options.getString('num_required');
+        var dates = interaction.options.getInteger('num_required');
         var state = interaction.options.getString('state');
         
         if(!challenge_data[group]){
