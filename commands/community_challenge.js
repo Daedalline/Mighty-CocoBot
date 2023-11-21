@@ -68,7 +68,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         
         
         var challenge_info = challenge_data[group][challenge];
-        tbl += `### ${challenge_info["name"]:\n`;
+        tbl += `### ${challenge_info["name"]}:\n`;
         tbl += `${challenge_info["detail"]}\n`;
         tbl += `State: ${challenge_info["state"]}\n`;
         tbl += `Progress: ${challenge_info["progress"]}/${challenge_info["num_required"]}\n\n`;
