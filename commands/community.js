@@ -223,6 +223,41 @@ module.exports.run = async(interaction, config, maps, client) => {
         .setTitle("Invalid Command")
         .setDescription(`**${challenge_name}** does not exist for ${group}.`);
         return await interaction.editReply({embeds: [embed]})
+    },
+    else if(interaction.options.getSubcommand() == "delete_challenge")
+    {
+        // Updates community challenge progress
+        var challenge_name = interaction.options.getString('name');
+        var group = interaction.options.getString('group');
+        
+        if(!challenge_data[group]){
+            // Group does not exist. Output error message.
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Invalid Command")
+            .setDescription(`**${group}** does not exist.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        for (var challenge_id in challenge_data[group]["challenges"])
+        {
+            var challenge = challenge_data[group]["challenges"][challenge_id];
+            if(challenge["name"] == challenge_name){
+                
+                challenge_data[group]["challenges"].splice(challenge_id, 1);
+                // Save the data and output message
+                var writedata = JSON.stringify(challenge_data, null, "\t");
+                await fs.writeFileSync('community_challenge_data.json', writedata);
+                
+                var embed = new Discord.MessageEmbed()
+                .setTitle("Community Challenge Updated")
+                .setDescription(`**${challenge_name}** updated.`);
+                return await interaction.editReply({embeds: [embed]})
+            }
+        }
+        // Challenge does not exist in this group. Output error message.
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Invalid Command")
+        .setDescription(`**${challenge_name}** does not exist for ${group}.`);
+        return await interaction.editReply({embeds: [embed]})
     }
 }
 
