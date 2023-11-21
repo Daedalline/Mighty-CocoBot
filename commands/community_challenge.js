@@ -92,7 +92,7 @@ module.exports.info = {
             "description": "Lists all community challenge",
             "type": 1,
             "options": []
-        }
+        },
         {
             "name": "info",
             "description": "Provides more info about a community challenge",
