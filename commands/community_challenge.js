@@ -41,7 +41,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var emoji = challenge_data[group]["emoji"]
         var tbl = `Active: ${challenge_data[group]["dates"]}\n`;
         tbl += `Status: ${challenge_data[group]["state"]}\n\n`;
-        tbl += `__**Sub-Challenges:**__\n`;
+        tbl += `# Sub-Challenges:\n`;
 
         for (var i in challenge_data[group]["challenges"])
         {
