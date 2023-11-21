@@ -122,8 +122,9 @@ module.exports.run = async(interaction, config, maps, client) => {
             .setDescription(`**${group}** does not exist.`);
             return await interaction.editReply({embeds: [embed]})
         }
-        for (var challenge in challenge_data[group]["challenges"])
+        for (var id in challenge_data[group]["challenges"])
         {
+            var challenge = challenge_data[group]["challenges"][id];
             console.log(challenge);
             //if(challenge_data[group]["challenges"][challenge] == name){
                 // Challenge already exists. Output error message.
