@@ -35,7 +35,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         if(challenge_data[name]){
             // Challenge already exists. Output error message.
             var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
+            .setTitle("Invalid Command")
             .setDescription(`**${name}** already exists.`);
             return await interaction.editReply({embeds: [embed]})
         }
@@ -52,7 +52,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             await fs.writeFileSync('community_challenge_data.json', writedata);
 
             var embed = new Discord.MessageEmbed()
-            .setTitle("Community Challenge Created")
+            .setTitle("Community Challenge Group Created")
             .setDescription(`**${name}** created.`);
             return await interaction.editReply({embeds: [embed]})
         }
@@ -77,7 +77,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             await fs.writeFileSync('community_challenge_data.json', writedata);
 
             var embed = new Discord.MessageEmbed()
-            .setTitle("Community Challenge State Updated")
+            .setTitle("Community Challenge Group State Updated")
             .setDescription(`**${name}** set to ${state}.`);
             return await interaction.editReply({embeds: [embed]})
         }
@@ -89,7 +89,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         if(!challenge_data[name]){
             // Challenge does not exist. Output error message.
             var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
+            .setTitle("Invalid Command")
             .setDescription(`**${name}** does not exist.`);
             return await interaction.editReply({embeds: [embed]})
         }
@@ -101,7 +101,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             await fs.writeFileSync('community_challenge_data.json', writedata);
 
             var embed = new Discord.MessageEmbed()
-            .setTitle("Community Challenge Deleted")
+            .setTitle("Community Challenge Group Deleted")
             .setDescription(`**${name}** has been deleted.`);
             return await interaction.editReply({embeds: [embed]})
         }
@@ -149,7 +149,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
         var embed = new Discord.MessageEmbed()
             .setTitle("Community Challenge Created")
-            .setDescription(`**${challenge_name}** created.`);
+            .setDescription(`**${challenge_name}** created in group ${group}.`);
         return await interaction.editReply({embeds: [embed]})
     }
     else if(interaction.options.getSubcommand() == "update_challenge_state")
@@ -178,7 +178,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 
                 var embed = new Discord.MessageEmbed()
                 .setTitle("Community Challenge Updated")
-                .setDescription(`**${challenge_name}** updated.`);
+                .setDescription(`**${challenge_name}** updated to ${state}.`);
                 return await interaction.editReply({embeds: [embed]})
             }
         }
@@ -214,7 +214,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 
                 var embed = new Discord.MessageEmbed()
                 .setTitle("Community Challenge Updated")
-                .setDescription(`**${challenge_name}** updated.`);
+                .setDescription(`**${challenge_name}** progress updated by ${progress}.`);
                 return await interaction.editReply({embeds: [embed]})
             }
         }
@@ -283,7 +283,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 {
                     var embed = new Discord.MessageEmbed()
                     .setTitle("Invalid Command")
-                    .setDescription(`**<@${userID}>** is already on the list.`);
+                    .setDescription(`**<@${userID}>** is already participating in ${challenge_name}.`);
                     return await interaction.editReply({embeds: [embed]})
                 }
                 else
@@ -331,7 +331,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 {
                     var embed = new Discord.MessageEmbed()
                     .setTitle("Invalid Command")
-                    .setDescription(`**<@${userID}>** is not on the list.`);
+                    .setDescription(`**<@${userID}>** is not participating in **${challenge_name}**.`);
                     return await interaction.editReply({embeds: [embed]})
                 }
                 else
