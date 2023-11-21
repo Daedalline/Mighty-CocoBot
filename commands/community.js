@@ -125,14 +125,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         for (var challenge_id in challenge_data[group]["challenges"])
         {
             var challenge = challenge_data[group]["challenges"][challenge_id];
-            console.log(challenge);
-//            if(challenge[challenge_name]){
-//                // Challenge already exists. Output error message.
-//                var embed = new Discord.MessageEmbed()
-//                .setTitle("Invalid Command")
-//                .setDescription(`**${name}** already exists for ${group}.`);
-//                return await interaction.editReply({embeds: [embed]})
-//            }
+            if(challenge["name"] == challenge_name){
+                // Challenge already exists. Output error message.
+                var embed = new Discord.MessageEmbed()
+                .setTitle("Invalid Command")
+                .setDescription(`**${name}** already exists for ${group}.`);
+                return await interaction.editReply({embeds: [embed]})
+            }
         }
 
         challenge_data[group]["challenges"].push({
@@ -150,7 +149,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
         var embed = new Discord.MessageEmbed()
             .setTitle("Community Challenge Created")
-            .setDescription(`**${name}** created.`);
+            .setDescription(`**${challenge_name}** created.`);
         return await interaction.editReply({embeds: [embed]})
     }
     
