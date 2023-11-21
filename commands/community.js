@@ -132,7 +132,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 return await interaction.editReply({embeds: [embed]})
             }
         }
-        else {
+
             challenge_data[group]["challenges"].push(
             { 
             "name": name,
@@ -152,7 +152,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             .setTitle("Community Challenge Created")
             .setDescription(`**${name}** created.`);
             return await interaction.editReply({embeds: [embed]})
-        }
+
     }
 }
 
