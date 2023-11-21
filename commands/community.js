@@ -122,24 +122,28 @@ module.exports.run = async(interaction, config, maps, client) => {
             .setDescription(`**${group}** does not exist.`);
             return await interaction.editReply({embeds: [embed]})
         }
-        for (var id in challenge_data[group]["challenges"])
-        {
-            var challenge = challenge_data[group]["challenges"][id];
-            console.log(challenge);
-            if(challenge[challenge_name]){
-                // Challenge already exists. Output error message.
-                var embed = new Discord.MessageEmbed()
-                .setTitle("Invalid Command")
-                .setDescription(`**${name}** already exists for ${group}.`);
-                return await interaction.editReply({embeds: [embed]})
-            }
-        }
-        challenge_data[group]["challenges"][challenge_name] = {
-        "detail": detail,
-        "state": state,
-        "num_required": num_required,
-        "progress": 0,
-        "participants": []};
+//        for (var id in challenge_data[group]["challenges"])
+//        {
+//            var challenge = challenge_data[group]["challenges"][id];
+//            console.log(challenge);
+//            if(challenge[challenge_name]){
+//                // Challenge already exists. Output error message.
+//                var embed = new Discord.MessageEmbed()
+//                .setTitle("Invalid Command")
+//                .setDescription(`**${name}** already exists for ${group}.`);
+//                return await interaction.editReply({embeds: [embed]})
+//            }
+//        }
+
+        var new_challenge = { challenge_name: {
+            "detail": detail,
+            "state": state,
+            "num_required": num_required,
+            "progress": 0,
+            "participants": []
+        } };
+
+        challenge_data[group]["challenges"].push(new_challenge);
             
         // Save the data and output message
         var writedata = JSON.stringify(challenge_data, null, "\t");
