@@ -360,8 +360,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         // Updates community challenge progress
         var challenge_name = interaction.options.getString('name');
         var group = interaction.options.getString('group');
-        var userID = interaction.options.getUser('user').id
-        
+   
         if(!challenge_data[group]){
             // Group does not exist. Output error message.
             var embed = new Discord.MessageEmbed()
