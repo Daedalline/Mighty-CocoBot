@@ -41,7 +41,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var emoji = challenge_data[group]["emoji"]
         var tbl = `Active: ${challenge_data[group]["dates"]}\n`;
         tbl += `Status: ${challenge_data[group]["state"]}\n\n`;
-        tbl += `### Challenges:\n`;
+        tbl += `### Subchallenges:\n`;
 
         for (var i in challenge_data[group]["challenges"])
         {
@@ -53,6 +53,30 @@ module.exports.run = async(interaction, config, maps, client) => {
             tbl += `Progress: ${challenge_info["progress"]}/${challenge_info["num_required"]}\n\n`;
         }
         
+        var embed = new Discord.MessageEmbed()
+        .setTitle(`${emoji}${emoji}${emoji} __**${group}**__${emoji}${emoji}${emoji}\n`)
+        .setDescription(tbl);
+        return await interaction.editReply({embeds: [embed]})
+    }
+    else if(interaction.options.getSubcommand() == "details"){
+        var group = interaction.options.getString('challenge_name');
+        var challenge = interaction.options.getString('subchallenge_name');
+        var emoji = challenge_data[group]["emoji"]
+        
+        var tbl = `Active: ${challenge_data[group]["dates"]}\n`;
+        tbl += `Status: ${challenge_data[group]["state"]}\n\n`;
+        
+        
+        var challenge_info = challenge_data[group][challenge];
+        tbl += `### ${challenge_info["name"]:\n`;
+        tbl += `${challenge_info["detail"]}\n`;
+        tbl += `State: ${challenge_info["state"]}\n`;
+        tbl += `Progress: ${challenge_info["progress"]}/${challenge_info["num_required"]}\n\n`;
+        tbl += `**Participants:**\n`;
+        for (var user in challenge_details["participants"]) {
+            tbl += `* <@${challenge_details["participants"][user]}>\n`;
+        }
+
         var embed = new Discord.MessageEmbed()
         .setTitle(`${emoji}${emoji}${emoji} __**${group}**__${emoji}${emoji}${emoji}\n`)
         .setDescription(tbl);
@@ -112,6 +136,27 @@ module.exports.info = {
                 {
                     "name": "challenge_name",
                     "description": "Name of the challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                }
+            ]
+        },
+        {
+            "name": "details",
+            "description": "Provides more info about a community challenge",
+            "type": 1,
+            "options": [
+                {
+                    "name": "challenge_name",
+                    "description": "Name of the challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                },
+                {
+                    "name": "subchallenge_name",
+                    "description": "Name of the subchallenge",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
