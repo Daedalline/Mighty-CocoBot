@@ -124,7 +124,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         for (var challenge_id in challenge_data[group]["challenges"])
         {
-            var challenge = challenge_data[group]["challenges"][id];
+            var challenge = challenge_data[group]["challenges"][challenge_id];
             console.log(challenge);
 //            if(challenge[challenge_name]){
 //                // Challenge already exists. Output error message.
