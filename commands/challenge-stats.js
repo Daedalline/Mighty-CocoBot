@@ -97,7 +97,9 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
     }
     else {
-        var tbl = community_challenge_icons + "\n\n";
+        var tbl = "### Community Challenges\n"
+        tbl += community_challenge_icons + "\n\n";
+        tbl = "### Daily Challenges\n"
         tbl += "__Current Season Medals (Trickshot):__\n";  
         tbl += "Participation Awards :third_place: - " + player_data["Current Season"]["Participation Awards"] + " Medals\n";
         tbl += "Completion Awards :second_place: - " + player_data["Current Season"]["Completion Awards"] + " Medals\n";
@@ -126,15 +128,15 @@ module.exports.run = async(interaction, config, maps, client) => {
         tbl += "Third Place Finishes :third_place: - " + player_data["Total Season Wins"]["Third Place Finishes"] + " Wins\n";
         
         var embed = new Discord.MessageEmbed()
-        .setTitle(`Daily Challenge statistics for ` + interaction.options.getUser('user').username)
+        .setTitle(`Challenge statistics for ` + interaction.options.getUser('user').username)
         .setDescription(tbl);
         return await interaction.editReply({embeds: [embed]})
     }
 }
 
 module.exports.info = {
-    "name": "daily-challenge-stats",
-    "description": "List all Daily Challenge stats for a given user",
+    "name": "challenge-stats",
+    "description": "List all Daily and Community Challenge stats for a given user",
     "options": [
         {
             "name": "user",
