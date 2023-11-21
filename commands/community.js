@@ -180,6 +180,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
 		    for (var group in group_data) {
                 for (var challenge in group["challenges"])
                 {
+                    console.log(challenge);
                  res.push({
                         name: challenge["name"],
                         value: challenge["name"]
