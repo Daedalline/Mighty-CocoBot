@@ -124,24 +124,22 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         for (var challenge in challenge_data[group]["challenges"])
         {
-            if(challenge_data[group]["challenges"][challenge]["name"] == name){
+            console.log(challenge);
+            //if(challenge_data[group]["challenges"][challenge] == name){
                 // Challenge already exists. Output error message.
                 var embed = new Discord.MessageEmbed()
                 .setTitle("Invalid Command")
                 .setDescription(`**${name}** already exists for ${group}.`);
                 return await interaction.editReply({embeds: [embed]})
-            }
+            //}
         }
         challenge_data[group]["challenges"].push(
-        { 
-        "name": name,
+        { name: {
         "detail": detail,
         "state": state,
         "num_required": num_required,
         "progress": 0,
-        "participants": []
-        }
-        );
+        "participants": []}});
             
         // Save the data and output message
         var writedata = JSON.stringify(challenge_data, null, "\t");
@@ -171,21 +169,6 @@ module.exports.autocomplete = async (interaction, Maps) => {
                         name: group,
                         value: group
                     })
-            }
-            break;
-        }
-        case 'name': {
-            let rawdata = await fs.readFileSync('community_challenge_data.json');
-            let group_data = await JSON.parse(rawdata);
-		    for (var group in group_data) {
-                for (var challenge in group["challenges"])
-                {
-                    console.log(challenge);
-                 res.push({
-                        name: challenge["name"],
-                        value: challenge["name"]
-                    })
-                }
             }
             break;
         }
@@ -293,34 +276,6 @@ module.exports.info = {
                     "description": "Number of completions required",
                     "type": 4,
                     "required": true
-                },
-                {
-                    "name": "state",
-                    "description": "Is this challenge active, completed, or not completed",
-                    "type": 3,
-                    "required": true,
-                    "autocomplete": true
-                }
-            ]
-        },
-        {
-            "name": "update_challenge_state",
-            "description": "Updates the community challenge state",
-            "type": 1,
-            "options": [
-                {
-                    "name": "name",
-                    "description": "Name of new challenge",
-                    "type": 3,
-                    "required": true,
-                    "autocomplete": true
-                },
-                {
-                    "name": "group",
-                    "description": "Name of the challenge group",
-                    "type": 3,
-                    "required": true,
-                    "autocomplete": true
                 },
                 {
                     "name": "state",
