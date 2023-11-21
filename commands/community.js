@@ -556,6 +556,6 @@ module.exports.info = {
                     "required": true
                 }
             ]
-        },
+        }
     ]
 }
