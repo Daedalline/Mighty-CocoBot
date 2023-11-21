@@ -344,9 +344,46 @@ module.exports.run = async(interaction, config, maps, client) => {
                 
                     var embed = new Discord.MessageEmbed()
                     .setTitle("Community Challenge Updated")
-                    .setDescription(`**<@${userID}>** added to **${challenge_name}**.`);
+                    .setDescription(`**<@${userID}>** removed from **${challenge_name}**.`);
                     return await interaction.editReply({embeds: [embed]})
                 }
+            }
+        }
+        // Challenge does not exist in this group. Output error message.
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Invalid Command")
+        .setDescription(`**${challenge_name}** does not exist for ${group}.`);
+        return await interaction.editReply({embeds: [embed]})
+    }
+    else if(interaction.options.getSubcommand() == "clear_participants")
+    {
+        // Updates community challenge progress
+        var challenge_name = interaction.options.getString('name');
+        var group = interaction.options.getString('group');
+        var userID = interaction.options.getUser('user').id
+        
+        if(!challenge_data[group]){
+            // Group does not exist. Output error message.
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Invalid Command")
+            .setDescription(`**${group}** does not exist.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        for (var challenge_id in challenge_data[group]["challenges"])
+        {
+            var challenge = challenge_data[group]["challenges"][challenge_id];
+            if(challenge["name"] == challenge_name)
+            {
+                challenge_data[group]["challenges"][challenge_id]["participants"] = [];
+                
+                // Save the data and output message
+                var writedata = JSON.stringify(challenge_data, null, "\t");
+                await fs.writeFileSync('community_challenge_data.json', writedata);
+             
+                var embed = new Discord.MessageEmbed()
+                .setTitle("Community Challenge Updated")
+                .setDescription(`**<@${userID}>** removed from **${challenge_name}**.`);
+                return await interaction.editReply({embeds: [embed]})
             }
         }
         // Challenge does not exist in this group. Output error message.
