@@ -36,7 +36,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             var player_participated = false;
             for (var subchallenge in challenge_info["challenges"])
             {
-                var subchallenge_info = challenge_info["challenges"][subchallenge]);
+                var subchallenge_info = challenge_info["challenges"][subchallenge];
                 if (subchallenge_info["state"] == "Complete" && subchallenge_info["participants"].includes(userID))
                 {
                     player_participated = true;
