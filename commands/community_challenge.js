@@ -37,10 +37,10 @@ module.exports.run = async(interaction, config, maps, client) => {
         return await interaction.editReply({embeds: [embed]})
     }
     else if(interaction.options.getSubcommand() == "info"){
-        var name = interaction.options.getString('challenge_name');
+        var group = interaction.options.getString('challenge_name');
         var tbl = ""; 
 
-        console.log(challenge_data[challenge_name]["challenges"]);
+        console.log(challenge_data[group]["challenges"]);
         
         var embed = new Discord.MessageEmbed()
         .setTitle("Community Challenges")
