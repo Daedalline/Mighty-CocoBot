@@ -44,7 +44,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             "emoji": emoji,
             "dates": dates,
             "state": state,
-            "challenges": {}
+            "challenges": []
             }
             
             // Save the data and output message
