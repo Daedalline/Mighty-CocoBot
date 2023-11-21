@@ -109,7 +109,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     else if(interaction.options.getSubcommand() == "create_challenge"){
     
         // Creates a new community challenge
-        var name = interaction.options.getString('name');
+        var challenge_name = interaction.options.getString('name');
         var group = interaction.options.getString('group');
         var detail = interaction.options.getString('detail');
         var num_required = interaction.options.getInteger('num_required');
@@ -126,16 +126,16 @@ module.exports.run = async(interaction, config, maps, client) => {
         {
             var challenge = challenge_data[group]["challenges"][id];
             console.log(challenge);
-            //if(challenge_data[group]["challenges"][challenge] == name){
+            if(challenge[challenge_name]){
                 // Challenge already exists. Output error message.
                 var embed = new Discord.MessageEmbed()
                 .setTitle("Invalid Command")
                 .setDescription(`**${name}** already exists for ${group}.`);
                 return await interaction.editReply({embeds: [embed]})
-            //}
+            }
         }
         challenge_data[group]["challenges"].push(
-        { name: {
+        { challenge_name: {
         "detail": detail,
         "state": state,
         "num_required": num_required,
