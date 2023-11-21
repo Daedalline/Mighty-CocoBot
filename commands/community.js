@@ -134,8 +134,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 return await interaction.editReply({embeds: [embed]})
             }
         }
-        challenge_data[group]["challenges"].push(
-        { challenge_name: {
+        challenge_data[group]["challenges"][challenge_name] = {
         "detail": detail,
         "state": state,
         "num_required": num_required,
