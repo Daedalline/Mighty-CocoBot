@@ -31,11 +31,14 @@ module.exports.run = async(interaction, config, maps, client) => {
     var community_challenge_icons = "";
     for (var challenge in community_challenge_data) {
         var challenge_info = community_challenge_data[challenge];
-        console.log(challenge_info);
-        //var participant_list = community_challenge_data[challenge]["participants"];
-        //if (participant_list.includes(userID)) {
-        //    community_challenge_icons += `${community_challenge_data[challenge]["emoji"]}`;
-        //}
+        if (challenge_info["state"] == "Complete")
+        {
+            console.log(challenge_info);
+            //var participant_list = community_challenge_data[challenge]["participants"];
+            //if (participant_list.includes(userID)) {
+            //    community_challenge_icons += `${community_challenge_data[challenge]["emoji"]}`;
+            //}
+        }
     }
     
     var player_data = challenge_data[userID];
