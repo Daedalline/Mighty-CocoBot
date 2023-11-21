@@ -26,7 +26,12 @@ module.exports.run = async(interaction, config, maps, client) => {
     if(interaction.options.getSubcommand() == "list"){
         var tbl = ""; 
         
-        console.log(challenge_data);
+        for (var challenge in challenge_data)
+        {
+            tbl += `${challenge_data[challenge]["emoji"]}   **${challenge}:**   ${challenge_data[challenge]["dates"]},   ${challenge_data[challenge]["state"]}\n`; 
+            
+            console.log(challenge_data["challenges"]);
+        }
         
         var embed = new Discord.MessageEmbed()
         .setTitle("Community Challenges")
