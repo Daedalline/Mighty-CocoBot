@@ -151,8 +151,8 @@ module.exports.run = async(interaction, config, maps, client) => {
             .setTitle("Community Challenge Created")
             .setDescription(`**${name}** created.`);
         return await interaction.editReply({embeds: [embed]})
-
     }
+    
 }
 
 module.exports.autocomplete = async (interaction, Maps) => {
@@ -171,6 +171,20 @@ module.exports.autocomplete = async (interaction, Maps) => {
                         name: group,
                         value: group
                     })
+            }
+            break;
+        }
+        case 'name': {
+            let rawdata = await fs.readFileSync('community_challenge_data.json');
+            let group_data = await JSON.parse(rawdata);
+		    for (var group in group_data) {
+                for (var challenge in group["challenges"])
+                {
+                 res.push({
+                        name: challenge["name"],
+                        value: challenge["name"]
+                    })
+                }
             }
             break;
         }
@@ -288,6 +302,33 @@ module.exports.info = {
                 }
             ]
         },
-        
+        {
+            "name": "update_challenge_state",
+            "description": "Updates the community challenge state",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Name of new challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                },
+                {
+                    "name": "group",
+                    "description": "Name of the challenge group",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                },
+                {
+                    "name": "state",
+                    "description": "Is this challenge active, completed, or not completed",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                }
+            ]
+        }
     ]
 }
