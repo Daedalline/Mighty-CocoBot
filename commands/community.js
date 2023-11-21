@@ -185,7 +185,43 @@ module.exports.run = async(interaction, config, maps, client) => {
         // Challenge does not exist in this group. Output error message.
         var embed = new Discord.MessageEmbed()
         .setTitle("Invalid Command")
-        .setDescription(`**${challenge_name}** already exists for ${group}.`);
+        .setDescription(`**${challenge_name}** does not exist for ${group}.`);
+        return await interaction.editReply({embeds: [embed]})
+    }
+    else if(interaction.options.getSubcommand() == "increment_challenge_progress")
+    {
+        // Updates community challenge progress
+        var challenge_name = interaction.options.getString('name');
+        var group = interaction.options.getString('group');
+        var progress = interaction.options.getInteger('progress');
+        
+        if(!challenge_data[group]){
+            // Group does not exist. Output error message.
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Invalid Command")
+            .setDescription(`**${group}** does not exist.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        for (var challenge_id in challenge_data[group]["challenges"])
+        {
+            var challenge = challenge_data[group]["challenges"][challenge_id];
+            if(challenge["name"] == challenge_name){
+                
+                challenge_data[group]["challenges"][challenge_id]["progress"] += progress;
+                // Save the data and output message
+                var writedata = JSON.stringify(challenge_data, null, "\t");
+                await fs.writeFileSync('community_challenge_data.json', writedata);
+                
+                var embed = new Discord.MessageEmbed()
+                .setTitle("Community Challenge Updated")
+                .setDescription(`**${challenge_name}** updated.`);
+                return await interaction.editReply({embeds: [embed]})
+            }
+        }
+        // Challenge does not exist in this group. Output error message.
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Invalid Command")
+        .setDescription(`**${challenge_name}** does not exist for ${group}.`);
         return await interaction.editReply({embeds: [embed]})
     }
 }
@@ -363,6 +399,33 @@ module.exports.info = {
                     "type": 3,
                     "required": true,
                     "autocomplete": true
+                }
+            ]
+        },
+        {
+            "name": "increment_challenge_progress",
+            "description": "Updates the state of a community challenge",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Name of the new challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                },
+                {
+                    "name": "group",
+                    "description": "Name of the challenge group",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                },
+                {
+                    "name": "progress",
+                    "description": "Increment the progress",
+                    "type": 4,
+                    "required": true
                 }
             ]
         }
