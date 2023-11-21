@@ -33,15 +33,24 @@ module.exports.run = async(interaction, config, maps, client) => {
         var challenge_info = community_challenge_data[challenge];
         if (challenge_info["state"] == "Complete")
         {
-            console.log(challenge_info);
             var player_participated = false;
             for (var subchallenge in challenge_info["challenges"])
             {
-                console.log(challenge_info["challenges"][subchallenge]);
-                //var participant_list = community_challenge_data[challenge]["participants"];
-                //if (participant_list.includes(userID)) {
-                //    community_challenge_icons += `${community_challenge_data[challenge]["emoji"]}`;
-                //}
+                var subchallenge_info = challenge_info["challenges"][subchallenge]);
+                if (subchallenge_info["state"] == "Complete" && subchallenge_info["participants"].includes(userID))
+                {
+                    player_participated = true;
+                    break;
+                }
+            }
+            
+            if (player_participated)
+            {
+                community_challenge_icons += `${community_challenge_data[challenge]["emoji"]}`;
+            }
+            else
+            {
+                community_challenge_icons += `${config.ChallengeIncompleteEmoji}`;
             }
         }
     }
@@ -49,13 +58,47 @@ module.exports.run = async(interaction, config, maps, client) => {
     var player_data = challenge_data[userID];
     
     if(typeof player_data == 'undefined') {
-        var embed = new Discord.MessageEmbed()
-            .setTitle("Data Not Found")
-            .setDescription(`There does not apear to be any challenge statistics for **<@${userID}>**`);
-        return await interaction.editReply({embeds: [embed]})
+        if (community_challenge_icons == "") {
+            var embed = new Discord.MessageEmbed()
+                .setTitle("Data Not Found")
+                .setDescription(`There does not apear to be any challenge statistics for **<@${userID}>**`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        else {
+            var tbl = community_challenge_icons + "\n\n";
+            tbl += "__Current Season Medals (Trickshot):__\n";  
+            tbl += "Completion Awards :second_place: - 0 Medals\n";
+            tbl += "Best Shot From the Tee :medal: - 0 Medals\n";
+            tbl += "Best Shot From Another Tee :military_medal: - 0 Medals\n";
+            tbl += "\n"
+            tbl += "__Current Season Medals (9-Hole):__\n";  
+            tbl += "Target Score Achieved :second_place: - 0 Medals\n";        
+            tbl += "Target Score and Time Achieved :medal: - 0 Medals\n";
+            tbl += "Top Score :military_medal: - 0 Medals\n";
+            tbl += "\n"
+            tbl += "__Lifetime Medals (Trickshot):__\n"
+            tbl += "Completion Awards :second_place: - 0 Medals\n";
+            tbl += "Best Shot From the Tee :medal: - 0 Medals\n";
+            tbl += "Best Shot From Another Tee :military_medal: - 0 Medals\n";
+            tbl += "\n"
+            tbl += "__Lifetime Medals (9-Hole):__\n"
+            tbl += "Target Score Achieved :second_place: - 0 Medals\n";        
+            tbl += "Target Score and Time Achieved :medal: - 0 Medals\n";
+            tbl += "Top Score :military_medal: - 0 Medals\n";
+            tbl += "\n"
+            tbl += "__Total Season Wins:__\n";
+            tbl += "First Place Finishes :first_place: - 0 Wins\n";
+            tbl += "Second Place Finishes :second_place: - 0 Wins\n";
+            tbl += "Third Place Finishes :third_place: - 0 Wins\n";
+            var embed = new Discord.MessageEmbed()
+                .setTitle(`Daily Challenge statistics for ` + interaction.options.getUser('user').username)
+                .setDescription(tbl);
+            return await interaction.editReply({embeds: [embed]})
+        }
     }
     else {
-        tbl = "__Current Season Medals (Trickshot):__\n";  
+        var tbl = community_challenge_icons + "\n\n";
+        tbl += "__Current Season Medals (Trickshot):__\n";  
         tbl += "Participation Awards :third_place: - " + player_data["Current Season"]["Participation Awards"] + " Medals\n";
         tbl += "Completion Awards :second_place: - " + player_data["Current Season"]["Completion Awards"] + " Medals\n";
         tbl += "Best Shot From the Tee :medal: - " + player_data["Current Season"]["Best Shot From the Tee"] + " Medals\n";
