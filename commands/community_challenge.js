@@ -38,18 +38,18 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     else if(interaction.options.getSubcommand() == "info"){
         var group = interaction.options.getString('challenge_name');
-        var tbl = ""; 
+        var tbl = `${emoji}${emoji}${emoji} __**${group}**__${emoji}${emoji}${emoji}\n`;
 
         for (var i in challenge_data[group]["challenges"])
         {
             var challenge_info = challenge_data[group]["challenges"][i];
             var emoji = challenge_data[group]["emoji"]
             console.log(challenge_info);
-            tbl += `${emoji}${emoji}${emoji} __**${challenge_info["name"]}**__${emoji}${emoji}${emoji}\n`;
+            tbl += ` - **${challenge_info["name"]}**\n`;
         }
         
         var embed = new Discord.MessageEmbed()
-        .setTitle(`Community Challenge Information: ${group} `)
+        .setTitle(`Community Challenge Information `)
         .setDescription(tbl);
         return await interaction.editReply({embeds: [embed]})
     }
