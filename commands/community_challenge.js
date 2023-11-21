@@ -28,10 +28,19 @@ module.exports.run = async(interaction, config, maps, client) => {
         
         for (var challenge in challenge_data)
         {
-            tbl += `${challenge_data[challenge]["emoji"]}   **${challenge}:**   ${challenge_data[challenge]["dates"]},   ${challenge_data[challenge]["state"]}\n`; 
-            
-            console.log(challenge_data["challenges"]);
+            tbl += `${challenge_data[challenge]["emoji"]}   **${challenge}:**   ${challenge_data[challenge]["dates"]},   ${challenge_data[challenge]["state"]}\n`;
         }
+        
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Community Challenges")
+        .setDescription(tbl);
+        return await interaction.editReply({embeds: [embed]})
+    }
+    else if(interaction.options.getSubcommand() == "info"){
+        var name = interaction.options.getString('challenge_name');
+        var tbl = ""; 
+
+        console.log(challenge_data[challenge_name]["challenges"]);
         
         var embed = new Discord.MessageEmbed()
         .setTitle("Community Challenges")
@@ -44,7 +53,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
     var value = interaction.options.getFocused(true);
     var res = []
     switch(value.name){
-        case 'group': {
+        case 'challenge_name': {
             let rawdata = await fs.readFileSync('community_challenge_data.json');
             let group_data = await JSON.parse(rawdata);
 		    for (var group in group_data) {
@@ -55,7 +64,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
             }
             break;
         }
-        case 'name': {
+        case 'subchallenge_name': {
             let rawdata = await fs.readFileSync('community_challenge_data.json');
             let group_data = await JSON.parse(rawdata);
 		    for (var group in group_data) {
@@ -83,6 +92,20 @@ module.exports.info = {
             "description": "Lists all community challenge",
             "type": 1,
             "options": []
+        }
+        {
+            "name": "info",
+            "description": "Provides more info about a community challenge",
+            "type": 1,
+            "options": [
+                {
+                    "name": "challenge_name",
+                    "description": "Name of the challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                }
+            ]
         }
     ]
 }
