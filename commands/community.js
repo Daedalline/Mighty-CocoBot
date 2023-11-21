@@ -286,16 +286,67 @@ module.exports.run = async(interaction, config, maps, client) => {
                     .setDescription(`**<@${userID}>** is already on the list.`);
                     return await interaction.editReply({embeds: [embed]})
                 }
-                participantList.push(userID);
+                else
+                {
+                    participantList.push(userID);
                 
-                // Save the data and output message
-                var writedata = JSON.stringify(challenge_data, null, "\t");
-                await fs.writeFileSync('community_challenge_data.json', writedata);
+                    // Save the data and output message
+                    var writedata = JSON.stringify(challenge_data, null, "\t");
+                    await fs.writeFileSync('community_challenge_data.json', writedata);
                 
-                var embed = new Discord.MessageEmbed()
-                .setTitle("Community Challenge Updated")
-                .setDescription(`**<@${userID}>** added to **${challenge_name}**.`);
-                return await interaction.editReply({embeds: [embed]})
+                    var embed = new Discord.MessageEmbed()
+                    .setTitle("Community Challenge Updated")
+                    .setDescription(`**<@${userID}>** added to **${challenge_name}**.`);
+                    return await interaction.editReply({embeds: [embed]})
+                }
+            }
+        }
+        // Challenge does not exist in this group. Output error message.
+        var embed = new Discord.MessageEmbed()
+        .setTitle("Invalid Command")
+        .setDescription(`**${challenge_name}** does not exist for ${group}.`);
+        return await interaction.editReply({embeds: [embed]})
+    }
+    else if(interaction.options.getSubcommand() == "remove_participant")
+    {
+        // Updates community challenge progress
+        var challenge_name = interaction.options.getString('name');
+        var group = interaction.options.getString('group');
+        var userID = interaction.options.getUser('user').id
+        
+        if(!challenge_data[group]){
+            // Group does not exist. Output error message.
+            var embed = new Discord.MessageEmbed()
+            .setTitle("Invalid Command")
+            .setDescription(`**${group}** does not exist.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+        for (var challenge_id in challenge_data[group]["challenges"])
+        {
+            var challenge = challenge_data[group]["challenges"][challenge_id];
+            if(challenge["name"] == challenge_name)
+            {
+                var participantList = challenge_data[group]["challenges"][challenge_id]["participants"];
+                if (!participantList.includes(userID))
+                {
+                    var embed = new Discord.MessageEmbed()
+                    .setTitle("Invalid Command")
+                    .setDescription(`**<@${userID}>** is not on the list.`);
+                    return await interaction.editReply({embeds: [embed]})
+                }
+                else
+                {
+                    challenge_data[group]["challenges"][challenge_id]["participants"].splice(participantList.indexOf(userID), 1);
+                
+                    // Save the data and output message
+                    var writedata = JSON.stringify(challenge_data, null, "\t");
+                    await fs.writeFileSync('community_challenge_data.json', writedata);
+                
+                    var embed = new Discord.MessageEmbed()
+                    .setTitle("Community Challenge Updated")
+                    .setDescription(`**<@${userID}>** added to **${challenge_name}**.`);
+                    return await interaction.editReply({embeds: [embed]})
+                }
             }
         }
         // Challenge does not exist in this group. Output error message.
@@ -533,6 +584,33 @@ module.exports.info = {
         {
             "name": "add_participant",
             "description": "Adds a community challenge participant",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Name of the challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                },
+                {
+                    "name": "group",
+                    "description": "Name of the challenge group",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                },
+                {
+                    "name": "user",
+                    "description": "The user to submit for",
+                    "type": 6,
+                    "required": true
+                }
+            ]
+        },
+        {
+            "name": "remove_participant",
+            "description": "Removes a community challenge participant",
             "type": 1,
             "options": [
                 {
