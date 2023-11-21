@@ -129,7 +129,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 // Challenge already exists. Output error message.
                 var embed = new Discord.MessageEmbed()
                 .setTitle("Invalid Command")
-                .setDescription(`**${name}** already exists for ${group}.`);
+                .setDescription(`**${challenge_name}** already exists for ${group}.`);
                 return await interaction.editReply({embeds: [embed]})
             }
         }
@@ -152,7 +152,6 @@ module.exports.run = async(interaction, config, maps, client) => {
             .setDescription(`**${challenge_name}** created.`);
         return await interaction.editReply({embeds: [embed]})
     }
-    
 }
 
 module.exports.autocomplete = async (interaction, Maps) => {
@@ -171,6 +170,21 @@ module.exports.autocomplete = async (interaction, Maps) => {
                         name: group,
                         value: group
                     })
+            }
+            break;
+        },
+        case 'name': {
+            let rawdata = await fs.readFileSync('community_challenge_data.json');
+            let group_data = await JSON.parse(rawdata);
+		    for (var group in group_data) {
+                for (var challenge_id in challenge_data[group]["challenges"])
+                {
+                    var challenge = challenge_data[group]["challenges"][challenge_id];
+                    res.push({
+                        name: challenge[name],
+                        value: challenge[name]
+                    })
+                }
             }
             break;
         }
@@ -278,6 +292,34 @@ module.exports.info = {
                     "description": "Number of completions required",
                     "type": 4,
                     "required": true
+                },
+                {
+                    "name": "state",
+                    "description": "Is this challenge active, completed, or not completed",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                }
+            ]
+        },
+        {
+            "name": "update_challenge_state",
+            "description": "Updates the state of a community challenge",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Name of the new challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                },
+                {
+                    "name": "group",
+                    "description": "Name of the challenge group",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
                 },
                 {
                     "name": "state",
