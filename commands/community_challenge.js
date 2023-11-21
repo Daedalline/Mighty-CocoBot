@@ -63,28 +63,31 @@ module.exports.run = async(interaction, config, maps, client) => {
         var challenge = interaction.options.getString('subchallenge_name');
         var emoji = challenge_data[group]["emoji"]
         
-        var tbl = `Active: ${challenge_data[group]["dates"]}\n`;
-        tbl += `Status: ${challenge_data[group]["state"]}\n\n`;
-        
         for (var i in challenge_data[group]["challenges"])
         {
             var challenge_info = challenge_data[group]["challenges"][i];
             if(challenge_info["name"] == challenge)
             {
+                var tbl = `Active: ${challenge_data[group]["dates"]}\n`;
+                tbl += `Status: ${challenge_data[group]["state"]}\n\n`;
                 tbl += `### ${challenge_info["name"]}:\n`;
                 tbl += `${challenge_info["detail"]}\n`;
                 tbl += `State: ${challenge_info["state"]}\n`;
                 tbl += `Progress: ${challenge_info["progress"]}/${challenge_info["num_required"]}\n\n`;
                 tbl += `**Participants:**\n`;
-                for (var user in challenge_details["participants"]) {
-                    tbl += `* <@${challenge_details["participants"][user]}>\n`;
+                for (var user in challenge_info["participants"]) {
+                    tbl += `* <@${challenge_info["participants"][user]}>\n`;
                 }
+                var embed = new Discord.MessageEmbed()
+                .setTitle(`${emoji}${emoji}${emoji} __**${group}**__${emoji}${emoji}${emoji}\n`)
+                .setDescription(tbl);
+                return await interaction.editReply({embeds: [embed]})
             }
         }
 
         var embed = new Discord.MessageEmbed()
-        .setTitle(`${emoji}${emoji}${emoji} __**${group}**__${emoji}${emoji}${emoji}\n`)
-        .setDescription(tbl);
+        .setTitle("Invalid Command")
+        .setDescription(`${challenge} is not a part of ${group}.`);
         return await interaction.editReply({embeds: [embed]})
     }
 }
