@@ -548,7 +548,7 @@ module.exports.info = {
                     "type": 3,
                     "required": true,
                     "autocomplete": true
-                }
+                },
                 {
                     "name": "user",
                     "description": "The user to submit for",
