@@ -130,13 +130,16 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
         else {
-            challenge_data[group][name] = { 
+            challenge_data[group]["challenges"].push(
+            { 
+            "name": name,
             "detail": detail,
             "state": state,
             "num_required": num_required,
             "progress": 0,
             "participants": []
             }
+            );
             
             // Save the data and output message
             var writedata = JSON.stringify(challenge_data, null, "\t");
