@@ -40,7 +40,10 @@ module.exports.run = async(interaction, config, maps, client) => {
         var group = interaction.options.getString('challenge_name');
         var tbl = ""; 
 
-        console.log(challenge_data[group]["challenges"]);
+        for (var challenge in challenge_data[group]["challenges"])
+        {
+            console.log(challenge.toString());
+        }
         
         var embed = new Discord.MessageEmbed()
         .setTitle(`${group} Community Challenge Information`)
