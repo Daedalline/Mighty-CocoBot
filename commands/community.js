@@ -463,6 +463,27 @@ module.exports.info = {
                     "required": true
                 }
             ]
+        },
+        {
+            "name": "delete_challenge",
+            "description": "Removes a community challenge",
+            "type": 1,
+            "options": [
+                {
+                    "name": "name",
+                    "description": "Name of the new challenge",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                },
+                {
+                    "name": "group",
+                    "description": "Name of the challenge group",
+                    "type": 3,
+                    "required": true,
+                    "autocomplete": true
+                }
+            ]
         }
     ]
 }
