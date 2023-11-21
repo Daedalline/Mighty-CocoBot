@@ -69,7 +69,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         for (var i in challenge_data[group]["challenges"])
         {
             var challenge_info = challenge_data[group]["challenges"][i];
-            if(challenge_info["name"] == challenge_name)
+            if(challenge_info["name"] == challenge)
             {
                 tbl += `### ${challenge_info["name"]}:\n`;
                 tbl += `${challenge_info["detail"]}\n`;
