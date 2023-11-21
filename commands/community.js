@@ -139,7 +139,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         "state": state,
         "num_required": num_required,
         "progress": 0,
-        "participants": []}});
+        "participants": []};
             
         // Save the data and output message
         var writedata = JSON.stringify(challenge_data, null, "\t");
