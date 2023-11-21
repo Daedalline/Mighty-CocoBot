@@ -124,7 +124,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         for (var challenge in challenge_data[group]["challenges"])
         {
-            console.log(challenge_data[group]["challenges"][challenge]["name"]);
             if(challenge_data[group]["challenges"][challenge]["name"] == name){
                 // Challenge already exists. Output error message.
                 var embed = new Discord.MessageEmbed()
@@ -133,26 +132,25 @@ module.exports.run = async(interaction, config, maps, client) => {
                 return await interaction.editReply({embeds: [embed]})
             }
         }
-
-            challenge_data[group]["challenges"].push(
-            { 
-            "name": name,
-            "detail": detail,
-            "state": state,
-            "num_required": num_required,
-            "progress": 0,
-            "participants": []
-            }
-            );
+        challenge_data[group]["challenges"].push(
+        { 
+        "name": name,
+        "detail": detail,
+        "state": state,
+        "num_required": num_required,
+        "progress": 0,
+        "participants": []
+        }
+        );
             
-            // Save the data and output message
-            var writedata = JSON.stringify(challenge_data, null, "\t");
-            await fs.writeFileSync('community_challenge_data.json', writedata);
+        // Save the data and output message
+        var writedata = JSON.stringify(challenge_data, null, "\t");
+        await fs.writeFileSync('community_challenge_data.json', writedata);
 
-            var embed = new Discord.MessageEmbed()
+        var embed = new Discord.MessageEmbed()
             .setTitle("Community Challenge Created")
             .setDescription(`**${name}** created.`);
-            return await interaction.editReply({embeds: [embed]})
+        return await interaction.editReply({embeds: [embed]})
 
     }
 }
