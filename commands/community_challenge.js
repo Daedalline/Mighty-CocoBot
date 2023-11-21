@@ -66,15 +66,20 @@ module.exports.run = async(interaction, config, maps, client) => {
         var tbl = `Active: ${challenge_data[group]["dates"]}\n`;
         tbl += `Status: ${challenge_data[group]["state"]}\n\n`;
         
-        
-        var challenge_info = challenge_data[group][challenge];
-        tbl += `### ${challenge_info["name"]}:\n`;
-        tbl += `${challenge_info["detail"]}\n`;
-        tbl += `State: ${challenge_info["state"]}\n`;
-        tbl += `Progress: ${challenge_info["progress"]}/${challenge_info["num_required"]}\n\n`;
-        tbl += `**Participants:**\n`;
-        for (var user in challenge_details["participants"]) {
-            tbl += `* <@${challenge_details["participants"][user]}>\n`;
+        for (var i in challenge_data[group]["challenges"])
+        {
+            var challenge_info = challenge_data[group]["challenges"][i];
+            if(challenge_info["name"] == challenge_name)
+            {
+                tbl += `### ${challenge_info["name"]}:\n`;
+                tbl += `${challenge_info["detail"]}\n`;
+                tbl += `State: ${challenge_info["state"]}\n`;
+                tbl += `Progress: ${challenge_info["progress"]}/${challenge_info["num_required"]}\n\n`;
+                tbl += `**Participants:**\n`;
+                for (var user in challenge_details["participants"]) {
+                    tbl += `* <@${challenge_details["participants"][user]}>\n`;
+                }
+            }
         }
 
         var embed = new Discord.MessageEmbed()
