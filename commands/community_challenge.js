@@ -39,16 +39,19 @@ module.exports.run = async(interaction, config, maps, client) => {
     else if(interaction.options.getSubcommand() == "info"){
         var group = interaction.options.getString('challenge_name');
         var emoji = challenge_data[group]["emoji"]
-        var tbl = `${emoji}${emoji}${emoji} __**${group}**__${emoji}${emoji}${emoji}\n\n`;
+        var tbl = `${emoji}${emoji}${emoji} __**${group}**__${emoji}${emoji}${emoji}\n`;
         tbl += `Active: ${challenge_data[group]["dates"]}\n`;
         tbl += `Status: ${challenge_data[group]["state"]}\n\n`;
-        tbl += `Sub-Challenges:\n`;
+        tbl += `**Sub-Challenges:**\n`;
 
         for (var i in challenge_data[group]["challenges"])
         {
             var challenge_info = challenge_data[group]["challenges"][i];
             console.log(challenge_info);
-            tbl += `**${challenge_info["name"]}**\n`;
+            tbl += `${challenge_info["name"]}\n`;
+            tbl += `${challenge_info["detail"]}\n`;
+            tbl += `State: ${challenge_info["state"]}\n`;
+            tbl += `Progress: ${challenge_info["progress"]}/${challenge_info["num_required"]}\n\n`;
         }
         
         var embed = new Discord.MessageEmbed()
