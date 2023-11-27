@@ -46,10 +46,10 @@ module.exports.run = async(interaction, config, maps, client) => {
         for (var i in challenge_data[group]["challenges"])
         {
             var challenge_info = challenge_data[group]["challenges"][i];
-            tbl += `**${challenge_info["name"]}**\n`;
-            tbl += `${challenge_info["detail"]}\n`;
-            tbl += `State: ${challenge_info["state"]}\n`;
-            tbl += `Progress: ${challenge_info["progress"]}/${challenge_info["num_required"]}\n\n`;
+            tbl += `***${challenge_info["name"]}***\n`;
+            tbl += `**State: ${challenge_info["state"]}**\n`;
+            tbl += `**Progress: ${challenge_info["progress"]}/${challenge_info["num_required"]}**\n`;
+            tbl += `${challenge_info["detail"]}\n\n`;
         }
         
         var embed = new Discord.MessageEmbed()
@@ -70,9 +70,9 @@ module.exports.run = async(interaction, config, maps, client) => {
                 var tbl = `Active: ${challenge_data[group]["dates"]}\n`;
                 tbl += `Status: ${challenge_data[group]["state"]}\n\n`;
                 tbl += `### ${challenge_info["name"]}:\n`;
-                tbl += `${challenge_info["detail"]}\n`;
-                tbl += `State: ${challenge_info["state"]}\n`;
-                tbl += `Progress: ${challenge_info["progress"]}/${challenge_info["num_required"]}\n\n`;
+                tbl += `**State: ${challenge_info["state"]}**\n`;
+                tbl += `**Progress: ${challenge_info["progress"]}/${challenge_info["num_required"]}**\n`;
+                tbl += `${challenge_info["detail"]}\n\n`;
                 tbl += `**Participants:**\n`;
                 for (var user in challenge_info["participants"]) {
                     tbl += `* <@${challenge_info["participants"][user]}>\n`;
@@ -113,10 +113,13 @@ module.exports.autocomplete = async (interaction, Maps) => {
                 for (var challenge_id in group_data[group]["challenges"])
                 {
                     var challenge = group_data[group]["challenges"][challenge_id];
-                    res.push({
+                    var newValue = {
                         name: challenge["name"],
                         value: challenge["name"]
-                    })
+                    };
+                    if (!res.includes(newValue) {
+                        res.push(newValue)
+                    }
                 }
             }
             break;
