@@ -94,7 +94,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 module.exports.autocomplete = async (interaction, Maps) => {
     var focusedOption = interaction.options.getFocused(true);
     var choices = []
-    switch(value.name){
+    switch(focusedOption.name){
         case 'challenge_name': {
             let rawdata = await fs.readFileSync('community_challenge_data.json');
             let group_data = await JSON.parse(rawdata);
