@@ -117,6 +117,8 @@ module.exports.autocomplete = async (interaction, Maps) => {
                         name: challenge["name"],
                         value: challenge["name"]
                     };
+                    console.log("Results: " + res);
+                    console.log("New Value: " + newValue);
                     if (!res.includes(newValue)) {
                         res.push(newValue)
                     }
