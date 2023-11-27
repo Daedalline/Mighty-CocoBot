@@ -92,7 +92,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 }
 
 module.exports.autocomplete = async (interaction, Maps) => {
-    var value = interaction.options.getFocused(true);
+    var focusedOption = interaction.options.getFocused(true);
     var choices = []
     switch(value.name){
         case 'challenge_name': {
