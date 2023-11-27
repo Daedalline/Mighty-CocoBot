@@ -110,7 +110,9 @@ module.exports.autocomplete = async (interaction, Maps) => {
                 for (var challenge_id in group_data[group]["challenges"])
                 {
                     var challenge = group_data[group]["challenges"][challenge_id];
-                    choices.push(challenge["name"])
+                    if (!choices.includes(challenge["name"])) {
+                        choices.push(challenge["name"])
+                    }
                 }
             }
             break;
