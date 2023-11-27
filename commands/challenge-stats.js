@@ -31,7 +31,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     var community_challenge_icons = "";
     for (var challenge in community_challenge_data) {
         var challenge_info = community_challenge_data[challenge];
-        if (challenge_info["state"] == "Complete" || challenge_info["state"] == "Not Complete")
+        if (challenge_info["state"] == "Complete" || challenge_info["state"] == "Not Completed")
         {
             var player_participated = false;
             for (var subchallenge in challenge_info["challenges"])
