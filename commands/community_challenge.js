@@ -53,7 +53,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         
         var embed = new Discord.MessageEmbed()
-        .setTitle(`${emoji}${emoji}${emoji} __**${group}**__${emoji}${emoji}${emoji}\n`)
+        .setTitle(`${emoji} __**${group}**__${emoji}\n`)
         .setDescription(tbl);
         return await interaction.editReply({embeds: [embed]})
     }
