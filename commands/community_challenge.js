@@ -78,7 +78,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                     tbl += `* <@${challenge_info["participants"][user]}>\n`;
                 }
                 var embed = new Discord.MessageEmbed()
-                .setTitle(`${emoji}${emoji}${emoji} __**${group}**__${emoji}${emoji}${emoji}\n`)
+                .setTitle(`${emoji} __**${group}**__${emoji}\n`)
                 .setDescription(tbl);
                 return await interaction.editReply({embeds: [embed]})
             }
