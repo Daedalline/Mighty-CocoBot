@@ -154,7 +154,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }else{
             var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
+            .setTitle("Data Not Found")
             .setDescription(`<@${userID}> does not apear have a score on **${map}**`);
             return await interaction.editReply({embeds: [embed]})
         }

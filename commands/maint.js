@@ -36,7 +36,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             data[map] = {}
             
             var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
+            .setTitle("Data Not Found")
             .setDescription(`No scores for **${map}**.`);
             return await interaction.editReply({embeds: [embed]})
         }
@@ -71,7 +71,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             data[map] = {}
             
             var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
+            .setTitle("Data Not Found")
             .setDescription(`No scores for **${map}**.`);
             return await interaction.editReply({embeds: [embed]})
         }
@@ -104,7 +104,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         if(data[map]){
             // There are already new scores submitted for this map - don't overwrite
             var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
+            .setTitle("Invalid Command")
             .setDescription(`There are already scores saved for **${map}**. Cancelling restore.`);
             return await interaction.editReply({embeds: [embed]})
         }
@@ -132,7 +132,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         if(data[map]){
             // There are already new scores submitted for this map - don't overwrite
             var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
+            .setTitle("Invalid Command")
             .setDescription(`There are already scores saved for **${map}**. Cancelling restore.`);
             return await interaction.editReply({embeds: [embed]})
         }
@@ -157,7 +157,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         if(maps.Leaderboards.includes(map)){
             // Map already exists. Putput error message.
             var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
+            .setTitle("Invalid Command")
             .setDescription(`**${map}** already exists.`);
             return await interaction.editReply({embeds: [embed]})
         }
@@ -251,7 +251,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         if(historicaldata[map]){
             // There are already new scores submitted for this map - don't overwrite
             var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
+            .setTitle("Invalid Command")
             .setDescription(`There is already a historical leaderboard for **${map}**. Cancelling.`);
             return await interaction.editReply({embeds: [embed]})
         }

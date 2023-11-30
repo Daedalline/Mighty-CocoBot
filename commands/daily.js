@@ -106,7 +106,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         
         if(!challenge_data[userID]){
             var embed = new Discord.MessageEmbed()
-            .setTitle("Database Error")
+            .setTitle("Data Not Found")
             .setDescription(`<@${userID}> does not apear have a score for **${stat}**`);
             return await interaction.editReply({embeds: [embed]})
         }
@@ -119,7 +119,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 if (lifetimeOnly) {
                     if (challenge_data[userID]["Lifetime"][stat] == 0){ 
                         var embed = new Discord.MessageEmbed()
-                        .setTitle("Database Error")
+                        .setTitle("Invalid Command")
                         .setDescription(`<@${userID}> has a score of zero for **${stat}**. Cannot reduce further.`);
                         return await interaction.editReply({embeds: [embed]})
                     }
@@ -131,7 +131,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 else {
                     if (challenge_data[userID]["Current Season"][stat] == 0 || challenge_data[userID]["Lifetime"][stat] == 0){ 
                         var embed = new Discord.MessageEmbed()
-                        .setTitle("Database Error")
+                        .setTitle("Invalid Command")
                         .setDescription(`<@${userID}> has a score of zero for **${stat}**. Cannot reduce further.`);
                         return await interaction.editReply({embeds: [embed]})
                     }
@@ -147,7 +147,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 if (lifetimeOnly) {
                     if (challenge_data[userID]["Lifetime 9-Hole"][stat] == 0){ 
                         var embed = new Discord.MessageEmbed()
-                        .setTitle("Database Error")
+                        .setTitle("Invalid Command")
                         .setDescription(`<@${userID}> has a score of zero for **${stat}**. Cannot reduce further.`);
                         return await interaction.editReply({embeds: [embed]})
                     }
@@ -159,7 +159,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 else {
                     if (challenge_data[userID]["Current Season 9-Hole"][stat] == 0 || challenge_data[userID]["Lifetime 9-Hole"][stat] == 0){ 
                         var embed = new Discord.MessageEmbed()
-                        .setTitle("Database Error")
+                        .setTitle("Invalid Command")
                         .setDescription(`<@${userID}> has a score of zero for **${stat}**. Cannot reduce further.`);
                         return await interaction.editReply({embeds: [embed]})
                     }
@@ -174,7 +174,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             case("Third Place Finishes"):
                 if (challenge_data[userID]["Total Season Wins"][stat] == 0) {
                     var embed = new Discord.MessageEmbed()
-                    .setTitle("Database Error")
+                    .setTitle("Invalid Command")
                     .setDescription(`<@${userID}> has a score of zero for **${stat}**. Cannot reduce further.`);
                     return await interaction.editReply({embeds: [embed]})
                 }
