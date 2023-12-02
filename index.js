@@ -289,7 +289,7 @@ async function printRandomGameMessage(course){
 
     If you are the first player to create a room, please see the following guidelines:
 
-    Created rooms should be setup with a player count max of 5.
+    Created rooms should be setup with a **player count max of 4**.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
@@ -367,7 +367,7 @@ async function printLanguageGameMessage() {
 
     If you are the first player to create a room, please see the following guidelines:
 
-    Created rooms should be setup with a player count max of 5.
+    Created rooms should be setup with a **player count max of 4**.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
