@@ -1,7 +1,7 @@
 const fs = require("fs");
 
 let userID = 211650687296077825n;
-let numToGenerate = 25;
+let numToGenerate = 40;
 
 //Load the maps file
 let Maps = null;
