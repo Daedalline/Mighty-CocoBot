@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-let startingUserID = 211650687296077825;
+let userID = BigInt("211650687296077825");
 let numToGenerate = 25;
 
 //Load the maps file
@@ -21,9 +21,9 @@ Maps.Leaderboards.forEach(map => {
     for (let i=0; i<numToGenerate; i++)
     {
         let score = Math.floor((Math.random() * -20) + 1);
-        let user = startingUserID +i;
-        data[map][user] = score;
-        console.log(i + ", " + user);
+uu
+        data[map][i] = score;
+        console.log(userID + i);
     }
 });
 
