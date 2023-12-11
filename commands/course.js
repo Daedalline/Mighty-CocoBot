@@ -86,12 +86,12 @@ module.exports.run = async(interaction, config, maps, client) => {
         previous_score = sortedData[player];
         // Print the top 20
         if(index < 20){
-            tbl += `${rank}: <@${player}>: ${sortedData[player]}\n`
+            tbl += `${rank}: <@${player}> ${sortedData[player]}\n`
         }
         // Store the caller data
         if (player == member.user.id)
         {
-            player_rank += `${rank}: <@${player}>: ${sortedData[player]}\n`;
+            player_rank += `${rank}: <@${player}> ${sortedData[player]}\n`;
         }
         index ++
     }
