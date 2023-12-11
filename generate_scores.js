@@ -19,7 +19,7 @@ Maps.Leaderboards.forEach(map => {
     data[map] = {};
     for (let i=0; i<numToGenerate; i++)
     {
-        let score = Math.random() * -20;
+        let score = Math.floor((Math.random() * -20) + 1);
         data[map][i] = score;
     }
 });
