@@ -64,9 +64,6 @@ module.exports.run = async(interaction, config, maps, client) => {
 
         var index = 0
         for (var i = 0; i<sortable.length; i++) {
-            if (i>=20){
-                break;
-            }
             if (sortable[i][0] == userID){
                 userCourses[map] = sortable[i][1][0];
                 break;
