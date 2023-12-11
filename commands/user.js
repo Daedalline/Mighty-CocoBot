@@ -63,9 +63,17 @@ module.exports.run = async(interaction, config, maps, client) => {
         })
 
         var index = 0
+        var rank = 0;
+        var previous_score = -100;
         for (var i = 0; i<sortable.length; i++) {
+            // Calculate rank
+            if (sortable[i][1][0] > previous_score)
+            {
+                rank++;
+            }
+            previous_score = sortable[i][1][0];
             if (sortable[i][0] == userID){
-                userCourses[map] = sortable[i][1][0];
+                userCourses[map] = [sortable[i][1][0], rank];
                 break;
             }
         }
@@ -79,7 +87,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         if (userCourses[sortMapList[i]] != undefined)
         {
             noScores = false;
-            tbl += `${sortMapList[i]}: ${userCourses[sortMapList[i]]}\n`
+            tbl += `#${userCourses[sortMapList[i]][1
+            ]}: ${sortMapList[i]} ${userCourses[sortMapList[i]][0]}\n`
         }
     }
     if (noScores) {
