@@ -77,10 +77,9 @@ module.exports.run = async(interaction, config, maps, client) => {
     var tbl = ""
     var index = 0
     for(player in sortedData){
-        if(index >= 20){
-            break;
-        }
-        tbl += `<@${player}>: ${sortedData[player]}\n`
+        //if(index < 20){
+            tbl += `<@${player}>: ${sortedData[player]}\n`
+        //}
         index ++
     }
     var embed = new Discord.MessageEmbed()
