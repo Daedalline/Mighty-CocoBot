@@ -20,7 +20,7 @@ Maps.Leaderboards.forEach(map => {
     for (let i=0; i<numToGenerate; i++)
     {
         let score = Math.random() * -20;
-        data[map][userID+i] = score;
+        data[map][i] = score;
     }
 });
 
