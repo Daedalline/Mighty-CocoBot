@@ -17,6 +17,7 @@ let data = JSON.parse("{}");
 
 Maps.Leaderboards.forEach(map => {
     data[map] = {};
+    console.log(map);
     for (let i=0; i<numToGenerate; i++)
     {
         let score = Math.floor((Math.random() * -20) + 1);
