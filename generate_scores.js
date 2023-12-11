@@ -21,7 +21,6 @@ Maps.Leaderboards.forEach(map => {
     for (let i=0; i<numToGenerate; i++)
     {
         let score = Math.floor((Math.random() * -20) + 1);
-uu
         data[map][i] = score;
         console.log(userID + i);
     }
