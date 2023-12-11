@@ -23,7 +23,7 @@ Maps.Leaderboards.forEach(map => {
         let score = Math.floor((Math.random() * -20) + 1);
         let user = startingUserID +i;
         data[map][user] = score;
-        console.log(user);
+        console.log(i + ", " + user);
     }
 });
 
