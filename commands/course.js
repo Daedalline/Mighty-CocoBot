@@ -16,8 +16,6 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     var guild = await client.guilds.cache.find(guild => guild.id == interaction.guild.id)
     var member = await guild.members.cache.find(user => user.id == interaction.member.id)
-    
-    console.log(member.user.id);
 
     if(interaction.channel.id != config.CoursesLeageChannelID && !member.permissions.has("MANAGE_MESSAGES")){
         interaction.reply({ephemeral: true, content: "You are not allowed to do that in this channel"})
@@ -75,16 +73,21 @@ module.exports.run = async(interaction, config, maps, client) => {
     })
     
     var tbl = ""
+    var player_ranking = `\n**Your Ranking:**\n`;
     var index = 0
     for(player in sortedData){
-        //if(index < 20){
+        if(index < 20){
             tbl += `<@${player}>: ${sortedData[player]}\n`
-        //}
+        }
+        if (player == member.user.id)
+        {
+            player_ranking += `<@${player}>: ${sortedData[player]}\n`;
+        }
         index ++
     }
     var embed = new Discord.MessageEmbed()
     .setTitle(`Leaderboard for ${map}`)
-    .setDescription(tbl);
+    .setDescription(tbl + player_ranking);
     return await interaction.editReply({embeds: [embed]})
 };
 
