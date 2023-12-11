@@ -1,5 +1,8 @@
 const fs = require("fs");
 
+let userID = 211650687296077825;
+let numToGenerate = 25;
+
 //Load the maps file
 let Maps = null;
 try {
@@ -14,6 +17,11 @@ let data = JSON.parse("{}");
 
 Maps.Leaderboards.forEach(map => {
     data[map] = {};
+    for (let i=0, i<numToGenerate, i++)
+    {
+        let score = Math.random() * -20;
+        data[map][userID+i] = score;
+    }
 });
 
 var writedata = JSON.stringify(data, null, "\t");
