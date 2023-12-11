@@ -19,7 +19,7 @@ Maps.Leaderboards.forEach(map => {
     data[map] = {};
     for (let i=0n; i<numToGenerate; i++)
     {
-        let score = Math.floor((Math.random() * -20) + 1);
+        let score = Math.floor((Math.random() * -30) + 1);
         data[map][(userID + i).toString()] = [score, new Date().toJSON()];
     }
 });
