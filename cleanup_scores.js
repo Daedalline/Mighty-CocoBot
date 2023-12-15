@@ -3,8 +3,8 @@ const fs = require("fs");
 let mapContents = fs.readFileSync('./maps.json');
 let Maps = JSON.parse(mapContents)
 
-let rawdata = await fs.readFileSync('./data.json');
-let data = await JSON.parse(rawdata); 
+let rawdata = fs.readFileSync('./data.json');
+let data = JSON.parse(rawdata); 
 
 Maps.Leaderboards.forEach(map => {
     var players = data[map];
