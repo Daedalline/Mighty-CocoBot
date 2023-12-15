@@ -41,11 +41,11 @@ Maps.Leaderboards.forEach(map => {
         }
     })
     
-    //console.log(sortable);
+    console.log(sortable);
 
     var topTwenty = {};
     for (let i = 0; i < 20; i++) {
-       
+       //console.log(sortable[0]);
     }
     
     newData[map] = topTwenty;
