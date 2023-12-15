@@ -97,7 +97,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     if (player_rank == "")
     {
-        player_rank = `\n**Your Ranking:**\n#<@${player}> does not have a score for $<map>.\n`;
+        player_rank = `\n**Your Ranking:**\n<@${member.user.id}> does not have a score for $<map>.\n`;
     }
     var embed = new Discord.MessageEmbed()
     .setTitle(`Leaderboard for ${map}`)
