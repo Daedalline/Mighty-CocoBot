@@ -40,6 +40,8 @@ Maps.Leaderboards.forEach(map => {
             return a[1][0] - b[1][0];
         }
     })
+    
+    console.log(sortable);
 
     //var sortedData = {}
     //sortable.forEach(function(item){
