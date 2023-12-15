@@ -43,6 +43,13 @@ Maps.Leaderboards.forEach(map => {
         sortedData[item[0]]=item[1][0];
     })
     
-    console.log("SORTED DATA: " + JSON.stringify(sortedData));
+    console.log(map);
+    var index = 0
+    for(player in sortedData){
+        //if(index < 20){
+            console.log(index + ": " + JSON.stringify(player));
+        //}
+        index++;
+    }
 });
 
