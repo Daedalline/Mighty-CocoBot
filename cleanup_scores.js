@@ -10,8 +10,6 @@ let newData = {};
 
 Maps.Leaderboards.forEach(map => {
     
-    console.log(map);
-    
     var players = data[map];
     
     var simpleData = {};
@@ -42,17 +40,14 @@ Maps.Leaderboards.forEach(map => {
             return a[1][0] - b[1][0];
         }
     })
-    
-    //console.log(sortable);
 
     var topTwenty = {};
     for (let i = 0; i < 20; i++) {
        topTwenty[sortable[i][0]] = sortable[i][1];
     }
-    
     newData[map] = topTwenty;
-  
 });
 
-console.log(newData);
+var writedata = JSON.stringify(newData, null, "\t");
+fs.writeFileSync('./data.json', writedata);
 
