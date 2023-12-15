@@ -10,6 +10,8 @@ let newData = {};
 
 Maps.Leaderboards.forEach(map => {
     
+    console.log(map);
+    
     var players = data[map];
     
     var simpleData = {};
