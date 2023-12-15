@@ -6,6 +6,8 @@ let Maps = JSON.parse(mapContents)
 let rawdata = fs.readFileSync('./data.json');
 let data = JSON.parse(rawdata); 
 
+let newData = {};
+
 Maps.Leaderboards.forEach(map => {
     
     console.log(map);
@@ -41,11 +43,15 @@ Maps.Leaderboards.forEach(map => {
         }
     })
     
-    console.log(sortable);
+    //console.log(sortable);
 
-    //var sortedData = {}
-    //sortable.forEach(function(item){
-    //    sortedData[item[0]]=item[1][0];
-    //})
+    var topTwenty = {};
+    for (let i = 0; i < 20; i++) {
+       
+    }
+    
+    newData[map] = topTwenty;
+    
+    console.log(newData);
 });
 
