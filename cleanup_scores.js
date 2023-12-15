@@ -41,14 +41,15 @@ Maps.Leaderboards.forEach(map => {
     var sortedData = {}
     sortable.forEach(function(item){
         sortedData[item[0]]=item[1][0];
+        sortedData[item[1]]=item[1][1];
     })
     
     console.log(map);
     var index = 0
     for(player in sortedData){
-        //if(index < 20){
+        if(index < 20){
             console.log(index + ": " + JSON.stringify(player));
-        //}
+        }
         index++;
     }
 });
