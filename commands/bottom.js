@@ -41,12 +41,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             return a-b;
         });
         
-        if (sortableScores.length >= 20) {
-            userCourses[map] = sortableScores[19]-1;
-        }
-        else {
-            userCourses[map] = "Any Score";
-        }
+        userCourses[map] = sortableScores[sortableScores.length]-1;
         
         
     }
