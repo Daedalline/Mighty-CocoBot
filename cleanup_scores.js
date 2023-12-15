@@ -47,7 +47,7 @@ Maps.Leaderboards.forEach(map => {
 
     var topTwenty = {};
     for (let i = 0; i < 20; i++) {
-       console.log(sortable[0]);
+       console.log(sortable[i]);
     }
     
     newData[map] = topTwenty;
