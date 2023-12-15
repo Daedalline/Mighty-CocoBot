@@ -48,7 +48,7 @@ Maps.Leaderboards.forEach(map => {
        
     }
     
-    newData = map;
+    newData[map] = topTwenty;
     
     console.log(newData);
 });
