@@ -73,7 +73,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     })
     
     var tbl = ""
-    var player_rank = `\n**Your Ranking:**\n`;
+    var player_rank = "";
     var index = 0
     var rank = 0;
     var previous_score = -100;
@@ -91,9 +91,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         // Store the caller data
         if (player == member.user.id)
         {
-            player_rank += `#${rank}: <@${player}> ${sortedData[player]}\n`;
+            player_rank = `\n**Your Ranking:**\n#${rank}: <@${player}> ${sortedData[player]}\n`;
         }
         index ++
+    }
+    if (player_rank == "")
+    {
+        player_rank = `\n**Your Ranking:**\n#<@${player}> does not have a score for $<map>.\n`;
     }
     var embed = new Discord.MessageEmbed()
     .setTitle(`Leaderboard for ${map}`)
