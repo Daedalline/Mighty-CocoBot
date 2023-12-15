@@ -10,8 +10,6 @@ let newData = {};
 
 Maps.Leaderboards.forEach(map => {
     
-    console.log(map);
-    
     var players = data[map];
     
     var simpleData = {};
@@ -50,7 +48,7 @@ Maps.Leaderboards.forEach(map => {
        
     }
     
-    newData[map] = topTwenty;
+    newData = map;
     
     console.log(newData);
 });
