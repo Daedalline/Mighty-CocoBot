@@ -140,7 +140,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var previous_score = -100;
         for (var i = 0; i<sortable.length; i++) {
             if (sortable[i][0] == userID){
-                console.log(sortable[i]);
+                console.log(sortable[i][1]);
                 userCourses[map] = sortable[i][1];
                 break;
             }
