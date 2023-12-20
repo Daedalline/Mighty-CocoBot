@@ -74,13 +74,27 @@ module.exports.run = async(interaction, config, maps, client) => {
         sortedData[item[0]] = timeString;
     })
     
-    var tbl = ""
-    var index = 0
+    var tbl = "";
+    var player_rank = "";
+    var index = 0;
+    var rank = 0;
+    var previous_score = -100;
     for(player in sortedData){
-        if(index >= 20){
-            break;
+// Calculate rank
+        if (sortedData[player] > previous_score)
+        {
+            rank++;
         }
-        tbl += `<@${player}>: ${sortedData[player]}\n`
+        previous_score = sortedData[player];
+        // Print the top 20
+        if(index < 20){
+            tbl += `<@${player}>: ${sortedData[player]}\n`
+        }
+        // Store the caller data
+        if (player == member.user.id)
+        {
+            player_rank = `\n**Your Ranking:**\n#${rank}: <@${player}> ${sortedData[player]}\n`;
+        }
         index ++
     }
     var embed = new Discord.MessageEmbed()
