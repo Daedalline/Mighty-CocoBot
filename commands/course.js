@@ -73,35 +73,17 @@ module.exports.run = async(interaction, config, maps, client) => {
     })
     
     var tbl = ""
-    var player_rank = "";
     var index = 0
-    var rank = 0;
-    var previous_score = -100;
     for(player in sortedData){
-        // Calculate rank
-        if (sortedData[player] > previous_score)
-        {
-            rank++;
+        if(index >= 20){
+            break;
         }
-        previous_score = sortedData[player];
-        // Print the top 20
-        if(index < 20){
-            tbl += `#${rank}: <@${player}> ${sortedData[player]}\n`
-        }
-        // Store the caller data
-        if (player == member.user.id)
-        {
-            player_rank = `\n**Your Ranking:**\n#${rank}: <@${player}> ${sortedData[player]}\n`;
-        }
+        tbl += `<@${player}>: ${sortedData[player]}\n`
         index ++
-    }
-    if (player_rank == "")
-    {
-        player_rank = `\n**Your Ranking:**\n<@${member.user.id}> does not have a score for ${map}.\n`;
     }
     var embed = new Discord.MessageEmbed()
     .setTitle(`Leaderboard for ${map}`)
-    .setDescription(tbl + player_rank);
+    .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 };
 
