@@ -80,7 +80,8 @@ module.exports.run = async(interaction, config, maps, client) => {
     var rank = 0;
     var previous_score = -100;
     for(player in sortedData){
-// Calculate rank
+        // Calculate rank
+        console.log("A: " + sortedData[player] + ", B: " + previous_score);
         if (sortedData[player] > previous_score)
         {
             rank++;
