@@ -70,8 +70,8 @@ module.exports.run = async(interaction, config, maps, client) => {
             tbl += "### Daily Challenge Medals\n"
             tbl += "__Current Season Medals (Trickshot):__\n";  
             tbl += "Completion Awards :second_place: - 0 Medals\n";
-            tbl += "Best Shot From the Tee :medal: - 0 Medals\n";
-            tbl += "Best Shot From Another Tee :military_medal: - 0 Medals\n";
+            tbl += "Coolest Shot From the Tee :medal: - 0 Medals\n";
+            tbl += "Coolest Shot From Another Tee :military_medal: - 0 Medals\n";
             tbl += "\n"
             tbl += "__Current Season Medals (9-Hole):__\n";  
             tbl += "Target Score Achieved :second_place: - 0 Medals\n";        
@@ -80,8 +80,8 @@ module.exports.run = async(interaction, config, maps, client) => {
             tbl += "\n"
             tbl += "__Lifetime Medals (Trickshot):__\n"
             tbl += "Completion Awards :second_place: - 0 Medals\n";
-            tbl += "Best Shot From the Tee :medal: - 0 Medals\n";
-            tbl += "Best Shot From Another Tee :military_medal: - 0 Medals\n";
+            tbl += "Coolest Shot From the Tee :medal: - 0 Medals\n";
+            tbl += "Coolest Shot From Another Tee :military_medal: - 0 Medals\n";
             tbl += "\n"
             tbl += "__Lifetime Medals (9-Hole):__\n"
             tbl += "Target Score Achieved :second_place: - 0 Medals\n";        
@@ -105,8 +105,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         tbl += "__Current Season Medals (Trickshot):__\n";  
         tbl += "Participation Awards :third_place: - " + player_data["Current Season"]["Participation Awards"] + " Medals\n";
         tbl += "Completion Awards :second_place: - " + player_data["Current Season"]["Completion Awards"] + " Medals\n";
-        tbl += "Best Shot From the Tee :medal: - " + player_data["Current Season"]["Best Shot From the Tee"] + " Medals\n";
-        tbl += "Best Shot From Another Tee :military_medal: - " + player_data["Current Season"]["Best Shot From Another Tee"] + " Medals\n";
+        tbl += "Coolest Shot From the Tee :medal: - " + player_data["Current Season"]["Coolest Shot From the Tee"] + " Medals\n";
+        tbl += "Coolest Shot From Another Tee :military_medal: - " + player_data["Current Season"]["Coolest Shot From Another Tee"] + " Medals\n";
         tbl += "\n"
         tbl += "__Current Season Medals (9-Hole):__\n";  
         tbl += "Target Score Achieved :second_place: - " + player_data["Current Season 9-Hole"]["Target Score Achieved"] + " Medals\n";        
@@ -116,8 +116,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         tbl += "__Lifetime Medals (Trickshot):__\n"
         tbl += "Participation Awards :third_place: - " + player_data["Lifetime"]["Participation Awards"] + " Medals\n";
         tbl += "Completion Awards :second_place: - " + player_data["Lifetime"]["Completion Awards"] + " Medals\n";
-        tbl += "Best Shot From the Tee :medal: - " + player_data["Lifetime"]["Best Shot From the Tee"] + " Medals\n";
-        tbl += "Best Shot From Another Tee :military_medal: - " + player_data["Lifetime"]["Best Shot From Another Tee"] + " Medals\n";
+        tbl += "Coolest Shot From the Tee :medal: - " + player_data["Lifetime"]["Coolest Shot From the Tee"] + " Medals\n";
+        tbl += "Coolest Shot From Another Tee :military_medal: - " + player_data["Lifetime"]["Coolest Shot From Another Tee"] + " Medals\n";
         tbl += "\n"
         tbl += "__Lifetime Medals (9-Hole):__\n"
         tbl += "Target Score Achieved :second_place: - " + player_data["Lifetime 9-Hole"]["Target Score Achieved"] + " Medals\n";        

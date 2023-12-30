@@ -33,14 +33,14 @@ module.exports.run = async(interaction, config, maps, client) => {
         if(!challenge_data[userID]){
             challenge_data[userID] = { 
             "Current Season": {
-                "Best Shot From the Tee": 0,
-                "Best Shot From Another Tee": 0,
+                "Coolest Shot From the Tee": 0,
+                "Coolest Shot From Another Tee": 0,
                 "Completion Awards": 0,
                 "Participation Awards": 0
             },
             "Lifetime": {
-                "Best Shot From the Tee": 0,
-                "Best Shot From Another Tee": 0,
+                "Coolest Shot From the Tee": 0,
+                "Coolest Shot From Another Tee": 0,
                 "Completion Awards": 0,
                 "Participation Awards": 0
             },
@@ -63,8 +63,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         
         switch(stat){
-            case("Best Shot From the Tee"):
-            case("Best Shot From Another Tee"):
+            case("Coolest Shot From the Tee"):
+            case("Coolest Shot From Another Tee"):
             case("Completion Awards"):
             case("Participation Awards"):
                 if (!lifetimeOnly) {
@@ -112,8 +112,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         
         switch(stat){
-            case("Best Shot From the Tee"):
-            case("Best Shot From Another Tee"):
+            case("Coolest Shot From the Tee"):
+            case("Coolest Shot From Another Tee"):
             case("Completion Awards"):
             case("Participation Awards"):
                 if (lifetimeOnly) {
@@ -198,8 +198,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         await interaction.deferReply();
         
         for (var userID in challenge_data) {
-            challenge_data[userID]["Current Season"]["Best Shot From the Tee"] = 0;
-            challenge_data[userID]["Current Season"]["Best Shot From Another Tee"] = 0;
+            challenge_data[userID]["Current Season"]["Coolest Shot From the Tee"] = 0;
+            challenge_data[userID]["Current Season"]["Coolest Shot From Another Tee"] = 0;
             challenge_data[userID]["Current Season"]["Completion Awards"] = 0;
             challenge_data[userID]["Current Season"]["Participation Awards"] = 0;
             challenge_data[userID]["Current Season 9-Hole"]["Top Score"] = 0;
@@ -239,12 +239,12 @@ module.exports.info = {
                     "required": true,
                     "choices": [
                         {
-                            "name": "Best Shot From the Tee",
-                            "value": "Best Shot From the Tee"
+                            "name": "Coolest Shot From the Tee",
+                            "value": "Coolest Shot From the Tee"
                         },
                         {
-                            "name": "Best Shot From Another Tee",
-                            "value": "Best Shot From Another Tee"
+                            "name": "Coolest Shot From Another Tee",
+                            "value": "Coolest Shot From Another Tee"
                         },
                         {
                             "name": "Completion Awards",
@@ -306,12 +306,12 @@ module.exports.info = {
                     "required": true,
                     "choices": [
                         {
-                            "name": "Best Shot From the Tee",
-                            "value": "Best Shot From the Tee"
+                            "name": "Coolest Shot From the Tee",
+                            "value": "Coolest Shot From the Tee"
                         },
                         {
-                            "name": "Best Shot From Another Tee",
-                            "value": "Best Shot From Another Tee"
+                            "name": "Coolest Shot From Another Tee",
+                            "value": "Coolest Shot From Another Tee"
                         },
                         {
                             "name": "Completion Awards",
