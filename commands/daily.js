@@ -322,6 +322,18 @@ module.exports.info = {
                             "value": "Participation Awards"
                         },
                         {
+                            "name": "Target Score Achieved",
+                            "value": "Target Score Achieved"
+                        },
+                        {
+                            "name": "Target Score and Time Achieved",
+                            "value": "Target Score and Time Achieved"
+                        },
+                        {
+                            "name": "Top Score",
+                            "value": "Top Score"
+                        },
+                        {
                             "name": "First Place Finishes",
                             "value": "First Place Finishes"
                         },
