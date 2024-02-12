@@ -407,10 +407,10 @@ async function printWeeklyReminderMessage() {
     for (var map in Maps.Leaderboards) {
         if (Maps.Leaderboards[map].startsWith("Weekly")) {
             if (Maps.Leaderboards[map].endsWith("Easy")) {
-                easyCourse = Maps.Leaderboards[map];
+                easyCourse += Maps.Leaderboards[map] + "\n";
             }
             else if (Maps.Leaderboards[map].endsWith("Hard")) {
-                hardCourse = Maps.Leaderboards[map];
+                hardCourse += Maps.Leaderboards[map] + "\n";
             }
         }
     }
@@ -446,8 +446,8 @@ async function printWeeklyReminderMessage() {
     .setTitle("Weekly Leaderboards!")
     .setDescription(`Just a reminder to all of the Leaderboard enthusiasts! The Weekly Leaderboard competition is happening right now!\n\n`
         + `**__This Week's Courses:__**\n`
-        + easyCourse + `\n`
-        + hardCourse + `\n\n`
+        + easyCourse
+        + hardCourse + `\n`
         + tbl + `\n\n`
         + "Check out the **#leaderboards-info** channel for the rules and how to compete!")
     .setTimestamp();
