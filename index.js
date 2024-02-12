@@ -244,7 +244,8 @@ async function main(){
       let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:xx
       let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
       let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
-      let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
+      //let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
+      let weeklyReminder = schedule.scheduleJob('00 * * * * *', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
       //let additionalReminder = schedule.scheduleJob('00 45 0,2,12,14,16,18,20,22 * * *', printAdditionalGameMessage); // fires every day at 15 minutes before 9 am, 11am, 1 pm, 3 pm, 5 pm, 7 pm, 9 pm, and 11 pm EST.
 }
 
@@ -407,10 +408,10 @@ async function printWeeklyReminderMessage() {
     for (var map in Maps.Leaderboards) {
         if (Maps.Leaderboards[map].startsWith("Weekly")) {
             if (Maps.Leaderboards[map].endsWith("Easy")) {
-                easyCourse = Maps.Leaderboards[map];
+                easyCourse += Maps.Leaderboards[map] + "\n";
             }
             else if (Maps.Leaderboards[map].endsWith("Hard")) {
-                hardCourse = Maps.Leaderboards[map];
+                hardCourse += Maps.Leaderboards[map] + "\n";
             }
         }
     }
@@ -446,8 +447,8 @@ async function printWeeklyReminderMessage() {
     .setTitle("Weekly Leaderboards!")
     .setDescription(`Just a reminder to all of the Leaderboard enthusiasts! The Weekly Leaderboard competition is happening right now!\n\n`
         + `**__This Week's Courses:__**\n`
-        + easyCourse + `\n`
-        + hardCourse + `\n\n`
+        + easyCourse
+        + hardCourse + `\n`
         + tbl + `\n\n`
         + "Check out the **#leaderboards-info** channel for the rules and how to compete!")
     .setTimestamp();
