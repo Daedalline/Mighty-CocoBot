@@ -244,7 +244,8 @@ async function main(){
       let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:xx
       let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
       let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
-      let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
+      //let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
+      let weeklyReminder = schedule.scheduleJob('00 * * * * *', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
       //let additionalReminder = schedule.scheduleJob('00 45 0,2,12,14,16,18,20,22 * * *', printAdditionalGameMessage); // fires every day at 15 minutes before 9 am, 11am, 1 pm, 3 pm, 5 pm, 7 pm, 9 pm, and 11 pm EST.
 }
 
@@ -435,8 +436,16 @@ async function printWeeklyReminderMessage() {
     {
         tbl += "No points awarded yet.";
     }
+    
+    var rank = 0;
+    var previous_score = 100;
     for (var i=0;i<sortable.length;i++) {
-        tbl += `<@${sortable[i][0]}>: ${sortable[i][1]}\n`;
+        if (sortable[i][1] < previous_score)
+        {
+            rank++;
+        }
+        previous_score = sortable[i][1];
+        tbl += `#${rank}: <@${sortable[i][0]}> - ${sortable[i][1]}\n`;
     }
 
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
