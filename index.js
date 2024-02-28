@@ -430,7 +430,7 @@ async function printWeeklyReminderMessage() {
         return b[1] - a[1];
     });
 
-    var tbl = "**__Current Season Points:__**\n"; 
+    var tbl = ":trophy: **__Current Season Points:__** :muscle:\n"; 
     if (sortable.length==0)
     {
         tbl += "No points awarded yet.";
@@ -443,13 +443,13 @@ async function printWeeklyReminderMessage() {
     let channel = await guild.channels.fetch(Config.CoursesLeageChannelID);
 
     let embed = new MessageEmbed()
-    .setTitle("Weekly Leaderboards!")
+    .setTitle(":star: Weekly Leaderboards! :star:")
     .setDescription(`Just a reminder to all of the Leaderboard enthusiasts! The Weekly Leaderboard competition is happening right now!\n\n`
-        + `**__This Week's Courses:__**\n`
+        + `:golf: **__This Week's Courses:__** :person_golfing:\n`
         + easyCourse
         + hardCourse + `\n`
         + tbl + `\n\n`
-        + "Check out the **#leaderboards-info** channel for the rules and how to compete!")
+        + "Check out the **https://discord.com/channels/752022800562389015/966336175843446886** channel for the rules and how to compete!")
     .setTimestamp();
     channel.send({embeds: [embed]})
 }
