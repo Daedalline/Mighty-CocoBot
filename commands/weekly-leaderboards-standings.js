@@ -41,8 +41,15 @@ module.exports.run = async(interaction, config, maps, client) => {
     {
         tbl += "No points awarded yet.";
     }
+    var rank = 0;
+    var previous_score = 100;
     for (var i=0;i<sortable.length;i++) {
-        tbl += `<@${sortable[i][0]}>: ${sortable[i][1]}\n`;
+        if (sortable[i][1] < previous_score)
+        {
+            rank++;
+        }
+        previous_score = sortable[i][1];
+        tbl += `#${rank}: <@${sortable[i][0]}>   ${sortable[i][1]}\n`;
     }
    
     var embed = new Discord.MessageEmbed()

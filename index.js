@@ -435,8 +435,16 @@ async function printWeeklyReminderMessage() {
     {
         tbl += "No points awarded yet.";
     }
+    
+    var rank = 0;
+    var previous_score = 100;
     for (var i=0;i<sortable.length;i++) {
-        tbl += `<@${sortable[i][0]}>: ${sortable[i][1]}\n`;
+        if (sortable[i][1] < previous_score)
+        {
+            rank++;
+        }
+        previous_score = sortable[i][1];
+        tbl += `#${rank}: <@${sortable[i][0]}> - ${sortable[i][1]}\n`;
     }
 
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
