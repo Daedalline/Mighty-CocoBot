@@ -450,7 +450,7 @@ async function printWeeklyReminderMessage() {
         + easyCourse
         + hardCourse + `\n`
         + tbl + `\n\n`
-        + "Check out the **https://discord.com/channels/1021801224992981044/1212439143238606858** channel for the rules and how to compete!")
+        + "Check out the **https://discord.com/channels/752022800562389015/966336175843446886** channel for the rules and how to compete!")
     .setTimestamp();
     channel.send({embeds: [embed]})
 }
