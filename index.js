@@ -243,8 +243,9 @@ client.login(Config.Token);
 async function main(){
       let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:xx
       let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
-      //let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
-      let jobLanguage = schedule.scheduleJob('00 30 * * * *', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
+      let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
+      //let jobLanguageIt = schedule.scheduleJob('00 45 12,16,20 * * *', printItLanguageGameMessage); // fires daily at 15 minutes before 9 am, 1 pm , and 5 pm EST.
+      let jobLanguageIt = schedule.scheduleJob('00 40 * * * *', printItLanguageGameMessage); // fires daily at 15 minutes before 9 am, 1 pm , and 5 pm EST.
       let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
 }
 
@@ -354,13 +355,12 @@ async function printLanguageGameMessage() {
     let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
     let embed = new MessageEmbed()
-    .setTitle(":flag_fr: :flag_de: :flag_it: :flag_es: Non-English games starting soon! :flag_es: :flag_it: :flag_de: :flag_fr: ")
+    .setTitle("Non-English games starting soon!")
     .setDescription(`
     The next scheduled non-English games will start in **15 minutes** (at <t:${currentDateSubstring}:t>).
     
     Room **JOUEURS** (French)
     Room **SPIELER** (German)
-    Room **GIOCATORI** (Italian)
     Room **JUGADORES** (Spanish)
 
     If these rooms are full, try adding a 1 or a 2 to the end of the room name, etc.
@@ -372,6 +372,37 @@ async function printLanguageGameMessage() {
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
     The course will be **Tourist Trap - Easy**, or you can choose a different one amongst yourselves.
+    `)
+    .setTimestamp();
+    channel.send({embeds: [embed]})  
+}
+
+// Print the non-English game message in #find-a-game
+async function printItLanguageGameMessage() {
+    let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
+    let channel = await guild.channels.fetch(Config.ChannelID);
+    
+    let currentDate = Date.now() + 900000;
+    let currentDateString = currentDate.toString();
+    let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
+
+    let embed = new MessageEmbed()
+    .setTitle(":flag_it: Italian games starting soon! :flag_it:")
+    .setDescription(`
+    In order to celebrate the launch of our something something, we are highlighting games in Italian.
+    The next scheduled Italian games will start in **15 minutes** (at <t:${currentDateSubstring}:t>).
+
+    Room **GIOCATORI**
+
+    If these rooms are full, try adding a 1 or a 2 to the end of the room name, etc.
+
+    If you are the first player to create a room, please see the following guidelines:
+
+    Created rooms should be setup with a **player count max of 4**.
+
+    Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
+
+    The course will be **Course - Easy**.
     `)
     .setTimestamp();
     channel.send({embeds: [embed]})  
