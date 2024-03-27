@@ -355,7 +355,7 @@ async function printLanguageGameMessage() {
     let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
     let embed = new MessageEmbed()
-    .setTitle("Non-English games starting soon!")
+    .setTitle(":flag_fr: :flag_de: :flag_es: Non-English games starting soon! :flag_es: :flag_de: :flag_fr: ")
     .setDescription(`
     The next scheduled non-English games will start in **15 minutes** (at <t:${currentDateSubstring}:t>).
     
