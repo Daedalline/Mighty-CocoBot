@@ -64,7 +64,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
         var index = 0
         var rank = 0;
-        var previous_score = -100;
+        var previous_score = -1000;
         for (var i = 0; i<sortable.length; i++) {
             // Calculate rank
             if (sortable[i][1][0] > previous_score)
@@ -137,7 +137,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
         var index = 0
         var rank = 0;
-        var previous_score = -100;
+        var previous_score = -1000;
         for (var i = 0; i<sortable.length; i++) {
             // Calculate rank
             if (sortable[i][1][0] > previous_score)

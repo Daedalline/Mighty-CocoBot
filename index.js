@@ -437,7 +437,7 @@ async function printWeeklyReminderMessage() {
     }
     
     var rank = 0;
-    var previous_score = 100;
+    var previous_score = 1000;
     for (var i=0;i<sortable.length;i++) {
         if (sortable[i][1] < previous_score)
         {

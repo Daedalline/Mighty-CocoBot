@@ -43,7 +43,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     var tbl = "__Current Season Medals:__\n"; 
     var totalMedals = 0;
     var rank = 0;
-    var previous_score = 100;
+    var previous_score = 1000;
     for (var i=0;i<sortable.length;i++) {
         if (sortable[i][1] < previous_score)
         {
