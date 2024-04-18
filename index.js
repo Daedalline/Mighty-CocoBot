@@ -389,7 +389,7 @@ async function printItLanguageGameMessage() {
     let embed = new MessageEmbed()
     .setTitle(":flag_it: Italian games starting soon! :flag_it:")
     .setDescription(`
-    In order to celebrate the launch of our something something, we are highlighting games in Italian.
+    In order to celebrate the launch of Passport: Venice, we are highlighting games in Italian.
     The next scheduled Italian games will start in **15 minutes** (at <t:${currentDateSubstring}:t>).
 
     Room **GIOCATORI**
@@ -402,7 +402,7 @@ async function printItLanguageGameMessage() {
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
-    The course will be **Course - Easy**.
+    The course will be **Venice - Easy**.
     `)
     .setTimestamp();
     channel.send({embeds: [embed]})  
