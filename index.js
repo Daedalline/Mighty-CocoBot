@@ -245,7 +245,7 @@ async function main(){
       let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
       let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
       //let jobLanguageIt = schedule.scheduleJob('00 45 12,16,20 * * *', printItLanguageGameMessage); // fires daily at 15 minutes before 9 am, 1 pm , and 5 pm EST.
-      let jobLanguageIt = schedule.scheduleJob('00 30 * * * *', printItLanguageGameMessage); // fires daily at 15 minutes before 9 am, 1 pm , and 5 pm EST.
+      let jobLanguageIt = schedule.scheduleJob('00 45 * * * *', printItLanguageGameMessage); // fires daily at 15 minutes before 9 am, 1 pm , and 5 pm EST.
       let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
 }
 
@@ -390,11 +390,8 @@ async function printItLanguageGameMessage() {
     .setTitle(":flag_it: Italian games starting soon! :flag_it:")
     .setDescription(`
     In order to celebrate the launch of Passport: Venice, we are highlighting games in Italian.
-    The next scheduled Italian games will start in **15 minutes** (at <t:${currentDateSubstring}:t>).
-
-    Room **GIOCATORI**
-
-    If these rooms are full, try adding a 1 or a 2 to the end of the room name, etc.
+    
+    The next scheduled Italian games will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **GIOCATORI**. If this is full, try GIOCATORI1 or GIOCATORI2, etc.
 
     If you are the first player to create a room, please see the following guidelines:
 
