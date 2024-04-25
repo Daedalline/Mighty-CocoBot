@@ -244,8 +244,8 @@ async function main(){
       let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:xx
       let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
       let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
+      let jobLanguageIt = schedule.scheduleJob('00 45 6,14 * * 1,3,5', printItLanguageGameMessage); // fires daily at 15 minutes before 3 am and 11 am EST (9 am and 5 pm CEST) on Monday/Wednesday/Friday
       let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
-      //let additionalReminder = schedule.scheduleJob('00 45 0,2,12,14,16,18,20,22 * * *', printAdditionalGameMessage); // fires every day at 15 minutes before 9 am, 11am, 1 pm, 3 pm, 5 pm, 7 pm, 9 pm, and 11 pm EST.
 }
 
 // Print the random easy game message in #find-a-game
@@ -354,7 +354,7 @@ async function printLanguageGameMessage() {
     let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
     let embed = new MessageEmbed()
-    .setTitle("Non-English games starting soon!")
+    .setTitle(":flag_fr: :flag_de: :flag_it: :flag_es: Non-English games starting soon! :flag_es: :flag_it: :flag_de: :flag_fr:")
     .setDescription(`
     The next scheduled non-English games will start in **15 minutes** (at <t:${currentDateSubstring}:t>).
     
@@ -378,23 +378,28 @@ async function printLanguageGameMessage() {
 }
 
 // Print the non-English game message in #find-a-game
-async function printAdditionalGameMessage() {
+async function printItLanguageGameMessage() {
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
-    let channel = await guild.channels.fetch(Config.AdditionalChannelID);
-    
-    const messages = channel.messages.fetch();
-    const botMessages = (await messages).filter((m) => m.author.id === Config.BotID);
-    channel.bulkDelete(botMessages);
+    let channel = await guild.channels.fetch(Config.ChannelID);
     
     let currentDate = Date.now() + 900000;
     let currentDateString = currentDate.toString();
     let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
     let embed = new MessageEmbed()
-    .setTitle("Games starting soon!")
+    .setTitle(":flag_it: Italian games starting soon! :flag_it:")
     .setDescription(`
-    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **COCOTEST**. If this is full, try **COCOTEST1** or **COCOTEST2**, etc. Room size is optional, ideally 5.
-    Please react with a :+1: if you plan to join.
+    In order to celebrate the launch of Passport: Venice, we are highlighting games in Italian.
+    
+    The next scheduled Italian games will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **GIOCATORI**. If this is full, try GIOCATORI1 or GIOCATORI2, etc.
+
+    If you are the first player to create a room, please see the following guidelines:
+
+    Created rooms should be setup with a **player count max of 4**.
+
+    Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
+
+    The course will be **Venice - Easy**.
     `)
     .setTimestamp();
     channel.send({embeds: [embed]})  
