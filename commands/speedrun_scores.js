@@ -36,7 +36,9 @@ module.exports.run = async(interaction, config, maps, client) => {
             return;
         }
     
-        var totalTime = interaction.options.getString('total_time').split("-");
+        var totalTime = interaction.options.getString('total_time').split(":|\.");
+        
+        console.log("TEST: " + totalTime[0])
 
         await interaction.deferReply()
         
@@ -44,7 +46,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             data[map] = {}
         }
         
-        var totalMilliseconds = (Number(totalTime[0]) * 3600) + (Number(totalTime[1]) * 60) + (Number(totalTime[2]));
+        var totalMilliseconds = (Number(totalTime[0]) * 60000) + (Number(totalTime[1]) * 1000) + (Number(totalTime[2]) * 10);
 
         if(data[map][userID] != undefined)
         {
@@ -52,7 +54,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             {
                 var embed = new Discord.MessageEmbed()
                 .setTitle("No Time Recorded")
-                .setDescription(`This time is greater than the existing time of ` + data[map][userID][0] + " seconds.");
+                .setDescription(`This time is greater than the existing time of ` + data[map][userID][0] + " milliseconds.");
                 return await interaction.editReply({embeds: [embed]})
             }
         }
@@ -67,7 +69,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         
         var embed = new Discord.MessageEmbed()
         .setTitle("Time Recorded")
-        .setDescription(`Recorded a time of **${timeString}** (${totalMilliseconds} seconds) for <@${userID}> on **${map}**`);
+        .setDescription(`Recorded a time of **${timeString}** (${totalMilliseconds} milliseconds) for <@${userID}> on **${map}**`);
         return await interaction.editReply({embeds: [embed]})
     }
 
