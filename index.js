@@ -283,7 +283,7 @@ async function printRandomGameMessage(course){
     let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
     let embed = new MessageEmbed()
-    .setTitle("Game starting soon!")
+    .setTitle(":golf: :golf: :golf: Game starting soon! :golf: :golf: :golf:")
     .setDescription(`
     The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
 
