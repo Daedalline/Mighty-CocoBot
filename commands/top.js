@@ -58,12 +58,12 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Top Leaderboard Scores`)
+    .setTitle(`Top Standard Leaderboard Scores`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
 
 module.exports.info = {
     "name": "top",
-    "description": "List the top leaderboard score for each course"
+    "description": "List the top standard leaderboard score for each course"
 };
