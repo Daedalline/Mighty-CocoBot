@@ -30,9 +30,9 @@ module.exports.run = async(interaction, config, maps, client) => {
         var map = interaction.options.getString('map');
         var time = interaction.options.getString('total_time');
         
-        let timePattern = /\d{1,2}-\d{1,2}-\d{1,2}/;
+        let timePattern = /\d{2}:\d{2}\.\d{2}/;
         if (!timePattern.test(time)){
-            await interaction.reply({ephemeral: true, content: "Invalid time format. Time must be input in 24 hr format HH-mm-ss."})
+            await interaction.reply({ephemeral: true, content: "Invalid time format. Time must be input as mm:ss.SS."})
             return;
         }
     
@@ -143,7 +143,7 @@ module.exports.info = {
                 },
                 {
                     "name": "total_time",
-                    "description": "Total Time (in 24 hr format HH-mm-ss)",
+                    "description": "Total Time (mm:ss.SS)",
                     "type": 3,
                     "autocomplete": true,
                     "required": true
