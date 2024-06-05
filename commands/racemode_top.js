@@ -30,7 +30,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     for (var i=0;i<maps.Leaderboards.length;i++)
     {
         var map = maps.Leaderboards[i];
-        if (!map.startsWith("Weekly")) {
+        if (!(map.startsWith("Weekly") && !map.endsWith("(Race Mode)"))) {
             sortMapList.push(map);
             var sortableScores = [];
 
