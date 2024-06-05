@@ -238,34 +238,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         .setDescription(`Removed featured map.`);
         return await interaction.editReply({embeds: [embed]})
     }
-    else if(interaction.options.getSubcommand() == "retire_leaderboard"){
-        // Copies a leaderboard from active to historical
-        let rawdata = await fs.readFileSync('data.json');
-        let data = await JSON.parse(rawdata); 
-        let rawdata2 = await fs.readFileSync('historical_leaderboards_data.json');
-        let historicaldata = JSON.parse(rawdata2); 
-        
-        var map = interaction.options.getString('map');
-        await interaction.deferReply();
-        
-        if(historicaldata[map]){
-            // There are already new scores submitted for this map - don't overwrite
-            var embed = new Discord.MessageEmbed()
-            .setTitle("Invalid Command")
-            .setDescription(`There is already a historical leaderboard for **${map}**. Cancelling.`);
-            return await interaction.editReply({embeds: [embed]})
-        }
-        else {
-            historicaldata[map] = {archived: new Date().toJSON(), scores: data[map]};
-            
-            var writedata = JSON.stringify(historicaldata, null, "\t");
-            await fs.writeFileSync('./historical_leaderboards_data.json', writedata);
-            var embed = new Discord.MessageEmbed()
-            .setTitle("Scores Restored")
-            .setDescription(`Copied **${map}** to archive.`);
-            return await interaction.editReply({embeds: [embed]})
-        }
-    }
 }
 
 module.exports.autocomplete = async (interaction, Maps) => {
@@ -380,20 +352,6 @@ module.exports.info = {
             "description": "Removes the feature course",
             "type": 1,
             "options": []
-        },
-        {
-            "name": "retire_leaderboard",
-            "description": "Copies a leaderboard from active to historical",
-            "type": 1,
-            "options": [
-                {
-                    "name": "map",
-                    "description": "The course to remove",
-                    "type": 3,
-                    "autocomplete": true,
-                    "required": true
-                }
-            ]
         }
     ]
 };
