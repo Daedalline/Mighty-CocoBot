@@ -69,7 +69,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     sortable.forEach(function(item){
         var date = new Date(null);
         date.setSeconds(item[1][0]);
-        var timeString = date.toISOString().slice(11, 19);
+        var timeString = date.toISOString().slice(14, 22);
         
         sortedData[item[0]] = timeString;
     })
@@ -78,7 +78,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     var player_rank = "";
     var index = 0;
     var rank = 0;
-    var previous_score = "00:00:00";
+    var previous_score = "00:00.00";
     for(player in sortedData){
         // Calculate rank
         if (sortedData[player] > previous_score)
@@ -97,9 +97,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         index ++
     }
+    if (player_rank == "")
+    {
+        player_rank = `\n**Your Ranking:**\n<@${member.user.id}> does not have a score for ${map}.\n`;
+    }
     var embed = new Discord.MessageEmbed()
     .setTitle(`Speedrun Leaderboard for ${map}`)
-    .setDescription(tbl);
+    .setDescription(tbl + player_rank);
     return await interaction.editReply({embeds: [embed]})
 };
 

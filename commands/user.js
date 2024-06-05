@@ -81,7 +81,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     sortMapList.sort();
     
-    tbl = "__**Leaderboards**__\n";
+    tbl = "__**Standard Leaderboards**__\n";
     var noScores = true;
     for (var i=0; i<sortMapList.length; i++){
         if (userCourses[sortMapList[i]] != undefined)
@@ -163,7 +163,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             noScores = false;
             var date = new Date(null);
             date.setSeconds(userCourses[courseName][0]);
-            var timeString = date.toISOString().slice(11, 19);
+            var timeString = date.toISOString().slice(14, 22);
             tbl += `#${userCourses[courseName][1]}: ${courseName} ${timeString}\n`
         }
     }
