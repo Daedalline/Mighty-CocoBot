@@ -122,12 +122,12 @@ fs.access("weekly_leaderboards_data.json", fs.F_OK, (err) => {
         console.log("weekly_leaderboards_data.json already exists")
     }
 })
-fs.access("speedrun_data.json", fs.F_OK, (err) => {
+fs.access("racemode_data.json", fs.F_OK, (err) => {
     if (err) {
         if(err.code == "ENOENT"){
-            fs.writeFile("speedrun_data.json", data, (err) => {
+            fs.writeFile("racemode_data.json", data, (err) => {
                 if (err) throw err;
-                console.log("Created speedrun_data.json as it didnt exist")
+                console.log("Created racemode_data.json as it didnt exist")
                 return
             })
         }else{
@@ -135,7 +135,7 @@ fs.access("speedrun_data.json", fs.F_OK, (err) => {
             return
         }
     }else{
-        console.log("speedrun_data.json already exists")
+        console.log("racemode_data.json already exists")
     }
 })
 fs.access("historical_leaderboards_data.json", fs.F_OK, (err) => {

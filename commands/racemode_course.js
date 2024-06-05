@@ -21,7 +21,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     await interaction.deferReply();
 
-    let rawdata = await fs.readFileSync('speedrun_data.json');
+    let rawdata = await fs.readFileSync('racemode_data.json');
     let data = await JSON.parse(rawdata); 
 
     var map = interaction.options.getString('map');
@@ -102,7 +102,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         player_rank = `\n**Your Ranking:**\n<@${member.user.id}> does not have a score for ${map}.\n`;
     }
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Speedrun Leaderboard for ${map}`)
+    .setTitle(`Race Mode Leaderboard for ${map}`)
     .setDescription(tbl + player_rank);
     return await interaction.editReply({embeds: [embed]})
 };
@@ -127,8 +127,8 @@ module.exports.autocomplete = async (interaction, Maps) => {
 }
 
 module.exports.info = {
-    "name": "speedrun_course",
-    "description": "See the speedrun leaderboard for each map",
+    "name": "racemode_course",
+    "description": "See the Race Mode leaderboard for each map",
     "options": [
         {
             "name": "map",

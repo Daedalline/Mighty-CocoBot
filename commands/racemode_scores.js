@@ -21,7 +21,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         return
     }
 
-    let rawdata = await fs.readFileSync('speedrun_data.json');
+    let rawdata = await fs.readFileSync('racemode_data.json');
     let data = await JSON.parse(rawdata); 
 
     if(interaction.options.getSubcommand() == "submit_time"){
@@ -59,7 +59,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         
         data[map][userID] = [totalMilliseconds, new Date().toJSON()]
         var writedata = JSON.stringify(data, null, "\t");
-        await fs.writeFileSync('./speedrun_data.json', writedata);
+        await fs.writeFileSync('./racemode_data.json', writedata);
         
         var date = new Date(null);
         date.setMilliseconds(totalMilliseconds);
@@ -85,7 +85,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         if(data[map][userID]){
             delete data[map][userID]
             var writedata = JSON.stringify(data, null, "\t");
-            await fs.writeFileSync('./speedrun_data.json', writedata);
+            await fs.writeFileSync('./racemode_data.json', writedata);
         
             var embed = new Discord.MessageEmbed()
             .setTitle("Score Removed")
@@ -120,12 +120,12 @@ module.exports.autocomplete = async (interaction, Maps) => {
 }
 
 module.exports.info = {
-    "name": "speedrun_scores",
+    "name": "racemode_scores",
     "description": "Allows moderators to manage scores on the boards",
     "options": [
         {
             "name": "submit_time",
-            "description": "Submit a users speedrun score to a map by providing the total time.",
+            "description": "Submit a users Race Mode score to a map by providing the total time.",
             "type": 1,
             "options": [
                 {
@@ -152,7 +152,7 @@ module.exports.info = {
         },
         {
             "name": "remove",
-            "description": "Remove a users speedrun score from a map",
+            "description": "Remove a users Race Mode score from a map",
             "type": 1,
             "options": [
                 {

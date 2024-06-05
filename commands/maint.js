@@ -56,10 +56,10 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
     }
-    else if(interaction.options.getSubcommand() == "clear_speedrun_scores"){
-        // Removes all scores for the given map in the Speedrun Leaderboard, saving a backup of the most recent removal
+    else if(interaction.options.getSubcommand() == "clear_racemode_scores"){
+        // Removes all scores for the given map in the Race Mode Leaderboard, saving a backup of the most recent removal
         
-        let rawdata = await fs.readFileSync('speedrun_data.json');
+        let rawdata = await fs.readFileSync('racemode_data.json');
         let data = await JSON.parse(rawdata); 
 
         var map = interaction.options.getString('map');
@@ -78,12 +78,12 @@ module.exports.run = async(interaction, config, maps, client) => {
         else {
             // Save a backup
             let backupdata = '{ "' + map + '" : ' + JSON.stringify(data[map], null, "\t") + '}';
-            await fs.writeFileSync('./speedrun_data_map_backup.json', backupdata);
+            await fs.writeFileSync('./racemode_data_map_backup.json', backupdata);
 
             // Delete the data and save
             delete data[map];
             var writedata = JSON.stringify(data, null, "\t");
-            await fs.writeFileSync('./speedrun_data.json', writedata);
+            await fs.writeFileSync('./racemode_data.json', writedata);
 
             var embed = new Discord.MessageEmbed()
             .setTitle("Scores Removed")
@@ -119,11 +119,11 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
     }
-    else if(interaction.options.getSubcommand() == "restore_speedrun_clear"){
+    else if(interaction.options.getSubcommand() == "restore_racemode_clear"){
         // Restores the scores for the last clear_scores command
-        let rawdata = await fs.readFileSync('speedrun_data.json');
+        let rawdata = await fs.readFileSync('racemode_data.json');
         let data = await JSON.parse(rawdata); 
-        let rawdata2 = await fs.readFileSync('speedrun_data_map_backup.json');
+        let rawdata2 = await fs.readFileSync('racemode_data_map_backup.json');
         let backupdata = JSON.parse(rawdata2);        
 
         await interaction.deferReply();
@@ -140,7 +140,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             // Write the backup back to the scores, save, and output message
             data[map] = backupdata[map];
             var writedata = JSON.stringify(data, null, "\t");
-            await fs.writeFileSync('./speedrun_data.json', writedata);
+            await fs.writeFileSync('./racemode_data.json', writedata);
             var embed = new Discord.MessageEmbed()
             .setTitle("Scores Restored")
             .setDescription(`Restoring backed up data to **${map}**.`);
@@ -278,8 +278,8 @@ module.exports.info = {
             ]
         },
         {
-            "name": "clear_speedrun_scores",
-            "description": "Removes all scores for the given map in the Speedrun Leaderboard",
+            "name": "clear_racemode_scores",
+            "description": "Removes all scores for the given map in the Race Mode Leaderboard",
             "type": 1,
             "options": [
                 {
@@ -297,8 +297,8 @@ module.exports.info = {
             "type": 1
         },
         {
-            "name": "restore_speedrun_clear",
-            "description": "Reverts the most recent clear_speedrun_scores command",
+            "name": "restore_racemode_clear",
+            "description": "Reverts the most recent clear_racemode_scores command",
             "type": 1
         },
         {

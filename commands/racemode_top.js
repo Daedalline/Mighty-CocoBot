@@ -21,7 +21,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     await interaction.deferReply();
 
-    let rawdata = await fs.readFileSync('speedrun_data.json');
+    let rawdata = await fs.readFileSync('racemode_data.json');
     let data = await JSON.parse(rawdata); 
     
     var sortMapList = [];
@@ -70,12 +70,12 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Top Speedrun Leaderboard Times`)
+    .setTitle(`Top Race Mode Leaderboard Times`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
 
 module.exports.info = {
-    "name": "speedrun_top",
-    "description": "List the top speedrun leaderboard score for each course"
+    "name": "racemode_top",
+    "description": "List the top Race Mode leaderboard score for each course"
 };
