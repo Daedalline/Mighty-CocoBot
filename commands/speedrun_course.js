@@ -68,7 +68,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     var sortedData = {}
     sortable.forEach(function(item){
         var date = new Date(null);
-        date.setSeconds(item[1][0]);
+        date.setMilliseconds(item[1][0]);
         var timeString = date.toISOString().slice(14, 22);
         
         sortedData[item[0]] = timeString;
