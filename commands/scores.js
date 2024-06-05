@@ -99,7 +99,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
     switch(value.name){
         case 'map': {
             Maps.Leaderboards.forEach(map => {
-                if(map.toLowerCase().includes(value.value.toLowerCase()) || value == ""){
+                if(map.toLowerCase().includes(value.value.toLowerCase()) || value == "" && !map.endsWith("(Race Mode)")){
                     res.push({
                         name: map,
                         value: map
