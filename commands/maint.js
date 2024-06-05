@@ -22,7 +22,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
 
     if(interaction.options.getSubcommand() == "clear_scores"){
-        // Removes all scores for the given map in the Leaderboard, saving a backup of the most recent removal
+        // Removes all scores for the given map in the Standard Leaderboard, saving a backup of the most recent removal
         
         let rawdata = await fs.readFileSync('data.json');
         let data = await JSON.parse(rawdata); 
@@ -265,7 +265,7 @@ module.exports.info = {
     "options": [
         {
             "name": "clear_scores",
-            "description": "Removes all scores for the given map in the Leaderboard",
+            "description": "Removes all scores for the given map in the Standard Leaderboard",
             "type": 1,
             "options": [
                 {
