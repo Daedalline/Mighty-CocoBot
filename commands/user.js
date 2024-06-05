@@ -162,7 +162,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         {
             noScores = false;
             var date = new Date(null);
-            date.setSeconds(userCourses[courseName][0]);
+            date.setMilliseconds(userCourses[courseName][0]);
             var timeString = date.toISOString().slice(14, 22);
             tbl += `#${userCourses[courseName][1]}: ${courseName} ${timeString}\n`
         }
