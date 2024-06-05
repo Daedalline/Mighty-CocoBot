@@ -36,9 +36,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             return;
         }
     
-        var totalTime = interaction.options.getString('total_time').split(":|\.");
-        
-        console.log("TEST: " + totalTime[0])
+        var totalTime = interaction.options.getString('total_time').split(/:|\./);
 
         await interaction.deferReply()
         
@@ -65,7 +63,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         
         var date = new Date(null);
         date.setMilliseconds(totalMilliseconds);
-        var timeString = date.toISOString().slice(11, 19);
+        var timeString = date.toISOString().slice(14, 22);
         
         var embed = new Discord.MessageEmbed()
         .setTitle("Time Recorded")
