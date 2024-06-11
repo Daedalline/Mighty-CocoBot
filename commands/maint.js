@@ -294,7 +294,7 @@ module.exports.info = {
             "type": 1,
             "options": [
                 {
-                    "name": "map",
+                    "name": "rm_map",
                     "description": "The map to remove the scores from from",
                     "type": 3,
                     "autocomplete": true,
