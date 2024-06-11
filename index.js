@@ -9,6 +9,8 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 let usedRooms = [];
 let usedCourses = [];
+let rmUsedCourses = [];
+let mpUsedCourses = [];
 
 //Load the config file
 let Config = null;
@@ -138,22 +140,6 @@ fs.access("racemode_data.json", fs.F_OK, (err) => {
         console.log("racemode_data.json already exists")
     }
 })
-fs.access("historical_leaderboards_data.json", fs.F_OK, (err) => {
-    if (err) {
-        if(err.code == "ENOENT"){
-            fs.writeFile("historical_leaderboards_data.json", data, (err) => {
-                if (err) throw err;
-                console.log("Created historical_leaderboards_data.json as it didnt exist")
-                return
-            })
-        }else{
-            console.error(err)
-            return
-        }
-    }else{
-        console.log("historical_leaderboards_data.json already exists")
-    }
-})
 fs.access("community_challenge_data.json", fs.F_OK, (err) => {
     if (err) {
         if(err.code == "ENOENT"){
@@ -241,11 +227,15 @@ client.login(Config.Token);
 
 // Main function - schedule cron jobs
 async function main(){
-      let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:xx
-      let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:xx
+      let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:00
+      let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:00
       let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
       //let jobLanguageIt = schedule.scheduleJob('00 45 6,14 * * 1,3,5', printItLanguageGameMessage); // fires daily at 15 minutes before 3 am and 11 am EST (9 am and 5 pm CEST) on Monday/Wednesday/Friday
       let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
+      let jobRMEasy = schedule.scheduleJob('00 00 * * * *', printRandomRMEasyGameMessage); // fires every day, at xx:00:00
+      let jobRMHard = schedule.scheduleJob('00 30 * * * *', printRandomRMHardGameMessage); // fires every day, at xx:30:00
+      let jobMPEasy = schedule.scheduleJob('01 00 * * * *', printRandomMPEasyGameMessage); // fires every day, at xx:00:01
+      let jobMPHard = schedule.scheduleJob('01 30 * * * *', printRandomMPHardGameMessage); // fires every day, at xx:30:01
 }
 
 // Print the random easy game message in #find-a-game
@@ -269,7 +259,7 @@ async function printRandomGameMessage(course){
     let room = getNotRecentlyUsedRoom();
 
     usedRooms.push(room);
-    if(usedRooms.length > 5){
+    if(usedRooms.length > 10){
         usedRooms.shift();
     }
     
@@ -283,7 +273,7 @@ async function printRandomGameMessage(course){
     let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
     let embed = new MessageEmbed()
-    .setTitle(":golf: :golf: :golf: Game starting soon! :golf: :golf: :golf:")
+    .setTitle(":golf: :golf: :golf: Standard Game starting soon! :golf: :golf: :golf:")
     .setDescription(`
     The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
 
@@ -294,6 +284,10 @@ async function printRandomGameMessage(course){
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
     The course will be **${course}**.
+    
+    This game will use the **STANDARD** game mode. 
+    
+    Turn order will be **HONORS** unless everyone in the room agrees to change it.
     `)
     .setTimestamp();
     channel.send({embeds: [embed]})
@@ -409,13 +403,25 @@ async function printItLanguageGameMessage() {
 async function printWeeklyReminderMessage() {
     var easyCourse = "";
     var hardCourse = "";
+    var rmEasyCourse = "";
+    var rmHardCourse = "";
     for (var map in Maps.Leaderboards) {
         if (Maps.Leaderboards[map].startsWith("Weekly")) {
-            if (Maps.Leaderboards[map].endsWith("Easy")) {
-                easyCourse += Maps.Leaderboards[map] + "\n";
+            if (Maps.Leaderboards[map].includes("- Easy")) {
+                if (Maps.Leaderboards[map].endsWith("(Race Mode)")) {
+                    rmEasyCourse += Maps.Leaderboards[map] + "\n";
+                }
+                else {
+                    easyCourse += Maps.Leaderboards[map] + "\n";
+                }
             }
-            else if (Maps.Leaderboards[map].endsWith("Hard")) {
-                hardCourse += Maps.Leaderboards[map] + "\n";
+            else if (Maps.Leaderboards[map].includes("- Hard")) {
+                if (Maps.Leaderboards[map].endsWith("(Race Mode)")) {
+                    rmHardCourse += Maps.Leaderboards[map] + "\n";
+                }
+                else {
+                    hardCourse += Maps.Leaderboards[map] + "\n";
+                }
             }
         }
     }
@@ -435,7 +441,7 @@ async function printWeeklyReminderMessage() {
         return b[1] - a[1];
     });
 
-    var tbl = ":trophy: **__Current Season Points:__** :muscle:\n"; 
+    var tbl = ":trophy: **__Current Season Points:__** :trophy:\n"; 
     if (sortable.length==0)
     {
         tbl += "No points awarded yet.";
@@ -458,11 +464,123 @@ async function printWeeklyReminderMessage() {
     let embed = new MessageEmbed()
     .setTitle(":star: Weekly Leaderboards! :star:")
     .setDescription(`Just a reminder to all of the Leaderboard enthusiasts! The Weekly Leaderboard competition is happening right now!\n\n`
-        + `:golf: **__This Week's Courses:__** :person_golfing:\n`
+        + `:golf: **__Standard Courses:__** :golf:\n`
         + easyCourse
         + hardCourse + `\n`
+        + `:checkered_flag: **__Race Mode Courses:__** :checkered_flag:\n`
+        + rmEasyCourse
+        + rmHardCourse + `\n\n`
         + tbl + `\n\n`
         + "Check out the **https://discord.com/channels/752022800562389015/966336175843446886** channel for the rules and how to compete!")
+    .setTimestamp();
+    channel.send({embeds: [embed]})
+}
+
+
+// Print the random race mode easy game message in #find-a-game
+async function printRandomRMEasyGameMessage(){
+    let course = getNotRecentlyUsedEasyCourse();
+    printRandomRMGameMessage(course);
+}
+
+// Print the random race mode hard game message in #find-a-game
+async function printRandomRMHardGameMessage(){
+    let course = getNotRecentlyUsedHardCourse();
+    printRandomRMGameMessage(course);
+}
+
+// Print the random game message in #find-a-game
+async function printRandomRMGameMessage(course){
+
+    let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
+    let channel = await guild.channels.fetch(Config.ChannelID);
+
+    let room = getNotRecentlyUsedRoom();
+
+    usedRooms.push(room);
+    if(usedRooms.length > 10){
+        usedRooms.shift();
+    }
+    
+    usedCourses.push(course);
+    if(usedCourses.length > 14){
+        usedCourses.shift();
+    }
+    
+    let currentDate = Date.now() + 900000;
+    let currentDateString = currentDate.toString();
+    let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
+
+    let embed = new MessageEmbed()
+    .setTitle(":checkered_flag: :checkered_flag: :checkered_flag: Race Mode Game starting soon! :checkered_flag: :checkered_flag: :checkered_flag:")
+    .setDescription(`
+    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
+
+    If you are the first player to create a room, please see the following guidelines:
+
+    Created rooms should be setup with a **player count max of 4**.
+
+    Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
+
+    The course will be **${course}**.
+    
+    This game will use the **RACE MODE** game mode.
+    `)
+    .setTimestamp();
+    channel.send({embeds: [embed]})
+}
+
+// Print the random race mode easy game message in #find-a-game
+async function printRandomMPEasyGameMessage(){
+    let course = getNotRecentlyUsedEasyCourse();
+    printRandomMPGameMessage(course);
+}
+
+// Print the random race mode hard game message in #find-a-game
+async function printRandomMPHardGameMessage(){
+    let course = getNotRecentlyUsedHardCourse();
+    printRandomMPGameMessage(course);
+}
+
+// Print the random match play game message in #find-a-game
+async function printRandomMPGameMessage(course){
+
+    let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
+    let channel = await guild.channels.fetch(Config.ChannelID);
+
+    let room = getNotRecentlyUsedRoom();
+
+    usedRooms.push(room);
+    if(usedRooms.length > 10){
+        usedRooms.shift();
+    }
+    
+    usedCourses.push(course);
+    if(usedCourses.length > 14){
+        usedCourses.shift();
+    }
+    
+    let currentDate = Date.now() + 900000;
+    let currentDateString = currentDate.toString();
+    let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
+
+    let embed = new MessageEmbed()
+    .setTitle(":boxing_glove: :boxing_glove: :boxing_glove: Match Play Game starting soon! :boxing_glove: :boxing_glove: :boxing_glove:")
+    .setDescription(`
+    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
+
+    If you are the first player to create a room, please see the following guidelines:
+
+    Created rooms should be setup with a **player count max of 4**.
+
+    Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
+
+    The course will be **${course}**.
+    
+    This game will use the **MATCH PLAY** game mode. 
+    
+    Turn order will be **HONORS** unless everyone in the room agrees to change it.
+    `)
     .setTimestamp();
     channel.send({embeds: [embed]})
 }
