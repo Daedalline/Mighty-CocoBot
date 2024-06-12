@@ -521,7 +521,7 @@ async function printRandomRMGameMessage(course){
     Created rooms should be setup with a **player count max of 4**.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
-    **This is very important, as people who join after the game starts will not be able to play.**
+    THIS IS VERY IMPORTANT, as people who join after the game starts can only spectate.
 
     The course will be **${course}**.
     
@@ -575,7 +575,7 @@ async function printRandomMPGameMessage(course){
     Created rooms should be setup with a **player count max of 4**.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
-    **This is very important, as people who join after the game starts will not be able to play.**
+    THIS IS VERY IMPORTANT, as people who join after the game starts can only spectate.
 
     The course will be **${course}**.
     
