@@ -22,7 +22,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
 
     if(interaction.options.getSubcommand() == "clear_scores"){
-        // Removes all scores for the given map in the Leaderboard, saving a backup of the most recent removal
+        // Removes all scores for the given map in the Standard Leaderboard, saving a backup of the most recent removal
         
         let rawdata = await fs.readFileSync('data.json');
         let data = await JSON.parse(rawdata); 
@@ -56,10 +56,10 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
     }
-    else if(interaction.options.getSubcommand() == "clear_speedrun_scores"){
-        // Removes all scores for the given map in the Speedrun Leaderboard, saving a backup of the most recent removal
+    else if(interaction.options.getSubcommand() == "clear_racemode_scores"){
+        // Removes all scores for the given map in the Race Mode Leaderboard, saving a backup of the most recent removal
         
-        let rawdata = await fs.readFileSync('speedrun_data.json');
+        let rawdata = await fs.readFileSync('racemode_data.json');
         let data = await JSON.parse(rawdata); 
 
         var map = interaction.options.getString('map');
@@ -78,12 +78,12 @@ module.exports.run = async(interaction, config, maps, client) => {
         else {
             // Save a backup
             let backupdata = '{ "' + map + '" : ' + JSON.stringify(data[map], null, "\t") + '}';
-            await fs.writeFileSync('./speedrun_data_map_backup.json', backupdata);
+            await fs.writeFileSync('./racemode_data_map_backup.json', backupdata);
 
             // Delete the data and save
             delete data[map];
             var writedata = JSON.stringify(data, null, "\t");
-            await fs.writeFileSync('./speedrun_data.json', writedata);
+            await fs.writeFileSync('./racemode_data.json', writedata);
 
             var embed = new Discord.MessageEmbed()
             .setTitle("Scores Removed")
@@ -119,11 +119,11 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
     }
-    else if(interaction.options.getSubcommand() == "restore_speedrun_clear"){
+    else if(interaction.options.getSubcommand() == "restore_racemode_clear"){
         // Restores the scores for the last clear_scores command
-        let rawdata = await fs.readFileSync('speedrun_data.json');
+        let rawdata = await fs.readFileSync('racemode_data.json');
         let data = await JSON.parse(rawdata); 
-        let rawdata2 = await fs.readFileSync('speedrun_data_map_backup.json');
+        let rawdata2 = await fs.readFileSync('racemode_data_map_backup.json');
         let backupdata = JSON.parse(rawdata2);        
 
         await interaction.deferReply();
@@ -140,7 +140,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             // Write the backup back to the scores, save, and output message
             data[map] = backupdata[map];
             var writedata = JSON.stringify(data, null, "\t");
-            await fs.writeFileSync('./speedrun_data.json', writedata);
+            await fs.writeFileSync('./racemode_data.json', writedata);
             var embed = new Discord.MessageEmbed()
             .setTitle("Scores Restored")
             .setDescription(`Restoring backed up data to **${map}**.`);
@@ -238,34 +238,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         .setDescription(`Removed featured map.`);
         return await interaction.editReply({embeds: [embed]})
     }
-    else if(interaction.options.getSubcommand() == "retire_leaderboard"){
-        // Copies a leaderboard from active to historical
-        let rawdata = await fs.readFileSync('data.json');
-        let data = await JSON.parse(rawdata); 
-        let rawdata2 = await fs.readFileSync('historical_leaderboards_data.json');
-        let historicaldata = JSON.parse(rawdata2); 
-        
-        var map = interaction.options.getString('map');
-        await interaction.deferReply();
-        
-        if(historicaldata[map]){
-            // There are already new scores submitted for this map - don't overwrite
-            var embed = new Discord.MessageEmbed()
-            .setTitle("Invalid Command")
-            .setDescription(`There is already a historical leaderboard for **${map}**. Cancelling.`);
-            return await interaction.editReply({embeds: [embed]})
-        }
-        else {
-            historicaldata[map] = {archived: new Date().toJSON(), scores: data[map]};
-            
-            var writedata = JSON.stringify(historicaldata, null, "\t");
-            await fs.writeFileSync('./historical_leaderboards_data.json', writedata);
-            var embed = new Discord.MessageEmbed()
-            .setTitle("Scores Restored")
-            .setDescription(`Copied **${map}** to archive.`);
-            return await interaction.editReply({embeds: [embed]})
-        }
-    }
 }
 
 module.exports.autocomplete = async (interaction, Maps) => {
@@ -274,7 +246,18 @@ module.exports.autocomplete = async (interaction, Maps) => {
     switch(value.name){
         case 'map': {
             Maps.Leaderboards.forEach(map => {
-                if(map.toLowerCase().includes(value.value.toLowerCase()) || value == ""){
+                if((map.toLowerCase().includes(value.value.toLowerCase()) || value == "") && !map.endsWith("(Race Mode)")){
+                    res.push({
+                        name: map,
+                        value: map
+                    })
+                }
+            })
+            break;
+        }
+        case 'rm_map': {
+            Maps.Leaderboards.forEach(map => {
+                if((map.toLowerCase().includes(value.value.toLowerCase()) || value == "") && !(map.startsWith("Weekly") && !map.endsWith("(Race Mode)"))){
                     res.push({
                         name: map,
                         value: map
@@ -293,7 +276,7 @@ module.exports.info = {
     "options": [
         {
             "name": "clear_scores",
-            "description": "Removes all scores for the given map in the Leaderboard",
+            "description": "Removes all scores for the given map in the Standard Leaderboard",
             "type": 1,
             "options": [
                 {
@@ -306,12 +289,12 @@ module.exports.info = {
             ]
         },
         {
-            "name": "clear_speedrun_scores",
-            "description": "Removes all scores for the given map in the Speedrun Leaderboard",
+            "name": "clear_racemode_scores",
+            "description": "Removes all scores for the given map in the Race Mode Leaderboard",
             "type": 1,
             "options": [
                 {
-                    "name": "map",
+                    "name": "rm_map",
                     "description": "The map to remove the scores from from",
                     "type": 3,
                     "autocomplete": true,
@@ -325,8 +308,8 @@ module.exports.info = {
             "type": 1
         },
         {
-            "name": "restore_speedrun_clear",
-            "description": "Reverts the most recent clear_speedrun_scores command",
+            "name": "restore_racemode_clear",
+            "description": "Reverts the most recent clear_racemode_scores command",
             "type": 1
         },
         {
@@ -380,20 +363,6 @@ module.exports.info = {
             "description": "Removes the feature course",
             "type": 1,
             "options": []
-        },
-        {
-            "name": "retire_leaderboard",
-            "description": "Copies a leaderboard from active to historical",
-            "type": 1,
-            "options": [
-                {
-                    "name": "map",
-                    "description": "The course to remove",
-                    "type": 3,
-                    "autocomplete": true,
-                    "required": true
-                }
-            ]
         }
     ]
 };

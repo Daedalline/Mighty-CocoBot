@@ -21,7 +21,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     await interaction.deferReply();
 
-    let rawdata = await fs.readFileSync('speedrun_data.json');
+    let rawdata = await fs.readFileSync('racemode_data.json');
     let data = await JSON.parse(rawdata); 
 
     var map = interaction.options.getString('map');
@@ -68,8 +68,8 @@ module.exports.run = async(interaction, config, maps, client) => {
     var sortedData = {}
     sortable.forEach(function(item){
         var date = new Date(null);
-        date.setSeconds(item[1][0]);
-        var timeString = date.toISOString().slice(11, 19);
+        date.setMilliseconds(item[1][0]);
+        var timeString = date.toISOString().slice(14, 22);
         
         sortedData[item[0]] = timeString;
     })
@@ -78,7 +78,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     var player_rank = "";
     var index = 0;
     var rank = 0;
-    var previous_score = "00:00:00";
+    var previous_score = "00:00.00";
     for(player in sortedData){
         // Calculate rank
         if (sortedData[player] > previous_score)
@@ -97,9 +97,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         index ++
     }
+    if (player_rank == "")
+    {
+        player_rank = `\n**Your Ranking:**\n<@${member.user.id}> does not have a score for ${map}.\n`;
+    }
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Speedrun Leaderboard for ${map}`)
-    .setDescription(tbl);
+    .setTitle(`Race Mode Leaderboard for ${map}`)
+    .setDescription(tbl + player_rank);
     return await interaction.editReply({embeds: [embed]})
 };
 
@@ -109,7 +113,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
     switch(value.name){
         case 'map': {
             Maps.Leaderboards.forEach(map => {
-                if((map.toLowerCase().includes(value.value.toLowerCase()) || value == "") && !map.startsWith("Weekly")){
+                if((map.toLowerCase().includes(value.value.toLowerCase()) || value == "") && !(map.startsWith("Weekly") && !map.endsWith("(Race Mode)"))){
                     res.push({
                         name: map,
                         value: map
@@ -123,8 +127,8 @@ module.exports.autocomplete = async (interaction, Maps) => {
 }
 
 module.exports.info = {
-    "name": "speedrun_course",
-    "description": "See the speedrun leaderboard for each map",
+    "name": "racemode_course",
+    "description": "See the Race Mode leaderboard for each map",
     "options": [
         {
             "name": "map",

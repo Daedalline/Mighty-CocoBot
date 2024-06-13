@@ -30,19 +30,21 @@ module.exports.run = async(interaction, config, maps, client) => {
     for (var i=0;i<maps.Leaderboards.length;i++)
     {
         var map = maps.Leaderboards[i];
-        sortMapList.push(map);
-        var sortableScores = [];
+        if (!map.endsWith("(Race Mode)")) {
+            sortMapList.push(map);
+            var sortableScores = [];
         
-        var players = data[map];
-        for(var player in players){
-            sortableScores.push(players[player][0]);
+            var players = data[map];
+            for(var player in players){
+                sortableScores.push(players[player][0]);
+            }
+        
+            sortableScores.sort(function(a,b){
+                return a-b;
+            });
+        
+            userCourses[map] = sortableScores[0];
         }
-        
-        sortableScores.sort(function(a,b){
-            return a-b;
-        });
-        
-        userCourses[map] = sortableScores[0];
     }
     sortMapList.sort();
     
@@ -58,12 +60,12 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Top Leaderboard Scores`)
+    .setTitle(`Top Standard Leaderboard Scores`)
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
 
 module.exports.info = {
     "name": "top",
-    "description": "List the top leaderboard score for each course"
+    "description": "List the top standard leaderboard score for each course"
 };

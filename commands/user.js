@@ -81,7 +81,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     sortMapList.sort();
     
-    tbl = "__**Leaderboards**__\n";
+    tbl = "__**Standard Leaderboards**__\n";
     var noScores = true;
     for (var i=0; i<sortMapList.length; i++){
         if (userCourses[sortMapList[i]] != undefined)
@@ -95,8 +95,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         tbl += `There does not apear to be any scores for **<@${userID}>**\n`;
     }
     
-    // Speedrun leaderboards
-    rawdata = await fs.readFileSync('speedrun_data.json');
+    // Race Mode leaderboards
+    rawdata = await fs.readFileSync('racemode_data.json');
     data = await JSON.parse(rawdata); 
     
     userCourses = {};
@@ -154,7 +154,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
     sortMapList.sort();
     
-    tbl += "\n__**Speedrun Leaderboards**__\n";
+    tbl += "\n__**Race Mode Leaderboards**__\n";
     noScores = true;
     for (var i=0; i<sortMapList.length; i++){
         var courseName = sortMapList[i];
@@ -162,13 +162,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         {
             noScores = false;
             var date = new Date(null);
-            date.setSeconds(userCourses[courseName][0]);
-            var timeString = date.toISOString().slice(11, 19);
+            date.setMilliseconds(userCourses[courseName][0]);
+            var timeString = date.toISOString().slice(14, 22);
             tbl += `#${userCourses[courseName][1]}: ${courseName} ${timeString}\n`
         }
     }
     if (noScores) {
-        tbl += `There does not apear to be any speedrun scores for **<@${userID}>**`;
+        tbl += `There does not apear to be any Race Mode scores for **<@${userID}>**`;
     }
     
     // Print output

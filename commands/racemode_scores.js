@@ -1,10 +1,8 @@
 /*
  * ====================NOTE====================
- *    This code was created by LostAndDead,
+ *    This code was created by Daedalline,
  *   please don't claim this as your own work
- *        https://github.com/LostAndDead
- *           Modified by Daedalline
- *        https://github.com/Daedalline 
+ *        https://github.com/Daedalline
  * ============================================
  */
 
@@ -23,19 +21,22 @@ module.exports.run = async(interaction, config, maps, client) => {
         return
     }
 
-    let rawdata = await fs.readFileSync('data.json');
+    let rawdata = await fs.readFileSync('racemode_data.json');
     let data = await JSON.parse(rawdata); 
 
-    if(interaction.options.getSubcommand() == "submit"){
+    if(interaction.options.getSubcommand() == "submit_time"){
 
-        var userID = interaction.options.getUser('user').id
-        var amount = interaction.options.getInteger('score')
-        var map = interaction.options.getString('map')
-
-        if(amount > 999 || amount < -999){
-            await interaction.reply({ephemeral: true, content: "Come on... Im not that stupid. Try a more realistic number"})
+        var userID = interaction.options.getUser('user').id;
+        var map = interaction.options.getString('map');
+        var time = interaction.options.getString('total_time');
+        
+        let timePattern = /\d{2}:\d{2}\.\d{2}/;
+        if (!timePattern.test(time)){
+            await interaction.reply({ephemeral: true, content: "Invalid time format. Time must be input as mm:ss.SS."})
             return;
         }
+    
+        var totalTime = interaction.options.getString('total_time').split(/:|\./);
 
         await interaction.deferReply()
         
@@ -43,27 +44,33 @@ module.exports.run = async(interaction, config, maps, client) => {
             data[map] = {}
         }
         
+        var totalMilliseconds = (Number(totalTime[0]) * 60000) + (Number(totalTime[1]) * 1000) + (Number(totalTime[2]) * 10);
+
         if(data[map][userID] != undefined)
         {
-            if(data[map][userID][0] <= amount)
+            if(data[map][userID][0] <= totalMilliseconds)
             {
                 var embed = new Discord.MessageEmbed()
-                .setTitle("No Score Recorded")
-                .setDescription(`This score is greater than the existing score of ` + data[map][userID][0]);
+                .setTitle("No Time Recorded")
+                .setDescription(`This time is greater than the existing time of ` + data[map][userID][0] + " milliseconds.");
                 return await interaction.editReply({embeds: [embed]})
             }
         }
-
-        data[map][userID] = [amount, new Date().toJSON()]
+        
+        data[map][userID] = [totalMilliseconds, new Date().toJSON()]
         var writedata = JSON.stringify(data, null, "\t");
-        await fs.writeFileSync('./data.json', writedata);
+        await fs.writeFileSync('./racemode_data.json', writedata);
+        
+        var date = new Date(null);
+        date.setMilliseconds(totalMilliseconds);
+        var timeString = date.toISOString().slice(14, 22);
         
         var embed = new Discord.MessageEmbed()
-        .setTitle("Score Recorded")
-        .setDescription(`Recorded a score of **${amount}** for <@${userID}> on **${map}**`);
+        .setTitle("Time Recorded")
+        .setDescription(`Recorded a time of **${timeString}** (${totalMilliseconds} milliseconds) for <@${userID}> on **${map}**`);
         return await interaction.editReply({embeds: [embed]})
     }
-    
+
     if(interaction.options.getSubcommand() == "remove"){
 
         var userID = interaction.options.getUser('user').id
@@ -78,7 +85,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         if(data[map][userID]){
             delete data[map][userID]
             var writedata = JSON.stringify(data, null, "\t");
-            await fs.writeFileSync('./data.json', writedata);
+            await fs.writeFileSync('./racemode_data.json', writedata);
         
             var embed = new Discord.MessageEmbed()
             .setTitle("Score Removed")
@@ -99,7 +106,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
     switch(value.name){
         case 'map': {
             Maps.Leaderboards.forEach(map => {
-                if((map.toLowerCase().includes(value.value.toLowerCase()) || value == "") && !map.endsWith("(Race Mode)")){
+                if((map.toLowerCase().includes(value.value.toLowerCase()) || value == "") && !(map.startsWith("Weekly") && !map.endsWith("(Race Mode)"))){
                     res.push({
                         name: map,
                         value: map
@@ -113,12 +120,12 @@ module.exports.autocomplete = async (interaction, Maps) => {
 }
 
 module.exports.info = {
-    "name": "scores",
+    "name": "racemode_scores",
     "description": "Allows moderators to manage scores on the boards",
     "options": [
         {
-            "name": "submit",
-            "description": "Submit a users score to a map.",
+            "name": "submit_time",
+            "description": "Submit a users Race Mode score to a map by providing the total time.",
             "type": 1,
             "options": [
                 {
@@ -128,23 +135,24 @@ module.exports.info = {
                     "required": true
                 },
                 {
-                    "name": "score",
-                    "description": "The score they achieved",
-                    "type": 4,
-                    "required": true
-                },
-                {
                     "name": "map",
                     "description": "The map they got it on",
                     "type": 3,
                     "autocomplete": true,
                     "required": true
-                }
+                },
+                {
+                    "name": "total_time",
+                    "description": "Total Time (mm:ss.SS)",
+                    "type": 3,
+                    "autocomplete": true,
+                    "required": true
+                },
             ]
         },
         {
             "name": "remove",
-            "description": "Remove a users score from a map",
+            "description": "Remove a users Race Mode score from a map",
             "type": 1,
             "options": [
                 {

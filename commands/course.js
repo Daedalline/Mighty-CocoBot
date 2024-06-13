@@ -100,7 +100,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         player_rank = `\n**Your Ranking:**\n<@${member.user.id}> does not have a score for ${map}.\n`;
     }
     var embed = new Discord.MessageEmbed()
-    .setTitle(`Leaderboard for ${map}`)
+    .setTitle(`Standard Leaderboard for ${map}`)
     .setDescription(tbl + player_rank);
     return await interaction.editReply({embeds: [embed]})
 };
@@ -111,7 +111,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
     switch(value.name){
         case 'map': {
             Maps.Leaderboards.forEach(map => {
-                if(map.toLowerCase().includes(value.value.toLowerCase()) || value == ""){
+                if((map.toLowerCase().includes(value.value.toLowerCase()) || value == "") && !map.endsWith("(Race Mode)")){
                     res.push({
                         name: map,
                         value: map
@@ -126,7 +126,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
 
 module.exports.info = {
     "name": "course",
-    "description": "See the leaderboard for each map",
+    "description": "See the standard leaderboard for each map",
     "options": [
         {
             "name": "map",
