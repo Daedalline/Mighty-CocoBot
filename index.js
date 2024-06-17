@@ -518,8 +518,6 @@ async function printRandomRMGameMessage(course){
 
     If you are the first player to create a room, please see the following guidelines:
 
-    Created rooms should be setup with a **player count max of 4**.
-
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
     THIS IS VERY IMPORTANT, as people who join after the game starts can only spectate.
 
