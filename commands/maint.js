@@ -70,6 +70,8 @@ module.exports.run = async(interaction, config, maps, client) => {
             // No scores exist for this course
             data[map] = {}
             
+            console.log("MAP: " + map);
+            
             var embed = new Discord.MessageEmbed()
             .setTitle("Data Not Found")
             .setDescription(`No scores for **${map}**.`);
