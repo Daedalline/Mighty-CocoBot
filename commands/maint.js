@@ -191,7 +191,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
     }
     else if(interaction.options.getSubcommand() == "delete_course"){
-        var map = interaction.options.getString('map');
+        var map = interaction.options.getString('all_map');
         
         await interaction.deferReply();
         
@@ -258,6 +258,17 @@ module.exports.autocomplete = async (interaction, Maps) => {
         case 'rm_map': {
             Maps.Leaderboards.forEach(map => {
                 if((map.toLowerCase().includes(value.value.toLowerCase()) || value == "") && !(map.startsWith("Weekly") && !map.endsWith("(Race Mode)"))){
+                    res.push({
+                        name: map,
+                        value: map
+                    })
+                }
+            })
+            break;
+        }
+        case 'all_map': {
+            Maps.Leaderboards.forEach(map => {
+                if((map.toLowerCase().includes(value.value.toLowerCase()) || value == "")){
                     res.push({
                         name: map,
                         value: map
@@ -337,7 +348,7 @@ module.exports.info = {
             "type": 1,
             "options": [
                 {
-                    "name": "map",
+                    "name": "all_map",
                     "description": "The course to remove",
                     "type": 3,
                     "autocomplete": true,
