@@ -62,7 +62,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         let rawdata = await fs.readFileSync('racemode_data.json');
         let data = await JSON.parse(rawdata); 
 
-        var map = interaction.options.getString('map');
+        var map = interaction.options.getString('rm_map');
 
         await interaction.deferReply()
 
