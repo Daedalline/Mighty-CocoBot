@@ -62,15 +62,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         let rawdata = await fs.readFileSync('racemode_data.json');
         let data = await JSON.parse(rawdata); 
 
-        var map = interaction.options.getString('map');
+        var map = interaction.options.getString('rm_map');
 
         await interaction.deferReply()
 
         if(data[map] == undefined){
             // No scores exist for this course
             data[map] = {}
-            
-            console.log("MAP: " + map);
             
             var embed = new Discord.MessageEmbed()
             .setTitle("Data Not Found")
