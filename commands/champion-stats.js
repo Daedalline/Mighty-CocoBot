@@ -24,8 +24,10 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('daily_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
-    console.log(challenge_data);
-    
+    for (var player in challenge_data) {
+        console.log('PLAYER: ' + player);
+        console.log(challenge_data[player]);
+    }
 }
 module.exports.info = {
     "name": "champion-stats",
