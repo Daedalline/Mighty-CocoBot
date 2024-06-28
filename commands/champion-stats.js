@@ -24,10 +24,17 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('daily_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
+    var tbl = '';
     for (var player in challenge_data) {
-        console.log('PLAYER: ' + player);
-        console.log(challenge_data[player]);
+        if (challenge_data[player]['Total Season Wins']['First Place Finishes'] > 0){
+            tbl += `<@${player}>\n`;
+        }
     }
+    
+    var embed = new Discord.MessageEmbed()
+      .setTitle(`First Place Champions`)
+      .setDescription(tbl);
+    return await interaction.editReply({embeds: [embed]})
 }
 module.exports.info = {
     "name": "champion-stats",
