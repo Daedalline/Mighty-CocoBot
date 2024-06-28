@@ -32,7 +32,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     
     var embed = new Discord.MessageEmbed()
-      .setTitle(`First Place Champions`)
+      .setTitle(`:trophy: First Place Champions :trophy:`)
       .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
