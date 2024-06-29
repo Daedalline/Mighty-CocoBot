@@ -58,7 +58,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
    
     var embed = new Discord.MessageEmbed()
-    .setTitle("Daily Challenge Season Standings")
+    .setTitle("Daily Challenge Season Standings (" + type + ")")
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
