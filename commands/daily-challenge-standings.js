@@ -21,9 +21,11 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     await interaction.deferReply();
     
+    
     let rawdata = await fs.readFileSync('daily_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
+    var type = interaction.options.getString('type');
     var finalStandings = {
         "Current Season": {}
     };
@@ -31,7 +33,10 @@ module.exports.run = async(interaction, config, maps, client) => {
     var sortable = [];
     for (var player in challenge_data) {
         var totalScore = challenge_data[player]["Current Season"]["Coolest Shot From the Tee"] + challenge_data[player]["Current Season"]["Coolest Shot From Another Tee"] + challenge_data[player]["Current Season"]["Completion Awards"] + challenge_data[player]["Current Season"]["Participation Awards"] + challenge_data[player]["Current Season 9-Hole"]["Target Score Achieved"] + challenge_data[player]["Current Season 9-Hole"]["Target Score and Time Achieved"] + challenge_data[player]["Current Season 9-Hole"]["Top Score"];
-        if (totalScore > 0) {
+        if (type == "Champion") && totalScore > 0 && challenge_data[player]["Total Season Wins"]["First Place Finishes"] > 0) {
+            sortable.push([player, totalScore]);
+        }
+        else if (type == "Standard") && totalScore > 0 && challenge_data[player]["Total Season Wins"]["First Place Finishes"] == 0) {
             sortable.push([player, totalScore]);
         }
     }
@@ -57,9 +62,30 @@ module.exports.run = async(interaction, config, maps, client) => {
     .setDescription(tbl);
     return await interaction.editReply({embeds: [embed]})
 }
+
+module.exports.autocomplete = async (interaction, Maps) => {
+    var value = interaction.options.getFocused(true);
+    var res = []
+    switch(value.name){
+        case 'type': {
+            res = [{name: 'Champion', value: 'Champion'}, {name: 'Standard', value: 'Standard'}];
+            break;
+        }
+    }
+    interaction.respond(res.slice(0,25))
+}
     
 module.exports.info = {
     "name": "daily-challenge-standings",
-    "description": "List the Seasonal Daily Challenge standings"
+    "description": "List the Seasonal Daily Challenge standings",
+    "options": [
+      {
+        "name": "type",
+        "description": "The map you want the leaderboard for",
+        "type": 3,
+        "autocomplete": true,
+        "required": true
+      }
+    ]
 };
     
