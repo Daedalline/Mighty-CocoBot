@@ -33,10 +33,10 @@ module.exports.run = async(interaction, config, maps, client) => {
     var sortable = [];
     for (var player in challenge_data) {
         var totalScore = challenge_data[player]["Current Season"]["Coolest Shot From the Tee"] + challenge_data[player]["Current Season"]["Coolest Shot From Another Tee"] + challenge_data[player]["Current Season"]["Completion Awards"] + challenge_data[player]["Current Season"]["Participation Awards"] + challenge_data[player]["Current Season 9-Hole"]["Target Score Achieved"] + challenge_data[player]["Current Season 9-Hole"]["Target Score and Time Achieved"] + challenge_data[player]["Current Season 9-Hole"]["Top Score"];
-        if (type == "Champion") && totalScore > 0 && challenge_data[player]["Total Season Wins"]["First Place Finishes"] > 0) {
+        if (type == "Champion" && totalScore > 0 && challenge_data[player]["Total Season Wins"]["First Place Finishes"] > 0) {
             sortable.push([player, totalScore]);
         }
-        else if (type == "Standard") && totalScore > 0 && challenge_data[player]["Total Season Wins"]["First Place Finishes"] == 0) {
+        else if (type == "Standard" && totalScore > 0 && challenge_data[player]["Total Season Wins"]["First Place Finishes"] == 0) {
             sortable.push([player, totalScore]);
         }
     }
