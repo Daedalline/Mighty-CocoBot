@@ -9,8 +9,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 let usedRooms = [];
 let usedCourses = [];
-let rmUsedCourses = [];
-let mpUsedCourses = [];
+let usedMPCourses = [];
 
 //Load the config file
 let Config = null;
@@ -232,23 +231,63 @@ async function main(){
       let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
       //let jobLanguageIt = schedule.scheduleJob('00 45 6,14 * * 1,3,5', printItLanguageGameMessage); // fires daily at 15 minutes before 3 am and 11 am EST (9 am and 5 pm CEST) on Monday/Wednesday/Friday
       let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
-      let jobRMEasy = schedule.scheduleJob('00 00 * * * *', printRandomRMEasyGameMessage); // fires every day, at xx:00:00
-      let jobRMHard = schedule.scheduleJob('00 30 * * * *', printRandomRMHardGameMessage); // fires every day, at xx:30:00
-      let jobMPEasy = schedule.scheduleJob('01 00 * * * *', printRandomMPEasyGameMessage); // fires every day, at xx:00:01
-      let jobMPHard = schedule.scheduleJob('01 30 * * * *', printRandomMPHardGameMessage); // fires every day, at xx:30:01
+      //let jobRMEasy = schedule.scheduleJob('00 00 * * * *', printRandomRMEasyGameMessage); // fires every day, at xx:00:00
+      //let jobRMHard = schedule.scheduleJob('00 30 * * * *', printRandomRMHardGameMessage); // fires every day, at xx:30:00
+      let jobMPEasy = schedule.scheduleJob('00 00 * * * *', printRandomMPEasyGameMessage); // fires every day, at xx:00:01
+      let jobMPHard = schedule.scheduleJob('00 30 * * * *', printRandomMPHardGameMessage); // fires every day, at xx:30:01
 }
 
 // Print the random easy game message in #find-a-game
 async function printRandomEasyGameMessage(){
     let course = getNotRecentlyUsedEasyCourse();
+    usedCourses.push(course);
+    if(usedCourses.length > 14){
+        usedCourses.shift();
+    }
     printRandomGameMessage(course);
 }
 
 // Print the random hard game message in #find-a-game
 async function printRandomHardGameMessage(){
     let course = getNotRecentlyUsedHardCourse();
+    usedCourses.push(course);
+    if(usedCourses.length > 14){
+        usedCourses.shift();
+    }
     printRandomGameMessage(course);
 }
+
+// Print the random race mode easy game message in #find-a-game - not currently used
+async function printRandomRMEasyGameMessage(){
+    let course = getNotRecentlyUsedEasyCourse();
+    printRandomRMGameMessage(course);
+}
+
+// Print the random race mode hard game message in #find-a-game - not currently used
+async function printRandomRMHardGameMessage(){
+    let course = getNotRecentlyUsedHardCourse();
+    printRandomRMGameMessage(course);
+}
+
+
+// Print the random race mode easy game message in #find-a-game
+async function printRandomMPEasyGameMessage(){
+    let course = getNotRecentlyUsedMPEasyCourse();
+    if(usedMPCourses.length > 14){
+        usedMPCourses.shift();
+    }
+    printRandomMPGameMessage(course);
+}
+
+// Print the random race mode hard game message in #find-a-game
+async function printRandomMPHardGameMessage(){
+    let course = getNotRecentlyUsedMPHardCourse();
+    if(usedMPCourses.length > 14){
+        usedMPCourses.shift();
+    }
+    printRandomMPGameMessage(course);
+}
+
 
 // Print the random game message in #find-a-game
 async function printRandomGameMessage(course){
@@ -261,11 +300,6 @@ async function printRandomGameMessage(course){
     usedRooms.push(room);
     if(usedRooms.length > 10){
         usedRooms.shift();
-    }
-    
-    usedCourses.push(course);
-    if(usedCourses.length > 14){
-        usedCourses.shift();
     }
     
     let currentDate = Date.now() + 900000;
@@ -338,6 +372,42 @@ function getNotRecentlyUsedHardCourse(){
     return course
 }
 
+// Add logic to not repeat recently played Easy courses
+function getNotRecentlyUsedMPEasyCourse(){
+    let featureMap = Maps.FeatureMap;
+    let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
+    while (usedMPCourses.includes(course) || course.endsWith('Hard')){
+        course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
+    }
+    if (featureMap != '') {
+        if (!usedMPCourses.includes(featureMap + ' - Easy') && !usedMPCourses.includes(featureMap + ' - Hard')) {
+            course = featureMap + ' - Easy';
+        }
+        if (usedMPCourses.includes(featureMap + ' - Easy')) {
+            usedMPCourses.splice(usedMPCourses.indexOf(featureMap + ' - Easy'), 1);
+        }
+    }
+    return course
+}
+
+// Add logic to not repeat recently played Hard courses
+function getNotRecentlyUsedMPHardCourse(){
+    let featureMap = Maps.FeatureMap;
+    let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
+    while (usedMPCourses.includes(course) || course.endsWith('Easy')){
+        course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
+    }
+    if (featureMap != '') {
+        if (!usedMPCourses.includes(featureMap + ' - Easy') && !usedMPCourses.includes(featureMap + ' - Hard')) {
+            course = featureMap + ' - Hard';
+        }
+        if (usedMPCourses.includes(featureMap + ' - Hard')) {
+            usedMPCourses.splice(usedMPCourses.indexOf(featureMap + ' - Hard'), 1);
+        }
+    }
+    return course
+}
+
 // Print the non-English game message in #find-a-game
 async function printLanguageGameMessage() {
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
@@ -371,7 +441,7 @@ async function printLanguageGameMessage() {
     channel.send({embeds: [embed]})  
 }
 
-// Print the non-English game message in #find-a-game
+// Print the non-English game message in #find-a-game - not currently used
 async function printItLanguageGameMessage() {
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
     let channel = await guild.channels.fetch(Config.ChannelID);
@@ -476,20 +546,7 @@ async function printWeeklyReminderMessage() {
     channel.send({embeds: [embed]})
 }
 
-
-// Print the random race mode easy game message in #find-a-game
-async function printRandomRMEasyGameMessage(){
-    let course = getNotRecentlyUsedEasyCourse();
-    printRandomRMGameMessage(course);
-}
-
-// Print the random race mode hard game message in #find-a-game
-async function printRandomRMHardGameMessage(){
-    let course = getNotRecentlyUsedHardCourse();
-    printRandomRMGameMessage(course);
-}
-
-// Print the random game message in #find-a-game
+// Print the random game message in #find-a-game - not currently used
 async function printRandomRMGameMessage(course){
 
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
@@ -529,18 +586,6 @@ async function printRandomRMGameMessage(course){
     channel.send({embeds: [embed]})
 }
 
-// Print the random race mode easy game message in #find-a-game
-async function printRandomMPEasyGameMessage(){
-    let course = getNotRecentlyUsedEasyCourse();
-    printRandomMPGameMessage(course);
-}
-
-// Print the random race mode hard game message in #find-a-game
-async function printRandomMPHardGameMessage(){
-    let course = getNotRecentlyUsedHardCourse();
-    printRandomMPGameMessage(course);
-}
-
 // Print the random match play game message in #find-a-game
 async function printRandomMPGameMessage(course){
 
@@ -552,11 +597,6 @@ async function printRandomMPGameMessage(course){
     usedRooms.push(room);
     if(usedRooms.length > 10){
         usedRooms.shift();
-    }
-    
-    usedCourses.push(course);
-    if(usedCourses.length > 14){
-        usedCourses.shift();
     }
     
     let currentDate = Date.now() + 900000;
