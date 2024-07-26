@@ -273,6 +273,7 @@ async function printRandomRMHardGameMessage(){
 // Print the random race mode easy game message in #find-a-game
 async function printRandomMPEasyGameMessage(){
     let course = getNotRecentlyUsedMPEasyCourse();
+    usedMPCourses.push(course);
     if(usedMPCourses.length > 14){
         usedMPCourses.shift();
     }
@@ -282,6 +283,7 @@ async function printRandomMPEasyGameMessage(){
 // Print the random race mode hard game message in #find-a-game
 async function printRandomMPHardGameMessage(){
     let course = getNotRecentlyUsedMPHardCourse();
+    usedMPCourses.push(course);
     if(usedMPCourses.length > 14){
         usedMPCourses.shift();
     }
