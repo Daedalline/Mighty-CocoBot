@@ -36,8 +36,6 @@ module.exports.run = async(interaction, config, maps, client) => {
     sortable.sort(function(a,b){
         return b[1] - a[1];
     });
-
-    console.log(sortable);
     
     var tbl = ""; 
     var totalMedals = 0;
