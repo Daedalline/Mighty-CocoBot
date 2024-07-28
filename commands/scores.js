@@ -32,7 +32,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var amount = interaction.options.getInteger('score')
         var map = interaction.options.getString('map')
         
-        console.log(typeof Maps.Leaderboards);
+        console.log(typeof maps.Leaderboards);
         
 
         //if(Maps.Leaderboards){
