@@ -31,11 +31,16 @@ module.exports.run = async(interaction, config, maps, client) => {
         var userID = interaction.options.getUser('user').id
         var amount = interaction.options.getInteger('score')
         var map = interaction.options.getString('map')
+        
+        console.log(typeof Maps.Leaderboards);
+        
 
-        if(amount > 999 || amount < -999){
-            await interaction.reply({ephemeral: true, content: "Come on... Im not that stupid. Try a more realistic number"})
-            return;
-        }
+        //if(Maps.Leaderboards){
+        //    await interaction.reply({ephemeral: true, content: "Come on... Im not that stupid. Try a more realistic number"})
+        //    return;
+        //}
+        
+        
 
         await interaction.deferReply()
         
