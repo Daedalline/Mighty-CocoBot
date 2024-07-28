@@ -101,6 +101,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
     }
     else {
+        var totalLifetimeMedals = player_data["Lifetime"]["Participation Awards"] + player_data["Lifetime"]["Completion Awards"] + player_data["Lifetime"]["Coolest Shot From the Tee"] + player_data["Lifetime"]["Coolest Shot From Another Tee"] + player_data["Lifetime 9-Hole"]["Target Score Achieved"] + player_data["Lifetime 9-Hole"]["Target Score and Time Achieved"] + player_data["Lifetime 9-Hole"]["Top Score"];
         var tbl = "### Community Challenge Badges\n"
         tbl += community_challenge_icons + "\n\n";
         tbl += "### Daily Challenge Medals\n"
@@ -131,7 +132,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         tbl += "Target Score and Time Achieved :medal: - " + player_data["Lifetime 9-Hole"]["Target Score and Time Achieved"] + " Medals\n";
         tbl += "Top Score :military_medal: - " + player_data["Lifetime 9-Hole"]["Top Score"] + " Medals\n";
         tbl += "\n"
-        tbl += "__Total Lifetime Medals:__\n";
+        tbl += "__Total Lifetime Medals: " + totalLifetimeMedals + "__\n";
         var embed = new Discord.MessageEmbed()
         .setTitle(`Challenge statistics for ` + interaction.options.getUser('user').username)
         .setDescription(tbl);
