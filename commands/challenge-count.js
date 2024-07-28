@@ -39,19 +39,20 @@ module.exports.run = async(interaction, config, maps, client) => {
 
     console.log(sortable);
     
-    var tbl = "Work in Progress\n"; 
+    var tbl = ""; 
     var totalMedals = 0;
     var rank = 0;
-    var previous_score = 1000;
+    var previous_medals = 10000;
     for (var i=0;i<sortable.length;i++) {
-        //if (sortable[i][1] < previous_score)
-        //{
-        //    rank++;
-        //}
-        //previous_score = sortable[i][1];
-        //tbl += `#${rank}: <@${sortable[i][0]}>   ${sortable[i][1]}\n`;
-        //totalMedals += sortable[i][1];
+        if (sortable[i][1] < previous_medals)
+        {
+            rank++;
+        }
+        previous_medals = sortable[i][1];
+        tbl += `#${rank}: <@${sortable[i][0]}>   ${sortable[i][1]}\n`;
+        totalMedals += sortable[i][1];
     }
+    tbl += `\n**Total:** ${totalMedals}`;   
    
     var embed = new Discord.MessageEmbed()
     .setTitle("Total Lifetime Awards")
