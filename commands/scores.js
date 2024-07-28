@@ -32,7 +32,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var amount = interaction.options.getInteger('score')
         var map = interaction.options.getString('map')
         
-         if(!maps.Leaderboards.includes('map')){
+        if(!maps.Leaderboards.includes('map')){
             await interaction.reply({ephemeral: true, content: "Map does not exist."})
             return;
         }
