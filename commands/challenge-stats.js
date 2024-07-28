@@ -78,6 +78,11 @@ module.exports.run = async(interaction, config, maps, client) => {
             tbl += "Target Score and Time Achieved :medal: - 0 Medals\n";
             tbl += "Top Score :military_medal: - 0 Medals\n";
             tbl += "\n"
+            tbl += "__Total Season Wins:__\n";
+            tbl += "First Place Finishes :first_place: - 0 Wins\n";
+            tbl += "Second Place Finishes :second_place: - 0 Wins\n";
+            tbl += "Third Place Finishes :third_place: - 0 Wins\n";
+            tbl += "\n"
             tbl += "__Lifetime Medals (Trickshot):__\n"
             tbl += "Completion Awards :second_place: - 0 Medals\n";
             tbl += "Coolest Shot From the Tee :medal: - 0 Medals\n";
@@ -88,10 +93,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             tbl += "Target Score and Time Achieved :medal: - 0 Medals\n";
             tbl += "Top Score :military_medal: - 0 Medals\n";
             tbl += "\n"
-            tbl += "__Total Season Wins:__\n";
-            tbl += "First Place Finishes :first_place: - 0 Wins\n";
-            tbl += "Second Place Finishes :second_place: - 0 Wins\n";
-            tbl += "Third Place Finishes :third_place: - 0 Wins\n";
+            tbl += "__Total Lifetime Medals: 0__\n";
             var embed = new Discord.MessageEmbed()
                 .setTitle(`Daily Challenge statistics for ` + interaction.options.getUser('user').username)
                 .setDescription(tbl);
@@ -99,6 +101,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
     }
     else {
+        var totalLifetimeMedals = player_data["Lifetime"]["Participation Awards"] + player_data["Lifetime"]["Completion Awards"] + player_data["Lifetime"]["Coolest Shot From the Tee"] + player_data["Lifetime"]["Coolest Shot From Another Tee"] + player_data["Lifetime 9-Hole"]["Target Score Achieved"] + player_data["Lifetime 9-Hole"]["Target Score and Time Achieved"] + player_data["Lifetime 9-Hole"]["Top Score"];
         var tbl = "### Community Challenge Badges\n"
         tbl += community_challenge_icons + "\n\n";
         tbl += "### Daily Challenge Medals\n"
@@ -113,6 +116,11 @@ module.exports.run = async(interaction, config, maps, client) => {
         tbl += "Target Score and Time Achieved :medal: - " + player_data["Current Season 9-Hole"]["Target Score and Time Achieved"] + " Medals\n";
         tbl += "Top Score :military_medal: - " + player_data["Current Season 9-Hole"]["Top Score"] + " Medals\n";
         tbl += "\n"
+        tbl += "__Total Season Wins:__\n";
+        tbl += "First Place Finishes :first_place: - " + player_data["Total Season Wins"]["First Place Finishes"] + " Wins\n";
+        tbl += "Second Place Finishes :second_place: - " + player_data["Total Season Wins"]["Second Place Finishes"] + " Wins\n";
+        tbl += "Third Place Finishes :third_place: - " + player_data["Total Season Wins"]["Third Place Finishes"] + " Wins\n";
+        tbl += "\n"
         tbl += "__Lifetime Medals (Trickshot):__\n"
         tbl += "Participation Awards :third_place: - " + player_data["Lifetime"]["Participation Awards"] + " Medals\n";
         tbl += "Completion Awards :second_place: - " + player_data["Lifetime"]["Completion Awards"] + " Medals\n";
@@ -124,11 +132,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         tbl += "Target Score and Time Achieved :medal: - " + player_data["Lifetime 9-Hole"]["Target Score and Time Achieved"] + " Medals\n";
         tbl += "Top Score :military_medal: - " + player_data["Lifetime 9-Hole"]["Top Score"] + " Medals\n";
         tbl += "\n"
-        tbl += "__Total Season Wins:__\n";
-        tbl += "First Place Finishes :first_place: - " + player_data["Total Season Wins"]["First Place Finishes"] + " Wins\n";
-        tbl += "Second Place Finishes :second_place: - " + player_data["Total Season Wins"]["Second Place Finishes"] + " Wins\n";
-        tbl += "Third Place Finishes :third_place: - " + player_data["Total Season Wins"]["Third Place Finishes"] + " Wins\n";
-        
+        tbl += "__Total Lifetime Medals: " + totalLifetimeMedals + "__\n";
         var embed = new Discord.MessageEmbed()
         .setTitle(`Challenge statistics for ` + interaction.options.getUser('user').username)
         .setDescription(tbl);
