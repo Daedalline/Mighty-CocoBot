@@ -32,16 +32,11 @@ module.exports.run = async(interaction, config, maps, client) => {
         var amount = interaction.options.getInteger('score')
         var map = interaction.options.getString('map')
         
-        console.log(maps.Leaderboards);
+         if(!maps.Leaderboards.includes('map')){
+            await interaction.reply({ephemeral: true, content: "Map does not exist."})
+            return;
+        }
         
-
-        //if(Maps.Leaderboards){
-        //    await interaction.reply({ephemeral: true, content: "Come on... Im not that stupid. Try a more realistic number"})
-        //    return;
-        //}
-        
-        
-
         await interaction.deferReply()
         
         if(!data[map]){
