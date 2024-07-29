@@ -20,7 +20,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         await interaction.reply({ephemeral: true, content: "You don't have the permission to do that!" })
         return
     }
-    
+
     let rawdata = await fs.readFileSync('racemode_data.json');
     let data = await JSON.parse(rawdata); 
 
@@ -33,10 +33,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         let timePattern = /\d{2}:\d{2}\.\d{2}/;
         if (!timePattern.test(time)){
             await interaction.reply({ephemeral: true, content: "Invalid time format. Time must be input as mm:ss.SS."})
-            return;
-        }
-        if(!maps.Leaderboards.includes('map')){
-            await interaction.reply({ephemeral: true, content: "Map does not exist."})
             return;
         }
     

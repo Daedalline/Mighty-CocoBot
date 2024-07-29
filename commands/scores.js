@@ -31,12 +31,12 @@ module.exports.run = async(interaction, config, maps, client) => {
         var userID = interaction.options.getUser('user').id
         var amount = interaction.options.getInteger('score')
         var map = interaction.options.getString('map')
-        
-        if(!maps.Leaderboards.includes('map')){
-            await interaction.reply({ephemeral: true, content: "Map does not exist."})
+
+        if(amount > 999 || amount < -999){
+            await interaction.reply({ephemeral: true, content: "Come on... Im not that stupid. Try a more realistic number"})
             return;
         }
-        
+
         await interaction.deferReply()
         
         if(!data[map]){
