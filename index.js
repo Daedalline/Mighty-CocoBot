@@ -687,11 +687,11 @@ async function printRandomPocketGameMessage(course){
     
     These are **POCKET EDITION ONLY** games. 
     
-    Be sure to have the course downloaded **in advance**.
+    Be sure to have the course downloaded in advance.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
-    The course will be **${course}**.
+    The course will be **${course}**. 
     
     This game will use the **STANDARD** game mode. 
     
