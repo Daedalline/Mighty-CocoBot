@@ -236,8 +236,7 @@ async function main(){
       //let jobRMHard = schedule.scheduleJob('00 30 * * * *', printRandomRMHardGameMessage); // fires every day, at xx:30:00
       let jobMPEasy = schedule.scheduleJob('00 00 * * * *', printRandomMPEasyGameMessage); // fires every day, at xx:00:01
       let jobMPHard = schedule.scheduleJob('00 30 * * * *', printRandomMPHardGameMessage); // fires every day, at xx:30:01
-      //let jobPocket = schedule.scheduleJob('00 45 16,22 * * *', printPocketGameMessage); // fires every day at 15 minutes before 1 pm , and 7 pm EST.
-      let jobPocket = schedule.scheduleJob('00 * * * * *', printPocketGameMessage); // fires every day at 15 minutes before 1 pm , and 7 pm EST.
+      let jobPocket = schedule.scheduleJob('00 45 16,22 * * *', printPocketGameMessage); // fires every day at 15 minutes before 1 pm , and 7 pm EST.
 }
 
 // Print the random easy game message in #find-a-game
