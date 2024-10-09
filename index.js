@@ -10,6 +10,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 let usedRooms = [];
 let usedCourses = [];
 let usedMPCourses = [];
+let usedPocketCourses = [];
 
 //Load the config file
 let Config = null;
@@ -676,7 +677,7 @@ async function printRandomPocketGameMessage(course){
     let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
     let embed = new MessageEmbed()
-    .setTitle(":golf: :golf: :golf: Standard Game starting soon! :golf: :golf: :golf:")
+    .setTitle(":mobile_phone: :mobile_phone: :mobile_phone: Standard Game starting soon! :mobile_phone: :mobile_phone: :mobile_phone:")
     .setDescription(`
     The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
 
