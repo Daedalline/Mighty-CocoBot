@@ -677,7 +677,7 @@ async function printRandomPocketGameMessage(course){
     let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
     let embed = new MessageEmbed()
-    .setTitle(":mobile_phone: :mobile_phone: :mobile_phone: Standard Game starting soon! :mobile_phone: :mobile_phone: :mobile_phone:")
+    .setTitle(":mobile_phone: :mobile_phone: :mobile_phone: Pocket Edition Game starting soon! :mobile_phone: :mobile_phone: :mobile_phone:")
     .setDescription(`
     The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
 
