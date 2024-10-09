@@ -685,7 +685,9 @@ async function printRandomPocketGameMessage(course){
 
     Created rooms should be setup with a **player count max of 4**.
     
-    These are **POCKET EDITION ONLY** games.
+    These are **POCKET EDITION ONLY** games. 
+    
+    Be sure to have the course downloaded **in advance**.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
