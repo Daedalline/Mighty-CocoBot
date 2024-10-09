@@ -316,6 +316,8 @@ async function printRandomGameMessage(course){
     If you are the first player to create a room, please see the following guidelines:
 
     Created rooms should be setup with a **player count max of 4**.
+    
+    These are **VR-ONLY** games.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
@@ -434,6 +436,8 @@ async function printLanguageGameMessage() {
     If you are the first player to create a room, please see the following guidelines:
 
     Created rooms should be setup with a **player count max of 4**.
+    
+    These are **VR-ONLY** games.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
@@ -462,6 +466,8 @@ async function printItLanguageGameMessage() {
     If you are the first player to create a room, please see the following guidelines:
 
     Created rooms should be setup with a **player count max of 4**.
+    
+    These are **VR-ONLY** games.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
@@ -579,6 +585,8 @@ async function printRandomRMGameMessage(course){
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
     THIS IS VERY IMPORTANT, as people who join after the game starts can only spectate.
+    
+    These are **VR-ONLY** games.
 
     The course will be **${course}**.
     
@@ -616,6 +624,8 @@ async function printRandomMPGameMessage(course){
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
     THIS IS VERY IMPORTANT, as people who join after the game starts can only spectate.
+    
+    These are **VR-ONLY** games.
 
     The course will be **${course}**.
     
