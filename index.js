@@ -10,6 +10,7 @@ const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 let usedRooms = [];
 let usedCourses = [];
 let usedMPCourses = [];
+let usedPocketCourses = [];
 
 //Load the config file
 let Config = null;
@@ -235,6 +236,7 @@ async function main(){
       //let jobRMHard = schedule.scheduleJob('00 30 * * * *', printRandomRMHardGameMessage); // fires every day, at xx:30:00
       let jobMPEasy = schedule.scheduleJob('00 00 * * * *', printRandomMPEasyGameMessage); // fires every day, at xx:00:01
       let jobMPHard = schedule.scheduleJob('00 30 * * * *', printRandomMPHardGameMessage); // fires every day, at xx:30:01
+      let jobPocket = schedule.scheduleJob('00 45 16,22 * * *', printPocketGameMessage); // fires every day at 15 minutes before 1 pm , and 7 pm EST.
 }
 
 // Print the random easy game message in #find-a-game
@@ -290,6 +292,16 @@ async function printRandomMPHardGameMessage(){
     printRandomMPGameMessage(course);
 }
 
+// Print the random easy game message in #find-a-game
+async function printPocketGameMessage(){
+    let course = getNotRecentlyUsedEasyPocketCourse();
+    usedPocketCourses.push(course);
+    if(usedPocketCourses.length > 14){
+        usedPocketCourses.shift();
+    }
+    printRandomPocketGameMessage(course);
+}
+
 
 // Print the random game message in #find-a-game
 async function printRandomGameMessage(course){
@@ -316,6 +328,8 @@ async function printRandomGameMessage(course){
     If you are the first player to create a room, please see the following guidelines:
 
     Created rooms should be setup with a **player count max of 4**.
+    
+    These are **VR-ONLY** games.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
@@ -410,6 +424,16 @@ function getNotRecentlyUsedMPHardCourse(){
     return course
 }
 
+// Add logic to not repeat recently played Easy courses with extra logic for Pocket
+function getNotRecentlyUsedEasyPocketCourse(){
+    let pocketNoSupportMaps = Maps.PocketNoSupportMaps;
+    let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
+    while (usedCourses.includes(course) || course.endsWith('Hard') || pocketNoSupportMaps.includes(course)){
+        course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
+    }
+    return course
+}
+
 // Print the non-English game message in #find-a-game
 async function printLanguageGameMessage() {
     let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
@@ -434,6 +458,8 @@ async function printLanguageGameMessage() {
     If you are the first player to create a room, please see the following guidelines:
 
     Created rooms should be setup with a **player count max of 4**.
+    
+    These are **VR-ONLY** games.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
@@ -462,6 +488,8 @@ async function printItLanguageGameMessage() {
     If you are the first player to create a room, please see the following guidelines:
 
     Created rooms should be setup with a **player count max of 4**.
+    
+    These are **VR-ONLY** games.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
@@ -578,7 +606,8 @@ async function printRandomRMGameMessage(course){
     If you are the first player to create a room, please see the following guidelines:
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
-    THIS IS VERY IMPORTANT, as people who join after the game starts can only spectate.
+    
+    These are **VR-ONLY** games.
 
     The course will be **${course}**.
     
@@ -616,10 +645,54 @@ async function printRandomMPGameMessage(course){
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
     THIS IS VERY IMPORTANT, as people who join after the game starts can only spectate.
+    
+    These are **VR-ONLY** games.
 
     The course will be **${course}**.
     
     This game will use the **MATCH PLAY** game mode. 
+    
+    Turn order will be **HONORS** unless everyone in the room agrees to change it.
+    `)
+    .setTimestamp();
+    channel.send({embeds: [embed]})
+}
+
+// Print the random game message in #find-a-game
+async function printRandomPocketGameMessage(course){
+
+    let guild = await client.guilds.cache.find(i => i.id == Config.GuildID);
+    let channel = await guild.channels.fetch(Config.PocketChannelID);
+
+    let room = getNotRecentlyUsedRoom();
+
+    usedRooms.push(room);
+    if(usedRooms.length > 10){
+        usedRooms.shift();
+    }
+    
+    let currentDate = Date.now() + 900000;
+    let currentDateString = currentDate.toString();
+    let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
+
+    let embed = new MessageEmbed()
+    .setTitle(":mobile_phone: :mobile_phone: :mobile_phone: Pocket Edition Game starting soon! :mobile_phone: :mobile_phone: :mobile_phone:")
+    .setDescription(`
+    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
+
+    If you are the first player to create a room, please see the following guidelines:
+
+    Created rooms should be setup with a **player count max of 4**.
+    
+    These are **POCKET EDITION ONLY** games. 
+    
+    Be sure to have the course downloaded in advance.
+
+    Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
+
+    The course will be **${course}**. 
+    
+    This game will use the **STANDARD** game mode. 
     
     Turn order will be **HONORS** unless everyone in the room agrees to change it.
     `)
