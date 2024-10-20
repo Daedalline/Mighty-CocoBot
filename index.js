@@ -444,7 +444,7 @@ async function printLanguageGameMessage() {
     let currentDateSubstring = currentDateString.substr(0, currentDateString.length - 3);
 
     let embed = new MessageEmbed()
-    .setTitle(":flag_fr: :flag_de: :flag_it: :flag_es: Non-English games starting soon! :flag_es: :flag_it: :flag_de: :flag_fr:")
+    .setTitle(":flag_fr: :flag_de: :flag_it: :flag_es: :flag_pt: Non-English games starting soon! :flag_pt: :flag_es: :flag_it: :flag_de: :flag_fr:")
     .setDescription(`
     The next scheduled non-English games will start in **15 minutes** (at <t:${currentDateSubstring}:t>).
     
@@ -452,6 +452,7 @@ async function printLanguageGameMessage() {
     Room **SPIELER** (German)
     Room **GIOCATORI** (Italian)
     Room **JUGADORES** (Spanish)
+    Room **JOGADORAS** (Portugese)
 
     If these rooms are full, try adding a 1 or a 2 to the end of the room name, etc.
 
