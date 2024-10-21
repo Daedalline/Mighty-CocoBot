@@ -452,7 +452,7 @@ async function printLanguageGameMessage() {
     Room **SPIELER** (German)
     Room **GIOCATORI** (Italian)
     Room **JUGADORES** (Spanish)
-    Room **JOGADORAS** (Portugese)
+    Room **JOGADORES** (Portugese)
 
     If these rooms are full, try adding a 1 or a 2 to the end of the room name, etc.
 
