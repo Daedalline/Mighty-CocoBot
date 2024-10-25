@@ -333,7 +333,7 @@ async function printRandomGameMessage(course){
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
-    The course will be **${course}**.
+    The course will be __**${course}**__.
     
     This game will use the **STANDARD** game mode. 
     
@@ -464,7 +464,7 @@ async function printLanguageGameMessage() {
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
-    The course will be **Tourist Trap - Easy**, or you can choose a different one amongst yourselves.
+    The course will be __**Tourist Trap - Easy**__, or you can choose a different one amongst yourselves.
     `)
     .setTimestamp();
     channel.send({embeds: [embed]})  
@@ -610,7 +610,7 @@ async function printRandomRMGameMessage(course){
     
     These are **VR-ONLY** games.
 
-    The course will be **${course}**.
+    The course will be __**${course}**__.
     
     This game will use the **RACE MODE** game mode.
     `)
@@ -649,7 +649,7 @@ async function printRandomMPGameMessage(course){
     
     These are **VR-ONLY** games.
 
-    The course will be **${course}**.
+    The course will be __**${course}**__.
     
     This game will use the **MATCH PLAY** game mode. 
     
@@ -691,7 +691,7 @@ async function printRandomPocketGameMessage(course){
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
 
-    The course will be **${course}**. 
+    The course will be __**${course}**__. 
     
     This game will use the **STANDARD** game mode. 
     
