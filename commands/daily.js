@@ -72,6 +72,14 @@ module.exports.run = async(interaction, config, maps, client) => {
                 }
                 challenge_data[userID]["Lifetime"][stat]++;
                 break;
+            case("Participation And Completion"):
+                if (!lifetimeOnly) {
+                    challenge_data[userID]["Current Season"]["Completion Awards"]++;
+                    challenge_data[userID]["Current Season"]["Participation Awards"]++;
+                }
+                challenge_data[userID]["Lifetime"]["Completion Awards"]++;
+                challenge_data[userID]["Lifetime"]["Participation Awards"]++;
+                break;               
             case("Top Score"):
             case("Target Score and Time Achieved"):
             case("Target Score Achieved"):    
@@ -80,6 +88,14 @@ module.exports.run = async(interaction, config, maps, client) => {
                 }
                 challenge_data[userID]["Lifetime 9-Hole"][stat]++;
                 break;
+            case("(Two Medals) Target Score and Time Achieved"):
+                if (!lifetimeOnly) {
+                    challenge_data[userID]["Current Season 9-Hole"]["Target Score and Time Achieved"]++;
+                    challenge_data[userID]["Current Season 9-Hole"]["Target Score Achieved"]++;
+                }
+                challenge_data[userID]["Lifetime 9-Hole"]["Target Score and Time Achieved"]++;
+                challenge_data[userID]["Lifetime 9-Hole"]["Target Score Achieved"]++;
+                break;     
             case("First Place Finishes"):
             case("Second Place Finishes"):
             case("Third Place Finishes"):
@@ -247,6 +263,10 @@ module.exports.info = {
                             "value": "Coolest Shot From Another Tee"
                         },
                         {
+                            "name": "Participation And Completion",
+                            "value": "Participation And Completion"
+                        },  
+                        {
                             "name": "Completion Awards",
                             "value": "Completion Awards"
                         },
@@ -255,16 +275,20 @@ module.exports.info = {
                             "value": "Participation Awards"
                         },
                         {
+                            "name": "Top Score",
+                            "value": "Top Score"
+                        },
+                        {
+                            "name": "(Two Medals) Target Score and Time Achieved",
+                            "value": "(Two Medals) Target Score and Time Achieved"
+                        },  
+                        {
                             "name": "Target Score Achieved",
                             "value": "Target Score Achieved"
                         },
                         {
                             "name": "Target Score and Time Achieved",
                             "value": "Target Score and Time Achieved"
-                        },
-                        {
-                            "name": "Top Score",
-                            "value": "Top Score"
                         },
                         {
                             "name": "First Place Finishes",
