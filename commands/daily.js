@@ -72,7 +72,7 @@ module.exports.run = async(interaction, config, maps, client) => {
                 }
                 challenge_data[userID]["Lifetime"][stat]++;
                 break;
-            case("Participation And Completion"):
+            case("(Two Medals) Participation And Completion"):
                 if (!lifetimeOnly) {
                     challenge_data[userID]["Current Season"]["Completion Awards"]++;
                     challenge_data[userID]["Current Season"]["Participation Awards"]++;
@@ -263,8 +263,8 @@ module.exports.info = {
                             "value": "Coolest Shot From Another Tee"
                         },
                         {
-                            "name": "Participation And Completion",
-                            "value": "Participation And Completion"
+                            "name": "(Two Medals) Participation And Completion",
+                            "value": "(Two Medals) Participation And Completion"
                         },  
                         {
                             "name": "Completion Awards",
