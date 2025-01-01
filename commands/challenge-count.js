@@ -47,7 +47,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             rank++;
         }
         previous_medals = sortable[i][1];
-        if (rank <= 100)
+        if (sortable[i][1] <= 100)
         {
             tbl += `#${rank}: <@${sortable[i][0]}>   ${sortable[i][1]}\n`;
         }
@@ -55,7 +55,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     tbl += `\n**Total:** ${totalMedals}`;  
 
-    console.log(tbl)
+    console.log(tbl);
     console.log(tbl.length);
    
     var embed = new Discord.MessageEmbed()
