@@ -53,8 +53,9 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         totalMedals += sortable[i][1];
     }
-    tbl += `\n**Total:** ${totalMedals}`;   
-    
+    tbl += `\n**Total:** ${totalMedals}`;  
+
+    console.log(tbl)
     console.log(tbl.length);
    
     var embed = new Discord.MessageEmbed()
