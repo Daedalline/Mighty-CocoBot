@@ -47,7 +47,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             rank++;
         }
         previous_medals = sortable[i][1];
-        if (sortable[i][1] <= 100)
+        if (sortable[i][1] >= 100)
         {
             tbl += `#${rank}: <@${sortable[i][0]}>   ${sortable[i][1]}\n`;
         }
