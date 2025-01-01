@@ -47,7 +47,10 @@ module.exports.run = async(interaction, config, maps, client) => {
             rank++;
         }
         previous_medals = sortable[i][1];
-        tbl += `#${rank}: <@${sortable[i][0]}>   ${sortable[i][1]}\n`;
+        if (rank <= 100)
+        {
+            tbl += `#${rank}: <@${sortable[i][0]}>   ${sortable[i][1]}\n`;
+        }
         totalMedals += sortable[i][1];
     }
     tbl += `\n**Total:** ${totalMedals}`;   
