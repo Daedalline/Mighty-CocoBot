@@ -323,7 +323,7 @@ async function printRandomGameMessage(course){
     let embed = new MessageEmbed()
     .setTitle(":golf: :golf: :golf: Standard Game starting soon! :golf: :golf: :golf:")
     .setDescription(`
-    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
+    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}1**. If this is full, try **${room}2** or **${room}3**, etc.
 
     If you are the first player to create a room, please see the following guidelines:
 
@@ -602,7 +602,7 @@ async function printRandomRMGameMessage(course){
     let embed = new MessageEmbed()
     .setTitle(":checkered_flag: :checkered_flag: :checkered_flag: Race Mode Game starting soon! :checkered_flag: :checkered_flag: :checkered_flag:")
     .setDescription(`
-    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
+    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}1**. If this is full, try **${room}2** or **${room}3**, etc.
 
     If you are the first player to create a room, please see the following guidelines:
 
@@ -645,7 +645,6 @@ async function printRandomMPGameMessage(course){
     Created rooms should be setup with a **player count max of 4**.
 
     Games must wait until <t:${currentDateSubstring}:t> to start unless the room is already full.
-    THIS IS VERY IMPORTANT, as people who join after the game starts can only spectate.
     
     These are **VR-ONLY** games.
 
@@ -679,7 +678,7 @@ async function printRandomPocketGameMessage(course){
     let embed = new MessageEmbed()
     .setTitle(":mobile_phone: :mobile_phone: :mobile_phone: Pocket Edition Game starting soon! :mobile_phone: :mobile_phone: :mobile_phone:")
     .setDescription(`
-    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
+    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}1**. If this is full, try **${room}2** or **${room}3**, etc.
 
     If you are the first player to create a room, please see the following guidelines:
 
