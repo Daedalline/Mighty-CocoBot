@@ -638,7 +638,7 @@ async function printRandomMPGameMessage(course){
     let embed = new MessageEmbed()
     .setTitle(":boxing_glove: :boxing_glove: :boxing_glove: Match Play Game starting soon! :boxing_glove: :boxing_glove: :boxing_glove:")
     .setDescription(`
-    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}**. If this is full, try **${room}1** or **${room}2**, etc.
+    The next scheduled game will start in **15 minutes** (at <t:${currentDateSubstring}:t>) in room **${room}1**. If this is full, try **${room}2** or **${room}3**, etc.
 
     If you are the first player to create a room, please see the following guidelines:
 
