@@ -95,6 +95,8 @@ module.exports.run = async(interaction, config, maps, client) => {
     if (noScores) {
         tbl += `There does not apear to be any scores for **<@${userID}>**\n`;
     }
+	
+	console.log("FIRST PASS: " + tbl.length);
     
     // Race Mode leaderboards
     rawdata = await fs.readFileSync('racemode_data.json');
