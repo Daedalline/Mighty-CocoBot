@@ -189,11 +189,11 @@ module.exports.run = async(interaction, config, maps, client) => {
 		.setDescription(tblRM);
 		
 		// Define pagination buttons, etc. Will move this out if needed later
-		const button1 = new MessageButton()
+		const button1 = new ButtonBuilder()
 		.setCustomId("previousbtn")
 		.setLabel("Previous")
 		.setStyle("DANGER");
-		const button2 = new MessageButton()
+		const button2 = new ButtonBuilder()
 		.setCustomId("nextbtn")
 		.setLabel("Next")
 		.setStyle("SUCCESS");
