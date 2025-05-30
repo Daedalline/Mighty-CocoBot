@@ -155,7 +155,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
     sortMapList.sort();
     
-    tblRM += "\n__**Race Mode Leaderboards**__\n";
+    tblRM = "__**Race Mode Leaderboards**__\n";
     noScores = true;
     for (var i=0; i<sortMapList.length; i++){
         var courseName = sortMapList[i];
@@ -172,11 +172,11 @@ module.exports.run = async(interaction, config, maps, client) => {
         tblRM += `There does not apear to be any Race Mode scores for **<@${userID}>**`;
     }
     
-	if (tblSL.length + tblRM.length < 4096) {
+	if (tblSL.length + tblRM.length < 4090) {
         // Print output
 		var embed = new Discord.MessageEmbed()
 		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
-		.setDescription(tblSL + tblRM);
+		.setDescription(tblSL + "\n" + tblRM);
 		return await interaction.editReply({embeds: [embed]})
 	}
 	else {
