@@ -179,7 +179,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 		.setDescription(tblSL + "\n" + tblRM);
 		return await interaction.editReply({embeds: [embed]})
 	}
-	else if (tblSL.length + tblRM.length < 8186) {
+	else if (tblSL.length < 4096 && tblRM.length < 4096) {
         // Print output
 		var embedSL = new Discord.MessageEmbed()
 		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
