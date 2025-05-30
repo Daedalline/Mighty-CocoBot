@@ -197,7 +197,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 		.setCustomId("nextbtn")
 		.setLabel("Next")
 		.setStyle("SUCCESS");
-		const timeout = 10000;
+		const timeout = 120000;
 		const pages = [embedSL, embedRM];
 		const buttonList = [button1, button2];
 		
