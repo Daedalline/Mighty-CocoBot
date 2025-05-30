@@ -9,6 +9,7 @@
 const Discord = require("discord.js");
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require("fs");
+const paginationEmbed = require('discordjs-button-pagination')
 
 module.exports.run = async(interaction, config, maps, client) => {
     
@@ -170,14 +171,21 @@ module.exports.run = async(interaction, config, maps, client) => {
     if (noScores) {
         tbl += `There does not apear to be any Race Mode scores for **<@${userID}>**`;
     }
-	
-	console.log("Size: " + tbl.length);
     
-    // Print output
-    var embed = new Discord.MessageEmbed()
-    .setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
-    .setDescription(tbl);
-    return await interaction.editReply({embeds: [embed]})
+	if (tbl.length < 4096) {
+        // Print output
+		var embed = new Discord.MessageEmbed()
+		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
+		.setDescription(tbl);
+		return await interaction.editReply({embeds: [embed]})
+	}
+	else {
+        // Print output
+		var embed = new Discord.MessageEmbed()
+		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username + `exceed maximum message size. Please ping Dae.`)
+		.setDescription(tbl);
+		return await interaction.editReply({embeds: [embed]})
+	}
 }
 
 module.exports.info = {
