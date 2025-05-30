@@ -189,11 +189,11 @@ module.exports.run = async(interaction, config, maps, client) => {
 		.setDescription(tblRM);
 		
 		// Define pagination buttons, etc. Will move this out if needed later
-		const button1 = new Discord.ButtonBuilder()
+		const button1 = new Discord.MessageButton()
 		.setCustomId("previousbtn")
 		.setLabel("Previous")
 		.setStyle("DANGER");
-		const button2 = new Discord.ButtonBuilder()
+		const button2 = new Discord.MessageButton()
 		.setCustomId("nextbtn")
 		.setLabel("Next")
 		.setStyle("SUCCESS");
