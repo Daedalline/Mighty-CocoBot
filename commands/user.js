@@ -82,22 +82,20 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     sortMapList.sort();
     
-    tbl = "__**Standard Leaderboards**__\n";
+    tblSL = "__**Standard Leaderboards**__\n";
     var noScores = true;
     for (var i=0; i<sortMapList.length; i++){
         if (userCourses[sortMapList[i]] != undefined)
         {
             noScores = false;
-            tbl += `#${userCourses[sortMapList[i]][1
+            tblSL += `#${userCourses[sortMapList[i]][1
             ]}: ${sortMapList[i]} ${userCourses[sortMapList[i]][0]}\n`
         }
     }
     if (noScores) {
-        tbl += `There does not apear to be any scores for **<@${userID}>**\n`;
+        tblSL += `There does not apear to be any scores for **<@${userID}>**\n`;
     }
 	
-	console.log("FIRST PASS: " + tbl.length);
-    
     // Race Mode leaderboards
     rawdata = await fs.readFileSync('racemode_data.json');
     data = await JSON.parse(rawdata); 
@@ -157,7 +155,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
     sortMapList.sort();
     
-    tbl += "\n__**Race Mode Leaderboards**__\n";
+    tblRM += "\n__**Race Mode Leaderboards**__\n";
     noScores = true;
     for (var i=0; i<sortMapList.length; i++){
         var courseName = sortMapList[i];
@@ -167,18 +165,18 @@ module.exports.run = async(interaction, config, maps, client) => {
             var date = new Date(null);
             date.setMilliseconds(userCourses[courseName][0]);
             var timeString = date.toISOString().slice(14, 22);
-            tbl += `#${userCourses[courseName][1]}: ${courseName} ${timeString}\n`
+            tblRM += `#${userCourses[courseName][1]}: ${courseName} ${timeString}\n`
         }
     }
     if (noScores) {
-        tbl += `There does not apear to be any Race Mode scores for **<@${userID}>**`;
+        tblRM += `There does not apear to be any Race Mode scores for **<@${userID}>**`;
     }
     
-	if (tbl.length < 4096) {
+	if (tblSL.length + tblRM.length < 4096) {
         // Print output
 		var embed = new Discord.MessageEmbed()
 		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
-		.setDescription(tbl);
+		.setDescription(tblSL + tblRM);
 		return await interaction.editReply({embeds: [embed]})
 	}
 	else {
