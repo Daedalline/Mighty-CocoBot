@@ -198,7 +198,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 		.setLabel("Next")
 		.setStyle("SUCCESS");
 		const timeout = 10000;
-		const pages = [embelSL, embedRM];
+		const pages = [embedSL, embedRM];
 		const buttonList = [button1, button2];
 		
 		paginationEmbed(message, pages, buttonList, timeout);
