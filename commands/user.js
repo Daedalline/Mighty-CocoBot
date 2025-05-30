@@ -182,8 +182,8 @@ module.exports.run = async(interaction, config, maps, client) => {
 	else {
         // Print output
 		var embed = new Discord.MessageEmbed()
-		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username + `exceed maximum message size. Please ping Dae.`)
-		.setDescription(tbl);
+		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
+		.setDescription(`Leaderboard entries exceed maximum message size. Please ping Dae.`);
 		return await interaction.editReply({embeds: [embed]})
 	}
 }
