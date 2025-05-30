@@ -201,7 +201,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 		const pages = [embedSL, embedRM];
 		const buttonList = [button1, button2];
 		
-		paginationEmbed(message, pages, buttonList, timeout);
+		paginationEmbed(interaction, pages, buttonList, timeout);
 	}
 	else {
         // Print output
