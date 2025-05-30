@@ -170,6 +170,8 @@ module.exports.run = async(interaction, config, maps, client) => {
     if (noScores) {
         tbl += `There does not apear to be any Race Mode scores for **<@${userID}>**`;
     }
+	
+	console.log("Size: " + tbl.length);
     
     // Print output
     var embed = new Discord.MessageEmbed()
