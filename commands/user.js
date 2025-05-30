@@ -22,7 +22,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         return
     }
     await interaction.deferReply();
-   
+	
     // Main Leaderboards   
     let rawdata = await fs.readFileSync('data.json');
     let data = await JSON.parse(rawdata); 
@@ -178,6 +178,30 @@ module.exports.run = async(interaction, config, maps, client) => {
 		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
 		.setDescription(tblSL + "\n" + tblRM);
 		return await interaction.editReply({embeds: [embed]})
+	}
+	else if (tblSL.length + tblRM.length < 8186) {
+        // Print output
+		var embedSL = new Discord.MessageEmbed()
+		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
+		.setDescription(tblSL);
+		var embedRM = new Discord.MessageEmbed()
+		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
+		.setDescription(tblRM);
+		
+		// Define pagination buttons, etc. Will move this out if needed later
+		const button1 = new MessageButton()
+		.setCustomId("previousbtn")
+		.setLabel("Previous")
+		.setStyle("DANGER");
+		const button2 = new MessageButton()
+		.setCustomId("nextbtn")
+		.setLabel("Next")
+		.setStyle("SUCCESS");
+		const timeout = 10000;
+		const pages = [embelSL, embedRM];
+		const buttonList = [button1, button2];
+		
+		paginationEmbed(message, pages, buttonList, timeout);
 	}
 	else {
         // Print output
