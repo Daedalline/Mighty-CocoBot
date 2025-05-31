@@ -9,6 +9,7 @@
 const Discord = require("discord.js");
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const fs = require("fs");
+const paginationEmbed = require('discordjs-button-pagination')
 
 module.exports.run = async(interaction, config, maps, client) => {
     
@@ -21,7 +22,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         return
     }
     await interaction.deferReply();
-   
+	
     // Main Leaderboards   
     let rawdata = await fs.readFileSync('data.json');
     let data = await JSON.parse(rawdata); 
@@ -81,20 +82,20 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     sortMapList.sort();
     
-    tbl = "__**Standard Leaderboards**__\n";
+    tblSL = "__**Standard Leaderboards**__\n";
     var noScores = true;
     for (var i=0; i<sortMapList.length; i++){
         if (userCourses[sortMapList[i]] != undefined)
         {
             noScores = false;
-            tbl += `#${userCourses[sortMapList[i]][1
+            tblSL += `#${userCourses[sortMapList[i]][1
             ]}: ${sortMapList[i]} ${userCourses[sortMapList[i]][0]}\n`
         }
     }
     if (noScores) {
-        tbl += `There does not apear to be any scores for **<@${userID}>**\n`;
+        tblSL += `There does not apear to be any scores for **<@${userID}>**\n`;
     }
-    
+	
     // Race Mode leaderboards
     rawdata = await fs.readFileSync('racemode_data.json');
     data = await JSON.parse(rawdata); 
@@ -154,7 +155,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
     sortMapList.sort();
     
-    tbl += "\n__**Race Mode Leaderboards**__\n";
+    tblRM = "__**Race Mode Leaderboards**__\n";
     noScores = true;
     for (var i=0; i<sortMapList.length; i++){
         var courseName = sortMapList[i];
@@ -164,18 +165,51 @@ module.exports.run = async(interaction, config, maps, client) => {
             var date = new Date(null);
             date.setMilliseconds(userCourses[courseName][0]);
             var timeString = date.toISOString().slice(14, 22);
-            tbl += `#${userCourses[courseName][1]}: ${courseName} ${timeString}\n`
+            tblRM += `#${userCourses[courseName][1]}: ${courseName} ${timeString}\n`
         }
     }
     if (noScores) {
-        tbl += `There does not apear to be any Race Mode scores for **<@${userID}>**`;
+        tblRM += `There does not apear to be any Race Mode scores for **<@${userID}>**`;
     }
     
-    // Print output
-    var embed = new Discord.MessageEmbed()
-    .setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
-    .setDescription(tbl);
-    return await interaction.editReply({embeds: [embed]})
+	if (tblSL.length + tblRM.length < 4090) {
+        // Print output
+		var embed = new Discord.MessageEmbed()
+		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
+		.setDescription(tblSL + "\n" + tblRM);
+		return await interaction.editReply({embeds: [embed]})
+	}
+	else if (tblSL.length < 4096 && tblRM.length < 4096) {
+        // Print output
+		var embedSL = new Discord.MessageEmbed()
+		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
+		.setDescription(tblSL);
+		var embedRM = new Discord.MessageEmbed()
+		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
+		.setDescription(tblRM);
+		
+		// Define pagination buttons, etc. Will move this out if needed later
+		const button1 = new Discord.MessageButton()
+		.setCustomId("previousbtn")
+		.setLabel("Previous")
+		.setStyle("DANGER");
+		const button2 = new Discord.MessageButton()
+		.setCustomId("nextbtn")
+		.setLabel("Next")
+		.setStyle("SUCCESS");
+		const timeout = 120000;
+		const pages = [embedSL, embedRM];
+		const buttonList = [button1, button2];
+		
+		paginationEmbed(interaction, pages, buttonList, timeout);
+	}
+	else {
+        // Print output
+		var embed = new Discord.MessageEmbed()
+		.setTitle(`Leaderboard entries for ` + interaction.options.getUser('user').username)
+		.setDescription(`Leaderboard entries exceed maximum message size. Please ping Dae.`);
+		return await interaction.editReply({embeds: [embed]})
+	}
 }
 
 module.exports.info = {
