@@ -65,6 +65,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
         else {
+			console.log(community_challenge_icons);
             var tbl = "### Community Challenge Badges\n"
             tbl += community_challenge_icons + "\n\n";
             tbl += "### Daily Challenge Medals\n"
