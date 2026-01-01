@@ -428,7 +428,15 @@ module.exports.autocomplete = async (interaction, Maps) => {
             break;
         }
     }
-    interaction.respond(res.slice(0,25))
+    const filtered = choices.filter(choice => choice.startsWith(focusedOption.value));
+	
+	let sliceList;
+    if (filtered.length > 25) {
+        sliceList = filtered.slice(0, 25);
+    } else {
+        sliceList = filtered;
+    }
+    interaction.respond(sliceList.map(choice => ({ name: choice, value: choice })),);
 }
 
 module.exports.info = {
