@@ -126,7 +126,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
     } else {
         sliceList = filtered;
     }
-    interaction.respond((sliceList.map(choice => ({ name: choice, value: choice })),);
+    interaction.respond(sliceList.map(choice => ({ name: choice, value: choice })),);
 }
 
 module.exports.info = {
