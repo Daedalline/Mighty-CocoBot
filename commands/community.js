@@ -428,7 +428,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
             break;
         }
     }
-    const filtered = choices.filter(choice => choice.startsWith(focusedOption.value));
+    const filtered = res.filter(choice => choice.startsWith(focusedOption.value));
 	filtered.reverse();
 	let sliceList;
     if (filtered.length > 25) {
