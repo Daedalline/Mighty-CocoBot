@@ -126,6 +126,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
     } else {
         sliceList = filtered;
     }
+	sliceList.reverse();
     interaction.respond(sliceList.map(choice => ({ name: choice, value: choice })),);
 }
 
