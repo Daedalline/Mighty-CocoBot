@@ -405,10 +405,12 @@ module.exports.autocomplete = async (interaction, Maps) => {
             let rawdata = await fs.readFileSync('community_challenge_data.json');
             let group_data = await JSON.parse(rawdata);
 		    for (var group in group_data) {
+				if((group.toLowerCase().includes(value.value.toLowerCase()) || value == "")){
                  res.push({
                         name: group,
                         value: group
                     })
+				}
             }
             break;
         }
@@ -428,15 +430,8 @@ module.exports.autocomplete = async (interaction, Maps) => {
             break;
         }
     }
-    const filtered = choices.filter(choice => choice.startsWith(focusedOption.value));
-	filtered.reverse();
-	let sliceList;
-    if (filtered.length > 25) {
-        sliceList = filtered.slice(0, 25);
-    } else {
-        sliceList = filtered;
-    }
-    interaction.respond(sliceList.map(choice => ({ name: choice, value: choice })),);
+	res.reverse();
+    interaction.respond(res.slice(0,25))
 }
 
 module.exports.info = {
