@@ -430,6 +430,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
             break;
         }
     }
+	res.reverse();
     interaction.respond(res.slice(0,25))
 }
 
