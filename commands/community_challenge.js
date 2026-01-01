@@ -119,7 +119,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
         }
     }
     const filtered = choices.filter(choice => choice.startsWith(focusedOption.value));
-    interaction.respond(filtered.map(choice => ({ name: choice, value: choice })),);
+    interaction.respond((filtered.map(choice => ({ name: choice, value: choice })),).slice(0,25));
 }
 
 module.exports.info = {
