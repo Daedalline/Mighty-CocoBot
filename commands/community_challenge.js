@@ -119,14 +119,13 @@ module.exports.autocomplete = async (interaction, Maps) => {
         }
     }
     const filtered = choices.filter(choice => choice.startsWith(focusedOption.value));
-	
+	filtered.reverse();
 	let sliceList;
     if (filtered.length > 25) {
         sliceList = filtered.slice(0, 25);
     } else {
         sliceList = filtered;
     }
-	sliceList.reverse();
     interaction.respond(sliceList.map(choice => ({ name: choice, value: choice })),);
 }
 
