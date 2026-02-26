@@ -59,22 +59,41 @@ module.exports.run = async(interaction, config, maps, client) => {
             return false;
         }
 
-        // Process the standard map
-        const updatedStandard = updateMapData(map);
+        // // Process the standard map
+        // const updatedStandard = updateMapData(map);
     
-        // Process the weekly map ONLY if it was generated (i.e., the original wasn't already Weekly)
-        let updatedWeekly = false;
-        if (weeklyMap) {
-            updatedWeekly = updateMapData(weeklyMap);
+        // // Process the weekly map ONLY if it was generated (i.e., the original wasn't already Weekly)
+        // let updatedWeekly = false;
+        // if (weeklyMap) {
+        //     updatedWeekly = updateMapData(weeklyMap);
+        // }
+
+        // if(!updatedStandard && !updatedWeekly) {
+        //     var embed = new Discord.MessageEmbed()
+        //         .setTitle("No Time Recorded")
+        //         .setDescription(`The time submitted is not faster than the existing record.`);
+        //     return await interaction.editReply({embeds: [embed]})
+        // }
+
+        // Keep track of which boards actually got a new record
+        let updatedBoards = [];
+
+        if (updateMapData(map)) {
+            updatedBoards.push(`• ${map}`);
+        }
+    
+        if (weeklyMap && updateMapData(weeklyMap)) {
+            updatedBoards.push(`• ${weeklyMap}`);
         }
 
-        if(!updatedStandard && !updatedWeekly) {
+        // If no boards were updated (time was slower on both)
+        if(updatedBoards.length === 0) {
             var embed = new Discord.MessageEmbed()
                 .setTitle("No Time Recorded")
-                .setDescription(`The time submitted is not faster than the existing record.`);
+                .setDescription(`The submitted time of **${time}** is not faster than the existing record on any applicable board.`);
             return await interaction.editReply({embeds: [embed]})
         }
-
+        
         // Save the JSON file
         var writedata = JSON.stringify(data, null, "\t");
         await fs.writeFileSync('./racemode_data.json', writedata);
