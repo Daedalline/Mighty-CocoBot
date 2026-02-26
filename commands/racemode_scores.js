@@ -102,13 +102,9 @@ module.exports.run = async(interaction, config, maps, client) => {
         date.setMilliseconds(totalMilliseconds);
         var timeString = date.toISOString().slice(14, 22);
     
-        // Build the list of updated boards for the response
-        let boards = `• ${map}`;
-        if (updatedWeekly) boards += `\n• ${weeklyMap}`;
-
         var embed = new Discord.MessageEmbed()
             .setTitle("Time Recorded")
-            .setDescription(`Recorded **${timeString}** for <@${userID}>\n\n**Boards Updated:**\n${boards}`);
+            .setDescription(`Recorded **${timeString}** for <@${userID}>\n\n**Boards Updated:**\n${updatedBoards.join("\n")}`);
         
         return await interaction.editReply({embeds: [embed]})
     }
