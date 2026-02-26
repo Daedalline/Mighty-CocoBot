@@ -87,7 +87,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
         var embed = new Discord.MessageEmbed()
             .setTitle("Time Recorded")
-            .setDescription(`Recorded **${timeString}** (${totalMilliseconds} milliseconds) for <@${userID}>!\n\n**Boards Updated:**\n${updatedBoards.join("\n")}`);
+            .setDescription(`Recorded **${timeString}** (${totalMilliseconds} milliseconds) for <@${userID}> under board: ${map}!\n\nNOTE: Time will also be added to a board with that same name where "Weekly:" and "(Race Mode)" are appended where applicable (unless name already has this format)`);
         
         return await interaction.editReply({embeds: [embed]})
     }
