@@ -59,22 +59,6 @@ module.exports.run = async(interaction, config, maps, client) => {
             return false;
         }
 
-        // // Process the standard map
-        // const updatedStandard = updateMapData(map);
-    
-        // // Process the weekly map ONLY if it was generated (i.e., the original wasn't already Weekly)
-        // let updatedWeekly = false;
-        // if (weeklyMap) {
-        //     updatedWeekly = updateMapData(weeklyMap);
-        // }
-
-        // if(!updatedStandard && !updatedWeekly) {
-        //     var embed = new Discord.MessageEmbed()
-        //         .setTitle("No Time Recorded")
-        //         .setDescription(`The time submitted is not faster than the existing record.`);
-        //     return await interaction.editReply({embeds: [embed]})
-        // }
-
         // Keep track of which boards actually got a new record
         let updatedBoards = [];
 
@@ -104,7 +88,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
         var embed = new Discord.MessageEmbed()
             .setTitle("Time Recorded")
-            .setDescription(`Recorded **${timeString}** (${totalMilliseconds} milliseconds) for <@${userID}>\n\n**Boards Updated:**\n${updatedBoards.join("\n")}`);
+            .setDescription(`Recorded **${timeString}** (${totalMilliseconds} milliseconds) for <@${userID}>!\n\n**Boards Updated:**\n${updatedBoards.join("\n")}`);
         
         return await interaction.editReply({embeds: [embed]})
     }
