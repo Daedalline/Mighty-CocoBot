@@ -24,52 +24,123 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('racemode_data.json');
     let data = await JSON.parse(rawdata); 
 
+///New Code
     if(interaction.options.getSubcommand() == "submit_time"){
 
         var userID = interaction.options.getUser('user').id;
         var map = interaction.options.getString('map');
         var time = interaction.options.getString('total_time');
-        
+    
+        // Check if the map is already a Weekly/Race Mode map
+        const isWeekly = map.startsWith("Weekly: ") && map.endsWith(" (Race Mode)");
+    
+        // Construct the Weekly map name only if it isn't one already
+        var weeklyMap = isWeekly ? null : `Weekly: ${map} (Race Mode)`;
+    
         let timePattern = /\d{2}:\d{2}\.\d{2}/;
         if (!timePattern.test(time)){
             await interaction.reply({ephemeral: true, content: "Invalid time format. Time must be input as mm:ss.SS."})
             return;
         }
-    
-        var totalTime = interaction.options.getString('total_time').split(/:|\./);
 
+        var totalTime = interaction.options.getString('total_time').split(/:|\./);
         await interaction.deferReply()
-        
-        if(!data[map]){
-            data[map] = {}
-        }
-        
+    
         var totalMilliseconds = (Number(totalTime[0]) * 60000) + (Number(totalTime[1]) * 1000) + (Number(totalTime[2]) * 10);
 
-        if(data[map][userID] != undefined)
-        {
-            if(data[map][userID][0] <= totalMilliseconds)
-            {
-                var embed = new Discord.MessageEmbed()
-                .setTitle("No Time Recorded")
-                .setDescription(`This time is greater than the existing time of ` + data[map][userID][0] + " milliseconds.");
-                return await interaction.editReply({embeds: [embed]})
-            }
-        }
+        const updateMapData = (mapName) => {
+            if(!data[mapName]) data[mapName] = {};
         
-        data[map][userID] = [totalMilliseconds, new Date().toJSON()]
+            // Update if no time exists OR if the new time is faster
+            if(data[mapName][userID] == undefined || totalMilliseconds < data[mapName][userID][0]) {
+                data[mapName][userID] = [totalMilliseconds, new Date().toJSON()]
+                return true; 
+            }
+            return false;
+        }
+
+        // Process the standard map
+        const updatedStandard = updateMapData(map);
+    
+        // Process the weekly map ONLY if it was generated (i.e., the original wasn't already Weekly)
+        let updatedWeekly = false;
+        if (weeklyMap) {
+            updatedWeekly = updateMapData(weeklyMap);
+        }
+
+        if(!updatedStandard && !updatedWeekly) {
+            var embed = new Discord.MessageEmbed()
+                .setTitle("No Time Recorded")
+                .setDescription(`The time submitted is not faster than the existing record.`);
+            return await interaction.editReply({embeds: [embed]})
+        }
+
+        // Save the JSON file
         var writedata = JSON.stringify(data, null, "\t");
         await fs.writeFileSync('./racemode_data.json', writedata);
-        
+    
         var date = new Date(null);
         date.setMilliseconds(totalMilliseconds);
         var timeString = date.toISOString().slice(14, 22);
-        
+    
+        // Build the list of updated boards for the response
+        let boards = `• ${map}`;
+        if (updatedWeekly) boards += `\n• ${weeklyMap}`;
+
         var embed = new Discord.MessageEmbed()
-        .setTitle("Time Recorded")
-        .setDescription(`Recorded a time of **${timeString}** (${totalMilliseconds} milliseconds) for <@${userID}> on **${map}**`);
+            .setTitle("Time Recorded")
+            .setDescription(`Recorded **${timeString}** for <@${userID}>\n\n**Boards Updated:**\n${boards}`);
+        
         return await interaction.editReply({embeds: [embed]})
     }
+
+    // OLD CODE for reference
+    // if(interaction.options.getSubcommand() == "submit_time"){
+
+    //     var userID = interaction.options.getUser('user').id;
+    //     var map = interaction.options.getString('map');
+    //     var time = interaction.options.getString('total_time');
+        
+    //     let timePattern = /\d{2}:\d{2}\.\d{2}/;
+    //     if (!timePattern.test(time)){
+    //         await interaction.reply({ephemeral: true, content: "Invalid time format. Time must be input as mm:ss.SS."})
+    //         return;
+    //     }
+    
+    //     var totalTime = interaction.options.getString('total_time').split(/:|\./);
+
+    //     await interaction.deferReply()
+        
+    //     if(!data[map]){
+    //         data[map] = {}
+    //     }
+        
+    //     var totalMilliseconds = (Number(totalTime[0]) * 60000) + (Number(totalTime[1]) * 1000) + (Number(totalTime[2]) * 10);
+
+    //     if(data[map][userID] != undefined)
+    //     {
+    //         if(data[map][userID][0] <= totalMilliseconds)
+    //         {
+    //             var embed = new Discord.MessageEmbed()
+    //             .setTitle("No Time Recorded")
+    //             .setDescription(`This time is greater than the existing time of ` + data[map][userID][0] + " milliseconds.");
+    //             return await interaction.editReply({embeds: [embed]})
+    //         }
+    //     }
+        
+    //     data[map][userID] = [totalMilliseconds, new Date().toJSON()]
+    //     var writedata = JSON.stringify(data, null, "\t");
+    //     await fs.writeFileSync('./racemode_data.json', writedata);
+        
+    //     var date = new Date(null);
+    //     date.setMilliseconds(totalMilliseconds);
+    //     var timeString = date.toISOString().slice(14, 22);
+        
+    //     var embed = new Discord.MessageEmbed()
+    //     .setTitle("Time Recorded")
+    //     .setDescription(`Recorded a time of **${timeString}** (${totalMilliseconds} milliseconds) for <@${userID}> on **${map}**`);
+    //     return await interaction.editReply({embeds: [embed]})
+    // }
 
     if(interaction.options.getSubcommand() == "remove"){
 
