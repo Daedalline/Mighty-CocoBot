@@ -31,7 +31,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         var map = interaction.options.getString('map');
         var time = interaction.options.getString('total_time');
     
-        const isAlreadyWeekly = map.startsWith("Weekly: ") && map.endsWith(" (Race Mode)");
+        let isAlreadyWeekly = map.startsWith("Weekly: ") && map.endsWith(" (Race Mode)");
         const weeklyMapName = isAlreadyWeekly ? null : `Weekly: ${map} (Race Mode)`;
     
         let timePattern = /\d{2}:\d{2}\.\d{2}/;
