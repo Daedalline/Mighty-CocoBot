@@ -90,7 +90,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         if(updatedBoards.length === 0) {
             var embed = new Discord.MessageEmbed()
                 .setTitle("No Time Recorded")
-                .setDescription(`The submitted time of **${time}** is not faster than the existing record on any applicable board.`);
+                .setDescription(`The submitted time is greater than the existing time that this user is already on the Leaderboard with.`);
             return await interaction.editReply({embeds: [embed]})
         }
         
@@ -104,7 +104,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     
         var embed = new Discord.MessageEmbed()
             .setTitle("Time Recorded")
-            .setDescription(`Recorded **${timeString}** for <@${userID}>\n\n**Boards Updated:**\n${updatedBoards.join("\n")}`);
+            .setDescription(`Recorded **${timeString}** (${totalMilliseconds} milliseconds) for <@${userID}>\n\n**Boards Updated:**\n${updatedBoards.join("\n")}`);
         
         return await interaction.editReply({embeds: [embed]})
     }
