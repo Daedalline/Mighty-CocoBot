@@ -31,11 +31,8 @@ module.exports.run = async(interaction, config, maps, client) => {
         var map = interaction.options.getString('map');
         var time = interaction.options.getString('total_time');
     
-        // Check if the map is already a Weekly/Race Mode map
-        const isWeekly = map.startsWith("Weekly: ") && map.endsWith(" (Race Mode)");
-    
-        // Construct the Weekly map name only if it isn't one already
-        var weeklyMap = isWeekly ? null : `Weekly: ${map} (Race Mode)`;
+        const isAlreadyWeekly = map.startsWith("Weekly: ") && map.endsWith(" (Race Mode)");
+        const weeklyMapName = isAlreadyWeekly ? null : `Weekly: ${map} (Race Mode)`;
     
         let timePattern = /\d{2}:\d{2}\.\d{2}/;
         if (!timePattern.test(time)){
@@ -66,8 +63,8 @@ module.exports.run = async(interaction, config, maps, client) => {
             updatedBoards.push(`• ${map}`);
         }
     
-        if (weeklyMap && updateMapData(weeklyMap)) {
-            updatedBoards.push(`• ${weeklyMap}`);
+        if (weeklyMapName && updateMapData(weeklyMapName)) {
+            updatedBoards.push(`• ${weeklyMapName}`);
         }
 
         // If no boards were updated (time was slower on both)
