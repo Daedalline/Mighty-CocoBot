@@ -61,12 +61,12 @@ module.exports.run = async(interaction, config, maps, client) => {
 
         let updatedBoards = [];
 
-        // 1. Update the base map selected in the command
+        // Update the base map selected in the command
         if (updateMapData(map)) {
             updatedBoards.push(`• ${map}`);
         }
     
-        // 2. Only update the Weekly board if the formatted name exists in the Leaderboards array in maps.json
+        // Only update the Weekly board if the formatted name exists in the Leaderboards array in maps.json
         if (weeklyMapName !== null && leaderboardList.includes(weeklyMapName)) {
             if (updateMapData(weeklyMapName)) {
                 updatedBoards.push(`• ${weeklyMapName}`);
@@ -76,7 +76,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         if(updatedBoards.length === 0) {
             var embed = new Discord.MessageEmbed()
                 .setTitle("No Time Recorded")
-                .setDescription(`The submitted time is greater than the existing time that this user is already on the Leaderboard with.`);
+                .setDescription(`The submitted time is either greater than or equal to the existing time that this user is already on the Leaderboard with.`);
             return await interaction.editReply({embeds: [embed]})
         }
         
@@ -122,13 +122,11 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
 };
 
-// --- ADDED THIS SECTION TO FIX YOUR ERROR ---
 module.exports.autocomplete = async (interaction, Maps) => {
     var value = interaction.options.getFocused(true);
     var res = []
     switch(value.name){
         case 'map': {
-            // "Maps" is passed from your main handler, usually contains the maps.json data
             Maps.Leaderboards.forEach(map => {
                 if((map.toLowerCase().includes(value.value.toLowerCase()) || value.value == "") && !(map.startsWith("Weekly") && !map.endsWith("(Race Mode)"))){
                     res.push({
