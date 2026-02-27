@@ -66,7 +66,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             updatedBoards.push(`• ${map}`);
         }
     
-        // 2. Only update the Weekly board if the formatted name exists in the Leaderboards array
+        // 2. Only update the Weekly board if the formatted name exists in the Leaderboards array in maps.json
         if (weeklyMapName !== null && leaderboardList.includes(weeklyMapName)) {
             if (updateMapData(weeklyMapName)) {
                 updatedBoards.push(`• ${weeklyMapName}`);
@@ -122,6 +122,27 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
 };
 
+// --- ADDED THIS SECTION TO FIX YOUR ERROR ---
+module.exports.autocomplete = async (interaction, Maps) => {
+    var value = interaction.options.getFocused(true);
+    var res = []
+    switch(value.name){
+        case 'map': {
+            // "Maps" is passed from your main handler, usually contains the maps.json data
+            Maps.Leaderboards.forEach(map => {
+                if((map.toLowerCase().includes(value.value.toLowerCase()) || value.value == "") && !(map.startsWith("Weekly") && !map.endsWith("(Race Mode)"))){
+                    res.push({
+                        name: map,
+                        value: map
+                    })
+                }
+            })
+            break;
+        }
+    }
+    interaction.respond(res.slice(0,25))
+}
+
 module.exports.info = {
     "name": "racemode_scores",
     "description": "Allows moderators to manage scores on the boards",
@@ -148,7 +169,6 @@ module.exports.info = {
                     "name": "total_time",
                     "description": "Total Time (mm:ss.SS)",
                     "type": 3,
-                    "autocomplete": true,
                     "required": true
                 },
             ]
