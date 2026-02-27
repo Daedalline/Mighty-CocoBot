@@ -2,7 +2,7 @@
  * ====================NOTE====================
  *    This code was created by Daedalline,
  *   please don't claim this as your own work
- *        https://github.com/Daedalline
+ *        https://github.com
  * ============================================
  */
 
@@ -24,7 +24,11 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('racemode_data.json');
     let data = await JSON.parse(rawdata); 
 
-    ///New Code (2/25/26) Added By Froman to combine Race Mode Regular and Weekly Submits into one command.
+    // Read the maps.json to get the current Leaderboards list
+    let mapsFileRaw = await fs.readFileSync('maps.json');
+    let mapsFileData = await JSON.parse(mapsFileRaw);
+    let leaderboardList = mapsFileData.Leaderboards || [];
+
     if(interaction.options.getSubcommand() == "submit_time"){
 
         var userID = interaction.options.getUser('user').id;
@@ -48,7 +52,6 @@ module.exports.run = async(interaction, config, maps, client) => {
         const updateMapData = (mapName) => {
             if(!data[mapName]) data[mapName] = {};
         
-            // Update if no time exists OR if the new time is faster
             if(data[mapName][userID] == undefined || totalMilliseconds < data[mapName][userID][0]) {
                 data[mapName][userID] = [totalMilliseconds, new Date().toJSON()]
                 return true; 
@@ -56,20 +59,20 @@ module.exports.run = async(interaction, config, maps, client) => {
             return false;
         }
 
-        // Keep track of which boards actually got a new record
         let updatedBoards = [];
 
+        // 1. Update the base map selected in the command
         if (updateMapData(map)) {
             updatedBoards.push(`• ${map}`);
         }
     
-        if (weeklyMapName !== null) {
+        // 2. Only update the Weekly board if the formatted name exists in the Leaderboards array
+        if (weeklyMapName !== null && leaderboardList.includes(weeklyMapName)) {
             if (updateMapData(weeklyMapName)) {
                 updatedBoards.push(`• ${weeklyMapName}`);
             }
         }
 
-        // If no boards were updated (time was slower on both)
         if(updatedBoards.length === 0) {
             var embed = new Discord.MessageEmbed()
                 .setTitle("No Time Recorded")
@@ -77,7 +80,6 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
         
-        // Save the JSON file
         var writedata = JSON.stringify(data, null, "\t");
         await fs.writeFileSync('./racemode_data.json', writedata);
     
@@ -87,13 +89,12 @@ module.exports.run = async(interaction, config, maps, client) => {
     
         var embed = new Discord.MessageEmbed()
             .setTitle("Time Recorded")
-            .setDescription(`Recorded **${timeString}** (${totalMilliseconds} milliseconds) for <@${userID}> under board: ${map}!\n\nNOTE: Time will also be added to a board with that same name where "Weekly:" and "(Race Mode)" are appended where applicable (unless name already has this format)`);
+            .setDescription(`Recorded **${timeString}** for <@${userID}>!\n\n**Boards Updated:**\n${updatedBoards.join("\n")}`);
         
         return await interaction.editReply({embeds: [embed]})
     }
 
     if(interaction.options.getSubcommand() == "remove"){
-
         var userID = interaction.options.getUser('user').id
         var map = interaction.options.getString('map')
 
@@ -119,77 +120,4 @@ module.exports.run = async(interaction, config, maps, client) => {
             return await interaction.editReply({embeds: [embed]})
         }
     }
-};
-
-module.exports.autocomplete = async (interaction, Maps) => {
-    var value = interaction.options.getFocused(true);
-    var res = []
-    switch(value.name){
-        case 'map': {
-            Maps.Leaderboards.forEach(map => {
-                if((map.toLowerCase().includes(value.value.toLowerCase()) || value == "") && !(map.startsWith("Weekly") && !map.endsWith("(Race Mode)"))){
-                    res.push({
-                        name: map,
-                        value: map
-                    })
-                }
-            })
-            break;
-        }
-    }
-    interaction.respond(res.slice(0,25))
-}
-
-module.exports.info = {
-    "name": "racemode_scores",
-    "description": "Allows moderators to manage scores on the boards",
-    "options": [
-        {
-            "name": "submit_time",
-            "description": "Submit a users Race Mode score to a map by providing the total time.",
-            "type": 1,
-            "options": [
-                {
-                    "name": "user",
-                    "description": "The user to submit for",
-                    "type": 6,
-                    "required": true
-                },
-                {
-                    "name": "map",
-                    "description": "The map they got it on",
-                    "type": 3,
-                    "autocomplete": true,
-                    "required": true
-                },
-                {
-                    "name": "total_time",
-                    "description": "Total Time (mm:ss.SS)",
-                    "type": 3,
-                    "autocomplete": true,
-                    "required": true
-                },
-            ]
-        },
-        {
-            "name": "remove",
-            "description": "Remove a users Race Mode score from a map",
-            "type": 1,
-            "options": [
-                {
-                    "name": "user",
-                    "description": "The user to submit for",
-                    "type": 6,
-                    "required": true
-                },
-                {
-                    "name": "map",
-                    "description": "The map to remove it from",
-                    "type": 3,
-                    "autocomplete": true,
-                    "required": true
-                }
-            ]
-        }
-    ]
 };
