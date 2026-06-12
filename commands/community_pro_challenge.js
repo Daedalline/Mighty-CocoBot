@@ -32,7 +32,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         }
         
         var embed = new Discord.MessageEmbed()
-        .setTitle("Community Challenges")
+        .setTitle("Community Pro Challenges")
         .setDescription(tbl);
         return await interaction.editReply({embeds: [embed]})
     }
@@ -131,22 +131,22 @@ module.exports.autocomplete = async (interaction, Maps) => {
 
 module.exports.info = {
     "name": "community_challenge",
-    "description": "Get details about community challenges",
+    "description": "Get details about community pro challenges",
     "options": [
         {
             "name": "list",
-            "description": "Lists all community challenge",
+            "description": "Lists all community pro challenges",
             "type": 1,
             "options": []
         },
         {
             "name": "info",
-            "description": "Provides more info about a community challenge",
+            "description": "Provides more info about a community pro challenge",
             "type": 1,
             "options": [
                 {
                     "name": "challenge_name",
-                    "description": "Name of the challenge",
+                    "description": "Name of the pro challenge",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
@@ -155,19 +155,19 @@ module.exports.info = {
         },
         {
             "name": "details",
-            "description": "Provides more info about a community challenge",
+            "description": "Provides more info about a community pro challenge",
             "type": 1,
             "options": [
                 {
                     "name": "challenge_name",
-                    "description": "Name of the challenge",
+                    "description": "Name of the pro challenge",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
                 },
                 {
                     "name": "subchallenge_name",
-                    "description": "Name of the subchallenge",
+                    "description": "Name of the pro subchallenge",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
