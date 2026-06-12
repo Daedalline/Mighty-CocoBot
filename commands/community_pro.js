@@ -435,7 +435,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
 }
 
 module.exports.info = {
-    "name": "community",
+    "name": "community_pro",
     "description": "Allows moderators to maintain community pro challenges",
     "options": [
         {
