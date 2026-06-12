@@ -156,6 +156,22 @@ fs.access("community_challenge_data.json", fs.F_OK, (err) => {
         console.log("community_challenge_data.json already exists")
     }
 })
+fs.access("community_pro_challenge_data.json", fs.F_OK, (err) => {
+    if (err) {
+        if(err.code == "ENOENT"){
+            fs.writeFile("community_pro_challenge_data.json", data, (err) => {
+                if (err) throw err;
+                console.log("Created community_pro_challenge_data.json as it didnt exist")
+                return
+            })
+        }else{
+            console.error(err)
+            return
+        }
+    }else{
+        console.log("community_pro_challenge_data.json already exists")
+    }
+})
 
 // D.JS Client listeners
 client.on("error", (e) => console.error(e));
