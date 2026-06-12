@@ -25,10 +25,11 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('daily_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
-    // Add community challenge icond
+    // Add community challenge icons, will add a new line every ten icons
     let rawdata2 = await fs.readFileSync('community_challenge_data.json');
     let community_challenge_data = await JSON.parse(rawdata2);
     var community_challenge_icons = "";
+    var emoji_count = 0;
     for (var challenge in community_challenge_data) {
         var challenge_info = community_challenge_data[challenge];
         if (challenge_info["state"] == "Complete" || challenge_info["state"] == "Not Completed")
@@ -51,6 +52,10 @@ module.exports.run = async(interaction, config, maps, client) => {
             else
             {
                 community_challenge_icons += `${config.ChallengeIncompleteEmoji}`;
+            }
+            emoji_count++;
+            if (emoji_count % 10 === 0) {
+                community_challenge_icons += "\n";
             }
         }
     }
