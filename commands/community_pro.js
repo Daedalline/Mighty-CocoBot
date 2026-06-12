@@ -26,14 +26,14 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     if(interaction.options.getSubcommand() == "create_group"){
     
-        // Creates a new community challenge
+        // Creates a new community pro challenge
         var name = interaction.options.getString('name');
         var emoji = interaction.options.getString('emoji');
         var dates = interaction.options.getString('dates');
         var state = interaction.options.getString('state');
         
         if(challenge_data[name]){
-            // Challenge already exists. Output error message.
+            // Pro Challenge already exists. Output error message.
             var embed = new Discord.MessageEmbed()
             .setTitle("Invalid Command")
             .setDescription(`**${name}** already exists.`);
@@ -52,18 +52,18 @@ module.exports.run = async(interaction, config, maps, client) => {
             await fs.writeFileSync('community_pro_challenge_data.json', writedata);
 
             var embed = new Discord.MessageEmbed()
-            .setTitle("Community Challenge Group Created")
+            .setTitle("Community Pro Challenge Group Created")
             .setDescription(`**${name}** created.`);
             return await interaction.editReply({embeds: [embed]})
         }
     }
     else if(interaction.options.getSubcommand() == "update_group_state") {
-        // Update challenge state
+        // Update pro challenge state
         var name = interaction.options.getString('group');
         var state = interaction.options.getString('state');
         
         if(!challenge_data[name]){
-            // Challenge does not exist. Output error message.
+            // Pro Challenge does not exist. Output error message.
             var embed = new Discord.MessageEmbed()
             .setTitle("Invalid Command")
             .setDescription(`**${name}** does not exist.`);
@@ -77,17 +77,17 @@ module.exports.run = async(interaction, config, maps, client) => {
             await fs.writeFileSync('community_pro_challenge_data.json', writedata);
 
             var embed = new Discord.MessageEmbed()
-            .setTitle("Community Challenge Group State Updated")
+            .setTitle("Community Pro Challenge Group State Updated")
             .setDescription(`**${name}** set to ${state}.`);
             return await interaction.editReply({embeds: [embed]})
         }
     }
     else if(interaction.options.getSubcommand() == "delete_group") {
-        // Delete the challenge
+        // Delete the Pro challenge
         var name = interaction.options.getString('group');
         
         if(!challenge_data[name]){
-            // Challenge does not exist. Output error message.
+            // Pro Challenge does not exist. Output error message.
             var embed = new Discord.MessageEmbed()
             .setTitle("Invalid Command")
             .setDescription(`**${name}** does not exist.`);
@@ -101,14 +101,14 @@ module.exports.run = async(interaction, config, maps, client) => {
             await fs.writeFileSync('community_pro_challenge_data.json', writedata);
 
             var embed = new Discord.MessageEmbed()
-            .setTitle("Community Challenge Group Deleted")
+            .setTitle("Community Pro Challenge Group Deleted")
             .setDescription(`**${name}** has been deleted.`);
             return await interaction.editReply({embeds: [embed]})
         }
     }
     else if(interaction.options.getSubcommand() == "create_challenge"){
     
-        // Creates a new community challenge
+        // Creates a new community pro challenge
         var challenge_name = interaction.options.getString('name');
         var group = interaction.options.getString('group');
         var detail = interaction.options.getString('detail');
@@ -126,7 +126,7 @@ module.exports.run = async(interaction, config, maps, client) => {
         {
             var challenge = challenge_data[group]["challenges"][challenge_id];
             if(challenge["name"] == challenge_name){
-                // Challenge already exists. Output error message.
+                // Pro Challenge already exists. Output error message.
                 var embed = new Discord.MessageEmbed()
                 .setTitle("Invalid Command")
                 .setDescription(`**${challenge_name}** already exists for ${group}.`);
@@ -148,13 +148,13 @@ module.exports.run = async(interaction, config, maps, client) => {
         await fs.writeFileSync('community_pro_challenge_data.json', writedata);
 
         var embed = new Discord.MessageEmbed()
-            .setTitle("Community Challenge Created")
+            .setTitle("Community Pro Challenge Created")
             .setDescription(`**${challenge_name}** created in group ${group}.`);
         return await interaction.editReply({embeds: [embed]})
     }
     else if(interaction.options.getSubcommand() == "update_challenge_state")
     {
-        // Updates community challenge State
+        // Updates community pro challenge State
         var challenge_name = interaction.options.getString('name');
         var group = interaction.options.getString('group');
         var state = interaction.options.getString('state');
@@ -177,12 +177,12 @@ module.exports.run = async(interaction, config, maps, client) => {
                 await fs.writeFileSync('community_pro_challenge_data.json', writedata);
                 
                 var embed = new Discord.MessageEmbed()
-                .setTitle("Community Challenge Updated")
+                .setTitle("Community Pro Challenge Updated")
                 .setDescription(`**${challenge_name}** updated to ${state}.`);
                 return await interaction.editReply({embeds: [embed]})
             }
         }
-        // Challenge does not exist in this group. Output error message.
+        // Pro Challenge does not exist in this group. Output error message.
         var embed = new Discord.MessageEmbed()
         .setTitle("Invalid Command")
         .setDescription(`**${challenge_name}** does not exist for ${group}.`);
@@ -190,7 +190,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     else if(interaction.options.getSubcommand() == "increment_challenge_progress")
     {
-        // Updates community challenge progress
+        // Updates community pro challenge progress
         var challenge_name = interaction.options.getString('name');
         var group = interaction.options.getString('group');
         var progress = interaction.options.getInteger('progress');
@@ -213,12 +213,12 @@ module.exports.run = async(interaction, config, maps, client) => {
                 await fs.writeFileSync('community_pro_challenge_data.json', writedata);
                 
                 var embed = new Discord.MessageEmbed()
-                .setTitle("Community Challenge Updated")
+                .setTitle("Community Pro Challenge Updated")
                 .setDescription(`**${challenge_name}** progress updated by ${progress}.`);
                 return await interaction.editReply({embeds: [embed]})
             }
         }
-        // Challenge does not exist in this group. Output error message.
+        // Pro Challenge does not exist in this group. Output error message.
         var embed = new Discord.MessageEmbed()
         .setTitle("Invalid Command")
         .setDescription(`**${challenge_name}** does not exist for ${group}.`);
@@ -226,7 +226,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     else if(interaction.options.getSubcommand() == "delete_challenge")
     {
-        // Updates community challenge progress
+        // Updates community pro challenge progress
         var challenge_name = interaction.options.getString('name');
         var group = interaction.options.getString('group');
         
@@ -248,12 +248,12 @@ module.exports.run = async(interaction, config, maps, client) => {
                 await fs.writeFileSync('community_pro_challenge_data.json', writedata);
                 
                 var embed = new Discord.MessageEmbed()
-                .setTitle("Community Challenge Deleted")
+                .setTitle("Community Pro Challenge Deleted")
                 .setDescription(`**${challenge_name}** removed.`);
                 return await interaction.editReply({embeds: [embed]})
             }
         }
-        // Challenge does not exist in this group. Output error message.
+        // Pro Challenge does not exist in this group. Output error message.
         var embed = new Discord.MessageEmbed()
         .setTitle("Invalid Command")
         .setDescription(`**${challenge_name}** does not exist for ${group}.`);
@@ -261,7 +261,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     else if(interaction.options.getSubcommand() == "add_participant")
     {
-        // Updates community challenge progress
+        // Updates community pro challenge progress
         var challenge_name = interaction.options.getString('name');
         var group = interaction.options.getString('group');
         var userID = interaction.options.getUser('user').id
@@ -295,13 +295,13 @@ module.exports.run = async(interaction, config, maps, client) => {
                     await fs.writeFileSync('community_pro_challenge_data.json', writedata);
                 
                     var embed = new Discord.MessageEmbed()
-                    .setTitle("Community Challenge Updated")
+                    .setTitle("Community Pro Challenge Updated")
                     .setDescription(`**<@${userID}>** added to **${challenge_name}**.`);
                     return await interaction.editReply({embeds: [embed]})
                 }
             }
         }
-        // Challenge does not exist in this group. Output error message.
+        // Pro Challenge does not exist in this group. Output error message.
         var embed = new Discord.MessageEmbed()
         .setTitle("Invalid Command")
         .setDescription(`**${challenge_name}** does not exist for ${group}.`);
@@ -309,7 +309,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     else if(interaction.options.getSubcommand() == "remove_participant")
     {
-        // Updates community challenge progress
+        // Updates community pro challenge progress
         var challenge_name = interaction.options.getString('name');
         var group = interaction.options.getString('group');
         var userID = interaction.options.getUser('user').id
@@ -343,13 +343,13 @@ module.exports.run = async(interaction, config, maps, client) => {
                     await fs.writeFileSync('community_pro_challenge_data.json', writedata);
                 
                     var embed = new Discord.MessageEmbed()
-                    .setTitle("Community Challenge Updated")
+                    .setTitle("Community Pro Challenge Updated")
                     .setDescription(`**<@${userID}>** removed from **${challenge_name}**.`);
                     return await interaction.editReply({embeds: [embed]})
                 }
             }
         }
-        // Challenge does not exist in this group. Output error message.
+        // Pro Challenge does not exist in this group. Output error message.
         var embed = new Discord.MessageEmbed()
         .setTitle("Invalid Command")
         .setDescription(`**${challenge_name}** does not exist for ${group}.`);
@@ -357,7 +357,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     }
     else if(interaction.options.getSubcommand() == "clear_participants")
     {
-        // Updates community challenge progress
+        // Updates community pro challenge progress
         var challenge_name = interaction.options.getString('name');
         var group = interaction.options.getString('group');
    
@@ -380,12 +380,12 @@ module.exports.run = async(interaction, config, maps, client) => {
                 await fs.writeFileSync('community_pro_challenge_data.json', writedata);
              
                 var embed = new Discord.MessageEmbed()
-                .setTitle("Community Challenge Cleared")
+                .setTitle("Community Pro Challenge Cleared")
                 .setDescription(`Participants cleared from from **${challenge_name}**.`);
                 return await interaction.editReply({embeds: [embed]})
             }
         }
-        // Challenge does not exist in this group. Output error message.
+        // Pro Challenge does not exist in this group. Output error message.
         var embed = new Discord.MessageEmbed()
         .setTitle("Invalid Command")
         .setDescription(`**${challenge_name}** does not exist for ${group}.`);
@@ -436,35 +436,35 @@ module.exports.autocomplete = async (interaction, Maps) => {
 
 module.exports.info = {
     "name": "community",
-    "description": "Allows moderators to maintain community challenges",
+    "description": "Allows moderators to maintain community pro challenges",
     "options": [
         {
             "name": "create_group",
-            "description": "Adds a new community challenge group",
+            "description": "Adds a new community pro challenge group",
             "type": 1,
             "options": [
                 {
                     "name": "name",
-                    "description": "Name of the new challenge group",
+                    "description": "Name of the new pro challenge group",
                     "type": 3,
                     "required": true
                 },
                 {
                     "name": "dates",
-                    "description": "When this challenge was active",
+                    "description": "When this pro challenge was active",
                     "type": 3,
                     "required": true
                 },
                 {
                     "name": "state",
-                    "description": "Is this challenge active, completed, or not completed",
+                    "description": "Is this pro challenge active, completed, or not completed",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
                 },
                                 {
                     "name": "emoji",
-                    "description": "emoji to represent this challenge",
+                    "description": "emoji to represent this pro challenge",
                     "type": 3,
                     "required": true
                 }
@@ -472,19 +472,19 @@ module.exports.info = {
         },
         {
             "name": "update_group_state",
-            "description": "Change the community challenge group state",
+            "description": "Change the community pro challenge group state",
             "type": 1,
             "options": [
                 {
                     "name": "group",
-                    "description": "Name of the new challenge",
+                    "description": "Name of the new pro challenge",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
                 },
                 {
                     "name": "state",
-                    "description": "Is this challenge group active, completed, or not completed",
+                    "description": "Is this pro challenge group active, completed, or not completed",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
@@ -493,12 +493,12 @@ module.exports.info = {
         },
         {
             "name": "delete_group",
-            "description": "Deletes the community challenge",
+            "description": "Deletes the community pro challenge",
             "type": 1,
             "options": [
                 {
                     "name": "group",
-                    "description": "Name of the challenge group",
+                    "description": "Name of the pro challenge group",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
@@ -507,25 +507,25 @@ module.exports.info = {
         },
         {
             "name": "create_challenge",
-            "description": "Adds a new community challenge",
+            "description": "Adds a new community pro challenge",
             "type": 1,
             "options": [
                 {
                     "name": "name",
-                    "description": "Name of the new challenge",
+                    "description": "Name of the new pro challenge",
                     "type": 3,
                     "required": true
                 },
                 {
                     "name": "group",
-                    "description": "Name of the challenge group",
+                    "description": "Name of the pro challenge group",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
                 },
                 {
                     "name": "detail",
-                    "description": "Challenge details",
+                    "description": "Pro challenge details",
                     "type": 3,
                     "required": true
                 },
@@ -537,7 +537,7 @@ module.exports.info = {
                 },
                 {
                     "name": "state",
-                    "description": "Is this challenge active, completed, or not completed",
+                    "description": "Is this pro challenge active, completed, or not completed",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
@@ -546,26 +546,26 @@ module.exports.info = {
         },
         {
             "name": "update_challenge_state",
-            "description": "Updates the state of a community challenge",
+            "description": "Updates the state of a community pro challenge",
             "type": 1,
             "options": [
                 {
                     "name": "name",
-                    "description": "Name of the new challenge",
+                    "description": "Name of the new pro challenge",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
                 },
                 {
                     "name": "group",
-                    "description": "Name of the challenge group",
+                    "description": "Name of the pro challenge group",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
                 },
                 {
                     "name": "state",
-                    "description": "Is this challenge active, completed, or not completed",
+                    "description": "Is this pro challenge active, completed, or not completed",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
@@ -574,19 +574,19 @@ module.exports.info = {
         },
         {
             "name": "increment_challenge_progress",
-            "description": "Updates the state of a community challenge",
+            "description": "Updates the state of a community pro challenge",
             "type": 1,
             "options": [
                 {
                     "name": "name",
-                    "description": "Name of the new challenge",
+                    "description": "Name of the new pro challenge",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
                 },
                 {
                     "name": "group",
-                    "description": "Name of the challenge group",
+                    "description": "Name of the pro challenge group",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
@@ -601,19 +601,19 @@ module.exports.info = {
         },
         {
             "name": "delete_challenge",
-            "description": "Removes a community challenge",
+            "description": "Removes a community pro challenge",
             "type": 1,
             "options": [
                 {
                     "name": "name",
-                    "description": "Name of the new challenge",
+                    "description": "Name of the new pro challenge",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
                 },
                 {
                     "name": "group",
-                    "description": "Name of the challenge group",
+                    "description": "Name of the pro challenge group",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
@@ -622,19 +622,19 @@ module.exports.info = {
         },
         {
             "name": "add_participant",
-            "description": "Adds a community challenge participant",
+            "description": "Adds a community pro challenge participant",
             "type": 1,
             "options": [
                 {
                     "name": "name",
-                    "description": "Name of the challenge",
+                    "description": "Name of the pro challenge",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
                 },
                 {
                     "name": "group",
-                    "description": "Name of the challenge group",
+                    "description": "Name of the pro challenge group",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
@@ -649,19 +649,19 @@ module.exports.info = {
         },
         {
             "name": "remove_participant",
-            "description": "Removes a community challenge participant",
+            "description": "Removes a community pro challenge participant",
             "type": 1,
             "options": [
                 {
                     "name": "name",
-                    "description": "Name of the challenge",
+                    "description": "Name of the pro challenge",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
                 },
                 {
                     "name": "group",
-                    "description": "Name of the challenge group",
+                    "description": "Name of the pro challenge group",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
@@ -676,19 +676,19 @@ module.exports.info = {
         },
         {
             "name": "clear_participants",
-            "description": "Removes all community challenge participants",
+            "description": "Removes all community pro challenge participants",
             "type": 1,
             "options": [
                 {
                     "name": "name",
-                    "description": "Name of the challenge",
+                    "description": "Name of the pro challenge",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
                 },
                 {
                     "name": "group",
-                    "description": "Name of the challenge group",
+                    "description": "Name of the pro challenge group",
                     "type": 3,
                     "required": true,
                     "autocomplete": true
