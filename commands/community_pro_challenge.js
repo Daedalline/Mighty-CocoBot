@@ -130,7 +130,7 @@ module.exports.autocomplete = async (interaction, Maps) => {
 }
 
 module.exports.info = {
-    "name": "community_challenge",
+    "name": "community_pro_challenge",
     "description": "Get details about community pro challenges",
     "options": [
         {
