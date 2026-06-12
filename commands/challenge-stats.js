@@ -32,7 +32,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     var emoji_count = 0;
     for (var challenge in community_challenge_data) {
         var challenge_info = community_challenge_data[challenge];
-        if (challenge_info["state"] == "Complete" || challenge_info["state"] == "Not Completed")
+        if (challenge_info["state"] == "Complete")
         {
             var player_participated = false;
             for (var subchallenge in challenge_info["challenges"])
@@ -67,7 +67,7 @@ module.exports.run = async(interaction, config, maps, client) => {
     var emoji_count_pro = 0;
     for (var challenge_pro in community_pro_challenge_data) {
         var challenge_pro_info = community_pro_challenge_data[challenge_pro];
-        if (challenge_pro_info["state"] == "Complete" || challenge_pro_info["state"] == "Not Completed")
+        if (challenge_pro_info["state"] == "Complete")
         {
             var player_participated_pro = false;
             for (var subchallenge_pro in challenge_pro_info["challenges"])
