@@ -32,13 +32,13 @@ module.exports.run = async(interaction, config, maps, client) => {
     var emoji_count = 0;
     for (var challenge in community_challenge_data) {
         var challenge_info = community_challenge_data[challenge];
-        if (challenge_info["state"] == "Complete")
+        if (challenge_info["state"] == "Complete" || challenge_info["state"] == "Not Completed")
         {
             var player_participated = false;
             for (var subchallenge in challenge_info["challenges"])
             {
                 var subchallenge_info = challenge_info["challenges"][subchallenge];
-                if (subchallenge_info["state"] == "Complete" && subchallenge_info["participants"].includes(userID))
+                if (challenge_info["state"] == "Complete" && subchallenge_info["state"] == "Complete" && subchallenge_info["participants"].includes(userID))
                 {
                     player_participated = true;
                     break;
@@ -67,13 +67,13 @@ module.exports.run = async(interaction, config, maps, client) => {
     var emoji_count_pro = 0;
     for (var challenge_pro in community_pro_challenge_data) {
         var challenge_pro_info = community_pro_challenge_data[challenge_pro];
-        if (challenge_pro_info["state"] == "Complete")
+        if (challenge_pro_info["state"] == "Complete" || challenge_pro_info["state"] == "Not Completed")
         {
             var player_participated_pro = false;
             for (var subchallenge_pro in challenge_pro_info["challenges"])
             {
                 var subchallenge_pro_info = challenge_pro_info["challenges"][subchallenge_pro];
-                if (subchallenge_pro_info["state"] == "Complete" && subchallenge_pro_info["participants"].includes(userID))
+                if (challenge_pro_info["state"] == "Complete" && subchallenge_pro_info["state"] == "Complete" && subchallenge_pro_info["participants"].includes(userID))
                 {
                     player_participated_pro = true;
                     break;
