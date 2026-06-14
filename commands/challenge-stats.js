@@ -25,10 +25,11 @@ module.exports.run = async(interaction, config, maps, client) => {
     let rawdata = await fs.readFileSync('daily_challenge_data.json');
     let challenge_data = await JSON.parse(rawdata);
     
-    // Add community challenge icond
+    // Add community challenge icons, will add a new line every ten icons
     let rawdata2 = await fs.readFileSync('community_challenge_data.json');
     let community_challenge_data = await JSON.parse(rawdata2);
     var community_challenge_icons = "";
+    var emoji_count = 0;
     for (var challenge in community_challenge_data) {
         var challenge_info = community_challenge_data[challenge];
         if (challenge_info["state"] == "Complete" || challenge_info["state"] == "Not Completed")
@@ -37,7 +38,7 @@ module.exports.run = async(interaction, config, maps, client) => {
             for (var subchallenge in challenge_info["challenges"])
             {
                 var subchallenge_info = challenge_info["challenges"][subchallenge];
-                if (subchallenge_info["state"] == "Complete" && subchallenge_info["participants"].includes(userID))
+                if (challenge_info["state"] == "Complete" && subchallenge_info["state"] == "Complete" && subchallenge_info["participants"].includes(userID))
                 {
                     player_participated = true;
                     break;
@@ -52,6 +53,45 @@ module.exports.run = async(interaction, config, maps, client) => {
             {
                 community_challenge_icons += `${config.ChallengeIncompleteEmoji}`;
             }
+            emoji_count++;
+            if (emoji_count % 10 === 0) {
+                community_challenge_icons += "\n";
+            }
+        }
+    }
+
+    // Add community pro challenge icons, will add a new line every ten icons
+    let rawdata3 = await fs.readFileSync('community_pro_challenge_data.json');
+    let community_pro_challenge_data = await JSON.parse(rawdata3);
+    var community_challenge_pro_icons = "";
+    var emoji_count_pro = 0;
+    for (var challenge_pro in community_pro_challenge_data) {
+        var challenge_pro_info = community_pro_challenge_data[challenge_pro];
+        if (challenge_pro_info["state"] == "Complete" || challenge_pro_info["state"] == "Not Completed")
+        {
+            var player_participated_pro = false;
+            for (var subchallenge_pro in challenge_pro_info["challenges"])
+            {
+                var subchallenge_pro_info = challenge_pro_info["challenges"][subchallenge_pro];
+                if (challenge_pro_info["state"] == "Complete" && subchallenge_pro_info["state"] == "Complete" && subchallenge_pro_info["participants"].includes(userID))
+                {
+                    player_participated_pro = true;
+                    break;
+                }
+            }
+            
+            if (player_participated_pro)
+            {
+                community_challenge_pro_icons += `${community_pro_challenge_data[challenge_pro]["emoji"]}`;
+            }
+            else
+            {
+                community_challenge_pro_icons += `${config.ChallengeIncompleteEmoji}`;
+            }
+            emoji_count_pro++;
+            if (emoji_count_pro % 10 === 0) {
+                community_challenge_pro_icons += "\n";
+            }
         }
     }
     
@@ -59,14 +99,18 @@ module.exports.run = async(interaction, config, maps, client) => {
     
     if(typeof player_data == 'undefined') {
         if (community_challenge_icons == "") {
-            var embed = new Discord.MessageEmbed()
-                .setTitle("Data Not Found")
-                .setDescription(`There does not apear to be any challenge statistics for **<@${userID}>**`);
-            return await interaction.editReply({embeds: [embed]})
+            if (community_challenge_pro_icons == "") {
+                var embed = new Discord.MessageEmbed()
+                    .setTitle("Data Not Found")
+                    .setDescription(`There does not apear to be any challenge statistics for **<@${userID}>**`);
+                return await interaction.editReply({embeds: [embed]})
+            }
         }
         else {
             var tbl = "### Community Challenge Badges\n"
-            tbl += community_challenge_icons + "\n\n";
+            tbl += community_challenge_icons + "\n";
+            tbl += "### Community Pro Challenge Badges\n"
+            tbl += community_challenge_pro_icons + "\n\n";
             tbl += "### Daily Challenge Medals\n"
             tbl += "__Current Season Medals (Trickshot):__\n";  
             tbl += "Completion Awards :second_place: - 0 Medals\n";
@@ -103,7 +147,9 @@ module.exports.run = async(interaction, config, maps, client) => {
     else {
         var totalLifetimeMedals = player_data["Lifetime"]["Participation Awards"] + player_data["Lifetime"]["Completion Awards"] + player_data["Lifetime"]["Coolest Shot From the Tee"] + player_data["Lifetime"]["Coolest Shot From Another Tee"] + player_data["Lifetime 9-Hole"]["Target Score Achieved"] + player_data["Lifetime 9-Hole"]["Target Score and Time Achieved"] + player_data["Lifetime 9-Hole"]["Top Score"];
         var tbl = "### Community Challenge Badges\n"
-        tbl += community_challenge_icons + "\n\n";
+        tbl += community_challenge_icons + "\n";
+        tbl += "### Community Pro Challenge Badges\n"
+        tbl += community_challenge_pro_icons + "\n\n";
         tbl += "### Daily Challenge Medals\n"
         tbl += "__Current Season Medals (Trickshot):__\n";  
         tbl += "Participation Awards :third_place: - " + player_data["Current Season"]["Participation Awards"] + " Medals\n";
@@ -142,7 +188,7 @@ module.exports.run = async(interaction, config, maps, client) => {
 
 module.exports.info = {
     "name": "challenge-stats",
-    "description": "List all Daily and Community Challenge stats for a given user",
+    "description": "List all Daily, Community Challenge, and Community Pro Challenge stats for a given user",
     "options": [
         {
             "name": "user",
