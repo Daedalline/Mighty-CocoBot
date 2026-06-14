@@ -1,6 +1,6 @@
 /*
  * ====================NOTE====================
- *    This code was created by Daedalline,
+ *    This code was created by Froman and forked from original work by Daedalline,
  *   please don't claim this as your own work
  *        https://github.com/Daedalline
  * ============================================
