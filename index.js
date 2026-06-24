@@ -244,16 +244,17 @@ client.login(Config.Token);
 
 // Main function - schedule cron jobs
 async function main(){
-      let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:00
-      let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:00
+      let jobEasy = schedule.scheduleJob('45 * * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:00
+      let jobHard = schedule.scheduleJob('15 * * * * *', printRandomHardGameMessage); // fires every day, at xx:15:00
       let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
       //let jobLanguageIt = schedule.scheduleJob('00 45 6,3 * * 1,3,5', printItLanguageGameMessage); // fires daily at 15 minutes before 3 am and 11 am EST (9 am and 5 pm CEST) on Monday/Wednesday/Friday
       let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
       //let jobRMEasy = schedule.scheduleJob('00 00 * * * *', printRandomRMEasyGameMessage); // fires every day, at xx:00:00
       //let jobRMHard = schedule.scheduleJob('00 30 * * * *', printRandomRMHardGameMessage); // fires every day, at xx:30:00
-      let jobMPEasy = schedule.scheduleJob('00 00 * * * *', printRandomMPEasyGameMessage); // fires every day, at xx:00:01
-      let jobMPHard = schedule.scheduleJob('00 30 * * * *', printRandomMPHardGameMessage); // fires every day, at xx:30:01
+      let jobMPEasy = schedule.scheduleJob('00 * * * * *', printRandomMPEasyGameMessage); // fires every day, at xx:00:01
+      let jobMPHard = schedule.scheduleJob('30 * * * * *', printRandomMPHardGameMessage); // fires every day, at xx:30:01
       //let jobPocket = schedule.scheduleJob('00 45 22 * * 1,3,5', printPocketGameMessage); // fires every day at 15 minutes before 7 pm EST on Monday/Wednesday/Friday.
+
 }
 
 // Print the random easy game message in #find-a-game
