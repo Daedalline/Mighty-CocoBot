@@ -244,24 +244,23 @@ client.login(Config.Token);
 
 // Main function - schedule cron jobs
 async function main(){
-      let jobEasy = schedule.scheduleJob('45 * * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:00
-      let jobHard = schedule.scheduleJob('15 * * * * *', printRandomHardGameMessage); // fires every day, at xx:15:00
-      let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
-      //let jobLanguageIt = schedule.scheduleJob('00 45 6,3 * * 1,3,5', printItLanguageGameMessage); // fires daily at 15 minutes before 3 am and 11 am EST (9 am and 5 pm CEST) on Monday/Wednesday/Friday
-      let weeklyReminder = schedule.scheduleJob('00 * * * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
-      //let jobRMEasy = schedule.scheduleJob('00 00 * * * *', printRandomRMEasyGameMessage); // fires every day, at xx:00:00
-      //let jobRMHard = schedule.scheduleJob('00 30 * * * *', printRandomRMHardGameMessage); // fires every day, at xx:30:00
-      let jobMPEasy = schedule.scheduleJob('00 * * * * *', printRandomMPEasyGameMessage); // fires every day, at xx:00:01
-      let jobMPHard = schedule.scheduleJob('30 * * * * *', printRandomMPHardGameMessage); // fires every day, at xx:30:01
-      //let jobPocket = schedule.scheduleJob('00 45 22 * * 1,3,5', printPocketGameMessage); // fires every day at 15 minutes before 7 pm EST on Monday/Wednesday/Friday.
-
+	let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:00
+    let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:00
+    let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
+    //let jobLanguageIt = schedule.scheduleJob('00 45 6,14 * * 1,3,5', printItLanguageGameMessage); // fires daily at 15 minutes before 3 am and 11 am EST (9 am and 5 pm CEST) on Monday/Wednesday/Friday
+    let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
+    //let jobRMEasy = schedule.scheduleJob('00 00 * * * *', printRandomRMEasyGameMessage); // fires every day, at xx:00:00
+    //let jobRMHard = schedule.scheduleJob('00 30 * * * *', printRandomRMHardGameMessage); // fires every day, at xx:30:00
+    let jobMPEasy = schedule.scheduleJob('00 00 * * * *', printRandomMPEasyGameMessage); // fires every day, at xx:00:01
+    let jobMPHard = schedule.scheduleJob('00 30 * * * *', printRandomMPHardGameMessage); // fires every day, at xx:30:01
+    //let jobPocket = schedule.scheduleJob('00 45 22 * * 1,3,5', printPocketGameMessage); // fires every day at 15 minutes before 7 pm EST on Monday/Wednesday/Friday.
 }
 
 // Print the random easy game message in #find-a-game
 async function printRandomEasyGameMessage(){
     let course = getNotRecentlyUsedEasyCourse();
     usedCourses.push(course);
-    if(usedCourses.length > 3){
+    if(usedCourses.length > 14){
         usedCourses.shift();
     }
     printRandomGameMessage(course);
@@ -271,7 +270,7 @@ async function printRandomEasyGameMessage(){
 async function printRandomHardGameMessage(){
     let course = getNotRecentlyUsedHardCourse();
     usedCourses.push(course);
-    if(usedCourses.length > 3){
+    if(usedCourses.length > 14){
         usedCourses.shift();
     }
     printRandomGameMessage(course);
@@ -294,7 +293,7 @@ async function printRandomRMHardGameMessage(){
 async function printRandomMPEasyGameMessage(){
     let course = getNotRecentlyUsedMPEasyCourse();
     usedMPCourses.push(course);
-    if(usedMPCourses.length > 3){
+    if(usedMPCourses.length > 14){
         usedMPCourses.shift();
     }
     printRandomMPGameMessage(course);
@@ -304,7 +303,7 @@ async function printRandomMPEasyGameMessage(){
 async function printRandomMPHardGameMessage(){
     let course = getNotRecentlyUsedMPHardCourse();
     usedMPCourses.push(course);
-    if(usedMPCourses.length > 3){
+    if(usedMPCourses.length > 14){
         usedMPCourses.shift();
     }
     printRandomMPGameMessage(course);
@@ -314,7 +313,7 @@ async function printRandomMPHardGameMessage(){
 async function printPocketGameMessage(){
     let course = getNotRecentlyUsedEasyPocketCourse();
     usedPocketCourses.push(course);
-    if(usedPocketCourses.length > 3){
+    if(usedPocketCourses.length > 14){
         usedPocketCourses.shift();
     }
     printRandomPocketGameMessage(course);
@@ -374,10 +373,8 @@ function getNotRecentlyUsedRoom(){
 function getNotRecentlyUsedEasyCourse(){
     let featureMap = Maps.FeatureMap;
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
-	console.log("EASY: " + course);
     while (usedCourses.includes(course) || course.endsWith('Hard')){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
-		console.log("REDO EASY: " + course);
     }
     if (featureMap != '') {
         if (!usedCourses.includes(featureMap + ' - Easy') && !usedCourses.includes(featureMap + ' - Hard') && !usedCourses.includes(featureMap)) {
@@ -402,10 +399,8 @@ function getNotRecentlyUsedEasyCourse(){
 function getNotRecentlyUsedHardCourse(){
     let featureMap = Maps.FeatureMap;
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
-	console.log("HARD: " + course);
     while (usedCourses.includes(course) || course.endsWith('Easy') || soloCourses.includes(course)){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
-		console.log("REDO HARD: " + course);
     }
     if (featureMap != '' && !soloCourses.includes(featureMap)) {
         if (!usedCourses.includes(featureMap + ' - Easy') && !usedCourses.includes(featureMap + ' - Hard')) {
@@ -422,10 +417,8 @@ function getNotRecentlyUsedHardCourse(){
 function getNotRecentlyUsedMPEasyCourse(){
     let featureMap = Maps.FeatureMap;
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
-	console.log("MP EASY: " + course);
     while (usedMPCourses.includes(course) || course.endsWith('Hard')){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
-		console.log("REDO MP EASY: " + course);
     }
     if (featureMap != '') {
         if (!usedMPCourses.includes(featureMap + ' - Easy') && !usedMPCourses.includes(featureMap + ' - Hard') && !usedCourses.includes(featureMap)) {
@@ -451,10 +444,8 @@ function getNotRecentlyUsedMPEasyCourse(){
 function getNotRecentlyUsedMPHardCourse(){
     let featureMap = Maps.FeatureMap;
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
-	console.log("MP HARD: " + course);
     while (usedMPCourses.includes(course) || course.endsWith('Easy') || soloCourses.includes(course)){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
-		console.log("REDO MP HARD: " + course);
     }
     if (featureMap != '' && !soloCourses.includes(featureMap)) {
         if (!usedMPCourses.includes(featureMap + ' - Easy') && !usedMPCourses.includes(featureMap + ' - Hard')) {
@@ -634,7 +625,7 @@ async function printRandomRMGameMessage(course){
     }
     
     usedCourses.push(course);
-    if(usedCourses.length > 3){
+    if(usedCourses.length > 14){
         usedCourses.shift();
     }
     
