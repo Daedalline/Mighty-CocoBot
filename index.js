@@ -542,9 +542,7 @@ async function printWeeklyReminderMessage() {
     var rmHardCourse = "";
     for (var map in Maps.Leaderboards) {
         if (Maps.Leaderboards[map].startsWith("Weekly")) {
-			console.log("MAP: " + Maps.Leaderboards[map]);
 			let parsedMap = Maps.Leaderboards[map].replace("Weekly: ", "").replace(" (Race Mode)", "");
-			console.log("PARSED: " + parsedMap);
             if (Maps.Leaderboards[map].includes("- Easy") || soloCourses.includes(parsedMap)) {
                 if (Maps.Leaderboards[map].endsWith("(Race Mode)")) {
                     rmEasyCourse += Maps.Leaderboards[map] + "\n";
