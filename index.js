@@ -374,8 +374,10 @@ function getNotRecentlyUsedRoom(){
 function getNotRecentlyUsedEasyCourse(){
     let featureMap = Maps.FeatureMap;
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
+	console.log("EASY: " + course);
     while (usedCourses.includes(course) || course.endsWith('Hard')){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
+		console.log("REDO EASY: " + course);
     }
     if (featureMap != '') {
         if (!usedCourses.includes(featureMap + ' - Easy') && !usedCourses.includes(featureMap + ' - Hard') && !usedCourses.includes(featureMap)) {
@@ -400,8 +402,10 @@ function getNotRecentlyUsedEasyCourse(){
 function getNotRecentlyUsedHardCourse(){
     let featureMap = Maps.FeatureMap;
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
+	console.log("HARD: " + course);
     while (usedCourses.includes(course) || course.endsWith('Easy') || soloCourses.includes(course)){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
+		console.log("REDO HARD: " + course);
     }
     if (featureMap != '') {
         if (!usedCourses.includes(featureMap + ' - Easy') && !usedCourses.includes(featureMap + ' - Hard') && !soloCourses.includes(course)) {
@@ -418,8 +422,10 @@ function getNotRecentlyUsedHardCourse(){
 function getNotRecentlyUsedMPEasyCourse(){
     let featureMap = Maps.FeatureMap;
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
+	console.log("MP EASY: " + course);
     while (usedMPCourses.includes(course) || course.endsWith('Hard')){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
+		console.log("REDO MP EASY: " + course);
     }
     if (featureMap != '') {
         if (!usedMPCourses.includes(featureMap + ' - Easy') && !usedMPCourses.includes(featureMap + ' - Hard') && !usedCourses.includes(featureMap)) {
@@ -445,8 +451,10 @@ function getNotRecentlyUsedMPEasyCourse(){
 function getNotRecentlyUsedMPHardCourse(){
     let featureMap = Maps.FeatureMap;
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
+	console.log("MP HARD: " + course);
     while (usedMPCourses.includes(course) || course.endsWith('Easy') || soloCourses.includes(course)){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
+		console.log("REDO MP HARD: " + course);
     }
     if (featureMap != '') {
         if (!usedMPCourses.includes(featureMap + ' - Easy') && !usedMPCourses.includes(featureMap + ' - Hard') && !soloCourses.includes(course)) {
