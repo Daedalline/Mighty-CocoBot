@@ -404,7 +404,7 @@ function getNotRecentlyUsedHardCourse(){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
     }
     if (featureMap != '') {
-        if (!usedCourses.includes(featureMap + ' - Easy') && !usedCourses.includes(featureMap + ' - Hard')) {
+        if (!usedCourses.includes(featureMap + ' - Easy') && !usedCourses.includes(featureMap + ' - Hard') && !soloCourses.includes(course)) {
             course = featureMap + ' - Hard';
         }
         if (usedCourses.includes(featureMap + ' - Hard')) {
@@ -449,7 +449,7 @@ function getNotRecentlyUsedMPHardCourse(){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
     }
     if (featureMap != '') {
-        if (!usedMPCourses.includes(featureMap + ' - Easy') && !usedMPCourses.includes(featureMap + ' - Hard')) {
+        if (!usedMPCourses.includes(featureMap + ' - Easy') && !usedMPCourses.includes(featureMap + ' - Hard') && !soloCourses.includes(course)) {
             course = featureMap + ' - Hard';
         }
         if (usedMPCourses.includes(featureMap + ' - Hard')) {
