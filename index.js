@@ -11,6 +11,7 @@ let usedRooms = [];
 let usedCourses = [];
 let usedMPCourses = [];
 let usedPocketCourses = [];
+const soloCourses = ["Strong Badia"];
 
 //Load the config file
 let Config = null;
@@ -246,7 +247,7 @@ async function main(){
       let jobEasy = schedule.scheduleJob('00 45 * * * *', printRandomEasyGameMessage); // fires every day, at xx:45:00
       let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:00
       let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
-      //let jobLanguageIt = schedule.scheduleJob('00 45 6,14 * * 1,3,5', printItLanguageGameMessage); // fires daily at 15 minutes before 3 am and 11 am EST (9 am and 5 pm CEST) on Monday/Wednesday/Friday
+      //let jobLanguageIt = schedule.scheduleJob('00 45 6,3 * * 1,3,5', printItLanguageGameMessage); // fires daily at 15 minutes before 3 am and 11 am EST (9 am and 5 pm CEST) on Monday/Wednesday/Friday
       let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
       //let jobRMEasy = schedule.scheduleJob('00 00 * * * *', printRandomRMEasyGameMessage); // fires every day, at xx:00:00
       //let jobRMHard = schedule.scheduleJob('00 30 * * * *', printRandomRMHardGameMessage); // fires every day, at xx:30:00
@@ -259,7 +260,7 @@ async function main(){
 async function printRandomEasyGameMessage(){
     let course = getNotRecentlyUsedEasyCourse();
     usedCourses.push(course);
-    if(usedCourses.length > 14){
+    if(usedCourses.length > 3){
         usedCourses.shift();
     }
     printRandomGameMessage(course);
@@ -269,7 +270,7 @@ async function printRandomEasyGameMessage(){
 async function printRandomHardGameMessage(){
     let course = getNotRecentlyUsedHardCourse();
     usedCourses.push(course);
-    if(usedCourses.length > 14){
+    if(usedCourses.length > 3){
         usedCourses.shift();
     }
     printRandomGameMessage(course);
@@ -292,7 +293,7 @@ async function printRandomRMHardGameMessage(){
 async function printRandomMPEasyGameMessage(){
     let course = getNotRecentlyUsedMPEasyCourse();
     usedMPCourses.push(course);
-    if(usedMPCourses.length > 14){
+    if(usedMPCourses.length > 3){
         usedMPCourses.shift();
     }
     printRandomMPGameMessage(course);
@@ -302,7 +303,7 @@ async function printRandomMPEasyGameMessage(){
 async function printRandomMPHardGameMessage(){
     let course = getNotRecentlyUsedMPHardCourse();
     usedMPCourses.push(course);
-    if(usedMPCourses.length > 14){
+    if(usedMPCourses.length > 3){
         usedMPCourses.shift();
     }
     printRandomMPGameMessage(course);
@@ -312,7 +313,7 @@ async function printRandomMPHardGameMessage(){
 async function printPocketGameMessage(){
     let course = getNotRecentlyUsedEasyPocketCourse();
     usedPocketCourses.push(course);
-    if(usedPocketCourses.length > 14){
+    if(usedPocketCourses.length > 3){
         usedPocketCourses.shift();
     }
     printRandomPocketGameMessage(course);
@@ -376,11 +377,19 @@ function getNotRecentlyUsedEasyCourse(){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
     }
     if (featureMap != '') {
-        if (!usedCourses.includes(featureMap + ' - Easy') && !usedCourses.includes(featureMap + ' - Hard')) {
-            course = featureMap + ' - Easy';
+        if (!usedCourses.includes(featureMap + ' - Easy') && !usedCourses.includes(featureMap + ' - Hard') && !usedCourses.includes(featureMap)) {
+			if (soloCourses.includes(featureMap)) {
+				course = featureMap;
+			}
+            else {
+				course = featureMap + ' - Easy';
+			}
         }
         if (usedCourses.includes(featureMap + ' - Easy')) {
             usedCourses.splice(usedCourses.indexOf(featureMap + ' - Easy'), 1);
+        }
+        else if (usedCourses.includes(featureMap)) {
+            usedCourses.splice(usedCourses.indexOf(featureMap), 1);
         }
     }
     return course
@@ -390,7 +399,7 @@ function getNotRecentlyUsedEasyCourse(){
 function getNotRecentlyUsedHardCourse(){
     let featureMap = Maps.FeatureMap;
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
-    while (usedCourses.includes(course) || course.endsWith('Easy')){
+    while (usedCourses.includes(course) || course.endsWith('Easy') || soloCourses.includes(course)){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
     }
     if (featureMap != '') {
@@ -412,11 +421,20 @@ function getNotRecentlyUsedMPEasyCourse(){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
     }
     if (featureMap != '') {
-        if (!usedMPCourses.includes(featureMap + ' - Easy') && !usedMPCourses.includes(featureMap + ' - Hard')) {
-            course = featureMap + ' - Easy';
+        if (!usedMPCourses.includes(featureMap + ' - Easy') && !usedMPCourses.includes(featureMap + ' - Hard') && !usedCourses.includes(featureMap)) {
+			if (soloCourses.includes(featureMap)) {
+				course = featureMap;
+			}
+			else {
+				course = featureMap + ' - Easy';
+			}
+
         }
         if (usedMPCourses.includes(featureMap + ' - Easy')) {
             usedMPCourses.splice(usedMPCourses.indexOf(featureMap + ' - Easy'), 1);
+        }
+		else if (usedMPCourses.includes(featureMap)) {
+            usedMPCourses.splice(usedMPCourses.indexOf(featureMap), 1);
         }
     }
     return course
@@ -426,7 +444,7 @@ function getNotRecentlyUsedMPEasyCourse(){
 function getNotRecentlyUsedMPHardCourse(){
     let featureMap = Maps.FeatureMap;
     let course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)]
-    while (usedMPCourses.includes(course) || course.endsWith('Easy')){
+    while (usedMPCourses.includes(course) || course.endsWith('Easy') || soloCourses.includes(course)){
         course = Maps.Maps[Math.floor(Math.random() * Maps.Maps.length)];
     }
     if (featureMap != '') {
@@ -607,7 +625,7 @@ async function printRandomRMGameMessage(course){
     }
     
     usedCourses.push(course);
-    if(usedCourses.length > 14){
+    if(usedCourses.length > 3){
         usedCourses.shift();
     }
     
