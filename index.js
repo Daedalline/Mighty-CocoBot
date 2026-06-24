@@ -248,7 +248,7 @@ async function main(){
     let jobHard = schedule.scheduleJob('00 15 * * * *', printRandomHardGameMessage); // fires every day, at xx:15:00
     let jobLanguage = schedule.scheduleJob('00 45 12,16,20 * * 6,7', printLanguageGameMessage); // fires on Saturdays and Sundays at 15 minutes before 9 am, 1 pm , and 5 pm EST.
     //let jobLanguageIt = schedule.scheduleJob('00 45 6,14 * * 1,3,5', printItLanguageGameMessage); // fires daily at 15 minutes before 3 am and 11 am EST (9 am and 5 pm CEST) on Monday/Wednesday/Friday
-    let weeklyReminder = schedule.scheduleJob('00 00 18 * * 2-7', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
+    let weeklyReminder = schedule.scheduleJob('00,15,30,45 * * * * *', printWeeklyReminderMessage); // fires every day, at 2:00:00 PM EST, except Monday
     //let jobRMEasy = schedule.scheduleJob('00 00 * * * *', printRandomRMEasyGameMessage); // fires every day, at xx:00:00
     //let jobRMHard = schedule.scheduleJob('00 30 * * * *', printRandomRMHardGameMessage); // fires every day, at xx:30:00
     let jobMPEasy = schedule.scheduleJob('00 00 * * * *', printRandomMPEasyGameMessage); // fires every day, at xx:00:01
